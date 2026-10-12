@@ -43,12 +43,13 @@
         }
 
         button,
+        input,
         a {
             font: inherit;
         }
 
-        a {
-            color: inherit;
+        button {
+            -webkit-tap-highlight-color: transparent;
         }
 
         .navbar {
@@ -75,10 +76,28 @@
             border-radius: 9px;
             text-decoration: none;
             cursor: pointer;
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
         }
 
         .back-button:hover {
             background: #383940;
+            border-color: #555968;
+            transform: translateY(-2px);
+        }
+
+        .back-button:focus-visible,
+        .primary-button:focus-visible,
+        .secondary-button:focus-visible,
+        .banner-control:focus-visible,
+        .banner-dot:focus-visible,
+        .game-card:focus-visible,
+        .favorite-button:focus-visible,
+        #gameSearch:focus-visible {
+            outline: 3px solid var(--accent-hover);
+            outline-offset: 3px;
         }
 
         .video-banner {
@@ -192,7 +211,9 @@
             cursor: pointer;
             transition:
                 background 0.2s ease,
-                transform 0.2s ease;
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
         .primary-button {
@@ -203,6 +224,7 @@
 
         .primary-button:hover {
             background: var(--accent-hover);
+            box-shadow: 0 8px 20px rgba(108, 124, 255, 0.3);
             transform: translateY(-2px);
         }
 
@@ -214,6 +236,7 @@
 
         .secondary-button:hover {
             background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(255, 255, 255, 0.55);
             transform: translateY(-2px);
         }
 
@@ -235,10 +258,14 @@
             background: rgba(0, 0, 0, 0.45);
             color: white;
             cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
         }
 
         .banner-control:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .banner-dots {
@@ -275,7 +302,7 @@
         }
 
         .games-section {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 56px 24px 80px;
         }
@@ -296,30 +323,124 @@
             color: var(--muted);
         }
 
+        .game-tools {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .game-search-wrapper {
+            position: relative;
+            width: min(100%, 390px);
+        }
+
+        .game-search-icon {
+            position: absolute;
+            top: 50%;
+            left: 17px;
+            color: var(--muted);
+            font-size: 1.2rem;
+            pointer-events: none;
+            transform: translateY(-50%);
+        }
+
+        #gameSearch {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            outline: none;
+            background: #17181c;
+            color: var(--text);
+            font-size: 1rem;
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        #gameSearch::placeholder {
+            color: #858892;
+        }
+
+        #gameSearch:focus {
+            border-color: var(--accent);
+            background: #202229;
+            box-shadow: 0 0 0 4px rgba(108, 124, 255, 0.18);
+        }
+
+        .game-count {
+            min-height: 22px;
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 16px;
         }
 
         .game-card {
-            display: block;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 205px;
             overflow: hidden;
-            background: var(--card);
+            padding: 0;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(108, 124, 255, 0.14),
+                    rgba(29, 31, 36, 0.98)
+                );
             border: 1px solid var(--border);
-            border-radius: 14px;
-            text-decoration: none;
+            border-radius: 10px;
+            color: var(--text);
+            text-align: left;
             cursor: pointer;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
             transition:
-                transform 0.25s ease,
-                background 0.25s ease,
-                border-color 0.25s ease;
+                transform 0.3s ease,
+                background 0.3s ease,
+                border-color 0.3s ease,
+                border-radius 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .game-card::after {
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            border-radius: inherit;
+            content: "";
+            pointer-events: none;
+            transition: border-color 0.3s ease;
         }
 
         .game-card:hover {
-            background: var(--card-hover);
-            border-color: #555968;
-            transform: translateY(-6px);
+            z-index: 2;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(108, 124, 255, 0.34),
+                    rgba(40, 43, 50, 0.98)
+                );
+            border-color: var(--accent-hover);
+            border-radius: 24px;
+            box-shadow:
+                0 18px 34px rgba(0, 0, 0, 0.42),
+                0 0 22px rgba(108, 124, 255, 0.25);
+            transform: scale(1.08);
+        }
+
+        .game-card:hover::after {
+            border-color: rgba(132, 145, 255, 0.58);
+        }
+
+        .game-card:active {
+            transform: scale(1.03);
         }
 
         .game-card img {
@@ -328,77 +449,65 @@
             aspect-ratio: 16 / 9;
             object-fit: cover;
             background: #292b32;
+            transition: transform 0.35s ease;
+        }
+
+        .game-card:hover img {
+            transform: scale(1.12);
         }
 
         .game-card-content {
-            padding: 18px;
+            flex: 1;
+            padding: 12px;
+            background: rgba(17, 18, 20, 0.32);
         }
 
         .game-card h3 {
-            margin-bottom: 6px;
-            font-size: 1.2rem;
+            margin-bottom: 4px;
+            font-size: 1rem;
         }
 
         .game-card p {
             color: var(--muted);
-            font-size: 0.95rem;
+            font-size: 0.82rem;
+        }
+
+        .favorite-button {
+            position: absolute;
+            z-index: 3;
+            top: 9px;
+            right: 9px;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.55);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .favorite-button:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .favorite-button.active {
+            background: var(--accent);
+            color: white;
         }
 
         .empty-message {
-            padding: 40px;
-            color: var(--muted);
-            text-align: center;
-        }
-
-        /* Game information page */
-
-        .game-info-page {
-            display: none;
-            min-height: calc(100vh - 64px);
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-        }
-
-        .game-info-page.active {
-            display: flex;
-        }
-
-        .game-info-card {
-            width: min(700px, 100%);
-            padding: 44px;
-            border: 1px solid var(--border);
+            grid-column: 1 / -1;
+            padding: 50px 20px;
+            border: 1px dashed var(--border);
             border-radius: 16px;
-            background: var(--card);
-            text-align: center;
-        }
-
-        .game-info-card img {
-            width: 100%;
-            max-width: 520px;
-            aspect-ratio: 16 / 9;
-            margin-bottom: 24px;
-            border-radius: 12px;
-            object-fit: cover;
-            background: #292b32;
-        }
-
-        .game-info-card h1 {
-            margin-bottom: 12px;
-            font-size: clamp(2rem, 6vw, 3.5rem);
-        }
-
-        .game-info-card p {
-            margin-bottom: 28px;
             color: var(--muted);
-            font-size: 1.05rem;
-        }
-
-        .game-info-actions {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            text-align: center;
         }
 
         /* Game iframe page */
@@ -443,6 +552,18 @@
             background: #000;
         }
 
+        @media (max-width: 1100px) {
+            .game-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 850px) {
+            .game-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 800px) {
             .video-banner {
                 min-height: 430px;
@@ -452,10 +573,6 @@
             .banner-content {
                 bottom: 96px;
                 left: 24px;
-            }
-
-            .game-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
@@ -501,17 +618,26 @@
                 margin-top: 5px;
             }
 
+            .game-tools {
+                justify-content: stretch;
+                margin-top: 22px;
+            }
+
+            .game-search-wrapper {
+                width: 100%;
+            }
+
             .game-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 13px;
             }
 
-            .game-info-page {
-                min-height: calc(100vh - 58px);
-                padding: 20px 15px;
+            .game-card {
+                min-height: 185px;
             }
 
-            .game-info-card {
-                padding: 28px 20px;
+            .game-card:hover {
+                transform: scale(1.04);
             }
 
             .game-frame-page {
@@ -530,6 +656,12 @@
             .game-frame-wrapper {
                 height: calc(100vh - 145px);
                 min-height: 400px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .game-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -562,7 +694,6 @@
     </nav>
 
     <main>
-        <!-- Main game hub page -->
         <div id="homePage">
             <header
                 class="video-banner"
@@ -687,6 +818,31 @@
                     </div>
                 </div>
 
+                <div class="game-tools">
+                    <div class="game-search-wrapper">
+                        <span
+                            class="game-search-icon"
+                            aria-hidden="true"
+                        >
+                            ⌕
+                        </span>
+
+                        <input
+                            type="search"
+                            id="gameSearch"
+                            placeholder="Search games..."
+                            aria-label="Search games"
+                            autocomplete="off"
+                        >
+                    </div>
+                </div>
+
+                <p
+                    class="game-count"
+                    id="gameCount"
+                    aria-live="polite"
+                ></p>
+
                 <div
                     class="game-grid"
                     id="gameGrid"
@@ -694,48 +850,6 @@
             </section>
         </div>
 
-        <!-- Information page inside the same HTML file -->
-        <section
-            class="game-info-page"
-            id="gameInfoPage"
-            aria-labelledby="selectedGameTitle"
-        >
-            <div class="game-info-card">
-                <img
-                    id="selectedGameImage"
-                    src=""
-                    alt=""
-                >
-
-                <h1 id="selectedGameTitle">
-                    Game
-                </h1>
-
-                <p id="selectedGameDescription">
-                    Game description
-                </p>
-
-                <div class="game-info-actions">
-                    <button
-                        class="primary-button"
-                        id="loadGameButton"
-                        type="button"
-                    >
-                        Next
-                    </button>
-
-                    <button
-                        class="secondary-button"
-                        id="infoBackButton"
-                        type="button"
-                    >
-                        Back
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Iframe page inside the same HTML file -->
         <section
             class="game-frame-page"
             id="gameFramePage"
@@ -751,7 +865,7 @@
                     id="frameBackButton"
                     type="button"
                 >
-                    ← Back to game information
+                    ← Back to games
                 </button>
             </div>
 
@@ -813,6 +927,90 @@
                     "Explore the city and start your next adventure.",
                 image: "images/gta5.jpg",
                 url: "https://example.com/gta5-game"
+            },
+            {
+                name: "Fortnite",
+                description:
+                    "Battle, build, and survive against other players.",
+                image: "images/fortnite.jpg",
+                url: "https://example.com/fortnite-game"
+            },
+            {
+                name: "Terraria",
+                description:
+                    "Dig, build, explore, and fight through a huge world.",
+                image: "images/terraria.jpg",
+                url: "https://example.com/terraria-game"
+            },
+            {
+                name: "Among Us",
+                description:
+                    "Find the impostor before your crew is eliminated.",
+                image: "images/among-us.jpg",
+                url: "https://example.com/among-us-game"
+            },
+            {
+                name: "Rocket League",
+                description:
+                    "Play fast soccer matches with rocket-powered cars.",
+                image: "images/rocket-league.jpg",
+                url: "https://example.com/rocket-league-game"
+            },
+            {
+                name: "Fall Guys",
+                description:
+                    "Compete in colorful obstacle courses and challenges.",
+                image: "images/fall-guys.jpg",
+                url: "https://example.com/fall-guys-game"
+            },
+            {
+                name: "Brawl Stars",
+                description:
+                    "Battle with friends in quick multiplayer matches.",
+                image: "images/brawl-stars.jpg",
+                url: "https://example.com/brawl-stars-game"
+            },
+            {
+                name: "Mario Kart",
+                description:
+                    "Race around exciting tracks with unique characters.",
+                image: "images/mario-kart.jpg",
+                url: "https://example.com/mario-kart-game"
+            },
+            {
+                name: "Super Smash Bros",
+                description:
+                    "Fight iconic characters in intense arena battles.",
+                image: "images/super-smash-bros.jpg",
+                url: "https://example.com/super-smash-bros-game"
+            },
+            {
+                name: "The Sims",
+                description:
+                    "Create characters and build the life you want.",
+                image: "images/the-sims.jpg",
+                url: "https://example.com/the-sims-game"
+            },
+            {
+                name: "Pokémon",
+                description:
+                    "Explore the world, catch Pokémon, and battle trainers.",
+                image: "images/pokemon.jpg",
+                url: "https://example.com/pokemon-game"
+            },
+            {
+                name: "Call of Duty",
+                description:
+                    "Enter intense multiplayer battles and missions.",
+                image: "images/call-of-duty.jpg",
+                url: "https://example.com/call-of-duty-game"
+            },
+            {
+                name: "Need for Speed",
+                description:
+                    "Race through the streets and customize your cars.",
+                image: "images/need-for-speed.jpg",
+                url: "https://example.com/need-for-speed-game"
             }
         ];
 
@@ -824,14 +1022,17 @@
         const homePage =
             document.querySelector("#homePage");
 
-        const gameInfoPage =
-            document.querySelector("#gameInfoPage");
-
         const gameFramePage =
             document.querySelector("#gameFramePage");
 
         const gameGrid =
             document.querySelector("#gameGrid");
+
+        const gameSearch =
+            document.querySelector("#gameSearch");
+
+        const gameCount =
+            document.querySelector("#gameCount");
 
         const banner =
             document.querySelector("#videoBanner");
@@ -866,23 +1067,6 @@
         const backButton =
             document.querySelector("#backButton");
 
-        const selectedGameImage =
-            document.querySelector("#selectedGameImage");
-
-        const selectedGameTitle =
-            document.querySelector("#selectedGameTitle");
-
-        const selectedGameDescription =
-            document.querySelector(
-                "#selectedGameDescription"
-            );
-
-        const loadGameButton =
-            document.querySelector("#loadGameButton");
-
-        const infoBackButton =
-            document.querySelector("#infoBackButton");
-
         const frameBackButton =
             document.querySelector("#frameBackButton");
 
@@ -902,7 +1086,6 @@
         let switchTimer = null;
         let isPaused = reducedMotion;
         let isSwitching = false;
-        let selectedGame = null;
 
         function createDots() {
             dotsContainer.innerHTML = "";
@@ -930,25 +1113,50 @@
             });
         }
 
-        function createGameCards() {
+        function createGameCards(searchText = "") {
             gameGrid.innerHTML = "";
 
-            if (games.length === 0) {
+            const searchValue =
+                searchText.trim().toLowerCase();
+
+            const filteredGames =
+                games.filter(game => {
+                    const searchableText =
+                        `${game.name} ${game.description}`
+                            .toLowerCase();
+
+                    return searchableText.includes(
+                        searchValue
+                    );
+                });
+
+            gameCount.textContent =
+                `${filteredGames.length} game${
+                    filteredGames.length === 1
+                        ? ""
+                        : "s"
+                } found`;
+
+            if (filteredGames.length === 0) {
                 gameGrid.innerHTML = `
                     <p class="empty-message">
-                        No games are available right now.
+                        No games match your search.
                     </p>
                 `;
 
                 return;
             }
 
-            games.forEach((game, index) => {
+            filteredGames.forEach(game => {
                 const card =
                     document.createElement("button");
 
                 card.className = "game-card";
                 card.type = "button";
+                card.setAttribute(
+                    "aria-label",
+                    `Play ${game.name}`
+                );
 
                 card.innerHTML = `
                     <img
@@ -967,7 +1175,7 @@
                 card.addEventListener(
                     "click",
                     () => {
-                        openGameInfo(index);
+                        openGame(game);
                     }
                 );
 
@@ -1164,16 +1372,19 @@
 
             if (isPaused) {
                 clearTimeout(switchTimer);
+                videos[activeVideo].pause();
             } else {
+                videos[activeVideo]
+                    .play()
+                    .catch(() => {});
+
                 scheduleNextSlide();
             }
 
             updatePauseButton();
         }
 
-        function openGameInfo(gameIndex) {
-            selectedGame = games[gameIndex];
-
+        function openGame(game) {
             clearTimeout(switchTimer);
 
             videos.forEach(video => {
@@ -1181,52 +1392,24 @@
             });
 
             homePage.style.display = "none";
-            gameFramePage.classList.remove("active");
-            gameInfoPage.classList.add("active");
-
-            selectedGameImage.src =
-                selectedGame.image;
-
-            selectedGameImage.alt =
-                `${selectedGame.name} cover image`;
-
-            selectedGameTitle.textContent =
-                selectedGame.name;
-
-            selectedGameDescription.textContent =
-                selectedGame.description;
-
-            document.title =
-                `${selectedGame.name} - Game Hub`;
-
-            window.scrollTo(0, 0);
-        }
-
-        function showGameFrame() {
-            if (!selectedGame) {
-                return;
-            }
-
-            gameInfoPage.classList.remove("active");
             gameFramePage.classList.add("active");
 
             frameGameTitle.textContent =
-                selectedGame.name;
+                game.name;
 
             gameFrame.title =
-                `${selectedGame.name} game`;
+                `${game.name} game`;
 
             gameFrame.src =
-                selectedGame.url;
+                game.url;
 
             document.title =
-                `${selectedGame.name} - Playing`;
+                `${game.name} - Playing`;
 
             window.scrollTo(0, 0);
         }
 
         function returnHome() {
-            gameInfoPage.classList.remove("active");
             gameFramePage.classList.remove("active");
             homePage.style.display = "block";
 
@@ -1238,14 +1421,12 @@
             window.scrollTo(0, 0);
         }
 
-        function returnToGameInfo() {
-            gameFramePage.classList.remove("active");
-            gameInfoPage.classList.add("active");
-
-            gameFrame.src = "";
-
-            window.scrollTo(0, 0);
-        }
+        gameSearch.addEventListener(
+            "input",
+            event => {
+                createGameCards(event.target.value);
+            }
+        );
 
         pauseButton.addEventListener(
             "click",
@@ -1269,7 +1450,15 @@
         playButton.addEventListener(
             "click",
             () => {
-                openGameInfo(currentSlide);
+                const game =
+                    games.find(item =>
+                        item.name ===
+                        slides[currentSlide].title
+                    );
+
+                if (game) {
+                    openGame(game);
+                }
             }
         );
 
@@ -1278,7 +1467,9 @@
             () => {
                 document.querySelector("#games")
                     .scrollIntoView({
-                        behavior: "smooth"
+                        behavior: reducedMotion
+                            ? "auto"
+                            : "smooth"
                     });
             }
         );
@@ -1289,9 +1480,6 @@
                 if (
                     gameFramePage.classList.contains(
                         "active"
-                    ) ||
-                    gameInfoPage.classList.contains(
-                        "active"
                     )
                 ) {
                     returnHome();
@@ -1301,19 +1489,9 @@
             }
         );
 
-        infoBackButton.addEventListener(
-            "click",
-            returnHome
-        );
-
         frameBackButton.addEventListener(
             "click",
-            returnToGameInfo
-        );
-
-        loadGameButton.addEventListener(
-            "click",
-            showGameFrame
+            returnHome
         );
 
         banner.addEventListener(
@@ -1338,9 +1516,6 @@
             "keydown",
             event => {
                 if (
-                    gameInfoPage.classList.contains(
-                        "active"
-                    ) ||
                     gameFramePage.classList.contains(
                         "active"
                     )
@@ -1349,6 +1524,22 @@
                         returnHome();
                     }
 
+                    return;
+                }
+
+                const activeElement =
+                    document.activeElement;
+
+                const isTyping =
+                    activeElement &&
+                    (
+                        activeElement.tagName ===
+                            "INPUT" ||
+                        activeElement.tagName ===
+                            "TEXTAREA"
+                    );
+
+                if (isTyping) {
                     return;
                 }
 
@@ -1361,19 +1552,8 @@
                 }
 
                 if (event.key === " ") {
-                    const activeElement =
-                        document.activeElement;
-
-                    const isTyping =
-                        activeElement.tagName ===
-                            "INPUT" ||
-                        activeElement.tagName ===
-                            "TEXTAREA";
-
-                    if (!isTyping) {
-                        event.preventDefault();
-                        togglePause();
-                    }
+                    event.preventDefault();
+                    togglePause();
                 }
             }
         );
