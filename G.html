@@ -1,137 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Hub</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Game Hub featured games">
+    <title>Game Hub</title>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-body {
-    background: #111214;
-    color: white;
-    font-family: Arial, sans-serif;
-}
+    body {
+        background: #111214;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
 
-/* BACK BUTTON */
-.navbar {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    background: #191a1e;
-    border-bottom: 1px solid #292a30;
-}
-
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 10px 15px;
-    background: #25262b;
-    color: white;
-    border: 1px solid #35363d;
-    border-radius: 8px;
-    font-size: 15px;
-    text-decoration: none;
-    transition: background 0.2s;
-}
-
-.back-button:hover {
-    background: #383940;
-}
-
-/* VIDEO BANNER */
-.video-banner {
-    position: relative;
-    width: 100%;
-    height: 440px;
-    background: #111214;
-    overflow: hidden;
-}
-
-.banner-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
-
-.banner-video.active {
-    opacity: 1;
-}
-
-/* DARK SHADOW AT BOTTOM */
-.banner-shadow {
-    position: absolute;
-    z-index: 2;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 170px;
-    background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(17, 18, 20, 0.45) 45%,
-        #111214 100%
-    );
-    pointer-events: none;
-}
-
-/* OPTIONAL BANNER TEXT */
-.banner-content {
-    position: absolute;
-    z-index: 3;
-    left: 6%;
-    bottom: 48px;
-}
-
-.banner-content h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-.banner-content p {
-    color: #d0d0d0;
-    font-size: 15px;
-}
-
-@media (max-width: 600px) {
+    /* BACK BUTTON */
     .navbar {
-        height: 58px;
-        padding: 0 15px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        background: #191a1e;
+        border-bottom: 1px solid #292a30;
     }
 
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 10px 15px;
+        background: #25262b;
+        color: white;
+        border: 1px solid #35363d;
+        border-radius: 8px;
+        font-size: 15px;
+        text-decoration: none;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+    .back-button:hover {
+        background: #383940;
+        transform: translateX(-3px);
+    }
+
+    .back-button:focus-visible,
+    .banner-dot:focus-visible {
+        outline: 2px solid white;
+        outline-offset: 3px;
+    }
+
+    /* VIDEO BANNER */
     .video-banner {
-        height: 280px;
+        position: relative;
+        width: 100%;
+        height: 440px;
+        overflow: hidden;
+        background: #111214;
     }
 
+    .banner-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    .banner-video.active {
+        opacity: 1;
+    }
+
+    /* DARK SHADOW */
     .banner-shadow {
-        height: 110px;
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 190px;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(17, 18, 20, 0.5) 45%,
+            #111214 100%
+        );
+        pointer-events: none;
     }
 
+    /* BANNER TEXT */
     .banner-content {
-        left: 20px;
-        bottom: 30px;
+        position: absolute;
+        z-index: 3;
+        bottom: 58px;
+        left: 6%;
+        max-width: 520px;
+        transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .banner-content h1 {
-        font-size: 25px;
+        margin-bottom: 10px;
+        font-size: 36px;
     }
-}
+
+    .banner-content p {
+        color: #d0d0d0;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    /* BOTTOM-CENTER BUBBLES */
+    .banner-dots {
+        position: absolute;
+        z-index: 4;
+        bottom: 19px;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transform: translateX(-50%);
+    }
+
+    .banner-dot {
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        border: none;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+        transition:
+            width 0.3s ease,
+            background 0.3s ease,
+            transform 0.3s ease;
+    }
+
+    .banner-dot:hover {
+        background: rgba(255, 255, 255, 0.85);
+        transform: scale(1.15);
+    }
+
+    .banner-dot.active {
+        width: 30px;
+        background: white;
+    }
+
+    /* MOBILE DESIGN */
+    @media (max-width: 600px) {
+        .navbar {
+            height: 58px;
+            padding: 0 15px;
+        }
+
+        .video-banner {
+            height: 280px;
+        }
+
+        .banner-shadow {
+            height: 130px;
+        }
+
+        .banner-content {
+            right: 20px;
+            bottom: 50px;
+            left: 20px;
+        }
+
+        .banner-content h1 {
+            font-size: 25px;
+        }
+
+        .banner-content p {
+            font-size: 14px;
+        }
+
+        .banner-dots {
+            bottom: 16px;
+        }
+    }
+
+    /* REDUCE ANIMATIONS WHEN REQUESTED BY THE DEVICE */
+    @media (prefers-reduced-motion: reduce) {
+        .banner-video,
+        .banner-content,
+        .banner-dot,
+        .back-button {
+            transition: none;
+        }
+    }
 </style>
+
 </head>
-
 <body>
-
 <!-- BACK BUTTON -->
 <nav class="navbar">
     <a href="https://example.com" class="back-button">
@@ -143,106 +208,261 @@ body {
 <!-- VIDEO HEADER BANNER -->
 <header class="video-banner" id="videoBanner">
 
-    <video class="banner-video active"
-           autoplay muted playsinline preload="auto"></video>
+    <video
+        class="banner-video active"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+    ></video>
 
-    <video class="banner-video"
-           autoplay muted playsinline preload="auto"></video>
+    <video
+        class="banner-video"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+    ></video>
 
     <div class="banner-shadow"></div>
 
-    <div class="banner-content">
-        <h1>Featured Games</h1>
-        <p>Discover something new to play.</p>
+    <div class="banner-content" id="bannerContent">
+        <h1 id="bannerTitle">Featured Games</h1>
+        <p id="bannerDescription">
+            Discover something new to play.
+        </p>
     </div>
+
+    <!-- SLIDE BUBBLES -->
+    <div
+        class="banner-dots"
+        id="bannerDots"
+        aria-label="Featured game slides"
+    ></div>
 
 </header>
 
 <script>
-/* REPLACE THESE WITH YOUR VIDEO FILE PATHS */
-const videoUrls = [
-    "RobloxPage.mp4",
-    "",
-    "RobloxPage.mp4"
-];
-
-const videos = Array.from(
-    document.querySelectorAll(".banner-video")
-);
-
-let playlistIndex = 0;
-let activeElement = 0;
-let switchTimer = null;
-let switching = false;
-
-/* Random interval between 8 and 16 seconds */
-function randomDelay() {
-    return Math.floor(Math.random() * 8000) + 8000;
-}
-
-function scheduleNext() {
-    clearTimeout(switchTimer);
-
-    switchTimer = setTimeout(() => {
-        switchVideo();
-    }, randomDelay());
-}
-
-function switchVideo() {
-    if (switching || videoUrls.length < 2) return;
-
-    switching = true;
-
-    const nextElement = 1 - activeElement;
-    const nextVideo = videos[nextElement];
-
-    playlistIndex = (playlistIndex + 1) % videoUrls.length;
-
-    nextVideo.src = videoUrls[playlistIndex];
-    nextVideo.load();
-    nextVideo.muted = true;
-
-    nextVideo.play().then(() => {
-        nextVideo.classList.add("active");
-        videos[activeElement].classList.remove("active");
-
-        const previousElement = activeElement;
-        activeElement = nextElement;
-
-        // Let the fade finish before stopping the previous video.
-        setTimeout(() => {
-            videos[previousElement].pause();
-            switching = false;
-            scheduleNext();
-        }, 1100);
-
-    }).catch(() => {
-        switching = false;
-        scheduleNext();
-    });
-}
-
-/* Start the first video automatically */
-videos[0].src = videoUrls[0];
-videos[0].muted = true;
-videos[0].load();
-
-videos[0].play().then(() => {
-    scheduleNext();
-}).catch(() => {
-    // Autoplay can be blocked by browser or device settings.
-    // Muted autoplay is supported by most modern browsers.
-});
-
-/* If the active video fails, try the next one */
-videos.forEach(video => {
-    video.addEventListener("error", () => {
-        if (video.classList.contains("active")) {
-            clearTimeout(switchTimer);
-            switchTimer = setTimeout(switchVideo, 1000);
+    /*
+     * Add one object for each banner slide.
+     * Make sure every video file is in the same folder as G.html.
+     */
+    const slides = [
+        {
+            video: "RobloxPage.mp4",
+            title: "Featured Games",
+            description: "Discover something new to play."
+        },
+        {
+            video: "RobloxPage.mp4",
+            title: "Play Something Fun",
+            description: "Find your next favorite game."
+        },
+        {
+            video: "RobloxPage.mp4",
+            title: "Game Hub",
+            description: "Jump in and start playing."
         }
+    ].filter(slide => slide.video.trim() !== "");
+
+    const videos = Array.from(
+        document.querySelectorAll(".banner-video")
+    );
+
+    const dotsContainer = document.querySelector("#bannerDots");
+    const bannerContent = document.querySelector("#bannerContent");
+    const bannerTitle = document.querySelector("#bannerTitle");
+    const bannerDescription =
+        document.querySelector("#bannerDescription");
+
+    let currentSlide = 0;
+    let activeVideo = 0;
+    let switchTimer = null;
+    let isSwitching = false;
+
+    /*
+     * Creates the bubbles at the bottom of the banner.
+     */
+    function createDots() {
+        slides.forEach((slide, index) => {
+            const dot = document.createElement("button");
+
+            dot.className = "banner-dot";
+            dot.type = "button";
+            dot.setAttribute(
+                "aria-label",
+                `Show slide ${index + 1}`
+            );
+
+            dot.addEventListener("click", () => {
+                showSlide(index);
+            });
+
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    /*
+     * Changes the title and description.
+     */
+    function updateText(index) {
+        bannerContent.style.opacity = "0";
+        bannerContent.style.transform = "translateY(8px)";
+
+        setTimeout(() => {
+            bannerTitle.textContent = slides[index].title;
+            bannerDescription.textContent =
+                slides[index].description;
+
+            bannerContent.style.opacity = "1";
+            bannerContent.style.transform = "translateY(0)";
+        }, 250);
+    }
+
+    /*
+     * Updates which bubble is active.
+     */
+    function updateDots(index) {
+        const dots =
+            dotsContainer.querySelectorAll(".banner-dot");
+
+        dots.forEach((dot, dotIndex) => {
+            const isActive = dotIndex === index;
+
+            dot.classList.toggle("active", isActive);
+
+            if (isActive) {
+                dot.setAttribute("aria-current", "true");
+            } else {
+                dot.removeAttribute("aria-current");
+            }
+        });
+    }
+
+    /*
+     * Automatically changes slides every 7 seconds.
+     */
+    function scheduleNextSlide() {
+        clearTimeout(switchTimer);
+
+        if (slides.length > 1) {
+            switchTimer = setTimeout(() => {
+                const nextSlide =
+                    (currentSlide + 1) % slides.length;
+
+                showSlide(nextSlide);
+            }, 7000);
+        }
+    }
+
+    /*
+     * Changes the video, bubble, title, and description.
+     */
+    function showSlide(index) {
+        if (
+            isSwitching ||
+            slides.length <= 1 ||
+            index === currentSlide
+        ) {
+            return;
+        }
+
+        isSwitching = true;
+
+        const nextVideoIndex = 1 - activeVideo;
+        const nextVideo = videos[nextVideoIndex];
+        const previousVideo = videos[activeVideo];
+
+        nextVideo.src = slides[index].video;
+        nextVideo.currentTime = 0;
+        nextVideo.muted = true;
+        nextVideo.load();
+
+        nextVideo
+            .play()
+            .then(() => {
+                nextVideo.classList.add("active");
+                previousVideo.classList.remove("active");
+
+                updateText(index);
+                updateDots(index);
+
+                const oldVideoIndex = activeVideo;
+
+                activeVideo = nextVideoIndex;
+                currentSlide = index;
+
+                /*
+                 * Wait for the fade to finish before stopping
+                 * and clearing the old video.
+                 */
+                setTimeout(() => {
+                    videos[oldVideoIndex].pause();
+                    videos[oldVideoIndex].removeAttribute("src");
+                    videos[oldVideoIndex].load();
+
+                    isSwitching = false;
+                    scheduleNextSlide();
+                }, 1100);
+            })
+            .catch(() => {
+                isSwitching = false;
+                scheduleNextSlide();
+            });
+    }
+
+    /*
+     * Starts the first banner video.
+     */
+    function startSlideshow() {
+        if (slides.length === 0) {
+            return;
+        }
+
+        videos[0].src = slides[0].video;
+        videos[0].muted = true;
+        videos[0].load();
+
+        updateText(0);
+        updateDots(0);
+
+        videos[0]
+            .play()
+            .then(() => {
+                scheduleNextSlide();
+            })
+            .catch(() => {
+                /*
+                 * Some browsers may block autoplay.
+                 * The bubbles will still work if clicked.
+                 */
+                scheduleNextSlide();
+            });
+    }
+
+    /*
+     * If a video fails, automatically try the next slide.
+     */
+    videos.forEach(video => {
+        video.addEventListener("error", () => {
+            if (
+                video.classList.contains("active") &&
+                slides.length > 1
+            ) {
+                clearTimeout(switchTimer);
+
+                switchTimer = setTimeout(() => {
+                    const nextSlide =
+                        (currentSlide + 1) % slides.length;
+
+                    showSlide(nextSlide);
+                }, 1000);
+            }
+        });
     });
-});
+
+    createDots();
+    startSlideshow();
 </script>
 
 </body>
