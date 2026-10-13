@@ -1946,6 +1946,32 @@ font-size: 8px;
     }
 }
 
+.online-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.online-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #35e879;
+  box-shadow: 0 0 10px #35e879;
+}
+
+#onlineCount {
+  color: #72f5a1;
+  font-weight: 700;
+}
+
+    
 </style>
 </head>
 
@@ -2178,6 +2204,12 @@ font-size: 8px;
     </button>
 </div>
 
+<div class="online-counter" aria-live="polite">
+  <span class="online-dot"></span>
+  <span id="onlineCount">0</span> visitors online
+</div>
+
+    
 <!-- date/time -->
 <div class="dateTime" id="dateTime"> <strong id="currentTime">10:44:08 AM</strong> <span id="currentDate">October 7, 2026</span> </div>
 <!-- info button -->
@@ -2507,30 +2539,75 @@ font-size: 8px;
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-    import {
-      getAnalytics,
-      logEvent
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  
-    const firebaseConfig = {
-      apiKey: "AIzaSyBc-EKkvqoa1luRljFdrI7tgSI9rdz0ySQ",
-      authDomain: "safe-bucket-5f4d6.firebaseapp.com",
-      projectId: "safe-bucket-5f4d6",
-      storageBucket: "safe-bucket-5f4d6.firebasestorage.app",
-      messagingSenderId: "815980758964",
-      appId: "1:815980758964:web:22742b127cd8847fab54e1",
-      measurementId: "G-4PRVGZCPBV"
-    };
-  
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  
-    window.firebaseAnalytics = analytics;
-    window.firebaseLogEvent = logEvent;
-  
-    logEvent(analytics, "site_visit");
-  </script>
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+  import {
+    getDatabase,
+    ref,
+    onValue,
+    onDisconnect,
+    set,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
+    authDomain: "safebucketbypass.firebaseapp.com",
+    databaseURL: "https://safebucketbypass-default-rtdb.firebaseio.com",
+    projectId: "safebucketbypass",
+    storageBucket: "safebucketbypass.firebasestorage.app",
+    messagingSenderId: "659506734507",
+    appId: "1:659506734507:web:1e4268f7746380b41bdeee"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+  const onlineCount = document.getElementById("onlineCount");
+
+  if (!onlineCount) {
+    console.error("Missing element with id=\"onlineCount\"");
+  } else {
+    let visitorId = sessionStorage.getItem("safeBucketVisitorId");
+
+    if (!visitorId) {
+      visitorId =
+        crypto.randomUUID?.() ||
+        `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+      sessionStorage.setItem("safeBucketVisitorId", visitorId);
+    }
+
+    const visitorRef = ref(database, `onlineVisitors/${visitorId}`);
+    const visitorsRef = ref(database, "onlineVisitors");
+
+    onDisconnect(visitorRef)
+      .remove()
+      .catch((error) => {
+        console.error("Disconnect setup failed:", error);
+      });
+
+    set(visitorRef, {
+      connectedAt: serverTimestamp()
+    }).catch((error) => {
+      console.error("Could not register visitor:", error);
+      onlineCount.textContent = "—";
+    });
+
+    onValue(
+      visitorsRef,
+      (snapshot) => {
+        const visitors = snapshot.val() || {};
+        onlineCount.textContent = Object.keys(visitors).length;
+      },
+      (error) => {
+        console.error("Could not read visitor count:", error);
+        onlineCount.textContent = "—";
+      }
+    );
+  }
+</script>
+
   
 
 <script>
