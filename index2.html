@@ -3963,7 +3963,7 @@ function updateHoverRotation(obj, dt){
         obj.uprightTarget - obj.angle
     );
 
-    obj.angle += difference * 0.14 * dt;
+    obj.angle += difference * 0.05 * dt;
 
     // Stop the normal physics rotation while correcting itself
     obj.angularVelocity *= 0.72;
