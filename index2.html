@@ -2346,8 +2346,24 @@ font-size: 8px;
         </div>
 
     </div>
+
+    <div
+        class="block"
+        data-url=""
+        data-name="YouTube"
+    >
+
+        <img src="Images/YouTube.png">
+
+        <div class="blockLabel">
+            AI
+        </div>
+
+    </div>
     
 </div>
+
+
 
 
 <div class="hint">
@@ -3963,7 +3979,7 @@ function updateHoverRotation(obj, dt){
         obj.uprightTarget - obj.angle
     );
 
-    obj.angle += difference * 0.05 * dt;
+    obj.angle += difference * 0.02 * dt;
 
     // Stop the normal physics rotation while correcting itself
     obj.angularVelocity *= 0.72;
