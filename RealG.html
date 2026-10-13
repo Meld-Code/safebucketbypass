@@ -1473,9 +1473,6 @@
         const nextButton =
             document.querySelector("#nextButton");
 
-        const backButton =
-            document.querySelector("#backButton");
-
         const gameBackButton =
             document.querySelector("#gameBackButton");
 
@@ -2329,22 +2326,6 @@
                             ? "auto"
                             : "smooth"
                     });
-            }
-        );
-
-        backButton.addEventListener(
-            "click",
-            () => {
-                if (
-                    gamePage.classList.contains(
-                        "active"
-                    )
-                ) {
-                    returnHome();
-                } else {
-                    window.location.href =
-                        "index.html";
-                }
             }
         );
 
