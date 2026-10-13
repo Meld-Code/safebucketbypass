@@ -856,12 +856,12 @@ body{
 }
 
 .block:hover {
-    transform: scale(25);
     border-color: white;
     box-shadow:
         0 22px 45px #000,
         0 0 0 2px #ffffff33;
 }
+
 
 
 .block::before{
@@ -1967,7 +1967,7 @@ font-size: 8px;
 
             <div class="welcomeTitle">
 
-                <h1>Safe Bucket v5.1.2</h1>
+                <h1>Safe Bucket v1.3.0</h1>
 
                 <p>
                     A CiphAnon Studios Project
@@ -2346,8 +2346,23 @@ font-size: 8px;
         </div>
 
     </div>
-    
+
+    <div
+    class="block"
+    data-url="https://www.youtube.com/"
+    data-name="YouTube"
+>
+    <img src="Images/YouTube.png" alt="YouTube">
+
+    <div class="blockLabel">
+        YouTube
+    </div>
 </div>
+
+
+</div>
+
+
 
 
 <div class="hint">
@@ -2852,7 +2867,12 @@ function createObject(el,index){
 
         previousY:0,
 
-        moved:false
+        moved:false,
+
+hovered:false,
+
+uprightTarget:0
+
     };
 
 
@@ -3683,6 +3703,14 @@ function setupDragging(obj){
 
     const el=obj.el;
 
+    el.addEventListener("mouseenter", () => {
+    obj.hovered = true;
+});
+
+el.addEventListener("mouseleave", () => {
+    obj.hovered = false;
+});
+
     let downX=0;
     let downY=0;
 
@@ -3934,6 +3962,33 @@ openBrowser(
    RENDER
 ============================================================ */
 
+function normalizeAngle(angle){
+    return Math.atan2(
+        Math.sin(angle),
+        Math.cos(angle)
+    );
+}
+
+function updateHoverRotation(obj, dt){
+    if(!obj.hovered || obj.dragging){
+        return;
+    }
+
+    const difference = normalizeAngle(
+        obj.uprightTarget - obj.angle
+    );
+
+    obj.angle += difference * 0.02 * dt;
+
+    // Stop the normal physics rotation while correcting itself
+    obj.angularVelocity *= 0.72;
+
+    if(Math.abs(difference) < 0.01){
+        obj.angle = obj.uprightTarget;
+        obj.angularVelocity = 0;
+    }
+}
+
 function render(obj){
 
     obj.el.style.transform=
@@ -4027,6 +4082,8 @@ function physicsLoop(time){
         obj.angle+=
             obj.angularVelocity*
             dt;
+
+            updateHoverRotation(obj, dt);
 
 
         keepFloating(
