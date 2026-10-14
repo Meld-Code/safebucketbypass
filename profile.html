@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safe Bucket | Profile</title>
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark}
+body{
+  margin:0;min-height:100vh;background:#101010;color:#fff;
+  font-family:Arial,sans-serif;padding:24px;
+}
+header{
+  max-width:950px;margin:auto;display:flex;
+  justify-content:space-between;align-items:center;gap:12px;
+  flex-wrap:wrap;margin-bottom:28px;
+}
+.logo{font-size:25px;font-weight:bold;color:#ff6a00}
+nav{display:flex;gap:10px;flex-wrap:wrap}
+a,button{
+  color:#fff;text-decoration:none;background:#252525;
+  border:1px solid #393939;border-radius:9px;
+  padding:11px 14px;font-size:14px;cursor:pointer;
+}
+a:hover,button:hover{border-color:#ff6a00}
+main{max-width:950px;margin:auto}
+h1{margin:0 0 8px;font-size:30px}
+.muted{color:#999;line-height:1.5}
+.card{
+  background:#191919;border:1px solid #333;
+  border-radius:16px;padding:24px;margin-top:18px;
+}
+.hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.avatar{
+  width:100px;height:100px;border-radius:50%;
+  background:#ff6a00;color:#111;display:grid;
+  place-items:center;font-size:35px;font-weight:bold;
+  overflow:hidden;flex-shrink:0;
+}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.username{font-size:25px;font-weight:bold;overflow-wrap:anywhere}
+.rank{
+  display:inline-block;margin-top:10px;padding:6px 12px;
+  background:#302116;color:#ff9b51;border-radius:20px;
+  border:1px solid #71401e;font-size:13px;font-weight:bold;
+}
+.grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;margin-top:20px;
+}
+.stat{background:#141414;border:1px solid #303030;
+  border-radius:12px;padding:17px;min-width:0}
+.stat-label{color:#999;font-size:13px;margin-bottom:9px}
+.stat-value{font-size:20px;font-weight:bold;overflow-wrap:anywhere}
+.games{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.game{
+  background:#262626;border:1px solid #3a3a3a;
+  padding:8px 11px;border-radius:9px;font-size:13px;
+}
+#message{overflow-wrap:anywhere}
+#signout{background:#351c16;border-color:#66351f}
+footer{text-align:center;color:#777;font-size:12px;margin:30px 0 10px}
+@media(max-width:520px){
+  body{padding:16px}
+  .grid{grid-template-columns:1fr}
+  .card{padding:18px}
+  h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Safe Bucket</div>
+  <nav>
+    <a href="./index.html">Home</a>
+    <a href="./leaderboard.html">Leaderboard</a>
+    <button id="signout" type="button">Sign Out</button>
+  </nav>
+</header>
+
+<main>
+  <h1>Your Profile</h1>
+  <p class="muted">Your Safe Bucket gaming account.</p>
+
+  <section class="card">
+    <div class="hero">
+      <div class="avatar" id="avatar">?</div>
+      <div>
+        <div class="username" id="username">Loading profile...</div>
+        <div class="rank" id="rank">Loading rank...</div>
+        <p class="muted" id="email"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Account Statistics</h2>
+    <div class="grid">
+      <div class="stat">
+        <div class="stat-label">Member Since</div>
+        <div class="stat-value" id="created">Loading...</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Total Playtime</div>
+        <div class="stat-value" id="playtime">Loading...</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Account Rank</div>
+        <div class="stat-value" id="rankStat">Loading...</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Favorite Games</div>
+        <div class="stat-value" id="gameCount">0</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Favorite Games</h2>
+    <p class="muted">Games saved to your Safe Bucket account.</p>
+    <div class="games" id="games">
+      <span class="muted">Loading games...</span>
+    </div>
+  </section>
+
+  <p class="muted" id="message" role="status">
+    Connecting to your account...
+  </p>
+</main>
+
+<footer>CiphAnon Studios · Safe Bucket</footer>
+
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth,onAuthStateChanged,signOut
+} from
+"https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getDatabase,ref,get
+} from
+"https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+const app=initializeApp({
+  apiKey:"AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
+  authDomain:"safebucketbypass.firebaseapp.com",
+  databaseURL:"https://safebucketbypass-default-rtdb.firebaseio.com",
+  projectId:"safebucketbypass",
+  storageBucket:"safebucketbypass.firebasestorage.app",
+  messagingSenderId:"659506734507",
+  appId:"1:659506734507:web:1e4268f7746380b41bdeee"
+});
+
+const auth=getAuth(app);
+const db=getDatabase(app);
+const $=id=>document.getElementById(id);
+
+function setMessage(text){
+  $("message").textContent=text;
+}
+
+function formatTime(seconds){
+  seconds=Math.max(0,Number(seconds)||0);
+  const hours=Math.floor(seconds/3600);
+  const minutes=Math.floor((seconds%3600)/60);
+  if(hours===0)return minutes+" minutes";
+  return hours+"h "+minutes+"m";
+}
+
+function formatDate(value){
+  if(!value)return "Not available";
+  const date=new Date(Number(value));
+  if(Number.isNaN(date.getTime()))return "Not available";
+  return date.toLocaleDateString(undefined,{
+    year:"numeric",month:"short",day:"numeric"
+  });
+}
+
+function showAvatar(photoURL,username){
+  const avatar=$("avatar");
+  avatar.replaceChildren();
+
+  if(photoURL){
+    const img=document.createElement("img");
+    img.src=photoURL;
+    img.alt="Profile picture";
+    img.referrerPolicy="no-referrer";
+    img.onerror=()=>{
+      avatar.replaceChildren();
+      avatar.textContent=(username||"?").charAt(0).toUpperCase();
+    };
+    avatar.appendChild(img);
+  }else{
+    avatar.textContent=(username||"?").charAt(0).toUpperCase();
+  }
+}
+
+function showGames(favoriteGames){
+  const container=$("games");
+  container.replaceChildren();
+
+  const games=Array.isArray(favoriteGames)
+    ?favoriteGames.filter(g=>typeof g==="string")
+    :[];
+
+  $("gameCount").textContent=games.length;
+
+  if(!games.length){
+    const empty=document.createElement("span");
+    empty.className="muted";
+    empty.textContent="No favorite games added yet.";
+    container.appendChild(empty);
+    return;
+  }
+
+  games.forEach(game=>{
+    const tag=document.createElement("span");
+    tag.className="game";
+    tag.textContent=game;
+    container.appendChild(tag);
+  });
+}
+
+let currentUser=null;
+let loading=false;
+
+onAuthStateChanged(auth,async user=>{
+  if(!user){
+    window.location.replace("./auth.html");
+    return;
+  }
+
+  if(loading&&currentUser===user.uid)return;
+  loading=true;
+  currentUser=user.uid;
+  setMessage("Loading your saved profile...");
+
+  try{
+    const snapshot=await get(ref(db,"users/"+user.uid));
+
+    if(!snapshot.exists()){
+      setMessage(
+        "Your profile was not found in the database. " +
+        "Please sign out and contact the site owner."
+      );
+      $("username").textContent="Profile not found";
+      $("rank").textContent="Unavailable";
+      $("rankStat").textContent="Unavailable";
+      $("created").textContent="Unavailable";
+      $("playtime").textContent="Unavailable";
+      $("gameCount").textContent="Unavailable";
+      $("games").textContent="Profile data unavailable.";
+      return;
+    }
+
+    const profile=snapshot.val();
+    const username=profile.username||user.displayName||"Member";
+    const rank=profile.rank||"Member";
+
+    $("username").textContent=username;
+    $("rank").textContent=rank;
+    $("rankStat").textContent=rank;
+    $("email").textContent=user.email||"";
+    $("created").textContent=formatDate(profile.createdAt);
+    $("playtime").textContent=formatTime(profile.totalTimeSeconds);
+    showAvatar(profile.photoURL||user.photoURL,username);
+    showGames(profile.favoriteGames);
+
+    setMessage("Your Safe Bucket profile loaded successfully.");
+  }catch(error){
+    console.error("Profile loading error:",error);
+    setMessage(
+      "Couldn't load your profile. Check your internet connection " +
+      "and Firebase Database Rules, then try again."
+    );
+  }finally{
+    loading=false;
+  }
+});
+
+$("signout").addEventListener("click",async()=>{
+  $("signout").disabled=true;
+  try{
+    await signOut(auth);
+    window.location.replace("./auth.html");
+  }catch(error){
+    console.error(error);
+    setMessage("Couldn't sign out. Please try again.");
+    $("signout").disabled=false;
+  }
+});
+</script>
+</body>
+</html>
 
