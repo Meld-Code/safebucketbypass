@@ -1,1 +1,197 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safe Bucket | Account</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;
+background:#101010;color:#f5f5f5;font-family:Arial,sans-serif;padding:20px}
+.card{width:100%;max-width:420px;background:#191919;border:1px solid #333;
+border-radius:18px;padding:28px}
+h1{margin:0 0 8px;color:#ff6a00}
+p{color:#aaa;line-height:1.5}
+input,button{width:100%;padding:13px;margin-top:12px;border-radius:9px;
+font-size:15px}
+input{background:#101010;color:white;border:1px solid #444}
+button{border:0;background:#ff6a00;color:#111;font-weight:bold;cursor:pointer}
+button.secondary{background:#292929;color:white;border:1px solid #444}
+button:disabled{opacity:.6;cursor:wait}
+a{color:#ff8a36}
+#message{overflow-wrap:anywhere;font-size:14px}
+</style>
+</head>
+<body>
+<main class="card">
+  <h1>Safe Bucket</h1>
+  <p>Sign in or create your account.</p>
+
+  <form id="authForm">
+    <input id="email" type="email" placeholder="Email address"
+      autocomplete="email" required>
+    <input id="password" type="password" placeholder="Password"
+      autocomplete="current-password" minlength="6" required>
+    <button id="loginBtn" type="submit">Sign In</button>
+    <button id="signupBtn" type="button">Create Account</button>
+  </form>
+
+  <button id="googleBtn" class="secondary" type="button">
+    Continue with Google
+  </button>
+  <p id="message" role="status">Your account rank starts as Member.</p>
+  <p><a href="./index.html">Back to Safe Bucket</a></p>
+  <button id="logoutBtn" class="secondary" type="button" hidden>
+    Sign Out
+  </button>
+</main>
+
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,
+  signOut, updateProfile
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getDatabase, ref, get, set, update
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
+  authDomain: "safebucketbypass.firebaseapp.com",
+  databaseURL: "https://safebucketbypass-default-rtdb.firebaseio.com",
+  projectId: "safebucketbypass",
+  storageBucket: "safebucketbypass.firebasestorage.app",
+  messagingSenderId: "659506734507",
+  appId: "1:659506734507:web:1e4268f7746380b41bdeee"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+const provider = new GoogleAuthProvider();
+
+const form = document.querySelector("#authForm");
+const email = document.querySelector("#email");
+const password = document.querySelector("#password");
+const message = document.querySelector("#message");
+const loginBtn = document.querySelector("#loginBtn");
+const signupBtn = document.querySelector("#signupBtn");
+const googleBtn = document.querySelector("#googleBtn");
+const logoutBtn = document.querySelector("#logoutBtn");
+
+function showMessage(text) {
+  message.textContent = text;
+}
+
+function friendlyError(error) {
+  const messages = {
+    "auth/email-already-in-use": "That email already has an account.",
+    "auth/invalid-email": "Enter a valid email address.",
+    "auth/weak-password": "Choose a stronger password with at least 6 characters.",
+    "auth/invalid-credential": "Email or password is incorrect.",
+    "auth/popup-closed-by-user": "Google sign-in was cancelled.",
+    "auth/unauthorized-domain": "This website domain is not authorized in Firebase."
+  };
+  showMessage(messages[error.code] || error.message || "Something went wrong.");
+}
+
+async function createMemberProfile(user) {
+  const userRef = ref(db, "users/" + user.uid);
+  const snapshot = await get(userRef);
+
+  if (!snapshot.exists()) {
+    await set(userRef, {
+      displayName: user.displayName || "New Member",
+      photoURL: user.photoURL || "",
+      rank: "Member",
+      favoriteGames: [],
+      createdAt: Date.now(),
+      totalTimeSeconds: 0
+    });
+  } else {
+    // Update basic account details without changing rank or playtime.
+    await update(userRef, {
+      displayName: user.displayName || snapshot.val().displayName || "Member",
+      photoURL: user.photoURL || snapshot.val().photoURL || ""
+    });
+  }
+}
+
+async function finishSignIn(user) {
+  await createMemberProfile(user);
+  showMessage("Signed in successfully! Your rank is managed by Safe Bucket.");
+  logoutBtn.hidden = false;
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  loginBtn.disabled = true;
+  signupBtn.disabled = true;
+
+  try {
+    const result = await signInWithEmailAndPassword(
+      auth, email.value.trim(), password.value
+    );
+    await finishSignIn(result.user);
+  } catch (error) {
+    friendlyError(error);
+  } finally {
+    loginBtn.disabled = false;
+    signupBtn.disabled = false;
+  }
+});
+
+signupBtn.addEventListener("click", async () => {
+  if (!form.reportValidity()) return;
+
+  loginBtn.disabled = true;
+  signupBtn.disabled = true;
+
+  try {
+    const result = await createUserWithEmailAndPassword(
+      auth, email.value.trim(), password.value
+    );
+    await finishSignIn(result.user);
+  } catch (error) {
+    friendlyError(error);
+  } finally {
+    loginBtn.disabled = false;
+    signupBtn.disabled = false;
+  }
+});
+
+googleBtn.addEventListener("click", async () => {
+  googleBtn.disabled = true;
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    await finishSignIn(result.user);
+  } catch (error) {
+    friendlyError(error);
+  } finally {
+    googleBtn.disabled = false;
+  }
+});
+
+logoutBtn.addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    showMessage("You have signed out.");
+  } catch (error) {
+    friendlyError(error);
+  }
+});
+
+onAuthStateChanged(auth, user => {
+  logoutBtn.hidden = !user;
+  if (user) {
+    showMessage("Signed in as " + (user.displayName || user.email));
+  }
+});
+</script>
+</body>
+</html>
