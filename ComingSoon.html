@@ -20,38 +20,14 @@
       overflow: hidden;
     }
 
-    .back-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      padding: 12px 18px;
-      border: 1px solid #5965ff;
-      border-radius: 10px;
-      background: #171b2d;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .back-button:hover {
-      background: #5965ff;
-      transform: translateY(-2px);
-    }
-
     img {
-      max-width: 90%;
-      max-height: 85vh;
+      width: 100%;
+      height: auto;
       object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(89, 101, 255, 0.35);
     }
   </style>
 </head>
 <body>
-  <button class="back-button" onclick="history.back()">
-    ← Back
-  </button>
   <img src="Images/SafeBucketImg.png" alt="Safe Bucket">
 </body>
 </html>
