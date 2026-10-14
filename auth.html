@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,189 +7,207 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;display:grid;place-items:center;
-background:#101010;color:#f5f5f5;font-family:Arial,sans-serif;padding:20px}
-.card{width:100%;max-width:420px;background:#191919;border:1px solid #333;
-border-radius:18px;padding:28px}
-h1{margin:0 0 8px;color:#ff6a00}
+padding:20px;background:#101010;color:#fff;font-family:Arial,sans-serif}
+.card{width:100%;max-width:430px;background:#191919;border:1px solid #333;
+border-radius:18px;padding:26px}
+h1{color:#ff6a00;margin:0}
 p{color:#aaa;line-height:1.5}
-input,button{width:100%;padding:13px;margin-top:12px;border-radius:9px;
-font-size:15px}
-input{background:#101010;color:white;border:1px solid #444}
-button{border:0;background:#ff6a00;color:#111;font-weight:bold;cursor:pointer}
-button.secondary{background:#292929;color:white;border:1px solid #444}
-button:disabled{opacity:.6;cursor:wait}
+input,button{width:100%;padding:13px;margin-top:12px;
+border-radius:9px;font-size:15px}
+input{background:#101010;color:#fff;border:1px solid #444}
+button{background:#ff6a00;color:#111;border:0;font-weight:bold;cursor:pointer}
+.secondary{background:#292929;color:white;border:1px solid #444}
 a{color:#ff8a36}
 #message{overflow-wrap:anywhere;font-size:14px}
 </style>
 </head>
 <body>
 <main class="card">
-  <h1>Safe Bucket</h1>
-  <p>Sign in or create your account.</p>
+<h1>Safe Bucket</h1>
+<p id="subtitle">Create your account or sign in.</p>
 
-  <form id="authForm">
-    <input id="email" type="email" placeholder="Email address"
-      autocomplete="email" required>
-    <input id="password" type="password" placeholder="Password"
-      autocomplete="current-password" minlength="6" required>
-    <button id="loginBtn" type="submit">Sign In</button>
-    <button id="signupBtn" type="button">Create Account</button>
-  </form>
+<label for="username">Username (for new accounts)</label>
+<input id="username" maxlength="20" placeholder="Choose a username"
+autocomplete="username">
 
-  <button id="googleBtn" class="secondary" type="button">
-    Continue with Google
-  </button>
-  <p id="message" role="status">Your account rank starts as Member.</p>
-  <p><a href="./index.html">Back to Safe Bucket</a></p>
-  <button id="logoutBtn" class="secondary" type="button" hidden>
-    Sign Out
-  </button>
+<form id="form">
+<input id="email" type="email" placeholder="Email address"
+autocomplete="email" required>
+<input id="password" type="password" placeholder="Password"
+autocomplete="current-password" minlength="6" required>
+<button id="login" type="submit">Sign In</button>
+<button id="signup" type="button">Create Account</button>
+</form>
+
+<button id="google" class="secondary" type="button">
+Continue with Google
+</button>
+<p id="message" role="status">New accounts start as Member.</p>
+<div id="account" hidden>
+<p id="accountInfo"></p>
+<button id="logout" class="secondary" type="button">Sign Out</button>
+</div>
+<p><a href="./index.html">Back to Safe Bucket</a></p>
 </main>
 
 <script type="module">
 import { initializeApp } from
-  "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
-  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,
-  signOut, updateProfile
+getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
+signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,
+signOut,updateProfile
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import {
-  getDatabase, ref, get, set, update
+getDatabase,ref,get,set,runTransaction,update
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
-  authDomain: "safebucketbypass.firebaseapp.com",
-  databaseURL: "https://safebucketbypass-default-rtdb.firebaseio.com",
-  projectId: "safebucketbypass",
-  storageBucket: "safebucketbypass.firebasestorage.app",
-  messagingSenderId: "659506734507",
-  appId: "1:659506734507:web:1e4268f7746380b41bdeee"
+const app=initializeApp({
+apiKey:"AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
+authDomain:"safebucketbypass.firebaseapp.com",
+databaseURL:"https://safebucketbypass-default-rtdb.firebaseio.com",
+projectId:"safebucketbypass",
+storageBucket:"safebucketbypass.firebasestorage.app",
+messagingSenderId:"659506734507",
+appId:"1:659506734507:web:1e4268f7746380b41bdeee"
+});
+const auth=getAuth(app),db=getDatabase(app);
+const provider=new GoogleAuthProvider();
+const $=id=>document.getElementById(id);
+const message=$("message");
+
+function say(text){message.textContent=text}
+function cleanUsername(value){return value.trim()}
+function validUsername(name){
+return /^[a-zA-Z0-9_]{3,20}$/.test(name);
+}
+function errorText(e){
+const errors={
+"auth/email-already-in-use":"That email already has an account.",
+"auth/invalid-email":"Enter a valid email address.",
+"auth/weak-password":"Use a stronger password.",
+"auth/invalid-credential":"Email or password is incorrect.",
+"auth/unauthorized-domain":"This domain is not authorized in Firebase.",
+"PERMISSION_DENIED":"Firebase database rules denied this action."
 };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-const provider = new GoogleAuthProvider();
-
-const form = document.querySelector("#authForm");
-const email = document.querySelector("#email");
-const password = document.querySelector("#password");
-const message = document.querySelector("#message");
-const loginBtn = document.querySelector("#loginBtn");
-const signupBtn = document.querySelector("#signupBtn");
-const googleBtn = document.querySelector("#googleBtn");
-const logoutBtn = document.querySelector("#logoutBtn");
-
-function showMessage(text) {
-  message.textContent = text;
+say(errors[e.code]||e.message||"Something went wrong.");
 }
 
-function friendlyError(error) {
-  const messages = {
-    "auth/email-already-in-use": "That email already has an account.",
-    "auth/invalid-email": "Enter a valid email address.",
-    "auth/weak-password": "Choose a stronger password with at least 6 characters.",
-    "auth/invalid-credential": "Email or password is incorrect.",
-    "auth/popup-closed-by-user": "Google sign-in was cancelled.",
-    "auth/unauthorized-domain": "This website domain is not authorized in Firebase."
-  };
-  showMessage(messages[error.code] || error.message || "Something went wrong.");
+async function ensureProfile(user,requestedName){
+const userRef=ref(db,"users/"+user.uid);
+const existing=await get(userRef);
+
+if(existing.exists()){
+say("Welcome back, "+(existing.val().username||"Member")+"!");
+return;
 }
 
-async function createMemberProfile(user) {
-  const userRef = ref(db, "users/" + user.uid);
-  const snapshot = await get(userRef);
+const username=cleanUsername(requestedName||"");
+if(!validUsername(username)){
+throw new Error("Choose a username with 3–20 letters, numbers, or underscores.");
+}
+const lower=username.toLowerCase();
+const claim=await runTransaction(ref(db,"usernames/"+lower),current=>{
+return current===null?user.uid:undefined;
+});
 
-  if (!snapshot.exists()) {
-    await set(userRef, {
-      displayName: user.displayName || "New Member",
-      photoURL: user.photoURL || "",
-      rank: "Member",
-      favoriteGames: [],
-      createdAt: Date.now(),
-      totalTimeSeconds: 0
-    });
-  } else {
-    // Update basic account details without changing rank or playtime.
-    await update(userRef, {
-      displayName: user.displayName || snapshot.val().displayName || "Member",
-      photoURL: user.photoURL || snapshot.val().photoURL || ""
-    });
-  }
+if(!claim.committed){
+throw new Error("That username is already taken. Try another.");
 }
 
-async function finishSignIn(user) {
-  await createMemberProfile(user);
-  showMessage("Signed in successfully! Your rank is managed by Safe Bucket.");
-  logoutBtn.hidden = false;
+try{
+await set(userRef,{
+username:username,
+usernameLower:lower,
+displayName:username,
+photoURL:user.photoURL||"",
+rank:"Member",
+favoriteGames:[],
+createdAt:Date.now(),
+totalTimeSeconds:0
+});
+if(user.displayName!==username){
+await updateProfile(user,{displayName:username});
+}
+say("Account created! Welcome to Safe Bucket, "+username+".");
+}catch(e){
+say("Your username may have been reserved, but profile setup failed. Please tell the site owner this error: "+e.message);
+throw e;
+}
 }
 
-form.addEventListener("submit", async event => {
-  event.preventDefault();
-  loginBtn.disabled = true;
-  signupBtn.disabled = true;
-
-  try {
-    const result = await signInWithEmailAndPassword(
-      auth, email.value.trim(), password.value
-    );
-    await finishSignIn(result.user);
-  } catch (error) {
-    friendlyError(error);
-  } finally {
-    loginBtn.disabled = false;
-    signupBtn.disabled = false;
-  }
+$("form").addEventListener("submit",async e=>{
+e.preventDefault();
+$("login").disabled=true;
+try{
+const result=await signInWithEmailAndPassword(
+auth,$("email").value.trim(),$("password").value);
+const snap=await get(ref(db,"users/"+result.user.uid));
+if(!snap.exists()){
+say("You're signed in, but your profile isn't set up yet. Sign out and contact the site owner.");
+return;
+}
+say("Signed in as "+snap.val().username+".");
+}catch(e){errorText(e)}
+finally{$("login").disabled=false}
 });
 
-signupBtn.addEventListener("click", async () => {
-  if (!form.reportValidity()) return;
-
-  loginBtn.disabled = true;
-  signupBtn.disabled = true;
-
-  try {
-    const result = await createUserWithEmailAndPassword(
-      auth, email.value.trim(), password.value
-    );
-    await finishSignIn(result.user);
-  } catch (error) {
-    friendlyError(error);
-  } finally {
-    loginBtn.disabled = false;
-    signupBtn.disabled = false;
-  }
+$("signup").addEventListener("click",async()=>{
+const username=cleanUsername($("username").value);
+if(!validUsername(username)){
+say("Username must be 3–20 characters using letters, numbers, or underscores.");
+return;
+}
+if(!$("form").reportValidity())return;
+$("signup").disabled=true;
+try{
+const result=await createUserWithEmailAndPassword(
+auth,$("email").value.trim(),$("password").value);
+await ensureProfile(result.user,username);
+}catch(e){errorText(e)}
+finally{$("signup").disabled=false}
 });
 
-googleBtn.addEventListener("click", async () => {
-  googleBtn.disabled = true;
-
-  try {
-    const result = await signInWithPopup(auth, provider);
-    await finishSignIn(result.user);
-  } catch (error) {
-    friendlyError(error);
-  } finally {
-    googleBtn.disabled = false;
-  }
+$("google").addEventListener("click",async()=>{
+const username=cleanUsername($("username").value);
+$("google").disabled=true;
+try{
+const result=await signInWithPopup(auth,provider);
+const snap=await get(ref(db,"users/"+result.user.uid));
+if(snap.exists()){
+say("Welcome back, "+snap.val().username+"!");
+}else{
+if(!validUsername(username)){
+await signOut(auth);
+say("Choose a username first, then tap Continue with Google again.");
+return;
+}
+await ensureProfile(result.user,username);
+}
+}catch(e){errorText(e)}
+finally{$("google").disabled=false}
 });
 
-logoutBtn.addEventListener("click", async () => {
-  try {
-    await signOut(auth);
-    showMessage("You have signed out.");
-  } catch (error) {
-    friendlyError(error);
-  }
+$("logout").addEventListener("click",async()=>{
+try{await signOut(auth);say("You have signed out.")}
+catch(e){errorText(e)}
 });
 
-onAuthStateChanged(auth, user => {
-  logoutBtn.hidden = !user;
-  if (user) {
-    showMessage("Signed in as " + (user.displayName || user.email));
-  }
+onAuthStateChanged(auth,async user=>{
+$("account").hidden=!user;
+$("form").hidden=!!user;
+$("signup").hidden=!!user;
+$("google").hidden=!!user;
+$("username").hidden=!!user;
+$("subtitle").textContent=user?"Your Safe Bucket account":"Create your account or sign in.";
+if(user){
+try{
+const snap=await get(ref(db,"users/"+user.uid));
+$("accountInfo").textContent=snap.exists()
+?"Username: "+snap.val().username+" | Rank: "+snap.val().rank
+:"Signed in, but profile setup is incomplete.";
+}catch(e){$("accountInfo").textContent="Signed in. Profile could not be loaded."}
+}
 });
 </script>
 </body>
