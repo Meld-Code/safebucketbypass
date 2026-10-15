@@ -1,3 +1,1 @@
-use index.html 
-
-that is the main code
+Project failed, I honestly give up - ToonyTime
