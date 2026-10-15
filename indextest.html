@@ -824,8 +824,9 @@ body{
     height:100%;
     pointer-events:none;
     mix-blend-mode:screen;
-    opacity:.9;
+    opacity:.65;
 }
+
 
 
 /* =========================
@@ -2899,7 +2900,7 @@ function createTrailData(obj, index){
     obj.trailColor = trailColors[index % trailColors.length];
 
     obj.trail = [];
-    obj.trailLength = 75;
+    obj.trailLength = 28;
     obj.lastTrailX = obj.x;
     obj.lastTrailY = obj.y;
 }
@@ -2933,40 +2934,38 @@ function drawTrail(obj){
         return;
     }
 
-    const color = obj.trailColor;
-
     trailCtx.save();
 
+    trailCtx.globalCompositeOperation = "lighter";
     trailCtx.lineCap = "round";
     trailCtx.lineJoin = "round";
-    trailCtx.globalCompositeOperation = "lighter";
+    trailCtx.shadowBlur = 0;
+
+    trailCtx.beginPath();
+
+    trailCtx.moveTo(
+        obj.trail[0].x,
+        obj.trail[0].y
+    );
 
     for(let i = 1; i < obj.trail.length; i++){
-
-        const previous = obj.trail[i - 1];
-        const current = obj.trail[i];
-
-        const progress = i / obj.trail.length;
-        const alpha = progress * 0.42;
-
-        const width =
-            8 +
-            progress * 28;
-
-        trailCtx.beginPath();
-        trailCtx.moveTo(previous.x, previous.y);
-        trailCtx.lineTo(current.x, current.y);
-
-        trailCtx.strokeStyle = hexToRgba(color, alpha);
-        trailCtx.lineWidth = width;
-        trailCtx.shadowColor = color;
-        trailCtx.shadowBlur = 28;
-
-        trailCtx.stroke();
+        trailCtx.lineTo(
+            obj.trail[i].x,
+            obj.trail[i].y
+        );
     }
+
+    trailCtx.strokeStyle = hexToRgba(
+        obj.trailColor,
+        0.22
+    );
+
+    trailCtx.lineWidth = 12;
+    trailCtx.stroke();
 
     trailCtx.restore();
 }
+
 
 function hexToRgba(hex, alpha){
     const clean = hex.replace("#", "");
@@ -2979,13 +2978,13 @@ function hexToRgba(hex, alpha){
 }
 
 function drawMotionTrails(){
-    trailCtx.save();
-
-    trailCtx.globalCompositeOperation = "destination-out";
-    trailCtx.fillStyle = "rgba(0,0,0,.055)";
-    trailCtx.fillRect(0, 0, innerWidth, innerHeight);
-
-    trailCtx.restore();
+    trailCtx.fillStyle = "rgba(16, 16, 16, 0.12)";
+    trailCtx.fillRect(
+        0,
+        0,
+        innerWidth,
+        innerHeight
+    );
 
     for(const obj of objects){
         addTrailPoint(obj);
@@ -2995,7 +2994,6 @@ function drawMotionTrails(){
     requestAnimationFrame(drawMotionTrails);
 }
 
-drawMotionTrails();
 
 /**/
 
