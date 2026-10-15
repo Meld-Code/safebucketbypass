@@ -2733,9 +2733,6 @@ const browser =
 const browserFrame =
     document.getElementById("browserFrame");
 
-const browserAddress =
-    document.getElementById("browserAddress");
-
 const searchForm =
     document.getElementById("searchForm");
 
@@ -4314,18 +4311,16 @@ function getDestination(value){
 ============================================================ */
 
 function openBrowser(url) {
-    if (!url) {
-        return;
-    }
+    if (!url) return;
 
     trackEvent("open_site", {
         site_name: url
     });
 
     browserFrame.src = url;
-    browserAddress.value = url;
     browser.classList.add("open");
 }
+
 
 
 
@@ -4333,19 +4328,10 @@ function openBrowser(url) {
    CLOSE BROWSER
 ============================================================ */
 
-function closeBrowserWindow(){
-
-    browser.classList.remove(
-        "open"
-    );
-
-
-    browserFrame.src=
-        "about:blank";
-
-    browserAddress.value="";
+function closeBrowserWindow() {
+    browser.classList.remove("open");
+    browserFrame.src = "about:blank";
 }
-
 
 closeBrowser.addEventListener(
     "click",
