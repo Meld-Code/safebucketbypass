@@ -2911,23 +2911,23 @@ function addTrailPoint(obj){
         obj.y - obj.lastTrailY
     );
 
-    if(distance < 1.5){
+    if(distance < 0.5){
         return;
     }
 
     obj.trail.push({
         x: obj.x,
-        y: obj.y,
-        time: performance.now()
+        y: obj.y
     });
 
     obj.lastTrailX = obj.x;
     obj.lastTrailY = obj.y;
 
-    if(obj.trail.length > obj.trailLength){
+    if(obj.trail.length > 28){
         obj.trail.shift();
     }
 }
+
 
 function drawTrail(obj){
     if(!obj.trail || obj.trail.length < 2){
@@ -2957,14 +2957,15 @@ function drawTrail(obj){
 
     trailCtx.strokeStyle = hexToRgba(
         obj.trailColor,
-        0.22
+        0.9
     );
 
-    trailCtx.lineWidth = 12;
+    trailCtx.lineWidth = 18;
     trailCtx.stroke();
 
     trailCtx.restore();
 }
+
 
 
 function hexToRgba(hex, alpha){
@@ -2978,13 +2979,18 @@ function hexToRgba(hex, alpha){
 }
 
 function drawMotionTrails(){
-    trailCtx.fillStyle = "rgba(16, 16, 16, 0.12)";
+    trailCtx.save();
+
+    trailCtx.globalCompositeOperation = "destination-out";
+    trailCtx.fillStyle = "rgba(0, 0, 0, 0.12)";
     trailCtx.fillRect(
         0,
         0,
         innerWidth,
         innerHeight
     );
+
+    trailCtx.restore();
 
     for(const obj of objects){
         addTrailPoint(obj);
@@ -2993,6 +2999,7 @@ function drawMotionTrails(){
 
     requestAnimationFrame(drawMotionTrails);
 }
+
 
 
 /**/
