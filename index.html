@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>CiphAnon Safe Browser</title>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
 
 <style>
 *{
@@ -1989,8 +1993,32 @@ font-size: 8px;
         font-size: 10px;
     }
 }
+/* discord css */
+    .discordButton {
+    position: fixed;
+    right: 18px;
+    bottom: 70px;
+    z-index: 700;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #383838;
+    border-radius: 13px;
+    background: #171717dd;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    transition: .2s ease;
+}
 
-    
+.discordButton:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: #5865f2;
+    border-color: #5865f2;
+}
+
 </style>
 </head>
 
@@ -2230,7 +2258,16 @@ font-size: 8px;
 <!-- date/time -->
 <div class="dateTime" id="dateTime"> <strong id="currentTime">10:44:08 AM</strong> <span id="currentDate">October 7, 2026</span> </div>
 <!-- Discord -->
-<i class="fa-brands fa-discord" style="color: rgb(255, 255, 255);"></i>
+<a
+  href="https://discord.gg/your-invite"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="discordButton"
+  aria-label="Join Discord"
+>
+  <i class="fa-brands fa-discord"></i>
+</a>
+
 <!-- info button -->
 <button class="infoButton" id="infoButton" aria-label="Information" title="Information">
     ⓘ
