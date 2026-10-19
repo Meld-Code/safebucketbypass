@@ -857,10 +857,15 @@ body{
     pointer-events:auto;
 
     will-change:transform;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 .block:hover {
-    border-color: white;
+    border-color: #fff;
+
     box-shadow:
         0 22px 45px #000,
         0 0 0 2px #ffffff33;
@@ -4115,17 +4120,19 @@ function updateHoverRotation(obj, dt){
     }
 }
 
-function render(obj){
+function render(obj) {
+    const scale = obj.hovered && !obj.dragging ? 1.06 : 1;
 
-    obj.el.style.transform=
-
+    obj.el.style.transform =
         `translate3d(
-            ${obj.x-obj.width/2}px,
-            ${obj.y-obj.height/2}px,
+            ${obj.x - obj.width / 2}px,
+            ${obj.y - obj.height / 2}px,
             0
         )
-        rotate(${obj.angle}rad)`;
+        rotate(${obj.angle}rad)
+        scale(${scale})`;
 }
+
 
 
 /* ============================================================
