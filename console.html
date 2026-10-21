@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NODE//07 TERMINAL</title>
+  <title>ASCII CORE // NODE-07</title>
 
   <style>
     :root {
-      --black: #020202;
-      --panel: #080808;
-      --panel-2: #111011;
-      --border: #3b2428;
-      --red: #ff3f5b;
-      --red-soft: #ff8794;
+      --bg: #030303;
+      --panel: #0b0809;
+      --panel-2: #120d0f;
+      --border: #45262e;
+      --red: #ff3d5b;
+      --pink: #ff7f9b;
       --green: #7dff98;
-      --blue: #6edcff;
+      --cyan: #68e6ff;
       --yellow: #ffe477;
-      --purple: #ca7dff;
-      --text: #eee5e7;
-      --muted: #817175;
+      --purple: #cd7aff;
+      --orange: #ff9b5e;
+      --white: #f0e8ea;
+      --muted: #806e73;
       --font: "Courier New", Courier, monospace;
     }
 
@@ -32,39 +33,12 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
-      background: var(--black);
+      background: var(--bg);
     }
 
     body {
-      color: var(--text);
+      color: var(--white);
       font-family: var(--font);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.028) 0,
-        rgba(255, 255, 255, 0.028) 1px,
-        transparent 1px,
-        transparent 4px
-      );
-      opacity: 0.25;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 998;
-      pointer-events: none;
-      box-shadow:
-        inset 0 0 150px #000,
-        inset 0 0 35px rgba(255, 63, 91, 0.08);
     }
 
     button,
@@ -76,8 +50,8 @@
 
     button,
     select {
-      color: var(--text);
-      background: #110d0e;
+      color: var(--white);
+      background: #130e10;
       border: 1px solid var(--border);
       cursor: pointer;
     }
@@ -85,9 +59,9 @@
     button:hover,
     select:hover {
       color: white;
+      background: #30131b;
       border-color: var(--red);
-      background: #2a1117;
-      box-shadow: 0 0 12px rgba(255, 63, 91, 0.24);
+      box-shadow: 0 0 15px rgba(255, 61, 91, 0.3);
     }
 
     button:active {
@@ -95,8 +69,43 @@
     }
 
     ::selection {
-      color: #260006;
+      color: #220006;
       background: var(--red);
+    }
+
+    /* Screen effects */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.035) 0,
+          rgba(255, 255, 255, 0.035) 1px,
+          transparent 1px,
+          transparent 3px
+        ),
+        radial-gradient(
+          circle at center,
+          transparent 30%,
+          rgba(0, 0, 0, 0.45) 100%
+        );
+      opacity: 0.32;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 180px #000,
+        inset 0 0 35px rgba(255, 61, 91, 0.08);
     }
 
     .app {
@@ -106,8 +115,21 @@
       height: 100vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at 50% 0%, rgba(125, 20, 40, 0.16), transparent 55%),
+        radial-gradient(circle at 50% 0%, rgba(125, 20, 45, 0.2), transparent 53%),
         #030303;
+    }
+
+    .app.screen-shake {
+      animation: screenShake 0.22s linear;
+    }
+
+    @keyframes screenShake {
+      0% { transform: translate(0); filter: none; }
+      20% { transform: translate(-4px, 2px); filter: hue-rotate(60deg); }
+      40% { transform: translate(4px, -2px); filter: saturate(3); }
+      60% { transform: translate(-3px, 1px); filter: hue-rotate(-80deg); }
+      80% { transform: translate(2px, -1px); filter: contrast(1.6); }
+      100% { transform: translate(0); filter: none; }
     }
 
     .topbar {
@@ -118,7 +140,7 @@
       min-height: 38px;
       padding: 0 12px;
       color: var(--muted);
-      background: #120e0f;
+      background: var(--panel-2);
       border-bottom: 1px solid var(--border);
       font-size: 11px;
     }
@@ -152,9 +174,9 @@
 
     .top-title {
       flex: 1;
-      color: var(--red-soft);
+      color: var(--pink);
       text-align: center;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
     }
 
     .top-status {
@@ -164,7 +186,7 @@
 
     .main-layout {
       display: grid;
-      grid-template-columns: 230px minmax(0, 1fr) 315px;
+      grid-template-columns: 225px minmax(0, 1fr) 315px;
       flex: 1;
       min-height: 0;
       overflow: hidden;
@@ -174,7 +196,7 @@
     .rightbar {
       min-width: 0;
       overflow: hidden;
-      background: #090808;
+      background: #090707;
     }
 
     .sidebar {
@@ -188,10 +210,10 @@
     .section-title {
       padding: 11px 13px;
       color: var(--red);
-      background: #150f11;
+      background: #160e11;
       border-bottom: 1px solid var(--border);
       font-size: 10px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
     }
 
     .section-title::before {
@@ -223,8 +245,8 @@
     }
 
     .nav-button.active {
-      color: var(--red);
-      background: #291117;
+      color: var(--pink);
+      background: #2a1118;
       border-color: var(--red);
     }
 
@@ -234,7 +256,7 @@
       color: var(--red);
       font-size: 5px;
       line-height: 1;
-      opacity: 0.45;
+      opacity: 0.5;
       white-space: pre;
     }
 
@@ -243,13 +265,13 @@
       padding: 10px;
       color: var(--muted);
       border: 1px solid var(--border);
-      background: #100c0d;
+      background: #100a0c;
       font-size: 10px;
       line-height: 1.8;
     }
 
     .sidebar-info strong {
-      color: var(--red-soft);
+      color: var(--pink);
       font-weight: normal;
     }
 
@@ -258,19 +280,19 @@
       min-width: 0;
       overflow: hidden;
       background:
-        linear-gradient(rgba(255, 63, 91, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 63, 91, 0.025) 1px, transparent 1px),
+        linear-gradient(rgba(255, 61, 91, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 61, 91, 0.025) 1px, transparent 1px),
         #050505;
       background-size: 25px 25px;
     }
 
     .workspace::before {
-      content: "ASCII CORE // LOCAL SIMULATION";
+      content: "ASCII CORE // VISUAL GLITCH SYSTEM";
       position: absolute;
       top: 12px;
       right: 15px;
       z-index: 5;
-      color: #74434b;
+      color: #74434c;
       font-size: 9px;
       letter-spacing: 0.1em;
       pointer-events: none;
@@ -296,7 +318,7 @@
 
     .main-ascii {
       position: absolute;
-      top: 50%;
+      top: 51%;
       left: 50%;
       z-index: 0;
       width: max-content;
@@ -304,11 +326,23 @@
       color: var(--red);
       font-size: clamp(4px, 0.61vw, 10px);
       line-height: 1;
-      opacity: 0.16;
+      opacity: 0.18;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      text-shadow: 0 0 25px rgba(255, 63, 91, 0.9);
-      transition: color 0.35s ease, filter 0.35s ease;
+      text-shadow:
+        0 0 8px currentColor,
+        0 0 25px currentColor;
+      transition:
+        color 0.25s ease,
+        opacity 0.25s ease,
+        filter 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .main-ascii.ascii-glitch {
+      opacity: 0.4;
+      filter: hue-rotate(120deg) saturate(4);
+      transform: translate(-50%, -50%) skewX(-8deg);
     }
 
     .terminal-output {
@@ -316,9 +350,9 @@
       z-index: 2;
       flex: 1;
       min-height: 0;
-      padding: 16px 20px 64px;
+      padding: 16px 20px 65px;
       overflow-y: auto;
-      color: var(--text);
+      color: var(--white);
       font-size: 13px;
       line-height: 1.5;
       white-space: pre-wrap;
@@ -359,6 +393,10 @@
       color: var(--purple);
     }
 
+    .terminal-line.orange {
+      color: var(--orange);
+    }
+
     .terminal-line.muted {
       color: var(--muted);
     }
@@ -381,13 +419,13 @@
     .command-prompt {
       color: var(--red);
       white-space: nowrap;
-      text-shadow: 0 0 8px rgba(255, 63, 91, 0.7);
+      text-shadow: 0 0 8px rgba(255, 61, 91, 0.8);
     }
 
     #commandInput {
       flex: 1;
       min-width: 0;
-      color: var(--text);
+      color: var(--white);
       background: transparent;
       border: 0;
       outline: 0;
@@ -399,7 +437,7 @@
       color: #69464d;
     }
 
-    /* Coding workspace */
+    /* Coding */
 
     .coding-view {
       padding: 40px 14px 14px;
@@ -411,7 +449,7 @@
       gap: 7px;
       min-height: 38px;
       padding: 7px;
-      background: #120e0f;
+      background: #120d0f;
       border: 1px solid var(--border);
     }
 
@@ -479,7 +517,7 @@
       font-size: 10px;
     }
 
-    /* Fullscreen preview */
+    /* Preview */
 
     .preview-view {
       padding: 40px 14px 14px;
@@ -489,7 +527,7 @@
       display: flex;
       gap: 7px;
       padding: 7px;
-      background: #120e0f;
+      background: #120d0f;
       border: 1px solid var(--border);
     }
 
@@ -526,7 +564,7 @@
       gap: 7px;
       padding: 7px;
       border: 1px solid var(--border);
-      background: #120e0f;
+      background: #120d0f;
     }
 
     .logs-toolbar button {
@@ -570,7 +608,7 @@
     }
 
     .metric strong {
-      color: var(--red-soft);
+      color: var(--pink);
       font-weight: normal;
     }
 
@@ -583,7 +621,7 @@
     }
 
     .activity-log {
-      height: 200px;
+      height: 205px;
       overflow-y: auto;
       color: var(--muted);
       font-size: 10px;
@@ -601,7 +639,7 @@
       padding: 8px 12px;
       overflow: hidden;
       color: var(--muted);
-      background: #120e0f;
+      background: #120d0f;
       border-top: 1px solid var(--border);
       font-size: 10px;
       white-space: nowrap;
@@ -612,98 +650,136 @@
       font-weight: normal;
     }
 
-    /* Bug effects */
+    /* Random glitch objects */
 
     .glitch-text {
       position: fixed;
-      z-index: 500;
+      z-index: 700;
       padding: 7px 10px;
-      color: var(--red);
-      background: #100608;
-      border: 1px solid var(--red);
-      box-shadow: 0 0 18px rgba(255, 63, 91, 0.35);
-      font-size: 11px;
+      color: white;
+      background: #19070b;
+      border: 1px solid currentColor;
+      box-shadow: 0 0 20px currentColor;
+      font-size: 10px;
       pointer-events: none;
-      animation: glitchPop 1.5s forwards;
+      animation: glitchText 1.7s forwards;
     }
 
-    @keyframes glitchPop {
+    @keyframes glitchText {
       0% {
         opacity: 0;
-        transform: translateX(-8px) skewX(-12deg);
+        transform: translateX(-12px) skewX(-12deg);
       }
 
-      15% {
+      12% {
         opacity: 1;
       }
 
-      80% {
+      78% {
         opacity: 1;
       }
 
       100% {
         opacity: 0;
-        transform: translateX(10px) skewX(12deg);
+        transform: translateX(15px) skewX(12deg);
       }
     }
 
     .glitch-block {
       position: fixed;
-      z-index: 450;
+      z-index: 650;
       pointer-events: none;
-      animation: blockFlash 0.8s forwards;
+      animation: glitchBlock 1s forwards;
     }
 
-    @keyframes blockFlash {
+    @keyframes glitchBlock {
       0% {
         opacity: 0;
+        transform: translateX(-5px);
       }
 
-      20% {
-        opacity: 0.75;
+      18% {
+        opacity: 0.8;
       }
 
-      80% {
+      75% {
         opacity: 0.55;
       }
 
       100% {
         opacity: 0;
+        transform: translateX(8px);
       }
     }
 
-    .screen-glitch {
-      animation: screenGlitch 0.18s linear;
+    .static-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      pointer-events: none;
+      opacity: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.3) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,0,70,.22) 1px, transparent 1px);
+      background-position: 0 0, 9px 11px;
+      background-size: 5px 5px, 7px 7px;
+      mix-blend-mode: screen;
     }
 
-    @keyframes screenGlitch {
+    .static-overlay.active {
+      animation: staticFlash 0.8s forwards;
+    }
+
+    @keyframes staticFlash {
+      0% { opacity: 0; }
+      20% { opacity: 0.28; }
+      60% { opacity: 0.14; }
+      100% { opacity: 0; }
+    }
+
+    .error-popup {
+      position: fixed;
+      z-index: 800;
+      width: 230px;
+      padding: 10px;
+      color: var(--red);
+      background: #0e0608;
+      border: 1px solid var(--red);
+      box-shadow: 0 0 22px rgba(255, 61, 91, 0.3);
+      font-size: 10px;
+      pointer-events: none;
+      animation: popupError 2.4s forwards;
+    }
+
+    .error-popup strong {
+      display: block;
+      margin-bottom: 8px;
+      color: white;
+      font-size: 11px;
+    }
+
+    @keyframes popupError {
       0% {
-        transform: translate(0);
-        filter: none;
+        opacity: 0;
+        transform: scale(0.9);
       }
 
-      25% {
-        transform: translate(-3px, 1px);
-        filter: hue-rotate(80deg);
+      12% {
+        opacity: 1;
+        transform: scale(1);
       }
 
-      50% {
-        transform: translate(3px, -1px);
-        filter: saturate(3);
-      }
-
-      75% {
-        transform: translate(-2px, 0);
-        filter: hue-rotate(-60deg);
+      80% {
+        opacity: 1;
       }
 
       100% {
-        transform: translate(0);
-        filter: none;
+        opacity: 0;
+        transform: scale(1.03);
       }
     }
 
-    /* Boot */
+    /* Boot screen */
 
     .boot-screen {
       position: fixed;
@@ -725,7 +801,7 @@
       color: var(--red);
       font-size: 12px;
       line-height: 1.5;
-      text-shadow: 0 0 8px rgba(255, 63, 91, 0.6);
+      text-shadow: 0 0 8px rgba(255, 61, 91, 0.6);
     }
 
     .boot-art {
@@ -752,7 +828,7 @@
       width: min(650px, 100%);
       height: 17px;
       padding: 2px;
-      border: 1px solid var(--red-dim);
+      border: 1px solid var(--border);
     }
 
     .boot-progress-fill {
@@ -794,6 +870,8 @@
 </head>
 
 <body>
+  <div class="static-overlay"></div>
+
   <main id="app" class="app">
     <header class="topbar">
       <div class="traffic">
@@ -803,7 +881,7 @@
       </div>
 
       <div class="top-title">
-        operator@node-07 — ASCII CORE TERMINAL
+        operator@node-07 — ASCII CORE // GLITCH TERMINAL
       </div>
 
       <div class="top-status">LOCAL ONLY</div>
@@ -838,7 +916,7 @@
 | ASCII  |/  |
 |  CORE  |   |
 +--------+  /
-| LOCAL  | /
+| GLITCH | /
 +--------+/
         </pre>
 
@@ -846,14 +924,15 @@
           CORE: <strong>ASCII</strong><br />
           MODE: <strong>LOCAL</strong><br />
           NETWORK: <strong>OFFLINE</strong><br />
-          GLITCHES: <strong>VISUAL</strong>
+          STATIC: <strong>ACTIVE</strong><br />
+          ERRORS: <strong>SIMULATED</strong>
         </div>
       </aside>
 
       <section class="workspace">
         <!-- Terminal -->
         <section id="terminalView" class="view terminal-view active">
-          <pre class="main-ascii">
+          <pre id="mainAscii" class="main-ascii">
                                                                                                                                                                 
                                                                                                                                                                 
                                                                                          ::===                                                                  
@@ -891,7 +970,7 @@
                                                     ***=-##*#-......:***%%###*********+:###*                                                                    
                                                       .-*##*....:::::...   ##*********%*:::                                                                     
                                                       .-=..:....=*##*--#    **********+::::                                                                     
-                                                      +-....::..-**##*     ##*********+::..                                                                     
+                                                      +-....::..-**##*     ##**********+::..                                                                     
                                                        --...::..:****##    ##**********+                                                                        
                                                        #*:%-:::..::+*+     .::-***=--:::                                                                        
                                                       ........:-==:::--   ---:::::.........=#                                                                   
@@ -945,7 +1024,7 @@
           </div>
         </section>
 
-        <!-- Preview workspace -->
+        <!-- Preview -->
         <section id="previewView" class="view preview-view">
           <div class="preview-toolbar">
             <button id="runPageButton">RUN CURRENT PAGE</button>
@@ -964,6 +1043,7 @@
             <button id="generateLogButton">GENERATE LOG</button>
             <button id="clearLogButton">CLEAR LOG</button>
             <button id="glitchButton">FORCE GLITCH</button>
+            <button id="staticButton">STATIC BURST</button>
           </div>
 
           <div id="logsOutput" class="logs-output"></div>
@@ -996,8 +1076,8 @@
             </div>
 
             <div class="metric">
-              <span>UPTIME</span>
-              <strong id="uptimeValue">00:00:00</strong>
+              <span>STATIC</span>
+              <strong>ACTIVE</strong>
             </div>
           </div>
         </div>
@@ -1028,6 +1108,10 @@
 
             <button class="quick-command" data-command="runpage">
               runpage
+            </button>
+
+            <button class="quick-command" data-command="glitch">
+              glitch
             </button>
           </div>
         </div>
@@ -1090,7 +1174,7 @@
                                                     ***=-##*#-......:***%%###*********+:###*                                                                    
                                                       .-*##*....:::::...   ##*********%*:::                                                                     
                                                       .-=..:....=*##*--#    **********+::::                                                                     
-                                                      +-....::..-**##*     ##*********+::..                                                                     
+                                                      +-....::..-**##*     ##**********+::..                                                                     
                                                        --...::..:****##    ##**********+                                                                        
                                                        #*:%-:::..::+*+     .::-***=--:::                                                                        
                                                       ........:-==:::--   ---:::::.........=#                                                                   
@@ -1112,10 +1196,13 @@
   </section>
 
   <script>
+    const app = document.getElementById("app");
+    const staticOverlay = document.querySelector(".static-overlay");
+
     const views = document.querySelectorAll(".view");
     const navButtons = document.querySelectorAll(".nav-button");
 
-    const app = document.getElementById("app");
+    const mainAscii = document.getElementById("mainAscii");
     const terminalOutput = document.getElementById("terminalOutput");
     const terminalInput = document.getElementById("commandInput");
     const terminalForm = document.getElementById("terminalForm");
@@ -1125,7 +1212,6 @@
 
     const stateValue = document.getElementById("stateValue");
     const viewValue = document.getElementById("viewValue");
-    const uptimeValue = document.getElementById("uptimeValue");
 
     const codeEditor = document.getElementById("codeEditor");
     const lineNumbers = document.getElementById("lineNumbers");
@@ -1133,12 +1219,85 @@
     const cursorStatus = document.getElementById("cursorStatus");
     const characterStatus = document.getElementById("characterStatus");
     const languageStatus = document.getElementById("languageStatus");
-
     const previewFrame = document.getElementById("previewFrame");
 
-    let history = [];
+    let commandHistory = [];
     let historyIndex = -1;
-    let startTime = Date.now();
+
+    const colors = [
+      "#ff3d5b",
+      "#ff7f9b",
+      "#7dff98",
+      "#68e6ff",
+      "#ffe477",
+      "#cd7aff",
+      "#ff9b5e"
+    ];
+
+    const glitchMessages = [
+      "BUFFER DESYNC",
+      "ASCII CORE WARNING",
+      "STATIC OVERFLOW",
+      "VISUAL PACKET LOST",
+      "COLOR CHANNEL ERROR",
+      "FRAME OFFSET",
+      "RENDER RECOVERY",
+      "RUNTIME WARNING",
+      "UNKNOWN SIGNAL",
+      "CACHE FRAGMENTED"
+    ];
+
+    const fakeErrors = [
+      "E_RENDER_017: color channel mismatch",
+      "E_ASCII_404: glyph sequence incomplete",
+      "E_BUFFER_211: harmless visual desync",
+      "E_FRAME_008: refresh offset detected",
+      "E_STATIC_302: display noise above threshold",
+      "E_CORE_616: recovered from fake fault"
+    ];
+
+    const scripts = {
+      scan: [
+        "[scan] loading local diagnostic module",
+        "[scan] checking ASCII core",
+        "[scan] checking sandbox boundary",
+        "[scan] checking visual renderer",
+        "[scan] scan complete — no critical issues"
+      ],
+
+      trace: [
+        "[trace] creating simulated route",
+        "[trace] hop 01 — local sandbox",
+        "[trace] hop 02 — visual renderer",
+        "[trace] hop 03 — terminal output",
+        "[trace] trace complete — no network used"
+      ],
+
+      audit: [
+        "[audit] reading local project files",
+        "[audit] checking main.js",
+        "[audit] checking index.html",
+        "[audit] checking styles.css",
+        "[audit] checking config.json",
+        "[audit] audit complete — files verified"
+      ],
+
+      decrypt: [
+        "[cipher] loading fictional data block",
+        "[cipher] generating visual key matrix",
+        "[cipher] transforming local display data",
+        "[cipher] validating output",
+        "[cipher] complete — no real data processed"
+      ],
+
+      stress: [
+        "[stress] allocating browser-safe test buffer",
+        "[stress] writing visual pattern",
+        "[stress] reading visual pattern",
+        "[stress] releasing test buffer",
+        "[stress] complete — browser stable"
+      ]
+    };
 
     const files = {
       "main.js": {
@@ -1192,53 +1351,18 @@ console.log(createSignal());`
       }
     };
 
-    const scripts = {
-      scan: [
-        "[scan] loading local diagnostic module",
-        "[scan] checking ASCII core",
-        "[scan] checking sandbox boundary",
-        "[scan] checking visual renderer",
-        "[scan] scan complete — no critical issues"
-      ],
-
-      trace: [
-        "[trace] creating simulated route",
-        "[trace] hop 01 — local sandbox",
-        "[trace] hop 02 — visual renderer",
-        "[trace] hop 03 — terminal output",
-        "[trace] trace complete — no network used"
-      ],
-
-      audit: [
-        "[audit] reading local project files",
-        "[audit] checking main.js",
-        "[audit] checking index.html",
-        "[audit] checking styles.css",
-        "[audit] checking config.json",
-        "[audit] audit complete — files verified"
-      ],
-
-      decrypt: [
-        "[cipher] loading fictional data block",
-        "[cipher] generating visual key matrix",
-        "[cipher] transforming local display data",
-        "[cipher] validating output",
-        "[cipher] complete — no real data processed"
-      ],
-
-      stress: [
-        "[stress] allocating browser-safe test buffer",
-        "[stress] writing visual pattern",
-        "[stress] reading visual pattern",
-        "[stress] releasing test buffer",
-        "[stress] complete — browser stable"
-      ]
-    };
-
     function wait(milliseconds) {
       return new Promise((resolve) => {
         setTimeout(resolve, milliseconds);
       });
+    }
+
+    function randomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function randomColor() {
+      return randomItem(colors);
     }
 
     function switchView(viewId) {
@@ -1294,22 +1418,11 @@ console.log(createSignal());`
       logsOutput.scrollTop = logsOutput.scrollHeight;
     }
 
-    function updateUptime() {
-      const totalSeconds = Math.floor((Date.now() - startTime) / 1000);
-      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
-      const minutes = String(
-        Math.floor((totalSeconds % 3600) / 60)
-      ).padStart(2, "0");
-      const seconds = String(totalSeconds % 60).padStart(2, "0");
-
-      uptimeValue.textContent = `${hours}:${minutes}:${seconds}`;
-    }
-
     function updateLineNumbers() {
-      const count = codeEditor.value.split("\n").length;
+      const lineCount = codeEditor.value.split("\n").length;
 
       lineNumbers.textContent = Array.from(
-        { length: count },
+        { length: lineCount },
         (_, index) => index + 1
       ).join("\n");
 
@@ -1530,10 +1643,75 @@ console.log(createSignal());`
       addTerminalLine(`downloaded ${fileSelect.value}`, "green");
     }
 
-    function checkPage() {
-      saveFile();
-      updatePreview();
-      addTerminalLine("page preview refreshed", "green");
+    function triggerStatic() {
+      staticOverlay.classList.remove("active");
+      void staticOverlay.offsetWidth;
+      staticOverlay.classList.add("active");
+    }
+
+    function triggerGlitch() {
+      const color = randomColor();
+      const message = randomItem(glitchMessages);
+
+      const block = document.createElement("div");
+      block.className = "glitch-block";
+      block.style.left = `${Math.random() * 90 + 3}%`;
+      block.style.top = `${Math.random() * 82 + 3}%`;
+      block.style.width = `${Math.random() * 170 + 25}px`;
+      block.style.height = `${Math.random() * 35 + 5}px`;
+      block.style.background = color;
+      block.style.boxShadow = `0 0 20px ${color}`;
+
+      document.body.appendChild(block);
+
+      const text = document.createElement("div");
+      text.className = "glitch-text";
+      text.textContent = message;
+      text.style.color = color;
+      text.style.left = `${Math.random() * 72 + 10}%`;
+      text.style.top = `${Math.random() * 75 + 8}%`;
+
+      document.body.appendChild(text);
+
+      mainAscii.classList.add("ascii-glitch");
+      app.classList.add("screen-shake");
+      triggerStatic();
+
+      addTerminalLine(
+        `${randomItem(fakeErrors)} — recovered`,
+        Math.random() > 0.5 ? "yellow" : "purple"
+      );
+
+      addActivity(`${message.toLowerCase()} event triggered`);
+
+      setTimeout(() => {
+        block.remove();
+        text.remove();
+        mainAscii.classList.remove("ascii-glitch");
+        app.classList.remove("screen-shake");
+      }, 1700);
+    }
+
+    function triggerErrorPopup() {
+      const popup = document.createElement("div");
+      popup.className = "error-popup";
+      popup.style.left = `${Math.random() * 70 + 10}%`;
+      popup.style.top = `${Math.random() * 65 + 10}%`;
+
+      popup.innerHTML = `
+        <strong>VISUAL SYSTEM WARNING</strong>
+        ${randomItem(fakeErrors)}<br />
+        status: recovered<br />
+        impact: none
+      `;
+
+      document.body.appendChild(popup);
+
+      addActivity("simulated error popup displayed");
+
+      setTimeout(() => {
+        popup.remove();
+      }, 2500);
     }
 
     async function runScript(scriptName) {
@@ -1552,8 +1730,13 @@ console.log(createSignal());`
       addCommand(`run ${scriptName}`);
 
       for (const line of script) {
-        await wait(330);
-        addTerminalLine(line, "blue");
+        await wait(320);
+
+        if (Math.random() > 0.72) {
+          triggerGlitch();
+        }
+
+        addTerminalLine(line, randomItem(["blue", "green", "purple"]));
         addActivity(line);
       }
 
@@ -1571,8 +1754,8 @@ console.log(createSignal());`
       ];
 
       for (const row of rows) {
-        await wait(300);
-        addTerminalLine(row, "blue");
+        await wait(280);
+        addTerminalLine(row, randomItem(["blue", "purple", "cyan"]));
       }
 
       addTerminalLine(
@@ -1594,13 +1777,15 @@ console.log(createSignal());`
       addTerminalLine("pwd                  show current path");
       addTerminalLine("ls                   list files");
       addTerminalLine("scripts              list visual scripts");
-      addTerminalLine("run <script>         run a visual script");
+      addTerminalLine("run <script>         run visual script");
       addTerminalLine("matrix               run fake matrix test");
       addTerminalLine("coding               open coding workspace");
       addTerminalLine("runpage              run current page");
       addTerminalLine("preview              open page preview");
       addTerminalLine("logs                 open system logs");
-      addTerminalLine("glitch               trigger visual glitch");
+      addTerminalLine("glitch               trigger colored glitch");
+      addTerminalLine("static               trigger static burst");
+      addTerminalLine("error                show fake error popup");
     }
 
     async function executeCommand(command) {
@@ -1614,7 +1799,6 @@ console.log(createSignal());`
 
       const parts = trimmed.split(/\s+/);
       const base = parts[0].toLowerCase();
-      const argument = parts.slice(1).join(" ");
 
       switch (base) {
         case "help":
@@ -1632,11 +1816,14 @@ console.log(createSignal());`
           addTerminalLine("mode:       LOCAL");
           addTerminalLine("network:    OFFLINE");
           addTerminalLine("glitches:   VISUAL ONLY");
-          addTerminalLine("uptime:     " + uptimeValue.textContent);
           break;
 
         case "uptime":
-          addTerminalLine(uptimeValue.textContent, "green");
+          addTerminalLine(
+            document.querySelector(".metric strong:last-child")?.textContent ||
+            "ACTIVE",
+            "green"
+          );
           break;
 
         case "date":
@@ -1691,58 +1878,19 @@ console.log(createSignal());`
           triggerGlitch();
           break;
 
+        case "static":
+          triggerStatic();
+          addTerminalLine("static burst complete — display recovered", "yellow");
+          break;
+
+        case "error":
+          triggerErrorPopup();
+          addTerminalLine("simulated error injected — recovery complete", "red");
+          break;
+
         default:
           addTerminalLine(`${base}: command not found`, "red");
       }
-    }
-
-    function triggerGlitch() {
-      const colors = [
-        "#ff3f5b",
-        "#7dff98",
-        "#6edcff",
-        "#ffe477",
-        "#ca7dff"
-      ];
-
-      const color =
-        colors[Math.floor(Math.random() * colors.length)];
-
-      const block = document.createElement("div");
-      block.className = "glitch-block";
-      block.style.left = `${Math.random() * 90 + 3}%`;
-      block.style.top = `${Math.random() * 80 + 5}%`;
-      block.style.width = `${Math.random() * 150 + 30}px`;
-      block.style.height = `${Math.random() * 30 + 5}px`;
-      block.style.background = color;
-
-      document.body.appendChild(block);
-
-      const text = document.createElement("div");
-      text.className = "glitch-text";
-      text.textContent = [
-        "BUFFER DESYNC",
-        "ASCII CORE WARNING",
-        "VISUAL PACKET LOST",
-        "SCREEN OFFSET",
-        "RUNTIME GLITCH",
-        "RECOVERING..."
-      ][Math.floor(Math.random() * 6)];
-
-      text.style.left = `${Math.random() * 75 + 10}%`;
-      text.style.top = `${Math.random() * 75 + 10}%`;
-
-      document.body.appendChild(text);
-      app.classList.add("screen-glitch");
-
-      setTimeout(() => {
-        block.remove();
-        text.remove();
-        app.classList.remove("screen-glitch");
-      }, 1500);
-
-      addTerminalLine("visual glitch detected — recovery complete", "yellow");
-      addActivity("visual glitch event triggered");
     }
 
     navButtons.forEach((button) => {
@@ -1754,32 +1902,32 @@ console.log(createSignal());`
     terminalForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const command = commandInput.value;
-      commandInput.value = "";
+      const command = terminalInput.value;
+      terminalInput.value = "";
 
       await executeCommand(command);
-      commandInput.focus();
+      terminalInput.focus();
     });
 
-    commandInput.addEventListener("keydown", (event) => {
+    terminalInput.addEventListener("keydown", (event) => {
       if (event.key === "ArrowUp") {
         event.preventDefault();
 
         if (historyIndex > 0) {
           historyIndex--;
-          commandInput.value = history[historyIndex];
+          terminalInput.value = commandHistory[historyIndex];
         }
       }
 
       if (event.key === "ArrowDown") {
         event.preventDefault();
 
-        if (historyIndex < history.length - 1) {
+        if (historyIndex < commandHistory.length - 1) {
           historyIndex++;
-          commandInput.value = history[historyIndex];
+          terminalInput.value = commandHistory[historyIndex];
         } else {
-          historyIndex = history.length;
-          commandInput.value = "";
+          historyIndex = commandHistory.length;
+          terminalInput.value = "";
         }
       }
 
@@ -1802,15 +1950,17 @@ console.log(createSignal());`
           "runpage",
           "preview",
           "logs",
-          "glitch"
+          "glitch",
+          "static",
+          "error"
         ];
 
         const match = commands.find((command) =>
-          command.startsWith(commandInput.value.toLowerCase())
+          command.startsWith(terminalInput.value.toLowerCase())
         );
 
         if (match) {
-          commandInput.value = match;
+          terminalInput.value = match;
         }
       }
     });
@@ -1930,6 +2080,10 @@ console.log(createSignal());`
       .getElementById("glitchButton")
       .addEventListener("click", triggerGlitch);
 
+    document
+      .getElementById("staticButton")
+      .addEventListener("click", triggerStatic);
+
     function randomActivity() {
       const messages = [
         "ASCII core heartbeat stable",
@@ -1937,12 +2091,12 @@ console.log(createSignal());`
         "preview renderer waiting",
         "visual error layer idle",
         "sandbox boundary intact",
-        "random color process completed"
+        "random color process completed",
+        "static buffer normalized",
+        "glitch recovery successful"
       ];
 
-      const message =
-        messages[Math.floor(Math.random() * messages.length)];
-
+      const message = randomItem(messages);
       addActivity(message);
     }
 
@@ -1957,12 +2111,13 @@ console.log(createSignal());`
         "[ OK ] loading coding workspace",
         "[ OK ] loading page preview engine",
         "[ OK ] enabling visual glitch layer",
+        "[ OK ] enabling static generator",
         "[ OK ] disabling external access",
         "[ OK ] NODE-07 ready"
       ];
 
       for (let index = 0; index < messages.length; index++) {
-        await wait(190);
+        await wait(180);
 
         bootLog.textContent += `${messages[index]}\n`;
         progressFill.style.width =
@@ -1975,31 +2130,62 @@ console.log(createSignal());`
 
       addTerminalLine("ASCII CORE TERMINAL READY", "green");
       addTerminalLine(
-        "Visual glitch mode enabled. All glitches are harmless.",
+        "Random color, static, and glitch effects enabled.",
         "yellow"
+      );
+      addTerminalLine(
+        "All errors are simulated and harmless.",
+        "muted"
       );
       addTerminalLine("Type 'help' to begin.", "muted");
 
       addActivity("terminal session started");
-      commandInput.focus();
+      terminalInput.focus();
     }
 
     loadFile();
     updatePreview();
     updateCodeStats();
-    updateUptime();
-
-    setInterval(updateUptime, 1000);
 
     setInterval(() => {
-      if (Math.random() > 0.62) {
+      const totalSeconds = Math.floor(performance.now() / 1000);
+      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+      const minutes = String(
+        Math.floor((totalSeconds % 3600) / 60)
+      ).padStart(2, "0");
+      const seconds = String(totalSeconds % 60).padStart(2, "0");
+
+      const uptimeElement = document.querySelector(
+        ".metric:nth-child(5) strong"
+      );
+
+      if (uptimeElement) {
+        uptimeElement.textContent =
+          `${hours}:${minutes}:${seconds}`;
+      }
+    }, 1000);
+
+    setInterval(() => {
+      if (Math.random() > 0.5) {
         randomActivity();
       }
 
-      if (Math.random() > 0.88) {
+      if (Math.random() > 0.86) {
         triggerGlitch();
       }
-    }, 7000);
+
+      if (Math.random() > 0.93) {
+        triggerErrorPopup();
+      }
+
+      if (Math.random() > 0.9) {
+        triggerStatic();
+      }
+
+      if (Math.random() > 0.74) {
+        mainAscii.style.color = randomColor();
+      }
+    }, 5000);
 
     boot();
   </script>
