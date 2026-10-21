@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NODE//07 — Fictional Terminal</title>
+  <title>NODE//07 TERMINAL</title>
 
   <style>
     :root {
-      --black: #030303;
-      --black-2: #090909;
-      --panel: #0e0d0e;
-      --panel-2: #151214;
+      --black: #020202;
+      --panel: #080808;
+      --panel-2: #111011;
       --border: #3b2428;
-      --border-red: #8e2d3b;
       --red: #ff3f5b;
-      --red-soft: #ff8291;
-      --green: #84ff9b;
-      --yellow: #ffe27a;
-      --blue: #77d9ff;
-      --text: #e9e0e2;
-      --muted: #806d71;
+      --red-soft: #ff8794;
+      --green: #7dff98;
+      --blue: #6edcff;
+      --yellow: #ffe477;
+      --purple: #ca7dff;
+      --text: #eee5e7;
+      --muted: #817175;
       --font: "Courier New", Courier, monospace;
     }
 
@@ -45,27 +44,27 @@
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 1000;
+      z-index: 999;
       pointer-events: none;
       background: repeating-linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.025) 0,
-        rgba(255, 255, 255, 0.025) 1px,
+        rgba(255, 255, 255, 0.028) 0,
+        rgba(255, 255, 255, 0.028) 1px,
         transparent 1px,
         transparent 4px
       );
-      opacity: 0.22;
+      opacity: 0.25;
     }
 
     body::after {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 999;
+      z-index: 998;
       pointer-events: none;
       box-shadow:
         inset 0 0 150px #000,
-        inset 0 0 30px rgba(255, 63, 91, 0.06);
+        inset 0 0 35px rgba(255, 63, 91, 0.08);
     }
 
     button,
@@ -78,7 +77,7 @@
     button,
     select {
       color: var(--text);
-      background: #100d0e;
+      background: #110d0e;
       border: 1px solid var(--border);
       cursor: pointer;
     }
@@ -87,8 +86,8 @@
     select:hover {
       color: white;
       border-color: var(--red);
-      background: #281116;
-      box-shadow: 0 0 12px rgba(255, 63, 91, 0.22);
+      background: #2a1117;
+      box-shadow: 0 0 12px rgba(255, 63, 91, 0.24);
     }
 
     button:active {
@@ -96,7 +95,7 @@
     }
 
     ::selection {
-      color: #210006;
+      color: #260006;
       background: var(--red);
     }
 
@@ -107,7 +106,7 @@
       height: 100vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at 50% 0%, rgba(130, 25, 40, 0.14), transparent 50%),
+        radial-gradient(circle at 50% 0%, rgba(125, 20, 40, 0.16), transparent 55%),
         #030303;
     }
 
@@ -119,7 +118,7 @@
       min-height: 38px;
       padding: 0 12px;
       color: var(--muted);
-      background: #100d0e;
+      background: #120e0f;
       border-bottom: 1px solid var(--border);
       font-size: 11px;
     }
@@ -132,8 +131,8 @@
     .traffic span {
       width: 10px;
       height: 10px;
-      border: 1px solid #555;
       border-radius: 50%;
+      border: 1px solid #555;
     }
 
     .traffic span:nth-child(1) {
@@ -165,7 +164,7 @@
 
     .main-layout {
       display: grid;
-      grid-template-columns: 235px minmax(0, 1fr) 330px;
+      grid-template-columns: 230px minmax(0, 1fr) 315px;
       flex: 1;
       min-height: 0;
       overflow: hidden;
@@ -189,9 +188,9 @@
     .section-title {
       padding: 11px 13px;
       color: var(--red);
-      background: #130f10;
+      background: #150f11;
       border-bottom: 1px solid var(--border);
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 0.1em;
     }
 
@@ -215,18 +214,18 @@
       width: 100%;
       padding: 10px;
       text-align: left;
-      font-size: 11px;
-    }
-
-    .nav-button.active {
-      color: var(--red);
-      border-color: var(--red);
-      background: #241015;
+      font-size: 10px;
     }
 
     .nav-button::before {
       content: "> ";
       color: var(--red);
+    }
+
+    .nav-button.active {
+      color: var(--red);
+      background: #291117;
+      border-color: var(--red);
     }
 
     .ascii-mini {
@@ -235,18 +234,18 @@
       color: var(--red);
       font-size: 5px;
       line-height: 1;
-      opacity: 0.4;
+      opacity: 0.45;
       white-space: pre;
     }
 
     .sidebar-info {
       margin: 14px 12px;
-      padding: 11px;
+      padding: 10px;
       color: var(--muted);
       border: 1px solid var(--border);
-      background: #0d0b0c;
+      background: #100c0d;
       font-size: 10px;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     .sidebar-info strong {
@@ -266,14 +265,15 @@
     }
 
     .workspace::before {
-      content: "LOCAL SANDBOX // NO EXTERNAL ACCESS";
+      content: "ASCII CORE // LOCAL SIMULATION";
       position: absolute;
       top: 12px;
-      right: 17px;
-      z-index: 2;
-      color: #71434a;
-      font-size: 10px;
+      right: 15px;
+      z-index: 5;
+      color: #74434b;
+      font-size: 9px;
       letter-spacing: 0.1em;
+      pointer-events: none;
     }
 
     .view {
@@ -288,16 +288,35 @@
       flex-direction: column;
     }
 
-    /* Terminal */
+    /* Main terminal */
 
     .terminal-view {
-      padding-top: 42px;
+      padding-top: 38px;
+    }
+
+    .main-ascii {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      width: max-content;
+      margin: 0;
+      color: var(--red);
+      font-size: clamp(4px, 0.61vw, 10px);
+      line-height: 1;
+      opacity: 0.16;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      text-shadow: 0 0 25px rgba(255, 63, 91, 0.9);
+      transition: color 0.35s ease, filter 0.35s ease;
     }
 
     .terminal-output {
+      position: relative;
+      z-index: 2;
       flex: 1;
       min-height: 0;
-      padding: 16px 20px 65px;
+      padding: 16px 20px 64px;
       overflow-y: auto;
       color: var(--text);
       font-size: 13px;
@@ -336,6 +355,10 @@
       color: var(--blue);
     }
 
+    .terminal-line.purple {
+      color: var(--purple);
+    }
+
     .terminal-line.muted {
       color: var(--muted);
     }
@@ -345,6 +368,7 @@
       right: 0;
       bottom: 0;
       left: 0;
+      z-index: 5;
       display: flex;
       align-items: center;
       gap: 9px;
@@ -375,26 +399,10 @@
       color: #69464d;
     }
 
-    .terminal-ascii {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      z-index: 0;
-      width: max-content;
-      margin: 0;
-      color: var(--red);
-      font-size: clamp(4px, 0.62vw, 10px);
-      line-height: 1;
-      opacity: 0.1;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      text-shadow: 0 0 20px rgba(255, 63, 91, 0.8);
-    }
-
-    /* Coding view */
+    /* Coding workspace */
 
     .coding-view {
-      padding: 42px 15px 15px;
+      padding: 40px 14px 14px;
     }
 
     .coding-toolbar {
@@ -403,13 +411,13 @@
       gap: 7px;
       min-height: 38px;
       padding: 7px;
-      background: #110d0e;
+      background: #120e0f;
       border: 1px solid var(--border);
     }
 
     .coding-toolbar button,
     .coding-toolbar select {
-      min-height: 26px;
+      min-height: 27px;
       padding: 4px 8px;
       font-size: 10px;
     }
@@ -426,14 +434,14 @@
       margin-top: 8px;
       overflow: hidden;
       border: 1px solid var(--border);
-      background: #060606;
+      background: #070606;
     }
 
     .line-numbers {
       padding: 13px 9px 13px 0;
       overflow: hidden;
-      color: #70434b;
-      border-right: 1px solid #321b20;
+      color: #73454d;
+      border-right: 1px solid #351c22;
       text-align: right;
       line-height: 1.6;
       user-select: none;
@@ -446,7 +454,7 @@
       min-height: 0;
       padding: 13px;
       overflow: auto;
-      color: #ffc8cf;
+      color: #ffcbd1;
       background: transparent;
       border: 0;
       outline: 0;
@@ -471,142 +479,62 @@
       font-size: 10px;
     }
 
-    /* Love page */
+    /* Fullscreen preview */
 
-    .love-view {
-      padding: 42px 15px 15px;
-      overflow-y: auto;
+    .preview-view {
+      padding: 40px 14px 14px;
     }
 
-    .love-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      min-height: 100%;
-    }
-
-    .love-editor,
-    .love-preview {
-      min-width: 0;
-      border: 1px solid var(--border);
-      background: #0c0a0b;
-    }
-
-    .love-editor {
+    .preview-toolbar {
       display: flex;
-      flex-direction: column;
-    }
-
-    .love-editor textarea {
-      flex: 1;
-      min-height: 230px;
-      padding: 14px;
-      color: var(--red-soft);
-      background: transparent;
-      border: 0;
-      outline: 0;
-      resize: none;
-      font-size: 13px;
-      line-height: 1.6;
-      user-select: text;
-    }
-
-    .love-controls {
-      display: flex;
-      flex-wrap: wrap;
       gap: 7px;
-      padding: 9px;
-      border-top: 1px solid var(--border);
+      padding: 7px;
+      background: #120e0f;
+      border: 1px solid var(--border);
     }
 
-    .love-controls button {
-      padding: 7px 9px;
+    .preview-toolbar button {
+      padding: 6px 9px;
       font-size: 10px;
     }
 
-    .love-preview {
-      position: relative;
-      min-height: 300px;
+    .preview-frame-wrap {
+      flex: 1;
+      min-height: 0;
+      margin-top: 8px;
       overflow: hidden;
-      background:
-        radial-gradient(circle at center, rgba(255, 63, 91, 0.22), transparent 55%),
-        #13080b;
+      border: 1px solid var(--border);
+      background: white;
     }
 
-    .love-card {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 25px;
-      text-align: center;
-    }
-
-    .love-card-inner {
-      width: min(400px, 100%);
-      padding: 28px;
-      border: 1px solid var(--red);
-      background: rgba(30, 5, 10, 0.78);
-      box-shadow: 0 0 30px rgba(255, 63, 91, 0.2);
-    }
-
-    .heart {
-      color: var(--red);
-      font-size: 42px;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.12);
-      }
-    }
-
-    #loveTitle {
-      margin: 12px 0;
-      color: var(--red-soft);
-      font-size: 24px;
-    }
-
-    #loveMessage {
-      min-height: 80px;
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-    }
-
-    #loveDate {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 10px;
+    #previewFrame {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+      background: white;
     }
 
     /* Logs */
 
     .logs-view {
-      padding: 42px 15px 15px;
+      padding: 40px 14px 14px;
     }
 
-    .log-toolbar {
+    .logs-toolbar {
       display: flex;
       gap: 7px;
-      padding: 8px;
+      padding: 7px;
       border: 1px solid var(--border);
-      background: #110d0e;
+      background: #120e0f;
     }
 
-    .log-toolbar button {
-      padding: 7px 10px;
+    .logs-toolbar button {
+      padding: 6px 9px;
       font-size: 10px;
     }
 
-    .log-output {
+    .logs-output {
       flex: 1;
       min-height: 0;
       margin-top: 8px;
@@ -614,14 +542,14 @@
       overflow-y: auto;
       color: var(--muted);
       border: 1px solid var(--border);
-      background: #060606;
+      background: #070606;
       font-size: 11px;
       line-height: 1.7;
       white-space: pre-wrap;
       user-select: text;
     }
 
-    /* Right side */
+    /* Right panels */
 
     .right-section {
       border-bottom: 1px solid var(--border);
@@ -637,7 +565,7 @@
       gap: 10px;
       padding: 7px 0;
       color: var(--muted);
-      border-bottom: 1px dotted #37272a;
+      border-bottom: 1px dotted #39272b;
       font-size: 10px;
     }
 
@@ -655,7 +583,7 @@
     }
 
     .activity-log {
-      height: 190px;
+      height: 200px;
       overflow-y: auto;
       color: var(--muted);
       font-size: 10px;
@@ -673,7 +601,7 @@
       padding: 8px 12px;
       overflow: hidden;
       color: var(--muted);
-      background: #100d0e;
+      background: #120e0f;
       border-top: 1px solid var(--border);
       font-size: 10px;
       white-space: nowrap;
@@ -683,6 +611,99 @@
       color: var(--red);
       font-weight: normal;
     }
+
+    /* Bug effects */
+
+    .glitch-text {
+      position: fixed;
+      z-index: 500;
+      padding: 7px 10px;
+      color: var(--red);
+      background: #100608;
+      border: 1px solid var(--red);
+      box-shadow: 0 0 18px rgba(255, 63, 91, 0.35);
+      font-size: 11px;
+      pointer-events: none;
+      animation: glitchPop 1.5s forwards;
+    }
+
+    @keyframes glitchPop {
+      0% {
+        opacity: 0;
+        transform: translateX(-8px) skewX(-12deg);
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(10px) skewX(12deg);
+      }
+    }
+
+    .glitch-block {
+      position: fixed;
+      z-index: 450;
+      pointer-events: none;
+      animation: blockFlash 0.8s forwards;
+    }
+
+    @keyframes blockFlash {
+      0% {
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.75;
+      }
+
+      80% {
+        opacity: 0.55;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .screen-glitch {
+      animation: screenGlitch 0.18s linear;
+    }
+
+    @keyframes screenGlitch {
+      0% {
+        transform: translate(0);
+        filter: none;
+      }
+
+      25% {
+        transform: translate(-3px, 1px);
+        filter: hue-rotate(80deg);
+      }
+
+      50% {
+        transform: translate(3px, -1px);
+        filter: saturate(3);
+      }
+
+      75% {
+        transform: translate(-2px, 0);
+        filter: hue-rotate(-60deg);
+      }
+
+      100% {
+        transform: translate(0);
+        filter: none;
+      }
+    }
+
+    /* Boot */
 
     .boot-screen {
       position: fixed;
@@ -700,7 +721,7 @@
     }
 
     .boot-content {
-      width: min(950px, 100%);
+      width: min(980px, 100%);
       color: var(--red);
       font-size: 12px;
       line-height: 1.5;
@@ -711,7 +732,7 @@
       width: 100%;
       overflow: hidden;
       color: var(--red);
-      font-size: clamp(4px, 0.62vw, 10px);
+      font-size: clamp(4px, 0.61vw, 10px);
       line-height: 1;
       white-space: pre;
     }
@@ -742,7 +763,7 @@
       transition: width 0.15s linear;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1050px) {
       .main-layout {
         grid-template-columns: 190px minmax(0, 1fr);
       }
@@ -761,14 +782,6 @@
         display: none;
       }
 
-      .love-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .love-preview {
-        min-height: 280px;
-      }
-
       .top-title {
         text-align: left;
       }
@@ -781,7 +794,7 @@
 </head>
 
 <body>
-  <main class="app">
+  <main id="app" class="app">
     <header class="topbar">
       <div class="traffic">
         <span></span>
@@ -790,7 +803,7 @@
       </div>
 
       <div class="top-title">
-        operator@node-07 — local fictional command environment
+        operator@node-07 — ASCII CORE TERMINAL
       </div>
 
       <div class="top-status">LOCAL ONLY</div>
@@ -809,8 +822,8 @@
             coding workspace
           </button>
 
-          <button class="nav-button" data-view="loveView">
-            love page
+          <button class="nav-button" data-view="previewView">
+            run page
           </button>
 
           <button class="nav-button" data-view="logsView">
@@ -822,24 +835,25 @@
   .--------.
  /  .--.   /|
 +--------+ / |
-| NODE07 |/  |
-+--------+   |
-| LOCAL  |  /
+| ASCII  |/  |
+|  CORE  |   |
++--------+  /
+| LOCAL  | /
 +--------+/
         </pre>
 
         <div class="sidebar-info">
-          MODE: <strong>FICTIONAL</strong><br />
-          NETWORK: <strong>DISABLED</strong><br />
-          ACCESS: <strong>LOCAL</strong><br />
-          STATUS: <strong>ACTIVE</strong>
+          CORE: <strong>ASCII</strong><br />
+          MODE: <strong>LOCAL</strong><br />
+          NETWORK: <strong>OFFLINE</strong><br />
+          GLITCHES: <strong>VISUAL</strong>
         </div>
       </aside>
 
       <section class="workspace">
         <!-- Terminal -->
         <section id="terminalView" class="view terminal-view active">
-          <pre class="terminal-ascii">
+          <pre class="main-ascii">
                                                                                                                                                                 
                                                                                                                                                                 
                                                                                          ::===                                                                  
@@ -877,7 +891,7 @@
                                                     ***=-##*#-......:***%%###*********+:###*                                                                    
                                                       .-*##*....:::::...   ##*********%*:::                                                                     
                                                       .-=..:....=*##*--#    **********+::::                                                                     
-                                                      +-....::..-**##*     ##**********+::..                                                                     
+                                                      +-....::..-**##*     ##*********+::..                                                                     
                                                        --...::..:****##    ##**********+                                                                        
                                                        #*:%-:::..::+*+     .::-***=--:::                                                                        
                                                       ........:-==:::--   ---:::::.........=#                                                                   
@@ -890,6 +904,7 @@
 
           <form id="terminalForm" class="command-bar">
             <span class="command-prompt">operator@node-07:~$</span>
+
             <input
               id="commandInput"
               autocomplete="off"
@@ -902,7 +917,7 @@
         <!-- Coding workspace -->
         <section id="codingView" class="view coding-view">
           <div class="coding-toolbar">
-            <button id="runCodeButton">RUN</button>
+            <button id="runCodeButton">RUN SCRIPT</button>
             <button id="checkCodeButton">CHECK</button>
             <button id="formatCodeButton">FORMAT</button>
             <button id="clearCodeButton">CLEAR</button>
@@ -930,46 +945,28 @@
           </div>
         </section>
 
-        <!-- Love page -->
-        <section id="loveView" class="view love-view">
-          <div class="love-layout">
-            <div class="love-editor">
-              <div class="section-title">love page editor</div>
+        <!-- Preview workspace -->
+        <section id="previewView" class="view preview-view">
+          <div class="preview-toolbar">
+            <button id="runPageButton">RUN CURRENT PAGE</button>
+            <button id="fullscreenButton">FULLSCREEN</button>
+            <button id="refreshPreviewButton">REFRESH</button>
+          </div>
 
-              <textarea id="loveEditor">You are my favorite person in every timeline.
-
-This page updates live while you type.
-Use the buttons below to change the mood.</textarea>
-
-              <div class="love-controls">
-                <button id="redThemeButton">RED THEME</button>
-                <button id="darkThemeButton">DARK THEME</button>
-                <button id="fullscreenLoveButton">FULLSCREEN</button>
-                <button id="updateLoveButton">UPDATE</button>
-              </div>
-            </div>
-
-            <div id="lovePreview" class="love-preview">
-              <div class="love-card">
-                <div class="love-card-inner">
-                  <div class="heart">♥</div>
-                  <h1 id="loveTitle">For You</h1>
-                  <div id="loveMessage"></div>
-                  <div id="loveDate"></div>
-                </div>
-              </div>
-            </div>
+          <div class="preview-frame-wrap">
+            <iframe id="previewFrame" title="Live page preview"></iframe>
           </div>
         </section>
 
         <!-- Logs -->
         <section id="logsView" class="view logs-view">
-          <div class="log-toolbar">
+          <div class="logs-toolbar">
             <button id="generateLogButton">GENERATE LOG</button>
             <button id="clearLogButton">CLEAR LOG</button>
+            <button id="glitchButton">FORCE GLITCH</button>
           </div>
 
-          <div id="systemLog" class="log-output"></div>
+          <div id="logsOutput" class="logs-output"></div>
         </section>
       </section>
 
@@ -979,8 +976,8 @@ Use the buttons below to change the mood.</textarea>
 
           <div class="right-body">
             <div class="metric">
-              <span>NODE</span>
-              <strong>NODE-07</strong>
+              <span>CORE</span>
+              <strong>ASCII</strong>
             </div>
 
             <div class="metric">
@@ -989,13 +986,13 @@ Use the buttons below to change the mood.</textarea>
             </div>
 
             <div class="metric">
-              <span>ACCESS</span>
-              <strong>DISABLED</strong>
+              <span>NETWORK</span>
+              <strong>OFFLINE</strong>
             </div>
 
             <div class="metric">
-              <span>THREAT</span>
-              <strong>FICTIONAL</strong>
+              <span>GLITCH ENGINE</span>
+              <strong>ACTIVE</strong>
             </div>
 
             <div class="metric">
@@ -1025,12 +1022,12 @@ Use the buttons below to change the mood.</textarea>
               run scan
             </button>
 
-            <button class="quick-command" data-command="matrix">
-              matrix
+            <button class="quick-command" data-command="coding">
+              coding
             </button>
 
-            <button class="quick-command" data-command="clear">
-              clear
+            <button class="quick-command" data-command="runpage">
+              runpage
             </button>
           </div>
         </div>
@@ -1047,8 +1044,9 @@ Use the buttons below to change the mood.</textarea>
 
     <footer class="bottom-status">
       <span>STATE: <strong id="stateValue">IDLE</strong></span>
-      <span>WINDOW: <strong id="windowValue">TERMINAL</strong></span>
-      <span>SECURITY: <strong>LOCAL SIMULATION</strong></span>
+      <span>VIEW: <strong id="viewValue">TERMINAL</strong></span>
+      <span>CORE: <strong>ASCII</strong></span>
+      <span>ACCESS: <strong>LOCAL ONLY</strong></span>
     </footer>
   </main>
 
@@ -1102,7 +1100,7 @@ Use the buttons below to change the mood.</textarea>
       </pre>
 
       <div class="boot-warning">
-        FICTIONAL LOCAL ENVIRONMENT // NO EXTERNAL ACCESS
+        ASCII CORE INITIALIZATION // FICTIONAL LOCAL ENVIRONMENT
       </div>
 
       <div id="bootLog" class="boot-log"></div>
@@ -1117,13 +1115,16 @@ Use the buttons below to change the mood.</textarea>
     const views = document.querySelectorAll(".view");
     const navButtons = document.querySelectorAll(".nav-button");
 
+    const app = document.getElementById("app");
     const terminalOutput = document.getElementById("terminalOutput");
-    const commandInput = document.getElementById("commandInput");
+    const terminalInput = document.getElementById("commandInput");
     const terminalForm = document.getElementById("terminalForm");
 
     const activityLog = document.getElementById("activityLog");
+    const logsOutput = document.getElementById("logsOutput");
+
     const stateValue = document.getElementById("stateValue");
-    const windowValue = document.getElementById("windowValue");
+    const viewValue = document.getElementById("viewValue");
     const uptimeValue = document.getElementById("uptimeValue");
 
     const codeEditor = document.getElementById("codeEditor");
@@ -1133,19 +1134,13 @@ Use the buttons below to change the mood.</textarea>
     const characterStatus = document.getElementById("characterStatus");
     const languageStatus = document.getElementById("languageStatus");
 
-    const loveEditor = document.getElementById("loveEditor");
-    const loveMessage = document.getElementById("loveMessage");
-    const loveDate = document.getElementById("loveDate");
-    const lovePreview = document.getElementById("lovePreview");
+    const previewFrame = document.getElementById("previewFrame");
 
-    const systemLog = document.getElementById("systemLog");
-
-    let commandHistory = [];
+    let history = [];
     let historyIndex = -1;
-    let activeView = "terminalView";
     let startTime = Date.now();
 
-    const projectFiles = {
+    const files = {
       "main.js": {
         language: "JavaScript",
         content: `// Fictional local script
@@ -1165,6 +1160,9 @@ console.log(createSignal());`
         content: `<main class="sandbox">
   <h1>NODE-07</h1>
   <p>Local preview active.</p>
+  <button onclick="this.textContent = 'SIGNAL RECEIVED'">
+    Test Signal
+  </button>
 </main>`
       },
 
@@ -1175,6 +1173,11 @@ console.log(createSignal());`
   color: #ff5364;
   background: #13080b;
   font-family: Arial, sans-serif;
+}
+
+.sandbox button {
+  padding: 10px 14px;
+  cursor: pointer;
 }`
       },
 
@@ -1192,9 +1195,9 @@ console.log(createSignal());`
     const scripts = {
       scan: [
         "[scan] loading local diagnostic module",
+        "[scan] checking ASCII core",
         "[scan] checking sandbox boundary",
-        "[scan] checking display channel",
-        "[scan] checking local storage",
+        "[scan] checking visual renderer",
         "[scan] scan complete — no critical issues"
       ],
 
@@ -1239,8 +1242,6 @@ console.log(createSignal());`
     }
 
     function switchView(viewId) {
-      activeView = viewId;
-
       views.forEach((view) => {
         view.classList.toggle("active", view.id === viewId);
       });
@@ -1255,15 +1256,19 @@ console.log(createSignal());`
       const names = {
         terminalView: "TERMINAL",
         codingView: "CODING",
-        loveView: "LOVE PAGE",
+        previewView: "RUN PAGE",
         logsView: "LOGS"
       };
 
-      windowValue.textContent = names[viewId] || "TERMINAL";
+      viewValue.textContent = names[viewId] || "TERMINAL";
 
       if (viewId === "terminalView") {
-        commandInput.focus();
+        terminalInput.focus();
       }
+    }
+
+    function setState(value) {
+      stateValue.textContent = value;
     }
 
     function addTerminalLine(text, type = "normal") {
@@ -1281,20 +1286,15 @@ console.log(createSignal());`
 
     function addActivity(text) {
       const line = `[${new Date().toLocaleTimeString()}] ${text}`;
+
       activityLog.textContent += `${line}\n`;
       activityLog.scrollTop = activityLog.scrollHeight;
+
+      logsOutput.textContent += `${line}\n`;
+      logsOutput.scrollTop = logsOutput.scrollHeight;
     }
 
-    function addSystemLog(text) {
-      systemLog.textContent += `[${new Date().toLocaleTimeString()}] ${text}\n`;
-      systemLog.scrollTop = systemLog.scrollHeight;
-    }
-
-    function setState(value) {
-      stateValue.textContent = value;
-    }
-
-    function formatUptime() {
+    function updateUptime() {
       const totalSeconds = Math.floor((Date.now() - startTime) / 1000);
       const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
       const minutes = String(
@@ -1302,25 +1302,7 @@ console.log(createSignal());`
       ).padStart(2, "0");
       const seconds = String(totalSeconds % 60).padStart(2, "0");
 
-      return `${hours}:${minutes}:${seconds}`;
-    }
-
-    function updateUptime() {
-      uptimeValue.textContent = formatUptime();
-    }
-
-    function updateCodeEditor() {
-      const file = projectFiles[fileSelect.value];
-
-      codeEditor.value = file.content;
-      languageStatus.textContent = file.language;
-
-      updateLineNumbers();
-      updateCodeStats();
-    }
-
-    function saveCodeEditor() {
-      projectFiles[fileSelect.value].content = codeEditor.value;
+      uptimeValue.textContent = `${hours}:${minutes}:${seconds}`;
     }
 
     function updateLineNumbers() {
@@ -1349,8 +1331,66 @@ console.log(createSignal());`
         `${codeEditor.value.length} characters`;
     }
 
+    function loadFile() {
+      const file = files[fileSelect.value];
+
+      codeEditor.value = file.content;
+      languageStatus.textContent = file.language;
+
+      updateLineNumbers();
+      updateCodeStats();
+    }
+
+    function saveFile() {
+      files[fileSelect.value].content = codeEditor.value;
+    }
+
+    function updatePreview() {
+      const html = files["index.html"].content;
+      const css = files["styles.css"].content;
+      const js = files["main.js"].content;
+
+      previewFrame.srcdoc = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8">
+
+            <style>
+              ${css}
+
+              body {
+                margin: 0;
+                min-height: 100vh;
+                display: grid;
+                place-items: center;
+                background: #111;
+              }
+            </style>
+          </head>
+
+          <body>
+            ${html}
+
+            <script>
+              try {
+                ${js}
+              } catch (error) {
+                document.body.insertAdjacentHTML(
+                  "beforeend",
+                  "<pre style='position:fixed;bottom:0;left:0;right:0;padding:10px;background:#200;color:#f99;font-family:monospace'>" +
+                  error.message +
+                  "</pre>"
+                );
+              }
+            <\/script>
+          </body>
+        </html>
+      `;
+    }
+
     function formatCode() {
-      const file = projectFiles[fileSelect.value];
+      const file = files[fileSelect.value];
 
       if (file.language === "JSON") {
         try {
@@ -1375,14 +1415,15 @@ console.log(createSignal());`
           .join("\n");
       }
 
-      saveCodeEditor();
+      saveFile();
       updateLineNumbers();
       updateCodeStats();
+
       addTerminalLine(`formatted ${fileSelect.value}`, "green");
     }
 
     function checkCode() {
-      const file = projectFiles[fileSelect.value];
+      const file = files[fileSelect.value];
       const code = codeEditor.value;
 
       try {
@@ -1403,32 +1444,31 @@ console.log(createSignal());`
           }
         }
 
-        addTerminalLine(
-          `check ${fileSelect.value}: passed`,
-          "green"
-        );
-
-        addSystemLog(`validator passed: ${fileSelect.value}`);
+        addTerminalLine(`check ${fileSelect.value}: passed`, "green");
+        addActivity(`validator passed: ${fileSelect.value}`);
       } catch (error) {
         addTerminalLine(
           `check ${fileSelect.value}: ${error.message}`,
           "red"
         );
 
-        addSystemLog(`validator failed: ${fileSelect.value}`);
+        addActivity(`validator failed: ${fileSelect.value}`);
       }
     }
 
     function runCode() {
-      saveCodeEditor();
+      saveFile();
+      updatePreview();
 
-      const file = projectFiles[fileSelect.value];
+      const file = files[fileSelect.value];
 
       if (file.language !== "JavaScript") {
         addTerminalLine(
-          `${fileSelect.value} loaded into local preview`,
+          `${fileSelect.value} loaded into page preview`,
           "green"
         );
+
+        switchView("previewView");
         return;
       }
 
@@ -1454,10 +1494,10 @@ console.log(createSignal());`
           addTerminalLine("script completed with no output", "green");
         }
 
-        addSystemLog(`executed ${fileSelect.value}`);
+        addActivity(`executed ${fileSelect.value}`);
       } catch (error) {
         addTerminalLine(`runtime error: ${error.message}`, "red");
-        addSystemLog(`runtime failure: ${fileSelect.value}`);
+        addActivity(`runtime failure: ${fileSelect.value}`);
       }
 
       setState("IDLE");
@@ -1465,14 +1505,14 @@ console.log(createSignal());`
 
     function clearCode() {
       codeEditor.value = "";
-      saveCodeEditor();
+      saveFile();
       updateLineNumbers();
       updateCodeStats();
       addTerminalLine(`cleared ${fileSelect.value}`, "green");
     }
 
     function downloadCode() {
-      saveCodeEditor();
+      saveFile();
 
       const blob = new Blob([codeEditor.value], {
         type: "text/plain;charset=utf-8"
@@ -1490,46 +1530,10 @@ console.log(createSignal());`
       addTerminalLine(`downloaded ${fileSelect.value}`, "green");
     }
 
-    function updateLovePage() {
-      loveMessage.textContent = loveEditor.value;
-      loveDate.textContent =
-        `LAST UPDATED: ${new Date().toLocaleString()}`;
-    }
-
-    function generateActivity() {
-      const messages = [
-        "local heartbeat stable",
-        "sandbox boundary intact",
-        "love page sync complete",
-        "coding buffer saved",
-        "terminal renderer active",
-        "no external connections detected"
-      ];
-
-      const message =
-        messages[Math.floor(Math.random() * messages.length)];
-
-      addActivity(message);
-      addSystemLog(message);
-    }
-
-    function showHelp() {
-      addTerminalLine("AVAILABLE COMMANDS", "green");
-      addTerminalLine("help                 show commands");
-      addTerminalLine("clear                clear terminal");
-      addTerminalLine("status               show node status");
-      addTerminalLine("uptime               show uptime");
-      addTerminalLine("date                 show date");
-      addTerminalLine("whoami               show current user");
-      addTerminalLine("ls                   list local files");
-      addTerminalLine("pwd                  show current path");
-      addTerminalLine("scripts              list visual scripts");
-      addTerminalLine("run <script>         run a visual script");
-      addTerminalLine("matrix               run a fake matrix test");
-      addTerminalLine("coding               open coding workspace");
-      addTerminalLine("love                 open love page");
-      addTerminalLine("logs                 open logs page");
-      addTerminalLine("fullscreen           fullscreen love page");
+    function checkPage() {
+      saveFile();
+      updatePreview();
+      addTerminalLine("page preview refreshed", "green");
     }
 
     async function runScript(scriptName) {
@@ -1537,7 +1541,10 @@ console.log(createSignal());`
 
       if (!script) {
         addTerminalLine(`run: unknown script ${scriptName}`, "red");
-        addTerminalLine("Use 'scripts' to see available scripts.", "muted");
+        addTerminalLine(
+          "Available: scan, trace, audit, decrypt, stress",
+          "muted"
+        );
         return;
       }
 
@@ -1576,6 +1583,26 @@ console.log(createSignal());`
       setState("IDLE");
     }
 
+    function showHelp() {
+      addTerminalLine("AVAILABLE COMMANDS", "green");
+      addTerminalLine("help                 show command list");
+      addTerminalLine("clear                clear terminal");
+      addTerminalLine("status               show node status");
+      addTerminalLine("uptime               show uptime");
+      addTerminalLine("date                 show current date");
+      addTerminalLine("whoami               show current user");
+      addTerminalLine("pwd                  show current path");
+      addTerminalLine("ls                   list files");
+      addTerminalLine("scripts              list visual scripts");
+      addTerminalLine("run <script>         run a visual script");
+      addTerminalLine("matrix               run fake matrix test");
+      addTerminalLine("coding               open coding workspace");
+      addTerminalLine("runpage              run current page");
+      addTerminalLine("preview              open page preview");
+      addTerminalLine("logs                 open system logs");
+      addTerminalLine("glitch               trigger visual glitch");
+    }
+
     async function executeCommand(command) {
       const trimmed = command.trim();
 
@@ -1600,15 +1627,16 @@ console.log(createSignal());`
 
         case "status":
           addTerminalLine("NODE STATUS", "green");
+          addTerminalLine("core:       ASCII");
           addTerminalLine("node:       NODE-07");
           addTerminalLine("mode:       LOCAL");
-          addTerminalLine("network:    DISABLED");
-          addTerminalLine("access:     SIMULATION ONLY");
-          addTerminalLine("uptime:     " + formatUptime());
+          addTerminalLine("network:    OFFLINE");
+          addTerminalLine("glitches:   VISUAL ONLY");
+          addTerminalLine("uptime:     " + uptimeValue.textContent);
           break;
 
         case "uptime":
-          addTerminalLine(formatUptime(), "green");
+          addTerminalLine(uptimeValue.textContent, "green");
           break;
 
         case "date":
@@ -1625,13 +1653,16 @@ console.log(createSignal());`
 
         case "ls":
           addTerminalLine(
-            "main.js  index.html  styles.css  config.json  love.txt  system.log",
+            "main.js  index.html  styles.css  config.json  system.log",
             "muted"
           );
           break;
 
         case "scripts":
-          addTerminalLine("scan  trace  audit  decrypt  stress", "green");
+          addTerminalLine(
+            "scan  trace  audit  decrypt  stress",
+            "green"
+          );
           break;
 
         case "run":
@@ -1646,39 +1677,72 @@ console.log(createSignal());`
           switchView("codingView");
           break;
 
-        case "love":
-          switchView("loveView");
+        case "runpage":
+        case "preview":
+          updatePreview();
+          switchView("previewView");
           break;
 
         case "logs":
           switchView("logsView");
           break;
 
-        case "fullscreen":
-          try {
-            await lovePreview.requestFullscreen();
-          } catch {
-            addTerminalLine(
-              "fullscreen requires browser permission",
-              "yellow"
-            );
-          }
-          break;
-
-        case "about":
-          addTerminalLine(
-            "NODE//07 — fictional local interface with coding and live love-page modules.",
-            "green"
-          );
-          addTerminalLine(
-            "No real systems, networks, or external files are accessed.",
-            "muted"
-          );
+        case "glitch":
+          triggerGlitch();
           break;
 
         default:
           addTerminalLine(`${base}: command not found`, "red");
       }
+    }
+
+    function triggerGlitch() {
+      const colors = [
+        "#ff3f5b",
+        "#7dff98",
+        "#6edcff",
+        "#ffe477",
+        "#ca7dff"
+      ];
+
+      const color =
+        colors[Math.floor(Math.random() * colors.length)];
+
+      const block = document.createElement("div");
+      block.className = "glitch-block";
+      block.style.left = `${Math.random() * 90 + 3}%`;
+      block.style.top = `${Math.random() * 80 + 5}%`;
+      block.style.width = `${Math.random() * 150 + 30}px`;
+      block.style.height = `${Math.random() * 30 + 5}px`;
+      block.style.background = color;
+
+      document.body.appendChild(block);
+
+      const text = document.createElement("div");
+      text.className = "glitch-text";
+      text.textContent = [
+        "BUFFER DESYNC",
+        "ASCII CORE WARNING",
+        "VISUAL PACKET LOST",
+        "SCREEN OFFSET",
+        "RUNTIME GLITCH",
+        "RECOVERING..."
+      ][Math.floor(Math.random() * 6)];
+
+      text.style.left = `${Math.random() * 75 + 10}%`;
+      text.style.top = `${Math.random() * 75 + 10}%`;
+
+      document.body.appendChild(text);
+      app.classList.add("screen-glitch");
+
+      setTimeout(() => {
+        block.remove();
+        text.remove();
+        app.classList.remove("screen-glitch");
+      }, 1500);
+
+      addTerminalLine("visual glitch detected — recovery complete", "yellow");
+      addActivity("visual glitch event triggered");
     }
 
     navButtons.forEach((button) => {
@@ -1700,6 +1764,23 @@ console.log(createSignal());`
     commandInput.addEventListener("keydown", (event) => {
       if (event.key === "ArrowUp") {
         event.preventDefault();
+
+        if (historyIndex > 0) {
+          historyIndex--;
+          commandInput.value = history[historyIndex];
+        }
+      }
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+
+        if (historyIndex < history.length - 1) {
+          historyIndex++;
+          commandInput.value = history[historyIndex];
+        } else {
+          historyIndex = history.length;
+          commandInput.value = "";
+        }
       }
 
       if (event.key === "Tab") {
@@ -1718,9 +1799,10 @@ console.log(createSignal());`
           "run",
           "matrix",
           "coding",
-          "love",
+          "runpage",
+          "preview",
           "logs",
-          "fullscreen"
+          "glitch"
         ];
 
         const match = commands.find((command) =>
@@ -1735,16 +1817,22 @@ console.log(createSignal());`
 
     document.querySelectorAll(".quick-command").forEach((button) => {
       button.addEventListener("click", async () => {
-        await executeCommand(button.dataset.command);
+        const command = button.dataset.command;
+
+        if (command === "runpage") {
+          updatePreview();
+          switchView("previewView");
+          return;
+        }
+
+        await executeCommand(command);
       });
     });
 
-    fileSelect.addEventListener("change", () => {
-      updateCodeEditor();
-    });
+    fileSelect.addEventListener("change", loadFile);
 
     codeEditor.addEventListener("input", () => {
-      saveCodeEditor();
+      saveFile();
       updateLineNumbers();
       updateCodeStats();
     });
@@ -1770,7 +1858,7 @@ console.log(createSignal());`
 
         codeEditor.selectionStart = codeEditor.selectionEnd = start + 2;
 
-        saveCodeEditor();
+        saveFile();
         updateLineNumbers();
         updateCodeStats();
       }
@@ -1801,46 +1889,62 @@ console.log(createSignal());`
       .getElementById("downloadCodeButton")
       .addEventListener("click", downloadCode);
 
-    loveEditor.addEventListener("input", updateLovePage);
-
     document
-      .getElementById("updateLoveButton")
-      .addEventListener("click", updateLovePage);
-
-    document
-      .getElementById("redThemeButton")
+      .getElementById("runPageButton")
       .addEventListener("click", () => {
-        lovePreview.style.background =
-          "radial-gradient(circle at center, rgba(255, 63, 91, .3), transparent 55%), #13080b";
+        updatePreview();
+        addTerminalLine("current page loaded", "green");
       });
 
     document
-      .getElementById("darkThemeButton")
-      .addEventListener("click", () => {
-        lovePreview.style.background =
-          "radial-gradient(circle at center, rgba(100, 100, 100, .16), transparent 55%), #080808";
-      });
-
-    document
-      .getElementById("fullscreenLoveButton")
+      .getElementById("fullscreenButton")
       .addEventListener("click", async () => {
         try {
-          await lovePreview.requestFullscreen();
+          await previewFrame.requestFullscreen();
         } catch {
-          alert("Fullscreen permission was not granted.");
+          addTerminalLine(
+            "fullscreen permission was not granted",
+            "yellow"
+          );
         }
       });
 
     document
+      .getElementById("refreshPreviewButton")
+      .addEventListener("click", updatePreview);
+
+    document
       .getElementById("generateLogButton")
-      .addEventListener("click", generateActivity);
+      .addEventListener("click", () => {
+        addActivity("manual system log generated");
+      });
 
     document
       .getElementById("clearLogButton")
       .addEventListener("click", () => {
-        systemLog.textContent = "";
         activityLog.textContent = "";
+        logsOutput.textContent = "";
       });
+
+    document
+      .getElementById("glitchButton")
+      .addEventListener("click", triggerGlitch);
+
+    function randomActivity() {
+      const messages = [
+        "ASCII core heartbeat stable",
+        "local coding buffer synchronized",
+        "preview renderer waiting",
+        "visual error layer idle",
+        "sandbox boundary intact",
+        "random color process completed"
+      ];
+
+      const message =
+        messages[Math.floor(Math.random() * messages.length)];
+
+      addActivity(message);
+    }
 
     async function boot() {
       const bootScreen = document.getElementById("bootScreen");
@@ -1848,12 +1952,12 @@ console.log(createSignal());`
       const progressFill = document.getElementById("bootProgressFill");
 
       const messages = [
-        "[ OK ] loading local interface",
-        "[ OK ] mounting coding workspace",
-        "[ OK ] loading live love page",
-        "[ OK ] starting activity stream",
+        "[ OK ] loading ASCII core",
+        "[ OK ] mounting terminal renderer",
+        "[ OK ] loading coding workspace",
+        "[ OK ] loading page preview engine",
+        "[ OK ] enabling visual glitch layer",
         "[ OK ] disabling external access",
-        "[ OK ] loading command interpreter",
         "[ OK ] NODE-07 ready"
       ];
 
@@ -1865,32 +1969,35 @@ console.log(createSignal());`
           `${((index + 1) / messages.length) * 100}%`;
       }
 
-      await wait(450);
+      await wait(500);
 
       bootScreen.classList.add("hidden");
 
-      addTerminalLine("NODE-07 TERMINAL READY", "green");
+      addTerminalLine("ASCII CORE TERMINAL READY", "green");
       addTerminalLine(
-        "Fictional local simulation mode enabled.",
+        "Visual glitch mode enabled. All glitches are harmless.",
         "yellow"
       );
       addTerminalLine("Type 'help' to begin.", "muted");
 
       addActivity("terminal session started");
-      addSystemLog("system initialized");
-
       commandInput.focus();
     }
 
-    updateCodeEditor();
-    updateLovePage();
+    loadFile();
+    updatePreview();
+    updateCodeStats();
     updateUptime();
 
     setInterval(updateUptime, 1000);
 
     setInterval(() => {
-      if (Math.random() > 0.55) {
-        generateActivity();
+      if (Math.random() > 0.62) {
+        randomActivity();
+      }
+
+      if (Math.random() > 0.88) {
+        triggerGlitch();
       }
     }, 7000);
 
