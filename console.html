@@ -7,17 +7,18 @@
 
   <style>
     :root {
-      --bg: #020604;
-      --terminal: #031008;
-      --panel: #06150a;
-      --border: #176b32;
-      --border-bright: #31ff78;
+      --desktop: #020604;
+      --window: #06100a;
+      --window-dark: #030804;
+      --header: #0a1b0e;
       --green: #39ff88;
-      --green-soft: #baffcc;
-      --green-dim: #59936b;
-      --text: #d9ffe5;
-      --danger: #ff5f6d;
-      --warning: #ffe66d;
+      --green-light: #baffcc;
+      --green-dim: #579b6b;
+      --border: #1b7138;
+      --border-bright: #39ff88;
+      --red: #ff5f6d;
+      --yellow: #ffe66d;
+      --shadow: 0 0 28px rgba(57, 255, 136, 0.18);
     }
 
     * {
@@ -30,19 +31,20 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
-      background: var(--bg);
+      background: var(--desktop);
     }
 
     body {
-      color: var(--text);
+      color: var(--green-light);
       font-family: "Courier New", Courier, monospace;
+      user-select: none;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 999;
+      z-index: 9999;
       pointer-events: none;
       background: repeating-linear-gradient(
         to bottom,
@@ -58,35 +60,34 @@
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 998;
+      z-index: 9998;
       pointer-events: none;
       box-shadow:
-        inset 0 0 120px rgba(0, 0, 0, 0.85),
-        inset 0 0 25px rgba(44, 255, 120, 0.08);
+        inset 0 0 130px rgba(0, 0, 0, 0.9),
+        inset 0 0 25px rgba(57, 255, 136, 0.08);
     }
 
     button,
+    input,
     select,
-    textarea,
-    input {
+    textarea {
       font: inherit;
     }
 
     button,
     select {
-      color: var(--green-soft);
-      background: #041009;
+      color: var(--green-light);
+      background: #07150b;
       border: 1px solid var(--border);
       cursor: pointer;
-      transition: 0.2s ease;
     }
 
     button:hover,
     select:hover {
-      color: #fff;
-      background: #0b2813;
+      color: #ffffff;
       border-color: var(--border-bright);
-      box-shadow: 0 0 12px rgba(49, 255, 120, 0.2);
+      background: #0d2814;
+      box-shadow: 0 0 12px rgba(57, 255, 136, 0.22);
     }
 
     button:active {
@@ -98,90 +99,24 @@
       background: var(--green);
     }
 
-    .app-shell {
+    .desktop {
       position: relative;
       width: 100vw;
       height: 100vh;
-      min-height: 100vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at center, rgba(20, 130, 55, 0.12), transparent 55%),
-        #020604;
+        radial-gradient(circle at center, rgba(22, 130, 58, 0.12), transparent 56%),
+        linear-gradient(rgba(57, 255, 136, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 255, 136, 0.025) 1px, transparent 1px),
+        var(--desktop);
+      background-size: auto, 28px 28px, 28px 28px, auto;
     }
 
-    .top-bar {
+    .desktop-label {
       position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      height: 38px;
-      padding: 0 14px;
-      border-bottom: 1px solid var(--border);
-      background: #041009;
-      color: var(--green-dim);
-      font-size: 12px;
-      letter-spacing: 0.05em;
-    }
-
-    .traffic-lights {
-      display: flex;
-      gap: 7px;
-    }
-
-    .traffic-lights span {
-      width: 10px;
-      height: 10px;
-      display: block;
-      border: 1px solid var(--green-dim);
-      border-radius: 50%;
-      background: #061d0d;
-      box-shadow: 0 0 6px rgba(57, 255, 136, 0.25);
-    }
-
-    .traffic-lights span:first-child {
-      background: #ff5f56;
-      border-color: #ff5f56;
-    }
-
-    .traffic-lights span:nth-child(2) {
-      background: #ffbd2e;
-      border-color: #ffbd2e;
-    }
-
-    .traffic-lights span:nth-child(3) {
-      background: #27c93f;
-      border-color: #27c93f;
-    }
-
-    .window-title {
-      flex: 1;
-      color: var(--green-soft);
-      text-align: center;
-      text-shadow: 0 0 8px rgba(57, 255, 136, 0.5);
-    }
-
-    .status-indicator {
-      color: var(--green);
-      white-space: nowrap;
-      text-shadow: 0 0 8px rgba(57, 255, 136, 0.7);
-    }
-
-    .desktop {
-      position: absolute;
-      inset: 38px 0 30px;
-      overflow: hidden;
-    }
-
-    .desktop::before {
-      content: "DEV//CONSOLE DESKTOP";
-      position: absolute;
-      top: 15px;
-      left: 20px;
-      color: rgba(57, 255, 136, 0.2);
+      top: 14px;
+      left: 18px;
+      color: rgba(57, 255, 136, 0.35);
       font-size: 11px;
       letter-spacing: 0.12em;
       pointer-events: none;
@@ -189,138 +124,211 @@
 
     .ascii-art {
       position: absolute;
-      top: 50%;
+      top: 52%;
       left: 50%;
+      z-index: 0;
       width: max-content;
       margin: 0;
-      color: #20ff68;
+      color: var(--green);
       font-size: clamp(4px, 0.62vw, 10px);
       line-height: 1;
-      transform: translate(-50%, -50%);
-      opacity: 0.22;
+      opacity: 0.16;
       pointer-events: none;
-      text-shadow:
-        0 0 5px rgba(57, 255, 136, 0.7),
-        0 0 18px rgba(57, 255, 136, 0.3);
-    }
-
-    .toolbar {
-      position: absolute;
-      top: 52px;
-      left: 18px;
-      z-index: 100;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 7px;
-      width: max-content;
-      max-width: calc(100vw - 36px);
-      padding: 9px;
-      border: 1px solid var(--border);
-      background: rgba(3, 16, 8, 0.96);
-      box-shadow: 0 0 20px rgba(35, 255, 112, 0.15);
-    }
-
-    .toolbar button,
-    .toolbar select {
-      min-height: 32px;
-      padding: 6px 10px;
-      font-size: 10px;
-      letter-spacing: 0.04em;
-    }
-
-    .toolbar .spacer {
-      width: 8px;
-    }
-
-    .shortcut {
-      color: var(--green-dim);
-      font-size: 10px;
+      transform: translate(-50%, -50%);
+      text-shadow: 0 0 15px rgba(57, 255, 136, 0.7);
     }
 
     .window {
       position: absolute;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      min-width: 250px;
+      min-height: 120px;
       overflow: hidden;
       border: 1px solid var(--border-bright);
-      background: rgba(3, 16, 8, 0.97);
-      box-shadow:
-        0 0 30px rgba(49, 255, 120, 0.14),
-        inset 0 0 18px rgba(49, 255, 120, 0.025);
+      background: var(--window);
+      box-shadow: var(--shadow);
+      resize: both;
     }
 
-    .window-header {
+    .window.hidden {
+      display: none;
+    }
+
+    .window.minimized {
+      height: 36px !important;
+      min-height: 36px;
+      resize: none;
+    }
+
+    .window.minimized .window-content {
+      display: none;
+    }
+
+    .window.maximized {
+      top: 42px !important;
+      right: 10px !important;
+      bottom: 42px !important;
+      left: 10px !important;
+      width: auto !important;
+      height: auto !important;
+      resize: none;
+    }
+
+    .window-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      height: 34px;
-      padding: 0 10px;
+      gap: 10px;
+      height: 36px;
+      min-height: 36px;
+      padding: 0 8px;
       color: var(--green);
+      background: var(--header);
       border-bottom: 1px solid var(--border);
-      background: #06150a;
       cursor: grab;
       user-select: none;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 6px rgba(57, 255, 136, 0.5);
+      text-shadow: 0 0 7px rgba(57, 255, 136, 0.55);
     }
 
-    .window-header:active {
+    .window-bar:active {
       cursor: grabbing;
     }
 
-    .window-header::before {
-      content: "[";
-      margin-right: 4px;
-      color: var(--green-dim);
+    .window-icon {
+      color: var(--green);
+      font-size: 12px;
     }
 
-    .window-header::after {
-      content: "]";
-      margin-left: 4px;
-      color: var(--green-dim);
-    }
-
-    .window-header small {
-      color: var(--green-dim);
-      font-size: 9px;
-      letter-spacing: 0;
-      text-shadow: none;
+    .window-title {
+      flex: 1;
+      overflow: hidden;
+      color: var(--green-light);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .window-controls {
       display: flex;
       gap: 5px;
-      margin-left: auto;
-      padding-left: 8px;
     }
 
     .window-controls button {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       padding: 0;
       color: var(--green);
       border: 1px solid var(--border);
-      font-size: 11px;
-      line-height: 14px;
+      line-height: 16px;
     }
 
-    .window-body {
-      height: calc(100% - 34px);
+    .window-content {
+      flex: 1;
+      min-height: 0;
       overflow: hidden;
     }
 
+    .terminal-window {
+      top: 110px;
+      left: 50%;
+      width: min(760px, calc(100vw - 40px));
+      height: min(500px, calc(100vh - 150px));
+      transform: translateX(-50%);
+    }
+
+    .terminal-window .window-content {
+      display: grid;
+      grid-template-rows: 1fr 42px;
+      background:
+        radial-gradient(circle at top left, rgba(57, 255, 136, 0.08), transparent 45%),
+        var(--window-dark);
+    }
+
+    .terminal-output {
+      min-height: 0;
+      padding: 15px;
+      overflow-y: auto;
+      color: var(--green-light);
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      user-select: text;
+    }
+
+    .terminal-line {
+      margin-bottom: 7px;
+    }
+
+    .terminal-line.info {
+      color: var(--green-dim);
+    }
+
+    .terminal-line.command {
+      color: #ffffff;
+    }
+
+    .terminal-line.command::before {
+      content: "root@dev-console:~# ";
+      color: var(--green);
+    }
+
+    .terminal-line.success {
+      color: var(--green);
+    }
+
+    .terminal-line.error {
+      color: var(--red);
+    }
+
+    .terminal-form {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      padding: 8px 13px;
+      border-top: 1px solid var(--border);
+      background: #041009;
+    }
+
+    .terminal-prompt {
+      color: var(--green);
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(57, 255, 136, 0.7);
+    }
+
+    #terminalInput {
+      flex: 1;
+      min-width: 0;
+      padding: 5px 0;
+      color: var(--green-light);
+      background: transparent;
+      border: 0;
+      outline: 0;
+      caret-color: var(--green);
+      user-select: text;
+    }
+
+    #terminalInput::placeholder {
+      color: #326943;
+    }
+
     .editor-window {
-      top: 145px;
-      left: 4vw;
-      z-index: 20;
-      width: min(780px, 63vw);
-      height: 570px;
-      resize: both;
+      top: 90px;
+      left: 55px;
+      width: 700px;
+      height: 510px;
+    }
+
+    .editor-window .window-content {
+      display: grid;
+      grid-template-rows: 38px 1fr 34px;
+      background: #020a05;
     }
 
     .editor-tabs {
       display: flex;
-      height: 38px;
       overflow: hidden;
       border-bottom: 1px solid var(--border);
       background: #041009;
@@ -328,13 +336,13 @@
 
     .editor-tab {
       position: relative;
-      padding: 10px 14px;
+      padding: 10px 13px;
       color: var(--green-dim);
       background: transparent;
       border: 0;
       border-right: 1px solid var(--border);
-      white-space: nowrap;
       font-size: 11px;
+      white-space: nowrap;
     }
 
     .editor-tab::before {
@@ -346,7 +354,6 @@
     .editor-tab.active {
       color: var(--green);
       background: #092010;
-      text-shadow: 0 0 8px rgba(57, 255, 136, 0.6);
     }
 
     .editor-tab.active::before {
@@ -364,24 +371,17 @@
       box-shadow: 0 0 10px var(--green);
     }
 
-    .editor-content {
-      display: grid;
-      grid-template-rows: 38px minmax(0, 1fr) 34px;
-      height: 100%;
-      background: #020a05;
-    }
-
     .editor-wrap {
       display: grid;
-      grid-template-columns: 55px minmax(0, 1fr);
+      grid-template-columns: 55px 1fr;
       min-height: 0;
       overflow: hidden;
     }
 
     .line-numbers {
-      padding: 16px 11px 16px 0;
+      padding: 15px 11px 15px 0;
       overflow: hidden;
-      color: #225f36;
+      color: #23623a;
       border-right: 1px solid #0b3218;
       text-align: right;
       line-height: 1.6;
@@ -393,26 +393,26 @@
       width: 100%;
       height: 100%;
       min-height: 0;
-      padding: 16px;
+      padding: 15px;
       overflow: auto;
-      resize: none;
-      outline: 0;
-      border: 0;
-      color: var(--green-soft);
+      color: var(--green-light);
       background: transparent;
+      border: 0;
+      outline: 0;
+      resize: none;
       caret-color: var(--green);
       font-size: 14px;
       line-height: 1.6;
       tab-size: 2;
       white-space: pre;
-      text-shadow: 0 0 4px rgba(167, 255, 197, 0.25);
+      user-select: text;
     }
 
     .editor-footer {
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      padding: 8px 12px;
+      padding: 8px 11px;
       overflow: hidden;
       color: var(--green-dim);
       border-top: 1px solid var(--border);
@@ -422,10 +422,9 @@
     }
 
     .preview-window {
-      top: 125px;
-      right: 4vw;
-      z-index: 22;
-      width: 350px;
+      top: 100px;
+      right: 55px;
+      width: 360px;
       height: 270px;
     }
 
@@ -434,15 +433,14 @@
       width: 100%;
       height: 100%;
       border: 0;
-      background: #fff;
+      background: #ffffff;
     }
 
     .checker-window {
-      top: 420px;
-      right: 4vw;
-      z-index: 21;
-      width: 350px;
-      height: 210px;
+      top: 395px;
+      right: 55px;
+      width: 360px;
+      height: 205px;
     }
 
     .checker-output {
@@ -453,6 +451,7 @@
       font-size: 12px;
       line-height: 1.55;
       white-space: pre-wrap;
+      user-select: text;
     }
 
     .checker-output.success {
@@ -460,109 +459,26 @@
     }
 
     .checker-output.error {
-      color: var(--danger);
-    }
-
-    .terminal-window {
-      bottom: 24px;
-      left: 4vw;
-      z-index: 30;
-      width: 500px;
-      height: 245px;
-    }
-
-    .terminal-content {
-      display: grid;
-      grid-template-rows: minmax(0, 1fr) 38px;
-      height: 100%;
-      background:
-        radial-gradient(circle at top left, rgba(35, 255, 112, 0.06), transparent 50%),
-        #010803;
-    }
-
-    .terminal-output {
-      min-height: 0;
-      padding: 12px;
-      overflow: auto;
-      color: var(--green-soft);
-      font-size: 12px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-    }
-
-    .terminal-line {
-      margin-bottom: 6px;
-    }
-
-    .terminal-line.command {
-      color: #fff;
-    }
-
-    .terminal-line.command::before {
-      content: "dev@console:~$ ";
-      color: var(--green);
-    }
-
-    .terminal-line.info {
-      color: var(--green-dim);
-    }
-
-    .terminal-line.success {
-      color: var(--green);
-    }
-
-    .terminal-line.error {
-      color: var(--danger);
-    }
-
-    .terminal-form {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-top: 1px solid var(--border);
-      background: #031008;
-    }
-
-    .terminal-prompt {
-      color: var(--green);
-      white-space: nowrap;
-      font-size: 12px;
-      text-shadow: 0 0 7px rgba(57, 255, 136, 0.6);
-    }
-
-    #terminalInput {
-      flex: 1;
-      min-width: 0;
-      padding: 6px 0;
-      outline: 0;
-      border: 0;
-      color: var(--green-soft);
-      background: transparent;
-      caret-color: var(--green);
-    }
-
-    #terminalInput::placeholder {
-      color: #2b6940;
+      color: var(--red);
     }
 
     .prompts-window {
-      right: 390px;
-      bottom: 24px;
-      z-index: 25;
+      bottom: 55px;
+      left: 55px;
       width: 290px;
       height: 245px;
     }
 
     .prompt-list {
       display: grid;
-      gap: 7px;
+      gap: 8px;
+      height: 100%;
       padding: 12px;
-      overflow: auto;
+      overflow-y: auto;
     }
 
     .prompt-button {
-      padding: 9px 10px;
+      padding: 9px;
       color: var(--green-dim);
       background: #031008;
       border: 1px solid #0c3b1a;
@@ -575,15 +491,9 @@
       color: var(--green);
     }
 
-    .prompt-button:hover {
-      color: var(--green-soft);
-      border-color: var(--border-bright);
-    }
-
     .commands-window {
-      right: 4vw;
-      bottom: 24px;
-      z-index: 24;
+      right: 55px;
+      bottom: 55px;
       width: 300px;
       height: 245px;
     }
@@ -591,38 +501,36 @@
     .command-reference {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 14px;
+      gap: 12px;
+      padding: 15px;
       color: var(--green-dim);
       font-size: 11px;
     }
 
     .command-reference code {
       color: var(--green);
-      text-shadow: 0 0 5px rgba(57, 255, 136, 0.4);
     }
 
-    .bottom-status {
+    .status-bar {
       position: absolute;
       right: 0;
       bottom: 0;
       left: 0;
-      z-index: 200;
+      z-index: 500;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       gap: 10px;
-      height: 30px;
-      padding: 8px 12px;
+      height: 32px;
+      padding: 9px 13px;
       overflow: hidden;
       color: var(--green-dim);
-      border-top: 1px solid var(--border);
       background: #041009;
+      border-top: 1px solid var(--border);
       font-size: 10px;
-      letter-spacing: 0.04em;
+      white-space: nowrap;
     }
 
-    .bottom-status strong {
+    .status-bar strong {
       color: var(--green);
       font-weight: normal;
     }
@@ -630,12 +538,12 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 500;
+      z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: rgba(0, 5, 2, 0.88);
+      background: rgba(0, 5, 2, 0.86);
     }
 
     .modal-backdrop.show {
@@ -643,26 +551,23 @@
     }
 
     .modal {
-      width: min(650px, 100%);
-      border: 1px solid var(--border-bright);
+      width: min(650px, calc(100vw - 30px));
+      color: var(--green-dim);
       background: #041009;
-      box-shadow:
-        0 0 45px rgba(57, 255, 136, 0.2),
-        inset 0 0 30px rgba(57, 255, 136, 0.04);
+      border: 1px solid var(--border-bright);
+      box-shadow: var(--shadow);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
-      padding: 12px 14px;
+      padding: 12px;
       color: var(--green);
       border-bottom: 1px solid var(--border);
-      text-shadow: 0 0 7px rgba(57, 255, 136, 0.5);
     }
 
     .modal-body {
       padding: 14px;
-      color: var(--green-dim);
       font-size: 13px;
       line-height: 1.6;
     }
@@ -671,92 +576,40 @@
       color: var(--green);
     }
 
-    .modal-close {
-      padding: 3px 8px;
-    }
-
-    @media (max-width: 1050px) {
+    @media (max-width: 900px) {
       .editor-window {
         left: 20px;
-        width: 58vw;
-      }
-
-      .preview-window,
-      .checker-window,
-      .commands-window {
-        right: 20px;
-      }
-
-      .prompts-window {
-        right: 350px;
-      }
-
-      .terminal-window {
-        left: 20px;
-      }
-    }
-
-    @media (max-width: 800px) {
-      .desktop {
-        overflow: hidden;
-      }
-
-      .editor-window {
-        top: 125px;
-        left: 12px;
-        width: calc(100vw - 24px);
-        height: 440px;
+        width: calc(100vw - 40px);
+        height: 430px;
       }
 
       .preview-window {
-        top: 580px;
-        left: 12px;
+        top: 550px;
+        left: 20px;
         right: auto;
-        width: calc(100vw - 24px);
-        height: 230px;
+        width: calc(100vw - 40px);
       }
 
-      .checker-window {
-        display: none;
-      }
-
-      .terminal-window {
-        top: 825px;
-        bottom: auto;
-        left: 12px;
-        width: calc(100vw - 24px);
-      }
-
+      .checker-window,
       .prompts-window,
       .commands-window {
         display: none;
       }
 
-      .bottom-status {
-        font-size: 8px;
+      .terminal-window {
+        top: 90px;
+        width: calc(100vw - 40px);
+        height: 410px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="app-shell">
-    <header class="top-bar">
-      <div class="traffic-lights">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+  <main class="desktop">
+    <div class="desktop-label">DEV//CONSOLE DESKTOP — CLIENT-SIDE ENVIRONMENT</div>
 
-      <div class="window-title">
-        root@dev-console: /usr/local/dev//console
-      </div>
-
-      <div class="status-indicator">● ONLINE</div>
-    </header>
-
-    <section class="desktop">
-      <pre class="ascii-art">
+    <pre class="ascii-art">
                                                                                                                                                                 
                                                                                                                                                                 
                                                                                          ::===                                                                  
@@ -801,220 +654,193 @@
                                                      +=.........:--::--   :-=+::::...........                                                                   
                                                     :::....-*#%%%#*:.+*     --:-::..::::::::::                                                                  
                                                         ++-:..::+#==                                                                                             
-      </pre>
+    </pre>
 
-      <nav class="toolbar">
-        <button id="runButton">[ RUN ]</button>
-        <button id="checkButton">[ CHECK ]</button>
-        <button id="formatButton">[ FORMAT ]</button>
-        <button id="clearButton">[ CLEAR ]</button>
-        <button id="downloadButton">[ DOWNLOAD ]</button>
-        <button id="helpButton">[ HELP ]</button>
+    <section id="terminalWindow" class="window terminal-window">
+      <header class="window-bar">
+        <span class="window-icon">▣</span>
+        <span class="window-title">root@dev-console — terminal</span>
 
-        <div class="spacer"></div>
+        <div class="window-controls">
+          <button data-minimize="terminalWindow">−</button>
+          <button data-maximize="terminalWindow">□</button>
+          <button data-close="terminalWindow">×</button>
+        </div>
+      </header>
 
-        <label for="languageSelect" class="shortcut">LANGUAGE:</label>
-
-        <select id="languageSelect">
-          <option value="javascript">JavaScript</option>
-          <option value="html">HTML</option>
-          <option value="css">CSS</option>
-          <option value="json">JSON</option>
-        </select>
-      </nav>
-
-      <section id="editorWindow" class="window editor-window">
-        <div class="window-header">
-          <span>CODE EDITOR</span>
-
-          <div class="window-controls">
-            <button data-minimize="editorWindow">−</button>
-            <button data-close="editorWindow">×</button>
-          </div>
+      <div class="window-content">
+        <div id="terminalOutput" class="terminal-output">
+          <div class="terminal-line success">DEV//CONSOLE terminal v2.0</div>
+          <div class="terminal-line info">Session started successfully.</div>
+          <div class="terminal-line info">Type "help" to see available commands.</div>
+          <div class="terminal-line info">Use "open editor" to open the code editor.</div>
         </div>
 
-        <div class="window-body editor-content">
-          <div class="editor-tabs">
-            <button class="editor-tab active" data-file="main.js">main.js</button>
-            <button class="editor-tab" data-file="index.html">index.html</button>
-            <button class="editor-tab" data-file="styles.css">styles.css</button>
-            <button class="editor-tab" data-file="config.json">config.json</button>
-          </div>
-
-          <div class="editor-wrap">
-            <div id="lineNumbers" class="line-numbers">1</div>
-            <textarea id="codeEditor" spellcheck="false"></textarea>
-          </div>
-
-          <div class="editor-footer">
-            <span id="cursorPosition">Ln 1, Col 1</span>
-            <span id="characterCount">0 characters</span>
-            <span id="editorMode">JavaScript</span>
-          </div>
-        </div>
-      </section>
-
-      <section id="previewWindow" class="window preview-window">
-        <div class="window-header">
-          <span>LIVE DISPLAY</span>
-          <small>iframe://preview</small>
-
-          <div class="window-controls">
-            <button data-minimize="previewWindow">−</button>
-            <button data-close="previewWindow">×</button>
-          </div>
-        </div>
-
-        <div class="window-body">
-          <iframe id="previewFrame" class="preview-frame"></iframe>
-        </div>
-      </section>
-
-      <section id="checkerWindow" class="window checker-window">
-        <div class="window-header">
-          <span>CODE CHECKER</span>
-          <small id="checkerStatus">waiting</small>
-
-          <div class="window-controls">
-            <button data-minimize="checkerWindow">−</button>
-            <button data-close="checkerWindow">×</button>
-          </div>
-        </div>
-
-        <div class="window-body">
-          <div id="checkerOutput" class="checker-output">
-            No diagnostics available. Run the checker to inspect your code.
-          </div>
-        </div>
-      </section>
-
-      <section id="terminalWindow" class="window terminal-window">
-        <div class="window-header">
-          <span>TERMINAL</span>
-          <small>type help</small>
-
-          <div class="window-controls">
-            <button data-minimize="terminalWindow">−</button>
-            <button data-close="terminalWindow">×</button>
-          </div>
-        </div>
-
-        <div class="window-body terminal-content">
-          <div id="terminalOutput" class="terminal-output">
-            <div class="terminal-line info">DEV//CONSOLE v1.0 initialized.</div>
-            <div class="terminal-line info">Type "help" to list available commands.</div>
-          </div>
-
-          <form id="terminalForm" class="terminal-form">
-            <span class="terminal-prompt">dev@console:~$</span>
-            <input
-              id="terminalInput"
-              autocomplete="off"
-              placeholder="enter command..."
-            />
-          </form>
-        </div>
-      </section>
-
-      <section id="promptsWindow" class="window prompts-window">
-        <div class="window-header">
-          <span>QUICK PROMPTS</span>
-          <small>templates</small>
-
-          <div class="window-controls">
-            <button data-minimize="promptsWindow">−</button>
-            <button data-close="promptsWindow">×</button>
-          </div>
-        </div>
-
-        <div class="window-body">
-          <div class="prompt-list">
-            <button class="prompt-button" data-prompt="Create a function that reverses a string.">
-              Create a string reversal function
-            </button>
-
-            <button class="prompt-button" data-prompt="Create a function that checks whether a number is prime.">
-              Create a prime number checker
-            </button>
-
-            <button class="prompt-button" data-prompt="Build a simple counter with increment and decrement buttons.">
-              Build a counter interface
-            </button>
-
-            <button class="prompt-button" data-prompt="Explain what this code does.">
-              Explain current code
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section id="commandsWindow" class="window commands-window">
-        <div class="window-header">
-          <span>COMMAND REFERENCE</span>
-          <small>shell</small>
-
-          <div class="window-controls">
-            <button data-minimize="commandsWindow">−</button>
-            <button data-close="commandsWindow">×</button>
-          </div>
-        </div>
-
-        <div class="window-body">
-          <div class="command-reference">
-            <div><code>help</code> show commands</div>
-            <div><code>clear</code> clear terminal</div>
-            <div><code>run</code> execute code</div>
-            <div><code>check</code> validate code</div>
-            <div><code>format</code> format active file</div>
-            <div><code>time</code> show system time</div>
-            <div><code>about</code> system information</div>
-            <div><code>files</code> list project files</div>
-          </div>
-        </div>
-      </section>
+        <form id="terminalForm" class="terminal-form">
+          <span class="terminal-prompt">root@dev-console:~#</span>
+          <input
+            id="terminalInput"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="type a command..."
+          />
+        </form>
+      </div>
     </section>
 
-    <footer class="bottom-status">
+    <section id="editorWindow" class="window editor-window hidden">
+      <header class="window-bar">
+        <span class="window-icon">▤</span>
+        <span class="window-title">code-editor — local workspace</span>
+
+        <div class="window-controls">
+          <button data-minimize="editorWindow">−</button>
+          <button data-maximize="editorWindow">□</button>
+          <button data-close="editorWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <div class="editor-tabs">
+          <button class="editor-tab active" data-file="main.js">main.js</button>
+          <button class="editor-tab" data-file="index.html">index.html</button>
+          <button class="editor-tab" data-file="styles.css">styles.css</button>
+          <button class="editor-tab" data-file="config.json">config.json</button>
+        </div>
+
+        <div class="editor-wrap">
+          <div id="lineNumbers" class="line-numbers">1</div>
+          <textarea id="codeEditor" spellcheck="false"></textarea>
+        </div>
+
+        <div class="editor-footer">
+          <span id="cursorPosition">Ln 1, Col 1</span>
+          <span id="characterCount">0 characters</span>
+          <span id="editorMode">JavaScript</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="previewWindow" class="window preview-window hidden">
+      <header class="window-bar">
+        <span class="window-icon">▣</span>
+        <span class="window-title">live-preview — iframe</span>
+
+        <div class="window-controls">
+          <button data-minimize="previewWindow">−</button>
+          <button data-maximize="previewWindow">□</button>
+          <button data-close="previewWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <iframe id="previewFrame" class="preview-frame"></iframe>
+      </div>
+    </section>
+
+    <section id="checkerWindow" class="window checker-window hidden">
+      <header class="window-bar">
+        <span class="window-icon">✓</span>
+        <span class="window-title">code-checker — diagnostics</span>
+
+        <div class="window-controls">
+          <button data-minimize="checkerWindow">−</button>
+          <button data-maximize="checkerWindow">□</button>
+          <button data-close="checkerWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <div id="checkerOutput" class="checker-output">
+          No diagnostics available.
+        </div>
+      </div>
+    </section>
+
+    <section id="promptsWindow" class="window prompts-window hidden">
+      <header class="window-bar">
+        <span class="window-icon">›_</span>
+        <span class="window-title">quick-prompts</span>
+
+        <div class="window-controls">
+          <button data-minimize="promptsWindow">−</button>
+          <button data-maximize="promptsWindow">□</button>
+          <button data-close="promptsWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <div class="prompt-list">
+          <button class="prompt-button" data-prompt="Create a function that reverses a string.">
+            Create a string reversal function
+          </button>
+
+          <button class="prompt-button" data-prompt="Create a function that checks whether a number is prime.">
+            Create a prime number checker
+          </button>
+
+          <button class="prompt-button" data-prompt="Build a simple counter with increment and decrement buttons.">
+            Build a counter interface
+          </button>
+
+          <button class="prompt-button" data-prompt="Explain what this code does.">
+            Explain current code
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="commandsWindow" class="window commands-window hidden">
+      <header class="window-bar">
+        <span class="window-icon">≡</span>
+        <span class="window-title">command-reference</span>
+
+        <div class="window-controls">
+          <button data-minimize="commandsWindow">−</button>
+          <button data-maximize="commandsWindow">□</button>
+          <button data-close="commandsWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <div class="command-reference">
+          <div><code>help</code> show commands</div>
+          <div><code>clear</code> clear terminal</div>
+          <div><code>open</code> open a window</div>
+          <div><code>close</code> close a window</div>
+          <div><code>run</code> run JavaScript</div>
+          <div><code>check</code> check syntax</div>
+          <div><code>format</code> format code</div>
+          <div><code>files</code> list files</div>
+          <div><code>time</code> show time</div>
+          <div><code>about</code> system info</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="status-bar">
       <span>PROCESS: <strong id="processStatus">IDLE</strong></span>
       <span>MEMORY: <strong id="memoryStatus">-- MB</strong></span>
-      <span>EDITOR: <strong>LOCAL BUFFER</strong></span>
+      <span>WINDOWS: <strong id="windowStatus">1 OPEN</strong></span>
       <span>SECURITY: <strong>CLIENT-SIDE ONLY</strong></span>
     </footer>
   </main>
-
-  <div id="helpModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <span>DEV//CONSOLE HELP</span>
-        <button id="closeHelpButton" class="modal-close">×</button>
-      </div>
-
-      <div class="modal-body">
-        <p><code>RUN CODE</code> executes JavaScript and displays the result in the terminal.</p>
-        <p><code>CHECK CODE</code> performs basic syntax validation.</p>
-        <p><code>FORMAT</code> formats the active file.</p>
-        <p><code>LIVE DISPLAY</code> previews the HTML, CSS, and JavaScript files.</p>
-        <p><code>DOWNLOAD</code> downloads the currently active file.</p>
-        <p>Terminal commands include <code>help</code>, <code>clear</code>, <code>run</code>, <code>check</code>, <code>format</code>, <code>time</code>, <code>about</code>, <code>files</code>, and <code>open</code>.</p>
-      </div>
-    </div>
-  </div>
 
   <script>
     const files = {
       "main.js": {
         language: "javascript",
         content: `// Welcome to DEV//CONSOLE
-// Write JavaScript here, then click RUN CODE.
+// Type code here and use the terminal command: run
 
-const message = "Hello from the dev console.";
+const message = "Hello from the terminal.";
 console.log(message);
 
 function multiply(a, b) {
   return a * b;
 }
 
-console.log("6 × 7 =", multiply(6, 7));`
+console.log("6 x 7 =", multiply(6, 7));`
       },
 
       "index.html": {
@@ -1049,12 +875,13 @@ console.log("6 × 7 =", multiply(6, 7));`
         language: "json",
         content: `{
   "project": "dev-console",
-  "version": "1.0.0",
-  "mode": "local",
+  "version": "2.0.0",
+  "mode": "terminal-desktop",
   "features": [
+    "movable-windows",
     "editor",
     "checker",
-    "executor",
+    "preview",
     "terminal"
   ]
 }`
@@ -1064,79 +891,68 @@ console.log("6 × 7 =", multiply(6, 7));`
     let activeFile = "main.js";
     let terminalHistory = [];
     let historyIndex = -1;
-    let windowZIndex = 20;
+    let zIndex = 20;
 
+    const terminalOutput = document.getElementById("terminalOutput");
+    const terminalInput = document.getElementById("terminalInput");
+    const terminalForm = document.getElementById("terminalForm");
     const editor = document.getElementById("codeEditor");
     const lineNumbers = document.getElementById("lineNumbers");
     const previewFrame = document.getElementById("previewFrame");
     const checkerOutput = document.getElementById("checkerOutput");
-    const checkerStatus = document.getElementById("checkerStatus");
-    const terminalOutput = document.getElementById("terminalOutput");
-    const terminalInput = document.getElementById("terminalInput");
-    const terminalForm = document.getElementById("terminalForm");
-    const processStatus = document.getElementById("processStatus");
-    const memoryStatus = document.getElementById("memoryStatus");
     const cursorPosition = document.getElementById("cursorPosition");
     const characterCount = document.getElementById("characterCount");
     const editorMode = document.getElementById("editorMode");
-    const languageSelect = document.getElementById("languageSelect");
+    const memoryStatus = document.getElementById("memoryStatus");
+    const processStatus = document.getElementById("processStatus");
+    const windowStatus = document.getElementById("windowStatus");
 
-    function setProcessStatus(status) {
-      processStatus.textContent = status;
+    function getWindow(name) {
+      return document.getElementById(`${name}Window`);
     }
 
-    function updateMemoryStatus() {
-      const estimated = Math.max(1, Math.round(editor.value.length / 1024));
-      memoryStatus.textContent = `${estimated} MB`;
+    function openWindow(name) {
+      const windowElement = getWindow(name);
+
+      if (!windowElement) {
+        appendTerminal(`window not found: ${name}`, "error");
+        return;
+      }
+
+      windowElement.classList.remove("hidden");
+      windowElement.classList.remove("minimized");
+      bringToFront(windowElement);
+      updateWindowStatus();
+
+      if (name === "preview") {
+        updatePreview();
+      }
+
+      if (name === "editor") {
+        editor.focus();
+      }
     }
 
-    function updateLineNumbers() {
-      const lineCount = editor.value.split("\n").length;
+    function closeWindow(name) {
+      const windowElement = getWindow(name);
 
-      lineNumbers.textContent = Array.from(
-        { length: lineCount },
-        (_, index) => index + 1
-      ).join("\n");
+      if (!windowElement) {
+        appendTerminal(`window not found: ${name}`, "error");
+        return;
+      }
 
-      lineNumbers.scrollTop = editor.scrollTop;
+      windowElement.classList.add("hidden");
+      updateWindowStatus();
     }
 
-    function updateEditorStats() {
-      const beforeCursor = editor.value.slice(0, editor.selectionStart);
-      const lines = beforeCursor.split("\n");
-      const line = lines.length;
-      const column = lines[lines.length - 1].length + 1;
-
-      cursorPosition.textContent = `Ln ${line}, Col ${column}`;
-      characterCount.textContent = `${editor.value.length} characters`;
-
-      updateMemoryStatus();
+    function bringToFront(windowElement) {
+      zIndex++;
+      windowElement.style.zIndex = zIndex;
     }
 
-    function saveActiveFile() {
-      files[activeFile].content = editor.value;
-    }
-
-    function loadFile(fileName) {
-      saveActiveFile();
-
-      activeFile = fileName;
-      editor.value = files[fileName].content;
-      languageSelect.value = files[fileName].language;
-      editorMode.textContent = capitalize(files[fileName].language);
-
-      document.querySelectorAll(".editor-tab").forEach((tab) => {
-        tab.classList.toggle("active", tab.dataset.file === fileName);
-      });
-
-      updateLineNumbers();
-      updateEditorStats();
-      updatePreview();
-      resetChecker();
-    }
-
-    function capitalize(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1);
+    function updateWindowStatus() {
+      const openWindows = document.querySelectorAll(".window:not(.hidden)").length;
+      windowStatus.textContent = `${openWindows} OPEN`;
     }
 
     function appendTerminal(text, type = "info") {
@@ -1148,11 +964,77 @@ console.log("6 × 7 =", multiply(6, 7));`
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    function resetChecker() {
-      checkerStatus.textContent = "waiting";
+    function setProcessStatus(status) {
+      processStatus.textContent = status;
+    }
+
+    function saveActiveFile() {
+      files[activeFile].content = editor.value;
+    }
+
+    function capitalize(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function updateMemoryStatus() {
+      memoryStatus.textContent = `${Math.max(
+        1,
+        Math.round(editor.value.length / 1024)
+      )} MB`;
+    }
+
+    function updateLineNumbers() {
+      const lines = editor.value.split("\n").length;
+
+      lineNumbers.textContent = Array.from(
+        { length: lines },
+        (_, index) => index + 1
+      ).join("\n");
+
+      lineNumbers.scrollTop = editor.scrollTop;
+    }
+
+    function updateEditorStats() {
+      const cursorText = editor.value.slice(0, editor.selectionStart);
+      const cursorLines = cursorText.split("\n");
+      const line = cursorLines.length;
+      const column = cursorLines[cursorLines.length - 1].length + 1;
+
+      cursorPosition.textContent = `Ln ${line}, Col ${column}`;
+      characterCount.textContent = `${editor.value.length} characters`;
+
+      updateMemoryStatus();
+    }
+
+    function loadFile(fileName) {
+      saveActiveFile();
+
+      activeFile = fileName;
+      editor.value = files[fileName].content;
+      editorMode.textContent = capitalize(files[fileName].language);
+
+      document.querySelectorAll(".editor-tab").forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.file === fileName);
+      });
+
+      updateLineNumbers();
+      updateEditorStats();
+      updatePreview();
+
       checkerOutput.className = "checker-output";
-      checkerOutput.textContent =
-        "No diagnostics available. Run the checker to inspect your code.";
+      checkerOutput.textContent = "No diagnostics available.";
+    }
+
+    function formatValue(value) {
+      if (typeof value === "object" && value !== null) {
+        try {
+          return JSON.stringify(value);
+        } catch {
+          return String(value);
+        }
+      }
+
+      return String(value);
     }
 
     function updatePreview() {
@@ -1172,9 +1054,9 @@ console.log("6 × 7 =", multiply(6, 7));`
               body {
                 margin: 0;
                 min-height: 100vh;
-                background: #eeeeee;
                 display: grid;
                 place-items: center;
+                background: #eeeeee;
               }
             </style>
           </head>
@@ -1199,70 +1081,13 @@ console.log("6 × 7 =", multiply(6, 7));`
       `;
     }
 
-    function checkCode() {
-      saveActiveFile();
-
-      const language = files[activeFile].language;
-      const code = editor.value;
-
-      checkerStatus.textContent = "checking...";
-
-      try {
-        if (language === "javascript") {
-          new Function(code);
-        }
-
-        if (language === "json") {
-          JSON.parse(code);
-        }
-
-        if (language === "html") {
-          const parser = new DOMParser();
-          const result = parser.parseFromString(code, "text/html");
-
-          if (result.querySelector("parsererror")) {
-            throw new Error("HTML parser error detected.");
-          }
-        }
-
-        if (language === "css") {
-          if (code.includes("{") && !code.includes("}")) {
-            throw new Error("CSS appears to have an unclosed block.");
-          }
-
-          if (code.includes("}") && !code.includes("{")) {
-            throw new Error(
-              "CSS contains a closing brace without an opening brace."
-            );
-          }
-        }
-
-        checkerStatus.textContent = "passed";
-        checkerOutput.className = "checker-output success";
-        checkerOutput.textContent =
-          `✓ No obvious ${language.toUpperCase()} syntax errors found.\n` +
-          "✓ Buffer is valid enough to execute or preview.";
-
-        appendTerminal(`check ${activeFile}: passed`, "success");
-      } catch (error) {
-        checkerStatus.textContent = "failed";
-        checkerOutput.className = "checker-output error";
-        checkerOutput.textContent =
-          `✕ ${language.toUpperCase()} check failed.\n\n${error.message}`;
-
-        appendTerminal(
-          `check ${activeFile}: failed — ${error.message}`,
-          "error"
-        );
-      }
-    }
-
     function runCode() {
       saveActiveFile();
       setProcessStatus("RUNNING");
 
       if (files[activeFile].language !== "javascript") {
         updatePreview();
+        openWindow("preview");
         appendTerminal(`${activeFile} sent to live preview.`, "success");
         setProcessStatus("IDLE");
         return;
@@ -1284,13 +1109,10 @@ console.log("6 × 7 =", multiply(6, 7));`
           logs.push(`return => ${formatValue(result)}`);
         }
 
-        appendTerminal(`run ${activeFile}`, "command");
+        appendTerminal("run main.js", "command");
 
         if (logs.length === 0) {
-          appendTerminal(
-            "Execution completed with no console output.",
-            "success"
-          );
+          appendTerminal("Execution finished with no output.", "success");
         } else {
           logs.forEach((line) => appendTerminal(line, "success"));
         }
@@ -1302,16 +1124,54 @@ console.log("6 × 7 =", multiply(6, 7));`
       setProcessStatus("IDLE");
     }
 
-    function formatValue(value) {
-      if (typeof value === "object" && value !== null) {
-        try {
-          return JSON.stringify(value);
-        } catch {
-          return String(value);
-        }
-      }
+    function checkCode() {
+      saveActiveFile();
 
-      return String(value);
+      const language = files[activeFile].language;
+      const code = editor.value;
+
+      try {
+        if (language === "javascript") {
+          new Function(code);
+        }
+
+        if (language === "json") {
+          JSON.parse(code);
+        }
+
+        if (language === "html") {
+          const parser = new DOMParser();
+          const result = parser.parseFromString(code, "text/html");
+
+          if (result.querySelector("parsererror")) {
+            throw new Error("HTML parser error detected.");
+          }
+        }
+
+        if (language === "css") {
+          const opens = (code.match(/\{/g) || []).length;
+          const closes = (code.match(/\}/g) || []).length;
+
+          if (opens !== closes) {
+            throw new Error("CSS braces are unbalanced.");
+          }
+        }
+
+        checkerOutput.className = "checker-output success";
+        checkerOutput.textContent =
+          `✓ ${language.toUpperCase()} check passed.\n` +
+          "✓ No obvious syntax errors found.";
+
+        openWindow("checker");
+        appendTerminal(`check ${activeFile}: passed`, "success");
+      } catch (error) {
+        checkerOutput.className = "checker-output error";
+        checkerOutput.textContent =
+          `✕ ${language.toUpperCase()} check failed.\n\n${error.message}`;
+
+        openWindow("checker");
+        appendTerminal(`check ${activeFile}: failed`, "error");
+      }
     }
 
     function formatCode() {
@@ -1359,17 +1219,19 @@ console.log("6 × 7 =", multiply(6, 7));`
       appendTerminal(`formatted ${activeFile}`, "success");
     }
 
+    function clearTerminal() {
+      terminalOutput.innerHTML = "";
+    }
+
     function clearEditor() {
       editor.value = "";
       saveActiveFile();
       updateLineNumbers();
       updateEditorStats();
-      resetChecker();
-
-      appendTerminal(`cleared ${activeFile}`, "info");
+      appendTerminal(`cleared ${activeFile}`, "success");
     }
 
-    function downloadActiveFile() {
+    function downloadFile() {
       saveActiveFile();
 
       const blob = new Blob([editor.value], {
@@ -1377,15 +1239,35 @@ console.log("6 × 7 =", multiply(6, 7));`
       });
 
       const url = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
+      const link = document.createElement("a");
 
-      anchor.href = url;
-      anchor.download = activeFile;
-      anchor.click();
+      link.href = url;
+      link.download = activeFile;
+      link.click();
 
       URL.revokeObjectURL(url);
 
       appendTerminal(`downloaded ${activeFile}`, "success");
+    }
+
+    function showHelp() {
+      appendTerminal("Available commands:", "success");
+      appendTerminal("help              show this list");
+      appendTerminal("clear             clear terminal");
+      appendTerminal("open editor       open the code editor");
+      appendTerminal("open preview      open live preview");
+      appendTerminal("open checker      open code checker");
+      appendTerminal("open prompts      open quick prompts");
+      appendTerminal("open commands     open command reference");
+      appendTerminal("close editor      close the code editor");
+      appendTerminal("run               execute the active JavaScript file");
+      appendTerminal("check             validate the active file");
+      appendTerminal("format            format the active file");
+      appendTerminal("clear-editor      clear the active file");
+      appendTerminal("download          download the active file");
+      appendTerminal("files             list project files");
+      appendTerminal("time              show system time");
+      appendTerminal("about             show system information");
     }
 
     function executeCommand(command) {
@@ -1400,73 +1282,124 @@ console.log("6 × 7 =", multiply(6, 7));`
 
       appendTerminal(trimmed, "command");
 
-      const parts = trimmed.split(" ");
-      const baseCommand = parts[0].toLowerCase();
+      const parts = trimmed.split(/\s+/);
+      const base = parts[0].toLowerCase();
+      const argument = parts.slice(1).join(" ").toLowerCase();
 
-      switch (baseCommand) {
-        case "help":
-          appendTerminal(
-            "Available commands: help, clear, run, check, format, time, about, files, open <file>"
-          );
-          break;
+      if (base === "help") {
+        showHelp();
+        return;
+      }
 
-        case "clear":
-          terminalOutput.innerHTML = "";
-          break;
+      if (base === "clear") {
+        clearTerminal();
+        return;
+      }
 
-        case "run":
-          runCode();
-          break;
+      if (base === "run") {
+        runCode();
+        return;
+      }
 
-        case "check":
-          checkCode();
-          break;
+      if (base === "check") {
+        checkCode();
+        return;
+      }
 
-        case "format":
-          formatCode();
-          break;
+      if (base === "format") {
+        formatCode();
+        return;
+      }
 
-        case "time":
-          appendTerminal(new Date().toString());
-          break;
+      if (base === "clear-editor") {
+        clearEditor();
+        return;
+      }
 
-        case "about":
-          appendTerminal(
-            "DEV//CONSOLE — client-side developer workspace. No server required."
-          );
-          break;
+      if (base === "download") {
+        downloadFile();
+        return;
+      }
 
-        case "files":
-          appendTerminal(Object.keys(files).join("  "));
-          break;
+      if (base === "files") {
+        appendTerminal(Object.keys(files).join("  "));
+        return;
+      }
 
-        case "open": {
-          const requestedFile = parts.slice(1).join(" ");
+      if (base === "time") {
+        appendTerminal(new Date().toString());
+        return;
+      }
 
-          if (files[requestedFile]) {
-            loadFile(requestedFile);
-            appendTerminal(`opened ${requestedFile}`, "success");
-          } else {
-            appendTerminal(`file not found: ${requestedFile}`, "error");
-          }
+      if (base === "about") {
+        appendTerminal(
+          "DEV//CONSOLE — movable client-side terminal desktop."
+        );
+        return;
+      }
 
-          break;
+      if (base === "open") {
+        if (argument === "editor") {
+          openWindow("editor");
+          appendTerminal("opened code editor", "success");
+          return;
         }
 
-        default:
-          appendTerminal(`command not found: ${baseCommand}`, "error");
-      }
-    }
+        if (argument === "preview") {
+          openWindow("preview");
+          appendTerminal("opened live preview", "success");
+          return;
+        }
 
-    function bringToFront(element) {
-      windowZIndex++;
-      element.style.zIndex = windowZIndex;
+        if (argument === "checker") {
+          openWindow("checker");
+          appendTerminal("opened code checker", "success");
+          return;
+        }
+
+        if (argument === "prompts") {
+          openWindow("prompts");
+          appendTerminal("opened quick prompts", "success");
+          return;
+        }
+
+        if (argument === "commands") {
+          openWindow("commands");
+          appendTerminal("opened command reference", "success");
+          return;
+        }
+
+        appendTerminal(`cannot open: ${argument}`, "error");
+        return;
+      }
+
+      if (base === "close") {
+        if (
+          [
+            "editor",
+            "preview",
+            "checker",
+            "prompts",
+            "commands",
+            "terminal"
+          ].includes(argument)
+        ) {
+          closeWindow(argument);
+          appendTerminal(`closed ${argument}`, "success");
+          return;
+        }
+
+        appendTerminal(`cannot close: ${argument}`, "error");
+        return;
+      }
+
+      appendTerminal(`command not found: ${base}`, "error");
     }
 
     function makeWindowMovable(windowElement) {
-      const header = windowElement.querySelector(".window-header");
+      const bar = windowElement.querySelector(".window-bar");
 
-      if (!header) {
+      if (!bar) {
         return;
       }
 
@@ -1474,7 +1407,7 @@ console.log("6 × 7 =", multiply(6, 7));`
       let offsetX = 0;
       let offsetY = 0;
 
-      header.addEventListener("mousedown", (event) => {
+      bar.addEventListener("mousedown", (event) => {
         if (event.target.closest("button")) {
           return;
         }
@@ -1487,10 +1420,11 @@ console.log("6 × 7 =", multiply(6, 7));`
         offsetX = event.clientX - rect.left;
         offsetY = event.clientY - rect.top;
 
+        windowElement.style.transform = "none";
+        windowElement.style.left = `${rect.left}px`;
+        windowElement.style.top = `${rect.top}px`;
         windowElement.style.right = "auto";
         windowElement.style.bottom = "auto";
-        windowElement.style.left = `${rect.left}px`;
-        windowElement.style.top = `${rect.top - 38}px`;
       });
 
       document.addEventListener("mousemove", (event) => {
@@ -1498,20 +1432,17 @@ console.log("6 × 7 =", multiply(6, 7));`
           return;
         }
 
-        const desktop = document.querySelector(".desktop");
-        const desktopRect = desktop.getBoundingClientRect();
-
-        const maxX = desktopRect.width - windowElement.offsetWidth;
-        const maxY = desktopRect.height - windowElement.offsetHeight;
+        const maxX = window.innerWidth - windowElement.offsetWidth;
+        const maxY = window.innerHeight - 32 - windowElement.offsetHeight;
 
         const nextX = Math.max(
           0,
-          Math.min(event.clientX - desktopRect.left - offsetX, maxX)
+          Math.min(event.clientX - offsetX, maxX)
         );
 
         const nextY = Math.max(
           0,
-          Math.min(event.clientY - desktopRect.top - offsetY, maxY)
+          Math.min(event.clientY - offsetY, maxY)
         );
 
         windowElement.style.left = `${nextX}px`;
@@ -1531,27 +1462,42 @@ console.log("6 × 7 =", multiply(6, 7));`
 
     document.querySelectorAll("[data-close]").forEach((button) => {
       button.addEventListener("click", () => {
-        const target = document.getElementById(button.dataset.close);
-        target.style.display = "none";
+        closeWindow(button.dataset.close.replace("Window", ""));
       });
     });
 
     document.querySelectorAll("[data-minimize]").forEach((button) => {
       button.addEventListener("click", () => {
-        const target = document.getElementById(button.dataset.minimize);
-        target.classList.toggle("minimized");
+        const target = getWindow(
+          button.dataset.minimize.replace("Window", "")
+        );
 
-        if (target.classList.contains("minimized")) {
-          target.style.height = "34px";
-        } else {
-          target.style.height = "";
-        }
+        target.classList.toggle("minimized");
+      });
+    });
+
+    document.querySelectorAll("[data-maximize]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = getWindow(
+          button.dataset.maximize.replace("Window", "")
+        );
+
+        target.classList.toggle("maximized");
       });
     });
 
     document.querySelectorAll(".editor-tab").forEach((tab) => {
       tab.addEventListener("click", () => {
         loadFile(tab.dataset.file);
+      });
+    });
+
+    document.querySelectorAll(".prompt-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const prompt = button.dataset.prompt;
+
+        terminalInput.value = `echo "${prompt}"`;
+        terminalInput.focus();
       });
     });
 
@@ -1577,9 +1523,9 @@ console.log("6 × 7 =", multiply(6, 7));`
         const end = editor.selectionEnd;
 
         editor.value =
-          editor.value.substring(0, start) +
+          editor.value.slice(0, start) +
           "  " +
-          editor.value.substring(end);
+          editor.value.slice(end);
 
         editor.selectionStart = editor.selectionEnd = start + 2;
 
@@ -1594,23 +1540,9 @@ console.log("6 × 7 =", multiply(6, 7));`
       }
     });
 
-    languageSelect.addEventListener("change", () => {
-      files[activeFile].language = languageSelect.value;
-      editorMode.textContent = capitalize(languageSelect.value);
-      resetChecker();
-      updatePreview();
-    });
-
-    document.getElementById("runButton").addEventListener("click", runCode);
-    document.getElementById("checkButton").addEventListener("click", checkCode);
-    document.getElementById("formatButton").addEventListener("click", formatCode);
-    document.getElementById("clearButton").addEventListener("click", clearEditor);
-    document
-      .getElementById("downloadButton")
-      .addEventListener("click", downloadActiveFile);
-
     terminalForm.addEventListener("submit", (event) => {
       event.preventDefault();
+
       executeCommand(terminalInput.value);
       terminalInput.value = "";
     });
@@ -1638,39 +1570,9 @@ console.log("6 × 7 =", multiply(6, 7));`
       }
     });
 
-    document.querySelectorAll(".prompt-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const prompt = button.dataset.prompt;
-
-        appendTerminal(`prompt: ${prompt}`, "info");
-        terminalInput.value = `echo "${prompt}"`;
-        terminalInput.focus();
-      });
-    });
-
-    const helpModal = document.getElementById("helpModal");
-
-    document.getElementById("helpButton").addEventListener("click", () => {
-      helpModal.classList.add("show");
-    });
-
-    document.getElementById("closeHelpButton").addEventListener("click", () => {
-      helpModal.classList.remove("show");
-    });
-
-    helpModal.addEventListener("click", (event) => {
-      if (event.target === helpModal) {
-        helpModal.classList.remove("show");
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        helpModal.classList.remove("show");
-      }
-    });
-
     loadFile("main.js");
+    updateWindowStatus();
+    updatePreview();
   </script>
 </body>
 </html>
