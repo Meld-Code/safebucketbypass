@@ -4,37 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DEV//CONSOLE</title>
+
   <style>
     :root {
-      --bg: #050505;
-      --panel: #0b0b0b;
-      --panel-light: #111111;
-      --border: #303030;
-      --text: #f5f5f5;
-      --muted: #8a8a8a;
-      --dim: #555;
-      --success: #b9ffb9;
-      --error: #ff9c9c;
-      --warning: #fff0a6;
-      --shadow: 0 0 25px rgba(255, 255, 255, 0.04);
+      --bg: #020604;
+      --terminal: #031008;
+      --panel: #06150a;
+      --panel-light: #0a2110;
+      --border: #176b32;
+      --border-bright: #31ff78;
+      --green: #39ff88;
+      --green-soft: #a7ffc5;
+      --green-dim: #4aa86b;
+      --text: #d9ffe5;
+      --muted: #59936b;
+      --danger: #ff5f6d;
+      --warning: #ffe66d;
+      --shadow: 0 0 35px rgba(43, 255, 119, 0.12);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      margin: 0;
+    html {
       min-height: 100%;
       background: var(--bg);
-      color: var(--text);
-      font-family: "Courier New", Courier, monospace;
     }
 
     body {
+      margin: 0;
+      min-height: 100vh;
       padding: 18px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(20, 90, 40, 0.18), transparent 38%),
+        #020604;
+      font-family: "Courier New", Courier, monospace;
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.025) 0,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.25;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 49;
+      box-shadow:
+        inset 0 0 120px rgba(0, 0, 0, 0.8),
+        inset 0 0 20px rgba(44, 255, 120, 0.08);
     }
 
     button,
@@ -46,41 +82,53 @@
 
     button,
     select {
-      color: var(--text);
-      background: #0d0d0d;
+      color: var(--green-soft);
+      background: #041009;
       border: 1px solid var(--border);
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
     button:hover,
     select:hover {
-      background: #1c1c1c;
-      border-color: #777;
+      color: #fff;
+      background: #0b2813;
+      border-color: var(--border-bright);
+      box-shadow: 0 0 12px rgba(49, 255, 120, 0.2);
     }
 
     button:active {
       transform: translateY(1px);
     }
 
+    ::selection {
+      color: #001b08;
+      background: var(--green);
+    }
+
     .app-shell {
-      width: min(1800px, 100%);
+      width: min(1900px, 100%);
+      min-height: calc(100vh - 36px);
       margin: 0 auto;
+      overflow: hidden;
       border: 1px solid var(--border);
-      background: #070707;
-      box-shadow: var(--shadow);
+      background: var(--terminal);
+      box-shadow:
+        var(--shadow),
+        0 0 0 1px rgba(57, 255, 136, 0.05);
     }
 
     .top-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 14px;
+      gap: 14px;
+      min-height: 42px;
+      padding: 8px 14px;
       border-bottom: 1px solid var(--border);
-      background: #0d0d0d;
-      color: var(--muted);
+      background: #041009;
+      color: var(--green-dim);
       font-size: 12px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
     }
 
     .traffic-lights {
@@ -91,50 +139,107 @@
     .traffic-lights span {
       width: 10px;
       height: 10px;
-      border: 1px solid #777;
-      border-radius: 50%;
       display: block;
-      background: #222;
+      border: 1px solid var(--green-dim);
+      border-radius: 50%;
+      background: #061d0d;
+      box-shadow: 0 0 6px rgba(57, 255, 136, 0.25);
+    }
+
+    .traffic-lights span:first-child {
+      background: #ff5f56;
+      border-color: #ff5f56;
+    }
+
+    .traffic-lights span:nth-child(2) {
+      background: #ffbd2e;
+      border-color: #ffbd2e;
+    }
+
+    .traffic-lights span:nth-child(3) {
+      background: #27c93f;
+      border-color: #27c93f;
     }
 
     .window-title {
       flex: 1;
+      color: var(--green-soft);
       text-align: center;
-      color: #ddd;
+      text-shadow: 0 0 8px rgba(57, 255, 136, 0.5);
     }
 
     .status-indicator {
-      color: var(--success);
+      color: var(--green);
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(57, 255, 136, 0.7);
     }
 
     .hero {
-      padding: 28px 24px 20px;
+      position: relative;
+      min-height: 330px;
+      padding: 24px;
+      overflow: hidden;
       border-bottom: 1px solid var(--border);
       background:
-        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        #080808;
-      background-size: 22px 22px;
+        linear-gradient(rgba(30, 255, 105, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 255, 105, 0.045) 1px, transparent 1px),
+        radial-gradient(circle at center, rgba(18, 117, 49, 0.15), transparent 65%),
+        #020a05;
+      background-size: 24px 24px, 24px 24px, auto;
+    }
+
+    .hero::before {
+      content: "BOOT_SEQUENCE // DEV_CONSOLE";
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      color: var(--green-dim);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+      opacity: 0.7;
     }
 
     .ascii-art {
-      margin: 0;
-      overflow-x: auto;
-      color: #fff;
-      font-size: clamp(8px, 1.25vw, 16px);
-      line-height: 1.15;
+      width: 100%;
+      max-height: 240px;
+      margin: 20px 0 0;
+      overflow: auto;
+      color: var(--green);
+      font-size: clamp(5px, 0.72vw, 11px);
+      line-height: 1.05;
       white-space: pre;
-      text-shadow: 0 0 9px rgba(255, 255, 255, 0.3);
+      text-shadow:
+        0 0 4px rgba(57, 255, 136, 0.9),
+        0 0 14px rgba(57, 255, 136, 0.4);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
     }
 
     .hero-subtitle {
       margin: 18px 0 0;
-      color: var(--muted);
+      color: var(--green-dim);
       font-size: 13px;
     }
 
+    .hero-subtitle::before {
+      content: "[SYSTEM] ";
+      color: var(--green);
+    }
+
     .hero-subtitle span {
-      color: var(--text);
+      color: var(--green);
     }
 
     .toolbar {
@@ -142,16 +247,21 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 8px;
-      padding: 12px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--border);
-      background: #0c0c0c;
+      background: #041009;
     }
 
     .toolbar button,
     .toolbar select {
       min-height: 34px;
       padding: 7px 12px;
-      font-size: 12px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .toolbar button::first-letter {
+      color: var(--green);
     }
 
     .toolbar .spacer {
@@ -159,82 +269,103 @@
     }
 
     .shortcut {
-      color: var(--dim);
-      font-size: 11px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.08em;
     }
 
     .workspace {
       display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.8fr);
+      grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.8fr);
       min-height: 700px;
     }
 
     .editor-area {
       min-width: 0;
       border-right: 1px solid var(--border);
+      background: #020a05;
     }
 
     .editor-tabs {
       display: flex;
       overflow-x: auto;
       border-bottom: 1px solid var(--border);
-      background: #0b0b0b;
+      background: #041009;
     }
 
     .editor-tab {
+      position: relative;
       padding: 11px 15px;
       color: var(--muted);
+      background: transparent;
       border: 0;
       border-right: 1px solid var(--border);
-      border-bottom: 2px solid transparent;
       white-space: nowrap;
     }
 
+    .editor-tab::before {
+      content: ">";
+      margin-right: 7px;
+      color: transparent;
+    }
+
     .editor-tab.active {
-      color: #fff;
-      background: #151515;
-      border-bottom-color: #fff;
+      color: var(--green);
+      background: #092010;
+      text-shadow: 0 0 8px rgba(57, 255, 136, 0.6);
+    }
+
+    .editor-tab.active::before {
+      color: var(--green);
+    }
+
+    .editor-tab.active::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
     }
 
     .editor-wrap {
-      position: relative;
       display: grid;
-      grid-template-columns: 55px minmax(0, 1fr);
-      min-height: 500px;
-      background: #080808;
+      grid-template-columns: 58px minmax(0, 1fr);
+      min-height: 540px;
+      background:
+        linear-gradient(90deg, rgba(36, 255, 108, 0.025), transparent 18%),
+        #020a05;
     }
 
     .line-numbers {
-      padding: 17px 10px 17px 0;
-      color: #4f4f4f;
-      border-right: 1px solid #1d1d1d;
-      text-align: right;
-      line-height: 1.55;
-      user-select: none;
+      padding: 18px 12px 18px 0;
       overflow: hidden;
+      color: #225f36;
+      border-right: 1px solid #0b3218;
+      text-align: right;
+      line-height: 1.6;
+      user-select: none;
       white-space: pre;
     }
 
     #codeEditor {
       width: 100%;
-      min-height: 500px;
-      padding: 17px;
-      border: 0;
-      outline: 0;
+      min-height: 540px;
+      padding: 18px;
+      overflow: auto;
       resize: vertical;
-      color: #f4f4f4;
+      outline: 0;
+      border: 0;
+      color: var(--green-soft);
       background: transparent;
-      caret-color: #fff;
+      caret-color: var(--green);
       font-size: 14px;
-      line-height: 1.55;
+      line-height: 1.6;
       tab-size: 2;
       white-space: pre;
-      overflow: auto;
-    }
-
-    #codeEditor::selection {
-      color: #000;
-      background: #fff;
+      text-shadow: 0 0 4px rgba(167, 255, 197, 0.25);
     }
 
     .editor-footer {
@@ -242,15 +373,15 @@
       justify-content: space-between;
       gap: 12px;
       padding: 8px 12px;
-      border-top: 1px solid var(--border);
       color: var(--muted);
-      font-size: 11px;
-      background: #0b0b0b;
+      border-top: 1px solid var(--border);
+      background: #041009;
+      font-size: 10px;
     }
 
     .side-area {
       min-width: 0;
-      background: #080808;
+      background: #020a05;
     }
 
     .side-panel {
@@ -262,27 +393,41 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 12px;
+      color: var(--green);
       border-bottom: 1px solid var(--border);
-      background: #101010;
-      color: #ddd;
-      font-size: 12px;
-      letter-spacing: 0.08em;
+      background: #06150a;
+      font-size: 11px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+      text-shadow: 0 0 6px rgba(57, 255, 136, 0.5);
+    }
+
+    .panel-heading::before {
+      content: "[";
+      margin-right: 5px;
+      color: var(--green-dim);
+    }
+
+    .panel-heading::after {
+      content: "]";
+      margin-left: 5px;
+      color: var(--green-dim);
     }
 
     .panel-heading small {
-      color: var(--dim);
-      font-size: 10px;
+      color: var(--muted);
+      font-size: 9px;
       letter-spacing: 0;
       text-transform: none;
+      text-shadow: none;
     }
 
     .preview-frame {
+      display: block;
       width: 100%;
       height: 235px;
-      display: block;
       border: 0;
-      background: white;
+      background: #fff;
     }
 
     .checker-output,
@@ -291,23 +436,26 @@
       max-height: 260px;
       padding: 12px;
       overflow: auto;
-      color: var(--muted);
+      color: var(--green-dim);
       font-size: 12px;
       line-height: 1.55;
       white-space: pre-wrap;
     }
 
     .checker-output.success {
-      color: var(--success);
+      color: var(--green);
     }
 
     .checker-output.error {
-      color: var(--error);
+      color: var(--danger);
     }
 
     .terminal-output {
-      min-height: 170px;
-      color: #ddd;
+      min-height: 185px;
+      color: var(--green-soft);
+      background:
+        radial-gradient(circle at top left, rgba(35, 255, 112, 0.06), transparent 50%),
+        #010803;
     }
 
     .terminal-line {
@@ -319,20 +467,20 @@
     }
 
     .terminal-line.command::before {
-      content: "> ";
-      color: var(--success);
+      content: "dev@console:~$ ";
+      color: var(--green);
     }
 
     .terminal-line.info {
-      color: var(--muted);
+      color: var(--green-dim);
     }
 
     .terminal-line.success {
-      color: var(--success);
+      color: var(--green);
     }
 
     .terminal-line.error {
-      color: var(--error);
+      color: var(--danger);
     }
 
     .terminal-form {
@@ -341,41 +489,54 @@
       gap: 8px;
       padding: 10px 12px;
       border-top: 1px solid var(--border);
+      background: #031008;
     }
 
     .terminal-prompt {
-      color: var(--success);
-      font-size: 13px;
+      color: var(--green);
+      font-size: 12px;
+      white-space: nowrap;
+      text-shadow: 0 0 7px rgba(57, 255, 136, 0.6);
     }
 
     #terminalInput {
       flex: 1;
       min-width: 0;
       padding: 8px 0;
-      border: 0;
       outline: 0;
-      color: #fff;
+      border: 0;
+      color: var(--green-soft);
       background: transparent;
+      caret-color: var(--green);
+    }
+
+    #terminalInput::placeholder {
+      color: #2b6940;
     }
 
     .prompt-list {
       display: grid;
-      gap: 8px;
+      gap: 7px;
       padding: 12px;
     }
 
     .prompt-button {
       padding: 9px 10px;
+      color: var(--green-dim);
+      background: #031008;
+      border: 1px solid #0c3b1a;
       text-align: left;
-      color: #cfcfcf;
-      background: #0c0c0c;
-      border: 1px solid #222;
       font-size: 11px;
     }
 
+    .prompt-button::before {
+      content: "$ ";
+      color: var(--green);
+    }
+
     .prompt-button:hover {
-      color: #fff;
-      border-color: #888;
+      color: var(--green-soft);
+      border-color: var(--border-bright);
     }
 
     .command-reference {
@@ -388,7 +549,8 @@
     }
 
     .command-reference code {
-      color: #fff;
+      color: var(--green);
+      text-shadow: 0 0 5px rgba(57, 255, 136, 0.4);
     }
 
     .bottom-status {
@@ -397,26 +559,27 @@
       justify-content: space-between;
       gap: 10px;
       padding: 9px 12px;
-      border-top: 1px solid var(--border);
       color: var(--muted);
-      background: #0d0d0d;
-      font-size: 11px;
+      border-top: 1px solid var(--border);
+      background: #041009;
+      font-size: 10px;
+      letter-spacing: 0.04em;
     }
 
     .bottom-status strong {
-      color: #fff;
+      color: var(--green);
       font-weight: normal;
     }
 
     .modal-backdrop {
       position: fixed;
       inset: 0;
+      z-index: 20;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: rgba(0, 0, 0, 0.82);
-      z-index: 20;
+      background: rgba(0, 5, 2, 0.88);
     }
 
     .modal-backdrop.show {
@@ -425,28 +588,31 @@
 
     .modal {
       width: min(650px, 100%);
-      border: 1px solid #777;
-      background: #0d0d0d;
-      box-shadow: 0 0 45px rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-bright);
+      background: #041009;
+      box-shadow:
+        0 0 45px rgba(57, 255, 136, 0.2),
+        inset 0 0 30px rgba(57, 255, 136, 0.04);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       padding: 12px 14px;
+      color: var(--green);
       border-bottom: 1px solid var(--border);
-      color: #fff;
+      text-shadow: 0 0 7px rgba(57, 255, 136, 0.5);
     }
 
     .modal-body {
       padding: 14px;
-      color: var(--muted);
-      line-height: 1.6;
+      color: var(--green-dim);
       font-size: 13px;
+      line-height: 1.6;
     }
 
     .modal-body code {
-      color: #fff;
+      color: var(--green);
     }
 
     .modal-close {
@@ -483,11 +649,23 @@
 
     @media (max-width: 620px) {
       .top-bar {
-        font-size: 10px;
+        font-size: 9px;
       }
 
       .window-title {
         text-align: left;
+      }
+
+      .status-indicator {
+        display: none;
+      }
+
+      .hero {
+        padding: 16px 12px;
+      }
+
+      .ascii-art {
+        font-size: 4px;
       }
 
       .side-area {
@@ -509,9 +687,14 @@
       .shortcut {
         display: none;
       }
+
+      .editor-footer {
+        font-size: 9px;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="app-shell">
     <header class="top-bar">
@@ -520,176 +703,225 @@
         <span></span>
         <span></span>
       </div>
-  <div class="window-title">DEV//CONSOLE — LOCAL DEVELOPMENT ENVIRONMENT</div>
 
-  <div class="status-indicator">● ONLINE</div>
-</header>
-
-<section class="hero">
-  <pre class="ascii-art">
-
-██████╗ ███████╗██╗   ██╗
-██╔══██╗██╔════╝██║   ██║
-██║  ██║█████╗  ██║   ██║
-██║  ██║██╔══╝  ╚██╗ ██╔╝
-██████╔╝███████╗ ╚████╔╝
-╚═════╝ ╚══════╝  ╚═══╝
-██████╗ ██████╗ ███╗   ██╗███████╗ ██████╗ ██╗     ███████╗
-██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔═══██╗██║     ██╔════╝
-██║     ██║   ██║██╔██╗ ██║███████╗██║   ██║██║     █████╗
-██║     ██║   ██║██║╚██╗██║╚════██║██║   ██║██║     ██╔══╝
-╚██████╗╚██████╔╝██║ ╚████║███████║╚██████╔╝███████╗███████╗
-╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝</pre>
-  <p class="hero-subtitle">
-    <span>root@dev-console</span>:~$ build ideas, inspect code, execute logic.
-  </p>
-</section>
-
-<nav class="toolbar">
-  <button id="runButton">▶ RUN CODE</button>
-  <button id="checkButton">✓ CHECK CODE</button>
-  <button id="formatButton">↻ FORMAT</button>
-  <button id="clearButton">× CLEAR</button>
-  <button id="downloadButton">↓ DOWNLOAD</button>
-  <button id="helpButton">? HELP</button>
-
-  <div class="spacer"></div>
-
-  <label for="languageSelect" class="shortcut">LANGUAGE</label>
-  <select id="languageSelect">
-    <option value="javascript">JavaScript</option>
-    <option value="html">HTML</option>
-    <option value="css">CSS</option>
-    <option value="json">JSON</option>
-  </select>
-</nav>
-
-<section class="workspace">
-  <section class="editor-area">
-    <div class="editor-tabs">
-      <button class="editor-tab active" data-file="main.js">main.js</button>
-      <button class="editor-tab" data-file="index.html">index.html</button>
-      <button class="editor-tab" data-file="styles.css">styles.css</button>
-      <button class="editor-tab" data-file="config.json">config.json</button>
-    </div>
-
-    <div class="editor-wrap">
-      <div id="lineNumbers" class="line-numbers">1</div>
-
-      <textarea id="codeEditor" spellcheck="false" aria-label="Code editor"></textarea>
-    </div>
-
-    <div class="editor-footer">
-      <span id="cursorPosition">Ln 1, Col 1</span>
-      <span id="characterCount">0 characters</span>
-      <span id="editorMode">JavaScript</span>
-    </div>
-  </section>
-
-  <aside class="side-area">
-    <section class="side-panel">
-      <div class="panel-heading">
-        <span>LIVE DISPLAY</span>
-        <small>iframe://preview</small>
+      <div class="window-title">
+        root@dev-console: /usr/local/dev//console
       </div>
-      <iframe id="previewFrame" class="preview-frame" title="Live code preview"></iframe>
+
+      <div class="status-indicator">● ONLINE</div>
+    </header>
+
+    <section class="hero">
+      <pre class="ascii-art">
+                                                                                                                                                                
+                                                                                                                                                                
+                                                                                         ::===                                                                  
+                                                  #=+++*%                             ::======#   ##                                                            
+                                                  -=+++=-                             -=======##    :                                                           
+                                                  ==++++===+            --::       :::==:::---      ==                                                          
+                                                  ==+-:-====%%        %%####%     ***-*:::-=--      ====                                                        
+                                                  +==-:--::--++       ###*###=-===-===:::::=-:      *===                                                        
+                                                  *=====-.::--=+::-*###**##*+=+======+:::==*%       ====                                                        
+                                                  --===+=...:---=====*######*====#*---=:=++=      --+#                                                          
+                                                    -==*+..-======++++++%#+++*+======-*====   #-=++=+   ++                                                      
+                                                    --=*=.#=--===+*++==+=++=+*++===++=-=::-*+-==+**++  +*#                                                      
+                                                    ++=+**===+++=-==-........--=-----:=......:**    #***                                                        
+                                                   #==+#*****+=+==::..........:==-+=-::--:......                                                                
+                                                  ==++++*+@#+==+:................-=-:.:-==-.....                                                                
+                                                  ++*++=+**#++++:................=+-:.:===-.....                                                                
+                                                  ++++++++++#*++.................-=-:...........                                                                
+                                                  **++++++++++++.........*:--:...-=---.........-                                                                
+                                                  *+++++++++++++=........-----..*+==+#-.......+=                                                                
+                                                  *+++++++++++++=........*=----*====++-.......+#                                                                
+                                                  #%++++++++++++++++=.......:**++++++++++#*+++##                                                                
+                                                  #*****+++++++++++++++++*:::-=:::::::=%**++*+::                                                                
+                                                  -+********+++===+==--+=-=+++====++++++---=+#++                                                                
+                                                  --###********+==:==+++++*++++++++++++++***+=                                                                  
+                                                  --::=#****%#****+++++**+*++++**+++++++***=--                                                                  
+                                                  +------:=#*##**#*+++++++**++++++*****%------=+                                                                  
+                                                  %%-------:-#%%**%*****++***++*+++**#*-----=+                                                                  
+                                                       **-------------------------------++                                                                      
+                                                    #*+*#++=+==+*+*##+=-::---*%#*%#***+                                                                         
+                                                   #***##=======+****++++####+++**++++++                                                                        
+                                                  ++***+========+****++++**##++*+**+++++                                                                        
+                                                  @@***+=======++#%*****#*#++***%#*+++*:                                                                        
+                                                  ##****+%+--##++****###***********+*%:-#**                                                                     
+                                                  *#***=-*#-.......+*****####**********:####                                                                    
+                                                    ***=-##*#-......:***%%###*********+:###*                                                                    
+                                                      .-*##*....:::::...   ##*********%*:::                                                                     
+                                                      .-=..:....=*##*--#    **********+::::                                                                     
+                                                      +-....::..-**##*     ##*********+::..                                                                     
+                                                       --...::..:****##    ##**********+                                                                        
+                                                       #*:%-:::..::+*+     .::-***=--:::                                                                        
+                                                      ........:-==:::--   ---:::::.........=#                                                                   
+                                                     +=.........:--::--   :-=+::::...........                                                                   
+                                                    :::....-*#%%%#*:.+*     --:-::..::::::::::                                                                  
+                                                        ++-:..::+#==                                                                                             
+      </pre>
+
+      <p class="hero-subtitle">
+        <span>root@dev-console</span>:~$ build ideas, inspect code, execute logic.
+      </p>
     </section>
 
-    <section class="side-panel">
-      <div class="panel-heading">
-        <span>CODE CHECKER</span>
-        <small id="checkerStatus">waiting</small>
-      </div>
-      <div id="checkerOutput" class="checker-output">
-        No diagnostics available. Run the checker to inspect your code.
-      </div>
+    <nav class="toolbar">
+      <button id="runButton">[ RUN ]</button>
+      <button id="checkButton">[ CHECK ]</button>
+      <button id="formatButton">[ FORMAT ]</button>
+      <button id="clearButton">[ CLEAR ]</button>
+      <button id="downloadButton">[ DOWNLOAD ]</button>
+      <button id="helpButton">[ HELP ]</button>
+
+      <div class="spacer"></div>
+
+      <label for="languageSelect" class="shortcut">LANGUAGE:</label>
+
+      <select id="languageSelect">
+        <option value="javascript">JavaScript</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="json">JSON</option>
+      </select>
+    </nav>
+
+    <section class="workspace">
+      <section class="editor-area">
+        <div class="editor-tabs">
+          <button class="editor-tab active" data-file="main.js">main.js</button>
+          <button class="editor-tab" data-file="index.html">index.html</button>
+          <button class="editor-tab" data-file="styles.css">styles.css</button>
+          <button class="editor-tab" data-file="config.json">config.json</button>
+        </div>
+
+        <div class="editor-wrap">
+          <div id="lineNumbers" class="line-numbers">1</div>
+          <textarea id="codeEditor" spellcheck="false" aria-label="Code editor"></textarea>
+        </div>
+
+        <div class="editor-footer">
+          <span id="cursorPosition">Ln 1, Col 1</span>
+          <span id="characterCount">0 characters</span>
+          <span id="editorMode">JavaScript</span>
+        </div>
+      </section>
+
+      <aside class="side-area">
+        <section class="side-panel">
+          <div class="panel-heading">
+            <span>LIVE DISPLAY</span>
+            <small>iframe://preview</small>
+          </div>
+
+          <iframe
+            id="previewFrame"
+            class="preview-frame"
+            title="Live code preview"
+          ></iframe>
+        </section>
+
+        <section class="side-panel">
+          <div class="panel-heading">
+            <span>CODE CHECKER</span>
+            <small id="checkerStatus">waiting</small>
+          </div>
+
+          <div id="checkerOutput" class="checker-output">
+            No diagnostics available. Run the checker to inspect your code.
+          </div>
+        </section>
+
+        <section class="side-panel">
+          <div class="panel-heading">
+            <span>TERMINAL</span>
+            <small>type help</small>
+          </div>
+
+          <div id="terminalOutput" class="terminal-output">
+            <div class="terminal-line info">DEV//CONSOLE v1.0 initialized.</div>
+            <div class="terminal-line info">Type "help" to list available commands.</div>
+          </div>
+
+          <form id="terminalForm" class="terminal-form">
+            <span class="terminal-prompt">dev@console:~$</span>
+            <input
+              id="terminalInput"
+              autocomplete="off"
+              placeholder="enter command..."
+            />
+          </form>
+        </section>
+
+        <section class="side-panel">
+          <div class="panel-heading">
+            <span>QUICK PROMPTS</span>
+            <small>templates</small>
+          </div>
+
+          <div class="prompt-list">
+            <button class="prompt-button" data-prompt="Create a function that reverses a string.">
+              Create a string reversal function
+            </button>
+
+            <button class="prompt-button" data-prompt="Create a function that checks whether a number is prime.">
+              Create a prime number checker
+            </button>
+
+            <button class="prompt-button" data-prompt="Build a simple counter with increment and decrement buttons.">
+              Build a counter interface
+            </button>
+
+            <button class="prompt-button" data-prompt="Explain what this code does.">
+              Explain current code
+            </button>
+          </div>
+        </section>
+
+        <section class="side-panel">
+          <div class="panel-heading">
+            <span>COMMAND REFERENCE</span>
+            <small>shell</small>
+          </div>
+
+          <div class="command-reference">
+            <div><code>help</code> show commands</div>
+            <div><code>clear</code> clear terminal</div>
+            <div><code>run</code> execute code</div>
+            <div><code>check</code> validate code</div>
+            <div><code>format</code> format active file</div>
+            <div><code>time</code> show system time</div>
+            <div><code>about</code> system information</div>
+            <div><code>files</code> list project files</div>
+          </div>
+        </section>
+      </aside>
     </section>
 
-    <section class="side-panel">
-      <div class="panel-heading">
-        <span>TERMINAL</span>
-        <small>type help</small>
-      </div>
-
-      <div id="terminalOutput" class="terminal-output">
-        <div class="terminal-line info">DEV//CONSOLE v1.0 initialized.</div>
-        <div class="terminal-line info">Type "help" to list available commands.</div>
-      </div>
-
-      <form id="terminalForm" class="terminal-form">
-        <span class="terminal-prompt">dev@console:~$</span>
-        <input id="terminalInput" autocomplete="off" placeholder="enter command..." />
-      </form>
-    </section>
-
-    <section class="side-panel">
-      <div class="panel-heading">
-        <span>QUICK PROMPTS</span>
-        <small>templates</small>
-      </div>
-
-      <div class="prompt-list">
-        <button class="prompt-button" data-prompt="Create a function that reverses a string.">
-          &gt; Create a string reversal function
-        </button>
-
-        <button class="prompt-button" data-prompt="Create a function that checks whether a number is prime.">
-          &gt; Create a prime number checker
-        </button>
-
-        <button class="prompt-button" data-prompt="Build a simple counter with increment and decrement buttons.">
-          &gt; Build a counter interface
-        </button>
-
-        <button class="prompt-button" data-prompt="Explain what this code does.">
-          &gt; Explain current code
-        </button>
-      </div>
-    </section>
-
-    <section class="side-panel">
-      <div class="panel-heading">
-        <span>COMMAND REFERENCE</span>
-        <small>shell</small>
-      </div>
-
-      <div class="command-reference">
-        <div><code>help</code> show commands</div>
-        <div><code>clear</code> clear terminal</div>
-        <div><code>run</code> execute code</div>
-        <div><code>check</code> validate code</div>
-        <div><code>time</code> show system time</div>
-        <div><code>about</code> system info</div>
-      </div>
-    </section>
-  </aside>
-</section>
-
-<footer class="bottom-status">
-  <span>PROCESS: <strong id="processStatus">IDLE</strong></span>
-  <span>MEMORY: <strong id="memoryStatus">-- MB</strong></span>
-  <span>EDITOR: <strong>LOCAL BUFFER</strong></span>
-  <span>SECURITY: <strong>CLIENT-SIDE ONLY</strong></span>
-</footer>
-
+    <footer class="bottom-status">
+      <span>PROCESS: <strong id="processStatus">IDLE</strong></span>
+      <span>MEMORY: <strong id="memoryStatus">-- MB</strong></span>
+      <span>EDITOR: <strong>LOCAL BUFFER</strong></span>
+      <span>SECURITY: <strong>CLIENT-SIDE ONLY</strong></span>
+    </footer>
   </main>
+
   <div id="helpModal" class="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
         <span>DEV//CONSOLE HELP</span>
         <button id="closeHelpButton" class="modal-close">×</button>
       </div>
-  <div class="modal-body">
-    <p><code>RUN CODE</code> executes JavaScript in a protected browser function and displays the result in the terminal.</p>
-    <p><code>CHECK CODE</code> performs a basic syntax validation based on the selected language.</p>
-    <p><code>FORMAT</code> applies simple indentation formatting to the active file.</p>
-    <p><code>LIVE DISPLAY</code> renders HTML, CSS, and JavaScript files together in the preview frame.</p>
-    <p><code>DOWNLOAD</code> downloads the currently active file to your computer.</p>
-    <p>Terminal commands include <code>help</code>, <code>clear</code>, <code>run</code>, <code>check</code>, <code>time</code>, and <code>about</code>.</p>
-  </div>
-</div>
 
+      <div class="modal-body">
+        <p><code>RUN CODE</code> executes JavaScript in a protected browser function and displays the result in the terminal.</p>
+        <p><code>CHECK CODE</code> performs basic syntax validation based on the selected language.</p>
+        <p><code>FORMAT</code> applies simple indentation formatting to the active file.</p>
+        <p><code>LIVE DISPLAY</code> renders HTML, CSS, and JavaScript files together in the preview frame.</p>
+        <p><code>DOWNLOAD</code> downloads the currently active file to your computer.</p>
+        <p>Terminal commands include <code>help</code>, <code>clear</code>, <code>run</code>, <code>check</code>, <code>format</code>, <code>time</code>, <code>about</code>, and <code>files</code>.</p>
+      </div>
+    </div>
   </div>
+
   <script>
     const files = {
       "main.js": {
@@ -781,6 +1013,7 @@ console.log("6 × 7 =", multiply(6, 7));`
 
     function updateLineNumbers() {
       const lineCount = editor.value.split("\n").length;
+
       lineNumbers.textContent = Array.from(
         { length: lineCount },
         (_, index) => index + 1
@@ -797,6 +1030,7 @@ console.log("6 × 7 =", multiply(6, 7));`
 
       cursorPosition.textContent = `Ln ${line}, Col ${column}`;
       characterCount.textContent = `${editor.value.length} characters`;
+
       updateMemoryStatus();
     }
 
@@ -830,6 +1064,7 @@ console.log("6 × 7 =", multiply(6, 7));`
       const line = document.createElement("div");
       line.className = `terminal-line ${type}`;
       line.textContent = text;
+
       terminalOutput.appendChild(line);
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
@@ -851,8 +1086,10 @@ console.log("6 × 7 =", multiply(6, 7));`
         <html>
           <head>
             <meta charset="UTF-8">
+
             <style>
               ${css}
+
               body {
                 margin: 0;
                 min-height: 100vh;
@@ -861,384 +1098,395 @@ console.log("6 × 7 =", multiply(6, 7));`
                 place-items: center;
               }
             </style>
-      </head>
-      <body>
-        ${html}
-        <script>
-          try {
-            ${js}
-          } catch (error) {
-            document.body.insertAdjacentHTML(
-              "beforeend",
-              "<pre style='position:fixed;bottom:0;left:0;right:0;padding:10px;background:#200;color:#f99;font-family:monospace'>" +
-              error.message +
-              "</pre>"
-            );
+          </head>
+
+          <body>
+            ${html}
+
+            <script>
+              try {
+                ${js}
+              } catch (error) {
+                document.body.insertAdjacentHTML(
+                  "beforeend",
+                  "<pre style='position:fixed;bottom:0;left:0;right:0;padding:10px;background:#200;color:#f99;font-family:monospace'>" +
+                  error.message +
+                  "</pre>"
+                );
+              }
+            <\/script>
+          </body>
+        </html>
+      `;
+
+      previewFrame.srcdoc = documentContent;
+    }
+
+    function checkCode() {
+      saveActiveFile();
+
+      const language = files[activeFile].language;
+      const code = editor.value;
+
+      checkerStatus.textContent = "checking...";
+
+      try {
+        if (language === "javascript") {
+          new Function(code);
+        } else if (language === "json") {
+          JSON.parse(code);
+        } else if (language === "html") {
+          const parser = new DOMParser();
+          const result = parser.parseFromString(code, "text/html");
+
+          if (result.querySelector("parsererror")) {
+            throw new Error("HTML parser error detected.");
           }
-        <\/script>
-      </body>
-    </html>
-  `;
+        } else if (language === "css") {
+          if (code.includes("{") && !code.includes("}")) {
+            throw new Error("CSS appears to have an unclosed block.");
+          }
 
-  previewFrame.srcdoc = documentContent;
-}
+          if (code.includes("}") && !code.includes("{")) {
+            throw new Error("CSS contains a closing brace without an opening brace.");
+          }
+        }
 
-function checkCode() {
-  saveActiveFile();
+        checkerStatus.textContent = "passed";
+        checkerOutput.className = "checker-output success";
+        checkerOutput.textContent =
+          `✓ No obvious ${language.toUpperCase()} syntax errors found.\n` +
+          "✓ Buffer is valid enough to execute or preview.";
 
-  const language = files[activeFile].language;
-  const code = editor.value;
+        appendTerminal(`check ${activeFile}: passed`, "success");
+      } catch (error) {
+        checkerStatus.textContent = "failed";
+        checkerOutput.className = "checker-output error";
+        checkerOutput.textContent =
+          `✕ ${language.toUpperCase()} check failed.\n\n${error.message}`;
 
-  checkerStatus.textContent = "checking...";
-
-  try {
-    if (language === "javascript") {
-      new Function(code);
-    } else if (language === "json") {
-      JSON.parse(code);
-    } else if (language === "html") {
-      const parser = new DOMParser();
-      const result = parser.parseFromString(code, "text/html");
-
-      if (result.querySelector("parsererror")) {
-        throw new Error("HTML parser error detected.");
-      }
-    } else if (language === "css") {
-      if (code.includes("{") && !code.includes("}")) {
-        throw new Error("CSS appears to have an unclosed block.");
-      }
-
-      if (code.includes("}") && !code.includes("{")) {
-        throw new Error("CSS contains a closing brace without an opening brace.");
+        appendTerminal(`check ${activeFile}: failed — ${error.message}`, "error");
       }
     }
 
-    checkerStatus.textContent = "passed";
-    checkerOutput.className = "checker-output success";
-    checkerOutput.textContent =
-      `✓ No obvious ${language.toUpperCase()} syntax errors found.\n` +
-      "✓ Buffer is valid enough to execute or preview.";
-    appendTerminal(`check ${activeFile}: passed`, "success");
-  } catch (error) {
-    checkerStatus.textContent = "failed";
-    checkerOutput.className = "checker-output error";
-    checkerOutput.textContent =
-      `✕ ${language.toUpperCase()} check failed.\n\n${error.message}`;
-    appendTerminal(`check ${activeFile}: failed — ${error.message}`, "error");
-  }
-}
+    function runCode() {
+      saveActiveFile();
+      setProcessStatus("RUNNING");
 
-function runCode() {
-  saveActiveFile();
-  setProcessStatus("RUNNING");
+      if (files[activeFile].language !== "javascript") {
+        updatePreview();
+        appendTerminal(`${activeFile} sent to live preview.`, "success");
+        setProcessStatus("IDLE");
+        return;
+      }
 
-  if (files[activeFile].language !== "javascript") {
-    updatePreview();
-    appendTerminal(`${activeFile} sent to live preview.`, "success");
-    setProcessStatus("IDLE");
-    return;
-  }
+      const logs = [];
 
-  const logs = [];
-  const fakeConsole = {
-    log: (...args) => logs.push(args.map(formatValue).join(" ")),
-    warn: (...args) => logs.push(`[warn] ${args.map(formatValue).join(" ")}`),
-    error: (...args) => logs.push(`[error] ${args.map(formatValue).join(" ")}`)
-  };
+      const fakeConsole = {
+        log: (...args) => logs.push(args.map(formatValue).join(" ")),
+        warn: (...args) => logs.push(`[warn] ${args.map(formatValue).join(" ")}`),
+        error: (...args) => logs.push(`[error] ${args.map(formatValue).join(" ")}`)
+      };
 
-  try {
-    const executable = new Function("console", editor.value);
-    const result = executable(fakeConsole);
+      try {
+        const executable = new Function("console", editor.value);
+        const result = executable(fakeConsole);
 
-    if (result !== undefined) {
-      logs.push(`return => ${formatValue(result)}`);
+        if (result !== undefined) {
+          logs.push(`return => ${formatValue(result)}`);
+        }
+
+        appendTerminal(`run ${activeFile}`, "command");
+
+        if (logs.length === 0) {
+          appendTerminal("Execution completed with no console output.", "success");
+        } else {
+          logs.forEach((line) => appendTerminal(line, "success"));
+        }
+      } catch (error) {
+        appendTerminal(`Execution error: ${error.message}`, "error");
+      }
+
+      updatePreview();
+      setProcessStatus("IDLE");
     }
 
-    appendTerminal(`run ${activeFile}`, "command");
+    function formatValue(value) {
+      if (typeof value === "object" && value !== null) {
+        try {
+          return JSON.stringify(value);
+        } catch {
+          return String(value);
+        }
+      }
 
-    if (logs.length === 0) {
-      appendTerminal("Execution completed with no console output.", "success");
-    } else {
-      logs.forEach((line) => appendTerminal(line, "success"));
-    }
-  } catch (error) {
-    appendTerminal(`Execution error: ${error.message}`, "error");
-  }
-
-  updatePreview();
-  setProcessStatus("IDLE");
-}
-
-function formatValue(value) {
-  if (typeof value === "object" && value !== null) {
-    try {
-      return JSON.stringify(value);
-    } catch {
       return String(value);
     }
-  }
 
-  return String(value);
-}
+    function formatCode() {
+      const language = files[activeFile].language;
+      let code = editor.value.trim();
 
-function formatCode() {
-  const language = files[activeFile].language;
-  let code = editor.value.trim();
-
-  if (language === "json") {
-    try {
-      code = JSON.stringify(JSON.parse(code), null, 2);
-    } catch {
-      appendTerminal("Cannot format invalid JSON.", "error");
-      return;
-    }
-  } else {
-    let indent = 0;
-
-    code = code
-      .replace(/\{/g, "{\n")
-      .replace(/\}/g, "\n}\n")
-      .replace(/;/g, ";\n")
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean)
-      .map((line) => {
-        if (line.startsWith("}")) {
-          indent = Math.max(0, indent - 1);
+      if (language === "json") {
+        try {
+          code = JSON.stringify(JSON.parse(code), null, 2);
+        } catch {
+          appendTerminal("Cannot format invalid JSON.", "error");
+          return;
         }
-
-        const formatted = "  ".repeat(indent) + line;
-
-        if (line.endsWith("{")) {
-          indent++;
-        }
-
-        return formatted;
-      })
-      .join("\n");
-  }
-
-  editor.value = code;
-  saveActiveFile();
-  updateLineNumbers();
-  updateEditorStats();
-  appendTerminal(`formatted ${activeFile}`, "success");
-}
-
-function clearEditor() {
-  editor.value = "";
-  saveActiveFile();
-  updateLineNumbers();
-  updateEditorStats();
-  resetChecker();
-  appendTerminal(`cleared ${activeFile}`, "info");
-}
-
-function downloadActiveFile() {
-  saveActiveFile();
-
-  const blob = new Blob([editor.value], {
-    type: "text/plain;charset=utf-8"
-  });
-
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-
-  anchor.href = url;
-  anchor.download = activeFile;
-  anchor.click();
-
-  URL.revokeObjectURL(url);
-  appendTerminal(`downloaded ${activeFile}`, "success");
-}
-
-function executeCommand(command) {
-  const trimmed = command.trim();
-
-  if (!trimmed) {
-    return;
-  }
-
-  terminalHistory.push(trimmed);
-  historyIndex = terminalHistory.length;
-  appendTerminal(trimmed, "command");
-
-  const parts = trimmed.split(" ");
-  const baseCommand = parts[0].toLowerCase();
-
-  switch (baseCommand) {
-    case "help":
-      appendTerminal(
-        "Available commands: help, clear, run, check, format, time, about, files, open <file>"
-      );
-      break;
-
-    case "clear":
-      terminalOutput.innerHTML = "";
-      break;
-
-    case "run":
-      runCode();
-      break;
-
-    case "check":
-      checkCode();
-      break;
-
-    case "format":
-      formatCode();
-      break;
-
-    case "time":
-      appendTerminal(new Date().toString());
-      break;
-
-    case "about":
-      appendTerminal(
-        "DEV//CONSOLE — client-side developer workspace. No server required."
-      );
-      break;
-
-    case "files":
-      appendTerminal(Object.keys(files).join("  "));
-      break;
-
-    case "open": {
-      const requestedFile = parts.slice(1).join(" ");
-
-      if (files[requestedFile]) {
-        loadFile(requestedFile);
-        appendTerminal(`opened ${requestedFile}`, "success");
       } else {
-        appendTerminal(`file not found: ${requestedFile}`, "error");
+        let indent = 0;
+
+        code = code
+          .replace(/\{/g, "{\n")
+          .replace(/\}/g, "\n}\n")
+          .replace(/;/g, ";\n")
+          .split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean)
+          .map((line) => {
+            if (line.startsWith("}")) {
+              indent = Math.max(0, indent - 1);
+            }
+
+            const formatted = "  ".repeat(indent) + line;
+
+            if (line.endsWith("{")) {
+              indent++;
+            }
+
+            return formatted;
+          })
+          .join("\n");
       }
 
-      break;
+      editor.value = code;
+      saveActiveFile();
+      updateLineNumbers();
+      updateEditorStats();
+
+      appendTerminal(`formatted ${activeFile}`, "success");
     }
 
-    default:
-      appendTerminal(`command not found: ${baseCommand}`, "error");
-  }
-}
+    function clearEditor() {
+      editor.value = "";
+      saveActiveFile();
+      updateLineNumbers();
+      updateEditorStats();
+      resetChecker();
 
-document.querySelectorAll(".editor-tab").forEach((tab) => {
-  tab.addEventListener("click", () => loadFile(tab.dataset.file));
-});
-
-editor.addEventListener("input", () => {
-  saveActiveFile();
-  updateLineNumbers();
-  updateEditorStats();
-  updatePreview();
-});
-
-editor.addEventListener("scroll", () => {
-  lineNumbers.scrollTop = editor.scrollTop;
-});
-
-editor.addEventListener("click", updateEditorStats);
-editor.addEventListener("keyup", updateEditorStats);
-
-editor.addEventListener("keydown", (event) => {
-  if (event.key === "Tab") {
-    event.preventDefault();
-
-    const start = editor.selectionStart;
-    const end = editor.selectionEnd;
-
-    editor.value =
-      editor.value.substring(0, start) +
-      "  " +
-      editor.value.substring(end);
-
-    editor.selectionStart = editor.selectionEnd = start + 2;
-
-    saveActiveFile();
-    updateLineNumbers();
-    updateEditorStats();
-  }
-
-  if (event.ctrlKey && event.key === "Enter") {
-    event.preventDefault();
-    runCode();
-  }
-});
-
-languageSelect.addEventListener("change", () => {
-  files[activeFile].language = languageSelect.value;
-  editorMode.textContent = capitalize(languageSelect.value);
-  resetChecker();
-  updatePreview();
-});
-
-document.getElementById("runButton").addEventListener("click", runCode);
-document.getElementById("checkButton").addEventListener("click", checkCode);
-document.getElementById("formatButton").addEventListener("click", formatCode);
-document.getElementById("clearButton").addEventListener("click", clearEditor);
-document.getElementById("downloadButton").addEventListener("click", downloadActiveFile);
-
-terminalForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  executeCommand(terminalInput.value);
-  terminalInput.value = "";
-});
-
-terminalInput.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowUp") {
-    event.preventDefault();
-
-    if (historyIndex > 0) {
-      historyIndex--;
-      terminalInput.value = terminalHistory[historyIndex];
+      appendTerminal(`cleared ${activeFile}`, "info");
     }
-  }
 
-  if (event.key === "ArrowDown") {
-    event.preventDefault();
+    function downloadActiveFile() {
+      saveActiveFile();
 
-    if (historyIndex < terminalHistory.length - 1) {
-      historyIndex++;
-      terminalInput.value = terminalHistory[historyIndex];
-    } else {
+      const blob = new Blob([editor.value], {
+        type: "text/plain;charset=utf-8"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+
+      anchor.href = url;
+      anchor.download = activeFile;
+      anchor.click();
+
+      URL.revokeObjectURL(url);
+
+      appendTerminal(`downloaded ${activeFile}`, "success");
+    }
+
+    function executeCommand(command) {
+      const trimmed = command.trim();
+
+      if (!trimmed) {
+        return;
+      }
+
+      terminalHistory.push(trimmed);
       historyIndex = terminalHistory.length;
-      terminalInput.value = "";
+
+      appendTerminal(trimmed, "command");
+
+      const parts = trimmed.split(" ");
+      const baseCommand = parts[0].toLowerCase();
+
+      switch (baseCommand) {
+        case "help":
+          appendTerminal(
+            "Available commands: help, clear, run, check, format, time, about, files, open <file>"
+          );
+          break;
+
+        case "clear":
+          terminalOutput.innerHTML = "";
+          break;
+
+        case "run":
+          runCode();
+          break;
+
+        case "check":
+          checkCode();
+          break;
+
+        case "format":
+          formatCode();
+          break;
+
+        case "time":
+          appendTerminal(new Date().toString());
+          break;
+
+        case "about":
+          appendTerminal(
+            "DEV//CONSOLE — client-side developer workspace. No server required."
+          );
+          break;
+
+        case "files":
+          appendTerminal(Object.keys(files).join("  "));
+          break;
+
+        case "open": {
+          const requestedFile = parts.slice(1).join(" ");
+
+          if (files[requestedFile]) {
+            loadFile(requestedFile);
+            appendTerminal(`opened ${requestedFile}`, "success");
+          } else {
+            appendTerminal(`file not found: ${requestedFile}`, "error");
+          }
+
+          break;
+        }
+
+        default:
+          appendTerminal(`command not found: ${baseCommand}`, "error");
+      }
     }
-  }
-});
 
-document.querySelectorAll(".prompt-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    const prompt = button.dataset.prompt;
-    appendTerminal(`prompt: ${prompt}`, "info");
-    terminalInput.value = `echo "${prompt}"`;
-    terminalInput.focus();
-  });
-});
+    document.querySelectorAll(".editor-tab").forEach((tab) => {
+      tab.addEventListener("click", () => loadFile(tab.dataset.file));
+    });
 
-const helpModal = document.getElementById("helpModal");
+    editor.addEventListener("input", () => {
+      saveActiveFile();
+      updateLineNumbers();
+      updateEditorStats();
+      updatePreview();
+    });
 
-document.getElementById("helpButton").addEventListener("click", () => {
-  helpModal.classList.add("show");
-});
+    editor.addEventListener("scroll", () => {
+      lineNumbers.scrollTop = editor.scrollTop;
+    });
 
-document.getElementById("closeHelpButton").addEventListener("click", () => {
-  helpModal.classList.remove("show");
-});
+    editor.addEventListener("click", updateEditorStats);
+    editor.addEventListener("keyup", updateEditorStats);
 
-helpModal.addEventListener("click", (event) => {
-  if (event.target === helpModal) {
-    helpModal.classList.remove("show");
-  }
-});
+    editor.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        event.preventDefault();
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    helpModal.classList.remove("show");
-  }
-});
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
 
-loadFile("main.js");
+        editor.value =
+          editor.value.substring(0, start) +
+          "  " +
+          editor.value.substring(end);
 
+        editor.selectionStart = editor.selectionEnd = start + 2;
+
+        saveActiveFile();
+        updateLineNumbers();
+        updateEditorStats();
+      }
+
+      if (event.ctrlKey && event.key === "Enter") {
+        event.preventDefault();
+        runCode();
+      }
+    });
+
+    languageSelect.addEventListener("change", () => {
+      files[activeFile].language = languageSelect.value;
+      editorMode.textContent = capitalize(languageSelect.value);
+      resetChecker();
+      updatePreview();
+    });
+
+    document.getElementById("runButton").addEventListener("click", runCode);
+    document.getElementById("checkButton").addEventListener("click", checkCode);
+    document.getElementById("formatButton").addEventListener("click", formatCode);
+    document.getElementById("clearButton").addEventListener("click", clearEditor);
+    document
+      .getElementById("downloadButton")
+      .addEventListener("click", downloadActiveFile);
+
+    terminalForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      executeCommand(terminalInput.value);
+      terminalInput.value = "";
+    });
+
+    terminalInput.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+
+        if (historyIndex > 0) {
+          historyIndex--;
+          terminalInput.value = terminalHistory[historyIndex];
+        }
+      }
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+
+        if (historyIndex < terminalHistory.length - 1) {
+          historyIndex++;
+          terminalInput.value = terminalHistory[historyIndex];
+        } else {
+          historyIndex = terminalHistory.length;
+          terminalInput.value = "";
+        }
+      }
+    });
+
+    document.querySelectorAll(".prompt-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const prompt = button.dataset.prompt;
+
+        appendTerminal(`prompt: ${prompt}`, "info");
+        terminalInput.value = `echo "${prompt}"`;
+        terminalInput.focus();
+      });
+    });
+
+    const helpModal = document.getElementById("helpModal");
+
+    document.getElementById("helpButton").addEventListener("click", () => {
+      helpModal.classList.add("show");
+    });
+
+    document.getElementById("closeHelpButton").addEventListener("click", () => {
+      helpModal.classList.remove("show");
+    });
+
+    helpModal.addEventListener("click", (event) => {
+      if (event.target === helpModal) {
+        helpModal.classList.remove("show");
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        helpModal.classList.remove("show");
+      }
+    });
+
+    loadFile("main.js");
   </script>
 </body>
 </html>
