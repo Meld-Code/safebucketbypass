@@ -3,25 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DEV//CONSOLE TERMINAL</title>
+  <title>BLACKSITE // NODE 07</title>
 
   <style>
     :root {
-      --black: #010302;
-      --desktop: #031007;
-      --panel: #07150b;
-      --panel-dark: #020804;
-      --bar: #0b2110;
-      --green: #39ff88;
-      --green-bright: #aaffc5;
-      --green-dim: #5a9f6d;
-      --green-dark: #194b29;
-      --border: #1b7138;
-      --border-bright: #39ff88;
-      --red: #ff5f6d;
-      --yellow: #ffe66d;
-      --blue: #61c6ff;
-      --shadow: 0 0 28px rgba(57, 255, 136, 0.2);
+      --black: #020202;
+      --panel: #080909;
+      --panel-2: #0d1010;
+      --border: #303737;
+      --green: #83ff9b;
+      --green-dim: #4c8a59;
+      --red: #ff5264;
+      --red-dim: #8f303c;
+      --yellow: #f4dc70;
+      --cyan: #6ce7ff;
+      --text: #d8e6dc;
+      --muted: #65736a;
+      --shadow: 0 0 28px rgba(255, 82, 100, 0.12);
     }
 
     * {
@@ -38,7 +36,7 @@
     }
 
     body {
-      color: var(--green-bright);
+      color: var(--text);
       font-family: "Courier New", Courier, monospace;
       user-select: none;
     }
@@ -56,7 +54,7 @@
         transparent 1px,
         transparent 4px
       );
-      opacity: 0.28;
+      opacity: 0.24;
     }
 
     body::after {
@@ -66,8 +64,8 @@
       z-index: 9998;
       pointer-events: none;
       box-shadow:
-        inset 0 0 150px rgba(0, 0, 0, 0.95),
-        inset 0 0 25px rgba(57, 255, 136, 0.08);
+        inset 0 0 140px #000,
+        inset 0 0 35px rgba(255, 82, 100, 0.05);
     }
 
     button,
@@ -79,8 +77,8 @@
 
     button,
     select {
-      color: var(--green-bright);
-      background: #06160a;
+      color: var(--text);
+      background: #0b0e0e;
       border: 1px solid var(--border);
       cursor: pointer;
     }
@@ -88,9 +86,9 @@
     button:hover,
     select:hover {
       color: white;
-      background: #0d2b15;
-      border-color: var(--border-bright);
-      box-shadow: 0 0 12px rgba(57, 255, 136, 0.25);
+      border-color: var(--red);
+      background: #1b1012;
+      box-shadow: 0 0 12px rgba(255, 82, 100, 0.2);
     }
 
     button:active {
@@ -98,8 +96,8 @@
     }
 
     ::selection {
-      color: #001c08;
-      background: var(--green);
+      color: #180004;
+      background: var(--red);
     }
 
     .desktop {
@@ -108,38 +106,38 @@
       height: 100vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at center, rgba(33, 150, 70, 0.13), transparent 60%),
-        linear-gradient(rgba(57, 255, 136, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(57, 255, 136, 0.025) 1px, transparent 1px),
-        var(--desktop);
-      background-size: auto, 26px 26px, 26px 26px, auto;
+        radial-gradient(circle at 50% 50%, rgba(80, 20, 30, 0.13), transparent 55%),
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        #030404;
+      background-size: auto, 28px 28px, 28px 28px, auto;
     }
 
-    .desktop-info {
+    .desktop-label {
       position: absolute;
       top: 12px;
       left: 15px;
       z-index: 1;
-      color: rgba(57, 255, 136, 0.35);
+      color: #71434a;
       font-size: 10px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       pointer-events: none;
     }
 
     .background-ascii {
       position: absolute;
-      top: 52%;
+      top: 53%;
       left: 50%;
       z-index: 0;
       width: max-content;
       margin: 0;
-      color: var(--green);
+      color: var(--red);
       font-size: clamp(4px, 0.62vw, 10px);
       line-height: 1;
-      opacity: 0.12;
+      opacity: 0.13;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      text-shadow: 0 0 18px rgba(57, 255, 136, 0.8);
+      text-shadow: 0 0 18px rgba(255, 82, 100, 0.7);
     }
 
     .window {
@@ -147,11 +145,11 @@
       z-index: 10;
       display: flex;
       flex-direction: column;
-      min-width: 270px;
+      min-width: 260px;
       min-height: 120px;
       overflow: hidden;
-      border: 1px solid var(--border-bright);
-      background: var(--panel);
+      border: 1px solid var(--border);
+      background: rgba(8, 9, 9, 0.98);
       box-shadow: var(--shadow);
       resize: both;
     }
@@ -171,9 +169,9 @@
     }
 
     .window.maximized {
-      top: 35px !important;
-      left: 12px !important;
-      right: 12px !important;
+      top: 38px !important;
+      left: 10px !important;
+      right: 10px !important;
       bottom: 34px !important;
       width: auto !important;
       height: auto !important;
@@ -186,13 +184,13 @@
       gap: 9px;
       height: 35px;
       min-height: 35px;
-      padding: 0 8px;
-      color: var(--green);
-      background: var(--bar);
+      padding: 0 9px;
+      color: var(--red);
+      background: #131010;
       border-bottom: 1px solid var(--border);
       cursor: grab;
       user-select: none;
-      text-shadow: 0 0 8px rgba(57, 255, 136, 0.65);
+      text-shadow: 0 0 8px rgba(255, 82, 100, 0.5);
     }
 
     .window-header:active {
@@ -200,14 +198,14 @@
     }
 
     .window-icon {
-      color: var(--green);
-      font-size: 13px;
+      color: var(--red);
+      font-size: 12px;
     }
 
     .window-title {
       flex: 1;
       overflow: hidden;
-      color: var(--green-bright);
+      color: #f0c4c9;
       font-size: 11px;
       letter-spacing: 0.04em;
       text-overflow: ellipsis;
@@ -223,8 +221,8 @@
       width: 20px;
       height: 20px;
       padding: 0;
-      color: var(--green);
-      border: 1px solid var(--green-dark);
+      color: var(--red);
+      border: 1px solid var(--red-dim);
       font-size: 12px;
       line-height: 16px;
     }
@@ -235,29 +233,29 @@
       overflow: hidden;
     }
 
-    /* Main Terminal */
+    /* Main terminal window */
 
     .terminal-window {
-      top: 90px;
+      top: 84px;
       left: 50%;
-      width: min(850px, calc(100vw - 40px));
-      height: min(580px, calc(100vh - 130px));
+      width: min(900px, calc(100vw - 42px));
+      height: min(590px, calc(100vh - 125px));
       transform: translateX(-50%);
     }
 
     .terminal-window .window-content {
       display: grid;
-      grid-template-rows: minmax(0, 1fr) 42px;
+      grid-template-rows: minmax(0, 1fr) 43px;
       background:
-        radial-gradient(circle at top left, rgba(57, 255, 136, 0.09), transparent 45%),
-        var(--panel-dark);
+        radial-gradient(circle at top left, rgba(255, 82, 100, 0.06), transparent 45%),
+        #030404;
     }
 
     .terminal-output {
       min-height: 0;
-      padding: 14px;
+      padding: 15px;
       overflow-y: auto;
-      color: var(--green-bright);
+      color: var(--text);
       font-size: 13px;
       line-height: 1.5;
       white-space: pre-wrap;
@@ -273,16 +271,16 @@
     }
 
     .terminal-line.command::before {
-      content: "root@dev-console:~# ";
-      color: var(--green);
-    }
-
-    .terminal-line.info {
-      color: var(--green-dim);
+      content: "operator@blacksite:~$ ";
+      color: var(--red);
     }
 
     .terminal-line.success {
       color: var(--green);
+    }
+
+    .terminal-line.info {
+      color: var(--muted);
     }
 
     .terminal-line.warning {
@@ -294,7 +292,7 @@
     }
 
     .terminal-line.system {
-      color: var(--blue);
+      color: var(--cyan);
     }
 
     .terminal-form {
@@ -304,32 +302,32 @@
       min-width: 0;
       padding: 8px 13px;
       border-top: 1px solid var(--border);
-      background: #041009;
+      background: #0a0909;
     }
 
     .terminal-prompt {
-      color: var(--green);
+      color: var(--red);
       white-space: nowrap;
-      text-shadow: 0 0 8px rgba(57, 255, 136, 0.75);
+      text-shadow: 0 0 8px rgba(255, 82, 100, 0.7);
     }
 
     #terminalInput {
       flex: 1;
       min-width: 0;
       padding: 6px 0;
-      color: var(--green-bright);
+      color: var(--text);
       background: transparent;
       border: 0;
       outline: 0;
-      caret-color: var(--green);
+      caret-color: var(--red);
       user-select: text;
     }
 
     #terminalInput::placeholder {
-      color: #326943;
+      color: #68494d;
     }
 
-    /* Boot Screen */
+    /* Boot overlay */
 
     #bootScreen {
       position: fixed;
@@ -338,8 +336,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background: #010302;
+      padding: 22px;
+      background: #020202;
     }
 
     #bootScreen.hidden {
@@ -347,72 +345,108 @@
     }
 
     .boot-content {
-      width: min(900px, 100%);
+      width: min(960px, 100%);
       max-height: 90vh;
       overflow: hidden;
-      color: var(--green);
+      color: var(--red);
       font-size: 12px;
       line-height: 1.45;
-      text-shadow: 0 0 7px rgba(57, 255, 136, 0.6);
+      text-shadow: 0 0 8px rgba(255, 82, 100, 0.55);
     }
 
     .boot-ascii {
       width: 100%;
       overflow: hidden;
-      color: var(--green);
+      color: var(--red);
       font-size: clamp(4px, 0.62vw, 10px);
       line-height: 1;
       white-space: pre;
     }
 
+    .boot-warning {
+      margin-top: 18px;
+      color: var(--red);
+      letter-spacing: 0.12em;
+    }
+
     .boot-log {
-      margin-top: 20px;
-      color: var(--green-dim);
+      margin-top: 14px;
+      color: var(--muted);
       white-space: pre-wrap;
     }
 
     .boot-progress {
-      width: min(600px, 100%);
-      height: 18px;
+      width: min(650px, 100%);
+      height: 17px;
       margin-top: 14px;
       padding: 2px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--red-dim);
     }
 
     .boot-progress-bar {
       width: 0%;
       height: 100%;
-      background: var(--green);
-      box-shadow: 0 0 12px var(--green);
+      background: var(--red);
+      box-shadow: 0 0 14px var(--red);
       transition: width 0.15s linear;
+    }
+
+    /* Fake system dashboard */
+
+    .status-window {
+      top: 95px;
+      left: 45px;
+      width: 340px;
+      height: 285px;
+    }
+
+    .status-content {
+      height: 100%;
+      padding: 14px;
+      overflow-y: auto;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px dotted #2b2f2f;
+    }
+
+    .status-row strong {
+      color: var(--red);
+      font-weight: normal;
     }
 
     /* Editor */
 
     .editor-window {
-      top: 85px;
-      left: 45px;
+      top: 100px;
+      left: 55px;
       width: 720px;
-      height: 535px;
+      height: 530px;
     }
 
     .editor-window .window-content {
       display: grid;
       grid-template-rows: 38px minmax(0, 1fr) 34px;
-      background: #020a05;
+      background: #030504;
     }
 
     .editor-tabs {
       display: flex;
       overflow: hidden;
       border-bottom: 1px solid var(--border);
-      background: #041009;
+      background: #0a0909;
     }
 
     .editor-tab {
       position: relative;
       padding: 10px 13px;
-      color: var(--green-dim);
+      color: var(--muted);
       background: transparent;
       border: 0;
       border-right: 1px solid var(--border);
@@ -420,19 +454,9 @@
       white-space: nowrap;
     }
 
-    .editor-tab::before {
-      content: ">";
-      margin-right: 6px;
-      color: transparent;
-    }
-
     .editor-tab.active {
-      color: var(--green);
-      background: #092010;
-    }
-
-    .editor-tab.active::before {
-      color: var(--green);
+      color: var(--red);
+      background: #1a1012;
     }
 
     .editor-tab.active::after {
@@ -442,13 +466,13 @@
       bottom: 0;
       left: 0;
       height: 2px;
-      background: var(--green);
-      box-shadow: 0 0 10px var(--green);
+      background: var(--red);
+      box-shadow: 0 0 10px var(--red);
     }
 
     .editor-wrap {
       display: grid;
-      grid-template-columns: 55px minmax(0, 1fr);
+      grid-template-columns: 55px 1fr;
       min-height: 0;
       overflow: hidden;
     }
@@ -456,8 +480,8 @@
     .line-numbers {
       padding: 15px 11px 15px 0;
       overflow: hidden;
-      color: #23623a;
-      border-right: 1px solid #0b3218;
+      color: #70434b;
+      border-right: 1px solid #321a1f;
       text-align: right;
       line-height: 1.6;
       user-select: none;
@@ -470,12 +494,12 @@
       min-height: 0;
       padding: 15px;
       overflow: auto;
-      color: var(--green-bright);
+      color: #f0c4c9;
       background: transparent;
       border: 0;
       outline: 0;
       resize: none;
-      caret-color: var(--green);
+      caret-color: var(--red);
       font-size: 14px;
       line-height: 1.6;
       tab-size: 2;
@@ -489,9 +513,9 @@
       gap: 10px;
       padding: 8px 11px;
       overflow: hidden;
-      color: var(--green-dim);
+      color: var(--muted);
       border-top: 1px solid var(--border);
-      background: #041009;
+      background: #0a0909;
       font-size: 10px;
       white-space: nowrap;
     }
@@ -499,9 +523,9 @@
     /* Preview */
 
     .preview-window {
-      top: 95px;
+      top: 105px;
       right: 45px;
-      width: 375px;
+      width: 370px;
       height: 280px;
     }
 
@@ -513,20 +537,51 @@
       background: white;
     }
 
+    /* Script window */
+
+    .scripts-window {
+      right: 45px;
+      bottom: 50px;
+      width: 370px;
+      height: 275px;
+    }
+
+    .script-list {
+      display: grid;
+      gap: 8px;
+      height: 100%;
+      padding: 13px;
+      overflow-y: auto;
+    }
+
+    .script-button {
+      padding: 9px;
+      color: var(--muted);
+      background: #090909;
+      border: 1px solid #3c2429;
+      text-align: left;
+      font-size: 11px;
+    }
+
+    .script-button::before {
+      content: "./";
+      color: var(--red);
+    }
+
     /* Checker */
 
     .checker-window {
-      top: 400px;
+      top: 405px;
       right: 45px;
-      width: 375px;
-      height: 215px;
+      width: 370px;
+      height: 210px;
     }
 
     .checker-output {
       height: 100%;
       padding: 14px;
       overflow: auto;
-      color: var(--green-dim);
+      color: var(--muted);
       font-size: 12px;
       line-height: 1.55;
       white-space: pre-wrap;
@@ -541,68 +596,7 @@
       color: var(--red);
     }
 
-    /* Scripts */
-
-    .scripts-window {
-      bottom: 50px;
-      left: 45px;
-      width: 320px;
-      height: 280px;
-    }
-
-    .script-list {
-      display: grid;
-      gap: 8px;
-      height: 100%;
-      padding: 13px;
-      overflow-y: auto;
-    }
-
-    .script-button {
-      padding: 9px;
-      color: var(--green-dim);
-      background: #031008;
-      border: 1px solid var(--green-dark);
-      text-align: left;
-      font-size: 11px;
-    }
-
-    .script-button::before {
-      content: "./";
-      color: var(--green);
-    }
-
-    /* Processes */
-
-    .process-window {
-      right: 45px;
-      bottom: 50px;
-      width: 365px;
-      height: 280px;
-    }
-
-    .process-list {
-      height: 100%;
-      padding: 13px;
-      overflow-y: auto;
-      color: var(--green-dim);
-      font-size: 11px;
-      line-height: 1.7;
-      user-select: text;
-    }
-
-    .process-row {
-      display: grid;
-      grid-template-columns: 70px 90px 1fr;
-      gap: 8px;
-    }
-
-    .process-row strong {
-      color: var(--green);
-      font-weight: normal;
-    }
-
-    /* Status */
+    /* Status bar */
 
     .status-bar {
       position: absolute;
@@ -616,34 +610,38 @@
       height: 32px;
       padding: 9px 13px;
       overflow: hidden;
-      color: var(--green-dim);
-      background: #041009;
+      color: var(--muted);
+      background: #0a0909;
       border-top: 1px solid var(--border);
       font-size: 10px;
       white-space: nowrap;
     }
 
     .status-bar strong {
-      color: var(--green);
+      color: var(--red);
       font-weight: normal;
     }
 
     @media (max-width: 900px) {
       .terminal-window {
-        top: 70px;
+        top: 60px;
         width: calc(100vw - 24px);
-        height: 440px;
+        height: 430px;
+      }
+
+      .status-window {
+        display: none;
       }
 
       .editor-window {
-        top: 70px;
+        top: 60px;
         left: 12px;
         width: calc(100vw - 24px);
-        height: 420px;
+        height: 410px;
       }
 
       .preview-window {
-        top: 510px;
+        top: 490px;
         left: 12px;
         right: auto;
         width: calc(100vw - 24px);
@@ -652,10 +650,6 @@
 
       .checker-window,
       .scripts-window,
-      .process-window {
-        display: none;
-      }
-
       .background-ascii {
         display: none;
       }
@@ -665,8 +659,8 @@
 
 <body>
   <main class="desktop">
-    <div class="desktop-info">
-      DEV//CONSOLE DESKTOP — ROOT SESSION — LOCAL SYSTEM
+    <div class="desktop-label">
+      BLACKSITE // NODE 07 // FICTIONAL SIMULATION ENVIRONMENT
     </div>
 
     <pre class="background-ascii">
@@ -716,17 +710,21 @@
                                                         ++-:..::+#==                                                                                             
     </pre>
 
-    <!-- Boot screen -->
+    <!-- Fake boot screen -->
     <section id="bootScreen">
       <div class="boot-content">
         <pre class="boot-ascii">
-██████╗ ███████╗██╗   ██╗
-██╔══██╗██╔════╝██║   ██║
-██║  ██║█████╗  ██║   ██║
-██║  ██║██╔══╝  ╚██╗ ██╔╝
-██████╔╝███████╗ ╚████╔╝
-╚═════╝ ╚══════╝  ╚═══╝
+██████╗ ██╗      █████╗  ██████╗██╗  ██╗███████╗██╗████████╗███████╗
+██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝██╔════╝██║╚══██╔══╝██╔════╝
+██████╔╝██║     ███████║██║     █████╔╝ ███████╗██║   ██║   █████╗
+██╔══██╗██║     ██╔══██║██║     ██╔═██╗ ╚════██║██║   ██║   ██╔══╝
+██████╔╝███████╗██║  ██║╚██████╗██║  ██╗███████║██║   ██║   ███████╗
+╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝   ╚══════╝
         </pre>
+
+        <div class="boot-warning">
+          FICTIONAL SIMULATION // NO REAL SYSTEM ACCESS
+        </div>
 
         <div id="bootLog" class="boot-log"></div>
 
@@ -740,7 +738,7 @@
     <section id="terminalWindow" class="window terminal-window">
       <header class="window-header">
         <span class="window-icon">▣</span>
-        <span class="window-title">root@dev-console — terminal</span>
+        <span class="window-title">operator@blacksite — command shell</span>
 
         <div class="window-controls">
           <button data-minimize="terminalWindow">−</button>
@@ -752,36 +750,89 @@
       <div class="window-content">
         <div id="terminalOutput" class="terminal-output">
           <div class="terminal-line success">
-            DEV//CONSOLE TERMINAL v3.0
+            BLACKSITE NODE 07 — FICTIONAL TERMINAL SIMULATION
+          </div>
+
+          <div class="terminal-line warning">
+            WARNING: VISUAL SIMULATION ONLY — NO EXTERNAL SYSTEM ACCESS
           </div>
 
           <div class="terminal-line info">
-            Connected to local development environment.
-          </div>
-
-          <div class="terminal-line info">
-            Type "help" for a list of commands.
+            Type "help" to display available commands.
           </div>
         </div>
 
         <form id="terminalForm" class="terminal-form">
-          <span class="terminal-prompt">root@dev-console:~#</span>
+          <span class="terminal-prompt">operator@blacksite:~$</span>
 
           <input
             id="terminalInput"
             autocomplete="off"
             spellcheck="false"
-            placeholder="type a command..."
+            placeholder="enter command..."
           />
         </form>
       </div>
     </section>
 
-    <!-- Code editor -->
+    <!-- System status -->
+    <section id="statusWindow" class="window status-window hidden">
+      <header class="window-header">
+        <span class="window-icon">◈</span>
+        <span class="window-title">node-status — diagnostics</span>
+
+        <div class="window-controls">
+          <button data-minimize="statusWindow">−</button>
+          <button data-maximize="statusWindow">□</button>
+          <button data-close="statusWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <div class="status-content">
+          <div class="status-row">
+            <span>NODE ID</span>
+            <strong>NODE-07X</strong>
+          </div>
+
+          <div class="status-row">
+            <span>SESSION</span>
+            <strong>LOCAL</strong>
+          </div>
+
+          <div class="status-row">
+            <span>ENCRYPTION</span>
+            <strong>SIMULATED</strong>
+          </div>
+
+          <div class="status-row">
+            <span>UPTIME</span>
+            <strong id="uptimeValue">00:00:00</strong>
+          </div>
+
+          <div class="status-row">
+            <span>THREAT LEVEL</span>
+            <strong>FICTIONAL</strong>
+          </div>
+
+          <div class="status-row">
+            <span>REMOTE ACCESS</span>
+            <strong>DISABLED</strong>
+          </div>
+
+          <div class="status-row">
+            <span>DATA CHANNEL</span>
+            <strong>OFFLINE</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editor -->
     <section id="editorWindow" class="window editor-window hidden">
       <header class="window-header">
         <span class="window-icon">▤</span>
-        <span class="window-title">code-editor — local workspace</span>
+        <span class="window-title">payload-editor — local scripts</span>
 
         <div class="window-controls">
           <button data-minimize="editorWindow">−</button>
@@ -815,7 +866,7 @@
     <section id="previewWindow" class="window preview-window hidden">
       <header class="window-header">
         <span class="window-icon">▣</span>
-        <span class="window-title">live-preview — iframe</span>
+        <span class="window-title">visual-output — sandbox preview</span>
 
         <div class="window-controls">
           <button data-minimize="previewWindow">−</button>
@@ -829,11 +880,49 @@
       </div>
     </section>
 
+    <!-- Script loader -->
+    <section id="scriptsWindow" class="window scripts-window hidden">
+      <header class="window-header">
+        <span class="window-icon">▶</span>
+        <span class="window-title">script-loader — simulations</span>
+
+        <div class="window-controls">
+          <button data-minimize="scriptsWindow">−</button>
+          <button data-maximize="scriptsWindow">□</button>
+          <button data-close="scriptsWindow">×</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <div class="script-list">
+          <button class="script-button" data-script="nodeScan">
+            node diagnostic scan
+          </button>
+
+          <button class="script-button" data-script="packetTest">
+            packet visualization test
+          </button>
+
+          <button class="script-button" data-script="fileAudit">
+            local file audit
+          </button>
+
+          <button class="script-button" data-script="cipherTest">
+            cipher simulation
+          </button>
+
+          <button class="script-button" data-script="memoryTest">
+            memory allocation test
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- Checker -->
     <section id="checkerWindow" class="window checker-window hidden">
       <header class="window-header">
         <span class="window-icon">✓</span>
-        <span class="window-title">code-checker — diagnostics</span>
+        <span class="window-title">validator — diagnostics</span>
 
         <div class="window-controls">
           <button data-minimize="checkerWindow">−</button>
@@ -849,67 +938,11 @@
       </div>
     </section>
 
-    <!-- Scripts -->
-    <section id="scriptsWindow" class="window scripts-window hidden">
-      <header class="window-header">
-        <span class="window-icon">▶</span>
-        <span class="window-title">script-library — test scripts</span>
-
-        <div class="window-controls">
-          <button data-minimize="scriptsWindow">−</button>
-          <button data-maximize="scriptsWindow">□</button>
-          <button data-close="scriptsWindow">×</button>
-        </div>
-      </header>
-
-      <div class="window-content">
-        <div class="script-list">
-          <button class="script-button" data-script="systemScan">
-            system scan
-          </button>
-
-          <button class="script-button" data-script="networkTest">
-            network test
-          </button>
-
-          <button class="script-button" data-script="fileAudit">
-            file audit
-          </button>
-
-          <button class="script-button" data-script="matrixTest">
-            matrix calculation
-          </button>
-
-          <button class="script-button" data-script="memoryTest">
-            memory allocation test
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Processes -->
-    <section id="processWindow" class="window process-window hidden">
-      <header class="window-header">
-        <span class="window-icon">≡</span>
-        <span class="window-title">process-monitor — live</span>
-
-        <div class="window-controls">
-          <button data-minimize="processWindow">−</button>
-          <button data-maximize="processWindow">□</button>
-          <button data-close="processWindow">×</button>
-        </div>
-      </header>
-
-      <div class="window-content">
-        <div id="processList" class="process-list"></div>
-      </div>
-    </section>
-
     <footer class="status-bar">
-      <span>PROCESS: <strong id="processStatus">IDLE</strong></span>
+      <span>STATE: <strong id="processStatus">IDLE</strong></span>
       <span>MEMORY: <strong id="memoryStatus">-- MB</strong></span>
       <span>WINDOWS: <strong id="windowStatus">1 OPEN</strong></span>
-      <span>NETWORK: <strong>LOCAL</strong></span>
+      <span>ACCESS: <strong>LOCAL SIMULATION</strong></span>
     </footer>
   </main>
 
@@ -917,26 +950,36 @@
     const files = {
       "main.js": {
         language: "javascript",
-        content: `// DEV//CONSOLE test script
-// Type code here and use the terminal command: run
+        content: `// FICTIONAL NODE SCRIPT
+// This is a safe local simulation.
 
-const message = "Hello from the terminal.";
-console.log(message);
+const status = "NODE-07X ONLINE";
+console.log(status);
 
-function multiply(a, b) {
-  return a * b;
+function generateCode(length) {
+  const characters = "ABCDEF0123456789";
+  let output = "";
+
+  for (let i = 0; i < length; i++) {
+    output += characters[Math.floor(Math.random() * characters.length)];
+  }
+
+  return output;
 }
 
-console.log("6 x 7 =", multiply(6, 7));`
+console.log("SESSION TOKEN:", generateCode(12));
+console.log("VISUAL SIMULATION COMPLETE");`
       },
 
       "index.html": {
         language: "html",
         content: `<main class="demo-card">
-  <p class="eyebrow">LIVE PREVIEW</p>
-  <h1>Hello, developer.</h1>
-  <p>Edit the files and run the preview.</p>
-  <button onclick="this.textContent = 'Clicked!'">Test Button</button>
+  <p class="eyebrow">SANDBOX OUTPUT</p>
+  <h1>NODE-07X</h1>
+  <p>Fictional visual simulation is active.</p>
+  <button onclick="this.textContent = 'SIGNAL RECEIVED'">
+    Test Signal
+  </button>
 </main>`
       },
 
@@ -946,14 +989,21 @@ console.log("6 x 7 =", multiply(6, 7));`
   max-width: 420px;
   margin: 40px auto;
   padding: 28px;
-  color: #111;
-  background: #fff;
-  border-radius: 14px;
+  color: #eee;
+  background: #151515;
+  border: 1px solid #555;
   font-family: Arial, sans-serif;
+}
+
+.demo-card h1 {
+  color: #d94b58;
 }
 
 .demo-card button {
   padding: 10px 15px;
+  color: white;
+  background: #42151b;
+  border: 1px solid #b94350;
   cursor: pointer;
 }`
       },
@@ -961,36 +1011,70 @@ console.log("6 x 7 =", multiply(6, 7));`
       "config.json": {
         language: "json",
         content: `{
-  "project": "dev-console",
-  "version": "3.0.0",
-  "mode": "terminal-desktop",
-  "security": "client-side",
-  "features": [
-    "movable-windows",
-    "script-loader",
-    "process-monitor",
-    "code-editor",
-    "preview"
+  "project": "blacksite-node-07",
+  "version": "4.0.0",
+  "simulation": true,
+  "external_access": false,
+  "scripts": [
+    "nodeScan",
+    "packetTest",
+    "fileAudit",
+    "cipherTest",
+    "memoryTest"
   ]
 }`
       }
     };
 
-    const processNames = [
-      "kernel_task",
-      "terminal_daemon",
-      "script_loader",
-      "network_monitor",
-      "file_indexer",
-      "memory_manager",
-      "display_server",
-      "session_guard"
-    ];
+    const scriptLibrary = {
+      nodeScan: [
+        "loading node diagnostic module...",
+        "checking local runtime...",
+        "checking display channel...",
+        "checking sandbox boundary...",
+        "checking session integrity...",
+        "NODE SCAN COMPLETE — ALL SYSTEMS SIMULATED"
+      ],
+
+      packetTest: [
+        "creating simulated packet stream...",
+        "routing packet 001 through local sandbox...",
+        "routing packet 002 through local sandbox...",
+        "validating visual response...",
+        "PACKET TEST COMPLETE — NO NETWORK CONNECTION USED"
+      ],
+
+      fileAudit: [
+        "mounting fictional project directory...",
+        "reading main.js...",
+        "reading index.html...",
+        "reading styles.css...",
+        "reading config.json...",
+        "FILE AUDIT COMPLETE — 4 FILES VERIFIED"
+      ],
+
+      cipherTest: [
+        "loading cipher visualization...",
+        "generating fictional key matrix...",
+        "performing local transformation...",
+        "checking output integrity...",
+        "CIPHER SIMULATION COMPLETE — NO REAL DATA PROCESSED"
+      ],
+
+      memoryTest: [
+        "requesting temporary browser memory...",
+        "writing visual test pattern...",
+        "reading visual test pattern...",
+        "releasing temporary memory...",
+        "MEMORY TEST COMPLETE — BROWSER SANDBOX CLEAN"
+      ]
+    };
 
     let activeFile = "main.js";
-    let terminalHistory = [];
+    let history = [];
     let historyIndex = -1;
     let zIndex = 10;
+    let startTime = Date.now();
 
     const terminalOutput = document.getElementById("terminalOutput");
     const terminalInput = document.getElementById("terminalInput");
@@ -1008,10 +1092,20 @@ console.log("6 x 7 =", multiply(6, 7));`
     const processStatus = document.getElementById("processStatus");
     const memoryStatus = document.getElementById("memoryStatus");
     const windowStatus = document.getElementById("windowStatus");
-    const processList = document.getElementById("processList");
+    const uptimeValue = document.getElementById("uptimeValue");
 
     function getWindow(name) {
       return document.getElementById(`${name}Window`);
+    }
+
+    function wait(milliseconds) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, milliseconds);
+      });
+    }
+
+    function currentTime() {
+      return new Date().toLocaleTimeString();
     }
 
     function appendTerminal(text, type = "info") {
@@ -1023,26 +1117,14 @@ console.log("6 x 7 =", multiply(6, 7));`
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    function delay(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
-    function getTime() {
-      return new Date().toLocaleTimeString();
-    }
-
-    function setProcessStatus(value) {
-      processStatus.textContent = value;
-    }
-
     function bringToFront(element) {
       zIndex++;
       element.style.zIndex = zIndex;
     }
 
     function updateWindowStatus() {
-      const count = document.querySelectorAll(".window:not(.hidden)").length;
-      windowStatus.textContent = `${count} OPEN`;
+      const openWindows = document.querySelectorAll(".window:not(.hidden)").length;
+      windowStatus.textContent = `${openWindows} OPEN`;
     }
 
     function openWindow(name) {
@@ -1065,10 +1147,6 @@ console.log("6 x 7 =", multiply(6, 7));`
       if (name === "editor") {
         editor.focus();
       }
-
-      if (name === "process") {
-        renderProcesses();
-      }
     }
 
     function closeWindow(name) {
@@ -1083,17 +1161,8 @@ console.log("6 x 7 =", multiply(6, 7));`
       updateWindowStatus();
     }
 
-    function capitalize(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    }
-
     function saveActiveFile() {
       files[activeFile].content = editor.value;
-    }
-
-    function updateMemory() {
-      const amount = Math.max(1, Math.round(editor.value.length / 1024));
-      memoryStatus.textContent = `${amount} MB`;
     }
 
     function updateLineNumbers() {
@@ -1116,7 +1185,10 @@ console.log("6 x 7 =", multiply(6, 7));`
       cursorPosition.textContent = `Ln ${line}, Col ${column}`;
       characterCount.textContent = `${editor.value.length} characters`;
 
-      updateMemory();
+      memoryStatus.textContent = `${Math.max(
+        1,
+        Math.round(editor.value.length / 1024)
+      )} MB`;
     }
 
     function loadFile(fileName) {
@@ -1124,7 +1196,9 @@ console.log("6 x 7 =", multiply(6, 7));`
 
       activeFile = fileName;
       editor.value = files[fileName].content;
-      editorMode.textContent = capitalize(files[fileName].language);
+      editorMode.textContent =
+        files[fileName].language.charAt(0).toUpperCase() +
+        files[fileName].language.slice(1);
 
       document.querySelectorAll(".editor-tab").forEach((tab) => {
         tab.classList.toggle("active", tab.dataset.file === fileName);
@@ -1169,7 +1243,7 @@ console.log("6 x 7 =", multiply(6, 7));`
                 min-height: 100vh;
                 display: grid;
                 place-items: center;
-                background: #eeeeee;
+                background: #111;
               }
             </style>
           </head>
@@ -1196,17 +1270,16 @@ console.log("6 x 7 =", multiply(6, 7));`
 
     function runCode() {
       saveActiveFile();
-      setProcessStatus("RUNNING");
 
       if (files[activeFile].language !== "javascript") {
         updatePreview();
         openWindow("preview");
-        appendTerminal(`${activeFile} sent to preview.`, "success");
-        setProcessStatus("IDLE");
+        appendTerminal(`${activeFile} loaded into sandbox preview.`, "success");
         return;
       }
 
       const logs = [];
+      processStatus.textContent = "RUNNING";
 
       const fakeConsole = {
         log: (...args) => logs.push(args.map(formatValue).join(" ")),
@@ -1224,17 +1297,19 @@ console.log("6 x 7 =", multiply(6, 7));`
 
         appendTerminal(`run ${activeFile}`, "command");
 
+        logs.forEach((message) => {
+          appendTerminal(message, "success");
+        });
+
         if (logs.length === 0) {
-          appendTerminal("Execution finished with no output.", "success");
-        } else {
-          logs.forEach((message) => appendTerminal(message, "success"));
+          appendTerminal("Script completed with no console output.", "success");
         }
       } catch (error) {
-        appendTerminal(`Execution error: ${error.message}`, "error");
+        appendTerminal(`Script error: ${error.message}`, "error");
       }
 
       updatePreview();
-      setProcessStatus("IDLE");
+      processStatus.textContent = "IDLE";
     }
 
     function checkCode() {
@@ -1275,14 +1350,14 @@ console.log("6 x 7 =", multiply(6, 7));`
           "✓ No obvious syntax problems detected.";
 
         openWindow("checker");
-        appendTerminal(`check ${activeFile}: passed`, "success");
+        appendTerminal(`validator: ${activeFile} passed`, "success");
       } catch (error) {
         checkerOutput.className = "checker-output error";
         checkerOutput.textContent =
           `✕ ${language.toUpperCase()} validation failed.\n\n${error.message}`;
 
         openWindow("checker");
-        appendTerminal(`check ${activeFile}: failed`, "error");
+        appendTerminal(`validator: ${activeFile} failed`, "error");
       }
     }
 
@@ -1312,13 +1387,13 @@ console.log("6 x 7 =", multiply(6, 7));`
               indent = Math.max(0, indent - 1);
             }
 
-            const formatted = "  ".repeat(indent) + line;
+            const result = "  ".repeat(indent) + line;
 
             if (line.endsWith("{")) {
               indent++;
             }
 
-            return formatted;
+            return result;
           })
           .join("\n");
       }
@@ -1339,7 +1414,7 @@ console.log("6 x 7 =", multiply(6, 7));`
       appendTerminal(`cleared ${activeFile}`, "success");
     }
 
-    function downloadActiveFile() {
+    function downloadFile() {
       saveActiveFile();
 
       const blob = new Blob([editor.value], {
@@ -1358,129 +1433,49 @@ console.log("6 x 7 =", multiply(6, 7));`
       appendTerminal(`downloaded ${activeFile}`, "success");
     }
 
-    function renderProcesses() {
-      processList.innerHTML = "";
+    async function runScript(scriptName) {
+      const script = scriptLibrary[scriptName];
 
-      processNames.forEach((name, index) => {
-        const cpu = (Math.random() * 5 + 0.1).toFixed(1);
-        const memory = (Math.random() * 32 + 4).toFixed(1);
-
-        const row = document.createElement("div");
-        row.className = "process-row";
-
-        row.innerHTML = `
-          <span>${1000 + index}</span>
-          <strong>${cpu}% CPU</strong>
-          <span>${name} — ${memory} MB</span>
-        `;
-
-        processList.appendChild(row);
-      });
-    }
-
-    async function runFakeScript(scriptName) {
-      const scripts = {
-        systemScan: [
-          "initializing hardware scan...",
-          "checking terminal runtime...",
-          "checking display server...",
-          "checking local storage...",
-          "checking security layer...",
-          "SYSTEM SCAN COMPLETE — 0 critical errors"
-        ],
-
-        networkTest: [
-          "opening local network socket...",
-          "ping 127.0.0.1...",
-          "response: 0.31 ms",
-          "checking packet integrity...",
-          "NETWORK TEST COMPLETE — connection stable"
-        ],
-
-        fileAudit: [
-          "reading project directory...",
-          "checking main.js...",
-          "checking index.html...",
-          "checking styles.css...",
-          "checking config.json...",
-          "FILE AUDIT COMPLETE — 4 files verified"
-        ],
-
-        matrixTest: [
-          "allocating matrix buffer...",
-          "running multiplication test...",
-          "calculating determinant...",
-          "validating result...",
-          "MATRIX TEST COMPLETE — result verified"
-        ],
-
-        memoryTest: [
-          "requesting temporary memory block...",
-          "writing test pattern 0x39FF88...",
-          "reading test pattern...",
-          "releasing memory block...",
-          "MEMORY TEST COMPLETE — allocation stable"
-        ]
-      };
-
-      const output = scripts[scriptName];
-
-      if (!output) {
+      if (!script) {
         appendTerminal(`script not found: ${scriptName}`, "error");
         return;
       }
 
-      setProcessStatus("SCRIPT");
+      processStatus.textContent = "SCRIPT";
+      appendTerminal(`./${scriptName}.sim`, "command");
 
-      appendTerminal(`./${scriptName}.sh`, "command");
-
-      for (const line of output) {
-        await delay(350);
-        appendTerminal(`[${getTime()}] ${line}`, "system");
+      for (const line of script) {
+        await wait(320);
+        appendTerminal(`[${currentTime()}] ${line}`, "system");
       }
 
-      setProcessStatus("IDLE");
-    }
-
-    function runRandomActivity() {
-      const messages = [
-        "background monitor: terminal heartbeat ok",
-        "background monitor: checking process table",
-        "background monitor: local cache synchronized",
-        "background monitor: no external network activity",
-        "background monitor: memory stable",
-        "background monitor: waiting for user input"
-      ];
-
-      const message = messages[Math.floor(Math.random() * messages.length)];
-      appendTerminal(message, "info");
+      processStatus.textContent = "IDLE";
     }
 
     function showHelp() {
-      appendTerminal("AVAILABLE COMMANDS", "success");
-      appendTerminal("help                         show this command list");
-      appendTerminal("clear                        clear terminal output");
-      appendTerminal("open editor                  open code editor");
-      appendTerminal("open preview                 open live preview");
-      appendTerminal("open checker                 open code checker");
-      appendTerminal("open scripts                 open script library");
-      appendTerminal("open processes               open process monitor");
+      appendTerminal("AVAILABLE SIMULATION COMMANDS", "success");
+      appendTerminal("help                         show commands");
+      appendTerminal("clear                        clear terminal");
+      appendTerminal("open editor                  open script editor");
+      appendTerminal("open preview                 open sandbox preview");
+      appendTerminal("open checker                 open validator");
+      appendTerminal("open scripts                 open script loader");
+      appendTerminal("open status                  open node diagnostics");
       appendTerminal("close editor                close a window");
-      appendTerminal("run                          run active JavaScript");
-      appendTerminal("check                        validate active file");
+      appendTerminal("run                          run active script");
+      appendTerminal("check                        validate active script");
       appendTerminal("format                       format active file");
       appendTerminal("clear-editor                 clear active file");
       appendTerminal("download                     download active file");
-      appendTerminal("scripts                      list test scripts");
-      appendTerminal("run-script systemScan       run a fake system scan");
-      appendTerminal("run-script networkTest      run a fake network test");
-      appendTerminal("run-script fileAudit        run a fake file audit");
-      appendTerminal("run-script matrixTest       run a fake matrix test");
-      appendTerminal("run-script memoryTest       run a fake memory test");
-      appendTerminal("files                        list project files");
-      appendTerminal("processes                    refresh process list");
-      appendTerminal("time                         show system time");
-      appendTerminal("about                        show system information");
+      appendTerminal("scripts                      list simulation scripts");
+      appendTerminal("run-script nodeScan         run node scan");
+      appendTerminal("run-script packetTest       run packet test");
+      appendTerminal("run-script fileAudit        run file audit");
+      appendTerminal("run-script cipherTest       run cipher simulation");
+      appendTerminal("run-script memoryTest       run memory test");
+      appendTerminal("files                        list local files");
+      appendTerminal("time                         show current time");
+      appendTerminal("about                        show simulation information");
     }
 
     function executeCommand(command) {
@@ -1490,8 +1485,8 @@ console.log("6 x 7 =", multiply(6, 7));`
         return;
       }
 
-      terminalHistory.push(trimmed);
-      historyIndex = terminalHistory.length;
+      history.push(trimmed);
+      historyIndex = history.length;
 
       appendTerminal(trimmed, "command");
 
@@ -1530,7 +1525,7 @@ console.log("6 x 7 =", multiply(6, 7));`
       }
 
       if (base === "download") {
-        downloadActiveFile();
+        downloadFile();
         return;
       }
 
@@ -1546,70 +1541,61 @@ console.log("6 x 7 =", multiply(6, 7));`
 
       if (base === "about") {
         appendTerminal(
-          "DEV//CONSOLE v3.0 — simulated terminal desktop with movable windows."
+          "BLACKSITE NODE 07 — fictional visual terminal simulation only."
         );
-        return;
-      }
-
-      if (base === "processes") {
-        renderProcesses();
-        openWindow("process");
-        appendTerminal("process table refreshed", "success");
+        appendTerminal("External system access: disabled.");
+        appendTerminal("Network connection: not used.");
         return;
       }
 
       if (base === "scripts") {
         appendTerminal(
-          "Available scripts: systemScan, networkTest, fileAudit, matrixTest, memoryTest"
+          "nodeScan  packetTest  fileAudit  cipherTest  memoryTest"
         );
         openWindow("scripts");
         return;
       }
 
       if (base === "run-script") {
-        runFakeScript(parts[1]);
+        runScript(parts[1]);
         return;
       }
 
       if (base === "open") {
-        const aliases = {
+        const targets = {
           editor: "editor",
           preview: "preview",
           checker: "checker",
           scripts: "scripts",
-          processes: "process"
+          status: "status"
         };
 
-        const target = aliases[argument];
-
-        if (!target) {
+        if (!targets[argument]) {
           appendTerminal(`unknown window: ${argument}`, "error");
           return;
         }
 
-        openWindow(target);
+        openWindow(targets[argument]);
         appendTerminal(`opened ${argument}`, "success");
         return;
       }
 
       if (base === "close") {
-        const aliases = {
+        const targets = {
           editor: "editor",
           preview: "preview",
           checker: "checker",
           scripts: "scripts",
-          processes: "process",
+          status: "status",
           terminal: "terminal"
         };
 
-        const target = aliases[argument];
-
-        if (!target) {
+        if (!targets[argument]) {
           appendTerminal(`unknown window: ${argument}`, "error");
           return;
         }
 
-        closeWindow(target);
+        closeWindow(targets[argument]);
         appendTerminal(`closed ${argument}`, "success");
         return;
       }
@@ -1656,18 +1642,15 @@ console.log("6 x 7 =", multiply(6, 7));`
         const maxX = window.innerWidth - windowElement.offsetWidth;
         const maxY = window.innerHeight - 32 - windowElement.offsetHeight;
 
-        const nextX = Math.max(
+        windowElement.style.left = `${Math.max(
           0,
           Math.min(event.clientX - offsetX, maxX)
-        );
+        )}px`;
 
-        const nextY = Math.max(
+        windowElement.style.top = `${Math.max(
           0,
           Math.min(event.clientY - offsetY, maxY)
-        );
-
-        windowElement.style.left = `${nextX}px`;
-        windowElement.style.top = `${nextY}px`;
+        )}px`;
       });
 
       document.addEventListener("mouseup", () => {
@@ -1683,8 +1666,7 @@ console.log("6 x 7 =", multiply(6, 7));`
 
     document.querySelectorAll("[data-close]").forEach((button) => {
       button.addEventListener("click", () => {
-        const windowName = button.dataset.close.replace("Window", "");
-        closeWindow(windowName);
+        closeWindow(button.dataset.close.replace("Window", ""));
       });
     });
 
@@ -1716,7 +1698,7 @@ console.log("6 x 7 =", multiply(6, 7));`
 
     document.querySelectorAll(".script-button").forEach((button) => {
       button.addEventListener("click", () => {
-        runFakeScript(button.dataset.script);
+        runScript(button.dataset.script);
       });
     });
 
@@ -1772,69 +1754,93 @@ console.log("6 x 7 =", multiply(6, 7));`
 
         if (historyIndex > 0) {
           historyIndex--;
-          terminalInput.value = terminalHistory[historyIndex];
+          terminalInput.value = history[historyIndex];
         }
       }
 
       if (event.key === "ArrowDown") {
         event.preventDefault();
 
-        if (historyIndex < terminalHistory.length - 1) {
+        if (historyIndex < history.length - 1) {
           historyIndex++;
-          terminalInput.value = terminalHistory[historyIndex];
+          terminalInput.value = history[historyIndex];
         } else {
-          historyIndex = terminalHistory.length;
+          historyIndex = history.length;
           terminalInput.value = "";
         }
       }
     });
 
-    async function boot() {
+    function updateUptime() {
+      const seconds = Math.floor((Date.now() - startTime) / 1000);
+      const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const remaining = String(seconds % 60).padStart(2, "0");
+
+      uptimeValue.textContent = `${hours}:${minutes}:${remaining}`;
+    }
+
+    async function bootSystem() {
       const bootScreen = document.getElementById("bootScreen");
       const bootLog = document.getElementById("bootLog");
       const progressBar = document.getElementById("bootProgressBar");
 
       const messages = [
-        "[ OK ] loading terminal kernel",
-        "[ OK ] mounting /usr/local/dev",
-        "[ OK ] initializing display server",
-        "[ OK ] loading script manager",
-        "[ OK ] starting process monitor",
-        "[ OK ] checking local file system",
-        "[ OK ] loading movable window manager",
-        "[ OK ] starting root session"
+        "[ OK ] loading fictional node kernel",
+        "[ OK ] mounting local sandbox",
+        "[ OK ] initializing visual command shell",
+        "[ OK ] loading script simulation engine",
+        "[ OK ] starting movable window manager",
+        "[ OK ] disabling external access",
+        "[ OK ] loading operator session",
+        "[ OK ] terminal ready"
       ];
 
       for (let index = 0; index < messages.length; index++) {
-        await delay(180);
+        await wait(180);
 
         bootLog.textContent += `${messages[index]}\n`;
-        progressBar.style.width = `${((index + 1) / messages.length) * 100}%`;
+        progressBar.style.width =
+          `${((index + 1) / messages.length) * 100}%`;
       }
 
-      await delay(500);
+      await wait(600);
 
       bootScreen.classList.add("hidden");
       terminalInput.focus();
 
       appendTerminal("boot sequence complete", "success");
-      appendTerminal(`session started at ${getTime()}`, "info");
+      appendTerminal("fictional simulation mode active", "warning");
+      appendTerminal(`session started at ${currentTime()}`, "info");
     }
 
     loadFile("main.js");
     updatePreview();
     updateWindowStatus();
-    renderProcesses();
+    updateUptime();
+
+    setInterval(updateUptime, 1000);
 
     setInterval(() => {
       if (!document.getElementById("terminalWindow").classList.contains("hidden")) {
-        if (Math.random() > 0.55) {
-          runRandomActivity();
+        const messages = [
+          "background monitor: local sandbox stable",
+          "background monitor: visual process heartbeat received",
+          "background monitor: no external connections",
+          "background monitor: script loader idle",
+          "background monitor: waiting for operator input"
+        ];
+
+        if (Math.random() > 0.5) {
+          const message =
+            messages[Math.floor(Math.random() * messages.length)];
+
+          appendTerminal(message, "info");
         }
       }
-    }, 9000);
+    }, 8500);
 
-    boot();
+    bootSystem();
   </script>
 </body>
 </html>
