@@ -10,55 +10,47 @@
       --bg: #020604;
       --terminal: #031008;
       --panel: #06150a;
-      --panel-light: #0a2110;
       --border: #176b32;
       --border-bright: #31ff78;
       --green: #39ff88;
-      --green-soft: #a7ffc5;
-      --green-dim: #4aa86b;
+      --green-soft: #baffcc;
+      --green-dim: #59936b;
       --text: #d9ffe5;
-      --muted: #59936b;
       --danger: #ff5f6d;
       --warning: #ffe66d;
-      --shadow: 0 0 35px rgba(43, 255, 119, 0.12);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      min-height: 100%;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
       background: var(--bg);
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 18px;
       color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(20, 90, 40, 0.18), transparent 38%),
-        #020604;
       font-family: "Courier New", Courier, monospace;
-      overflow-x: hidden;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
+      z-index: 999;
       pointer-events: none;
-      z-index: 50;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.025) 0,
-          rgba(255, 255, 255, 0.025) 1px,
-          transparent 1px,
-          transparent 4px
-        );
-      mix-blend-mode: screen;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.025) 0,
+        rgba(255, 255, 255, 0.025) 1px,
+        transparent 1px,
+        transparent 4px
+      );
       opacity: 0.25;
     }
 
@@ -66,11 +58,11 @@
       content: "";
       position: fixed;
       inset: 0;
+      z-index: 998;
       pointer-events: none;
-      z-index: 49;
       box-shadow:
-        inset 0 0 120px rgba(0, 0, 0, 0.8),
-        inset 0 0 20px rgba(44, 255, 120, 0.08);
+        inset 0 0 120px rgba(0, 0, 0, 0.85),
+        inset 0 0 25px rgba(44, 255, 120, 0.08);
     }
 
     button,
@@ -107,23 +99,27 @@
     }
 
     .app-shell {
-      width: min(1900px, 100%);
-      min-height: calc(100vh - 36px);
-      margin: 0 auto;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      min-height: 100vh;
       overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--terminal);
-      box-shadow:
-        var(--shadow),
-        0 0 0 1px rgba(57, 255, 136, 0.05);
+      background:
+        radial-gradient(circle at center, rgba(20, 130, 55, 0.12), transparent 55%),
+        #020604;
     }
 
     .top-bar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 50;
       display: flex;
       align-items: center;
       gap: 14px;
-      min-height: 42px;
-      padding: 8px 14px;
+      height: 38px;
+      padding: 0 14px;
       border-bottom: 1px solid var(--border);
       background: #041009;
       color: var(--green-dim);
@@ -174,138 +170,176 @@
       text-shadow: 0 0 8px rgba(57, 255, 136, 0.7);
     }
 
-    .hero {
-      position: relative;
-      min-height: 330px;
-      padding: 24px;
+    .desktop {
+      position: absolute;
+      inset: 38px 0 30px;
       overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      background:
-        linear-gradient(rgba(30, 255, 105, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30, 255, 105, 0.045) 1px, transparent 1px),
-        radial-gradient(circle at center, rgba(18, 117, 49, 0.15), transparent 65%),
-        #020a05;
-      background-size: 24px 24px, 24px 24px, auto;
     }
 
-    .hero::before {
-      content: "BOOT_SEQUENCE // DEV_CONSOLE";
+    .desktop::before {
+      content: "DEV//CONSOLE DESKTOP";
       position: absolute;
-      top: 12px;
-      right: 18px;
-      color: var(--green-dim);
-      font-size: 10px;
+      top: 15px;
+      left: 20px;
+      color: rgba(57, 255, 136, 0.2);
+      font-size: 11px;
       letter-spacing: 0.12em;
-      opacity: 0.75;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 1px;
-      background: var(--green);
-      box-shadow: 0 0 12px var(--green);
-      opacity: 0.7;
+      pointer-events: none;
     }
 
     .ascii-art {
-      width: 100%;
-      max-height: 240px;
-      margin: 20px 0 0;
-      overflow: auto;
-      color: var(--green);
-      font-size: clamp(5px, 0.72vw, 11px);
-      line-height: 1.05;
-      white-space: pre;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max-content;
+      margin: 0;
+      color: #20ff68;
+      font-size: clamp(4px, 0.62vw, 10px);
+      line-height: 1;
+      transform: translate(-50%, -50%);
+      opacity: 0.22;
+      pointer-events: none;
       text-shadow:
-        0 0 4px rgba(57, 255, 136, 0.9),
-        0 0 14px rgba(57, 255, 136, 0.4);
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
-
-    .hero-subtitle {
-      margin: 18px 0 0;
-      color: var(--green-dim);
-      font-size: 13px;
-    }
-
-    .hero-subtitle::before {
-      content: "[SYSTEM] ";
-      color: var(--green);
-    }
-
-    .hero-subtitle span {
-      color: var(--green);
+        0 0 5px rgba(57, 255, 136, 0.7),
+        0 0 18px rgba(57, 255, 136, 0.3);
     }
 
     .toolbar {
+      position: absolute;
+      top: 52px;
+      left: 18px;
+      z-index: 100;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-      background: #041009;
+      gap: 7px;
+      width: max-content;
+      max-width: calc(100vw - 36px);
+      padding: 9px;
+      border: 1px solid var(--border);
+      background: rgba(3, 16, 8, 0.96);
+      box-shadow: 0 0 20px rgba(35, 255, 112, 0.15);
     }
 
     .toolbar button,
     .toolbar select {
-      min-height: 34px;
-      padding: 7px 12px;
-      font-size: 11px;
+      min-height: 32px;
+      padding: 6px 10px;
+      font-size: 10px;
       letter-spacing: 0.04em;
     }
 
-    .toolbar button::first-letter {
-      color: var(--green);
-    }
-
     .toolbar .spacer {
-      flex: 1;
+      width: 8px;
     }
 
     .shortcut {
-      color: var(--muted);
+      color: var(--green-dim);
       font-size: 10px;
+    }
+
+    .window {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid var(--border-bright);
+      background: rgba(3, 16, 8, 0.97);
+      box-shadow:
+        0 0 30px rgba(49, 255, 120, 0.14),
+        inset 0 0 18px rgba(49, 255, 120, 0.025);
+    }
+
+    .window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 34px;
+      padding: 0 10px;
+      color: var(--green);
+      border-bottom: 1px solid var(--border);
+      background: #06150a;
+      cursor: grab;
+      user-select: none;
+      font-size: 11px;
       letter-spacing: 0.08em;
+      text-shadow: 0 0 6px rgba(57, 255, 136, 0.5);
     }
 
-    .workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.8fr);
-      min-height: 700px;
+    .window-header:active {
+      cursor: grabbing;
     }
 
-    .editor-area {
-      min-width: 0;
-      border-right: 1px solid var(--border);
-      background: #020a05;
+    .window-header::before {
+      content: "[";
+      margin-right: 4px;
+      color: var(--green-dim);
+    }
+
+    .window-header::after {
+      content: "]";
+      margin-left: 4px;
+      color: var(--green-dim);
+    }
+
+    .window-header small {
+      color: var(--green-dim);
+      font-size: 9px;
+      letter-spacing: 0;
+      text-shadow: none;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 5px;
+      margin-left: auto;
+      padding-left: 8px;
+    }
+
+    .window-controls button {
+      width: 18px;
+      height: 18px;
+      padding: 0;
+      color: var(--green);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      line-height: 14px;
+    }
+
+    .window-body {
+      height: calc(100% - 34px);
+      overflow: hidden;
+    }
+
+    .editor-window {
+      top: 145px;
+      left: 4vw;
+      z-index: 20;
+      width: min(780px, 63vw);
+      height: 570px;
+      resize: both;
     }
 
     .editor-tabs {
       display: flex;
-      overflow-x: auto;
+      height: 38px;
+      overflow: hidden;
       border-bottom: 1px solid var(--border);
       background: #041009;
     }
 
     .editor-tab {
       position: relative;
-      padding: 11px 15px;
-      color: var(--muted);
+      padding: 10px 14px;
+      color: var(--green-dim);
       background: transparent;
       border: 0;
       border-right: 1px solid var(--border);
       white-space: nowrap;
+      font-size: 11px;
     }
 
     .editor-tab::before {
       content: ">";
-      margin-right: 7px;
+      margin-right: 6px;
       color: transparent;
     }
 
@@ -330,17 +364,22 @@
       box-shadow: 0 0 10px var(--green);
     }
 
+    .editor-content {
+      display: grid;
+      grid-template-rows: 38px minmax(0, 1fr) 34px;
+      height: 100%;
+      background: #020a05;
+    }
+
     .editor-wrap {
       display: grid;
-      grid-template-columns: 58px minmax(0, 1fr);
-      min-height: 540px;
-      background:
-        linear-gradient(90deg, rgba(36, 255, 108, 0.025), transparent 18%),
-        #020a05;
+      grid-template-columns: 55px minmax(0, 1fr);
+      min-height: 0;
+      overflow: hidden;
     }
 
     .line-numbers {
-      padding: 18px 12px 18px 0;
+      padding: 16px 11px 16px 0;
       overflow: hidden;
       color: #225f36;
       border-right: 1px solid #0b3218;
@@ -352,10 +391,11 @@
 
     #codeEditor {
       width: 100%;
-      min-height: 540px;
-      padding: 18px;
+      height: 100%;
+      min-height: 0;
+      padding: 16px;
       overflow: auto;
-      resize: vertical;
+      resize: none;
       outline: 0;
       border: 0;
       color: var(--green-soft);
@@ -371,70 +411,43 @@
     .editor-footer {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       padding: 8px 12px;
-      color: var(--muted);
+      overflow: hidden;
+      color: var(--green-dim);
       border-top: 1px solid var(--border);
       background: #041009;
       font-size: 10px;
+      white-space: nowrap;
     }
 
-    .side-area {
-      min-width: 0;
-      background: #020a05;
-    }
-
-    .side-panel {
-      border-bottom: 1px solid var(--border);
-    }
-
-    .panel-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      color: var(--green);
-      border-bottom: 1px solid var(--border);
-      background: #06150a;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-shadow: 0 0 6px rgba(57, 255, 136, 0.5);
-    }
-
-    .panel-heading::before {
-      content: "[";
-      margin-right: 5px;
-      color: var(--green-dim);
-    }
-
-    .panel-heading::after {
-      content: "]";
-      margin-left: 5px;
-      color: var(--green-dim);
-    }
-
-    .panel-heading small {
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: 0;
-      text-transform: none;
-      text-shadow: none;
+    .preview-window {
+      top: 125px;
+      right: 4vw;
+      z-index: 22;
+      width: 350px;
+      height: 270px;
     }
 
     .preview-frame {
       display: block;
       width: 100%;
-      height: 235px;
+      height: 100%;
       border: 0;
       background: #fff;
     }
 
-    .checker-output,
-    .terminal-output {
-      min-height: 120px;
-      max-height: 260px;
-      padding: 12px;
+    .checker-window {
+      top: 420px;
+      right: 4vw;
+      z-index: 21;
+      width: 350px;
+      height: 210px;
+    }
+
+    .checker-output {
+      height: 100%;
+      padding: 14px;
       overflow: auto;
       color: var(--green-dim);
       font-size: 12px;
@@ -450,12 +463,31 @@
       color: var(--danger);
     }
 
-    .terminal-output {
-      min-height: 185px;
-      color: var(--green-soft);
+    .terminal-window {
+      bottom: 24px;
+      left: 4vw;
+      z-index: 30;
+      width: 500px;
+      height: 245px;
+    }
+
+    .terminal-content {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) 38px;
+      height: 100%;
       background:
         radial-gradient(circle at top left, rgba(35, 255, 112, 0.06), transparent 50%),
         #010803;
+    }
+
+    .terminal-output {
+      min-height: 0;
+      padding: 12px;
+      overflow: auto;
+      color: var(--green-soft);
+      font-size: 12px;
+      line-height: 1.55;
+      white-space: pre-wrap;
     }
 
     .terminal-line {
@@ -487,22 +519,22 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 12px;
+      padding: 8px 12px;
       border-top: 1px solid var(--border);
       background: #031008;
     }
 
     .terminal-prompt {
       color: var(--green);
-      font-size: 12px;
       white-space: nowrap;
+      font-size: 12px;
       text-shadow: 0 0 7px rgba(57, 255, 136, 0.6);
     }
 
     #terminalInput {
       flex: 1;
       min-width: 0;
-      padding: 8px 0;
+      padding: 6px 0;
       outline: 0;
       border: 0;
       color: var(--green-soft);
@@ -514,10 +546,19 @@
       color: #2b6940;
     }
 
+    .prompts-window {
+      right: 390px;
+      bottom: 24px;
+      z-index: 25;
+      width: 290px;
+      height: 245px;
+    }
+
     .prompt-list {
       display: grid;
       gap: 7px;
       padding: 12px;
+      overflow: auto;
     }
 
     .prompt-button {
@@ -539,12 +580,20 @@
       border-color: var(--border-bright);
     }
 
+    .commands-window {
+      right: 4vw;
+      bottom: 24px;
+      z-index: 24;
+      width: 300px;
+      height: 245px;
+    }
+
     .command-reference {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px 16px;
-      padding: 12px;
-      color: var(--muted);
+      gap: 10px;
+      padding: 14px;
+      color: var(--green-dim);
       font-size: 11px;
     }
 
@@ -554,12 +603,19 @@
     }
 
     .bottom-status {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 200;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 10px;
-      padding: 9px 12px;
-      color: var(--muted);
+      height: 30px;
+      padding: 8px 12px;
+      overflow: hidden;
+      color: var(--green-dim);
       border-top: 1px solid var(--border);
       background: #041009;
       font-size: 10px;
@@ -574,7 +630,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 20;
+      z-index: 500;
       display: none;
       align-items: center;
       justify-content: center;
@@ -619,77 +675,65 @@
       padding: 3px 8px;
     }
 
-    @media (max-width: 950px) {
-      body {
-        padding: 8px;
+    @media (max-width: 1050px) {
+      .editor-window {
+        left: 20px;
+        width: 58vw;
       }
 
-      .workspace {
-        grid-template-columns: 1fr;
+      .preview-window,
+      .checker-window,
+      .commands-window {
+        right: 20px;
       }
 
-      .editor-area {
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
+      .prompts-window {
+        right: 350px;
       }
 
-      .side-area {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .side-panel {
-        border-right: 1px solid var(--border);
-      }
-
-      .side-panel:last-child {
-        grid-column: 1 / -1;
+      .terminal-window {
+        left: 20px;
       }
     }
 
-    @media (max-width: 620px) {
-      .top-bar {
-        font-size: 9px;
+    @media (max-width: 800px) {
+      .desktop {
+        overflow: hidden;
       }
 
-      .window-title {
-        text-align: left;
+      .editor-window {
+        top: 125px;
+        left: 12px;
+        width: calc(100vw - 24px);
+        height: 440px;
       }
 
-      .status-indicator {
+      .preview-window {
+        top: 580px;
+        left: 12px;
+        right: auto;
+        width: calc(100vw - 24px);
+        height: 230px;
+      }
+
+      .checker-window {
         display: none;
       }
 
-      .hero {
-        padding: 16px 12px;
+      .terminal-window {
+        top: 825px;
+        bottom: auto;
+        left: 12px;
+        width: calc(100vw - 24px);
       }
 
-      .ascii-art {
-        font-size: 4px;
-      }
-
-      .side-area {
-        display: block;
-      }
-
-      .side-panel {
-        border-right: 0;
-      }
-
-      .editor-wrap {
-        grid-template-columns: 42px minmax(0, 1fr);
-      }
-
-      #codeEditor {
-        font-size: 12px;
-      }
-
-      .shortcut {
+      .prompts-window,
+      .commands-window {
         display: none;
       }
 
-      .editor-footer {
-        font-size: 9px;
+      .bottom-status {
+        font-size: 8px;
       }
     }
   </style>
@@ -711,7 +755,7 @@
       <div class="status-indicator">● ONLINE</div>
     </header>
 
-    <section class="hero">
+    <section class="desktop">
       <pre class="ascii-art">
                                                                                                                                                                 
                                                                                                                                                                 
@@ -759,83 +803,103 @@
                                                         ++-:..::+#==                                                                                             
       </pre>
 
-      <p class="hero-subtitle">
-        <span>root@dev-console</span>:~$ build ideas, inspect code, execute logic.
-      </p>
-    </section>
+      <nav class="toolbar">
+        <button id="runButton">[ RUN ]</button>
+        <button id="checkButton">[ CHECK ]</button>
+        <button id="formatButton">[ FORMAT ]</button>
+        <button id="clearButton">[ CLEAR ]</button>
+        <button id="downloadButton">[ DOWNLOAD ]</button>
+        <button id="helpButton">[ HELP ]</button>
 
-    <nav class="toolbar">
-      <button id="runButton">[ RUN ]</button>
-      <button id="checkButton">[ CHECK ]</button>
-      <button id="formatButton">[ FORMAT ]</button>
-      <button id="clearButton">[ CLEAR ]</button>
-      <button id="downloadButton">[ DOWNLOAD ]</button>
-      <button id="helpButton">[ HELP ]</button>
+        <div class="spacer"></div>
 
-      <div class="spacer"></div>
+        <label for="languageSelect" class="shortcut">LANGUAGE:</label>
 
-      <label for="languageSelect" class="shortcut">LANGUAGE:</label>
+        <select id="languageSelect">
+          <option value="javascript">JavaScript</option>
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="json">JSON</option>
+        </select>
+      </nav>
 
-      <select id="languageSelect">
-        <option value="javascript">JavaScript</option>
-        <option value="html">HTML</option>
-        <option value="css">CSS</option>
-        <option value="json">JSON</option>
-      </select>
-    </nav>
+      <section id="editorWindow" class="window editor-window">
+        <div class="window-header">
+          <span>CODE EDITOR</span>
 
-    <section class="workspace">
-      <section class="editor-area">
-        <div class="editor-tabs">
-          <button class="editor-tab active" data-file="main.js">main.js</button>
-          <button class="editor-tab" data-file="index.html">index.html</button>
-          <button class="editor-tab" data-file="styles.css">styles.css</button>
-          <button class="editor-tab" data-file="config.json">config.json</button>
+          <div class="window-controls">
+            <button data-minimize="editorWindow">−</button>
+            <button data-close="editorWindow">×</button>
+          </div>
         </div>
 
-        <div class="editor-wrap">
-          <div id="lineNumbers" class="line-numbers">1</div>
-          <textarea id="codeEditor" spellcheck="false" aria-label="Code editor"></textarea>
-        </div>
+        <div class="window-body editor-content">
+          <div class="editor-tabs">
+            <button class="editor-tab active" data-file="main.js">main.js</button>
+            <button class="editor-tab" data-file="index.html">index.html</button>
+            <button class="editor-tab" data-file="styles.css">styles.css</button>
+            <button class="editor-tab" data-file="config.json">config.json</button>
+          </div>
 
-        <div class="editor-footer">
-          <span id="cursorPosition">Ln 1, Col 1</span>
-          <span id="characterCount">0 characters</span>
-          <span id="editorMode">JavaScript</span>
+          <div class="editor-wrap">
+            <div id="lineNumbers" class="line-numbers">1</div>
+            <textarea id="codeEditor" spellcheck="false"></textarea>
+          </div>
+
+          <div class="editor-footer">
+            <span id="cursorPosition">Ln 1, Col 1</span>
+            <span id="characterCount">0 characters</span>
+            <span id="editorMode">JavaScript</span>
+          </div>
         </div>
       </section>
 
-      <aside class="side-area">
-        <section class="side-panel">
-          <div class="panel-heading">
-            <span>LIVE DISPLAY</span>
-            <small>iframe://preview</small>
+      <section id="previewWindow" class="window preview-window">
+        <div class="window-header">
+          <span>LIVE DISPLAY</span>
+          <small>iframe://preview</small>
+
+          <div class="window-controls">
+            <button data-minimize="previewWindow">−</button>
+            <button data-close="previewWindow">×</button>
           </div>
+        </div>
 
-          <iframe
-            id="previewFrame"
-            class="preview-frame"
-            title="Live code preview"
-          ></iframe>
-        </section>
+        <div class="window-body">
+          <iframe id="previewFrame" class="preview-frame"></iframe>
+        </div>
+      </section>
 
-        <section class="side-panel">
-          <div class="panel-heading">
-            <span>CODE CHECKER</span>
-            <small id="checkerStatus">waiting</small>
+      <section id="checkerWindow" class="window checker-window">
+        <div class="window-header">
+          <span>CODE CHECKER</span>
+          <small id="checkerStatus">waiting</small>
+
+          <div class="window-controls">
+            <button data-minimize="checkerWindow">−</button>
+            <button data-close="checkerWindow">×</button>
           </div>
+        </div>
 
+        <div class="window-body">
           <div id="checkerOutput" class="checker-output">
             No diagnostics available. Run the checker to inspect your code.
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="side-panel">
-          <div class="panel-heading">
-            <span>TERMINAL</span>
-            <small>type help</small>
+      <section id="terminalWindow" class="window terminal-window">
+        <div class="window-header">
+          <span>TERMINAL</span>
+          <small>type help</small>
+
+          <div class="window-controls">
+            <button data-minimize="terminalWindow">−</button>
+            <button data-close="terminalWindow">×</button>
           </div>
+        </div>
 
+        <div class="window-body terminal-content">
           <div id="terminalOutput" class="terminal-output">
             <div class="terminal-line info">DEV//CONSOLE v1.0 initialized.</div>
             <div class="terminal-line info">Type "help" to list available commands.</div>
@@ -849,14 +913,21 @@
               placeholder="enter command..."
             />
           </form>
-        </section>
+        </div>
+      </section>
 
-        <section class="side-panel">
-          <div class="panel-heading">
-            <span>QUICK PROMPTS</span>
-            <small>templates</small>
+      <section id="promptsWindow" class="window prompts-window">
+        <div class="window-header">
+          <span>QUICK PROMPTS</span>
+          <small>templates</small>
+
+          <div class="window-controls">
+            <button data-minimize="promptsWindow">−</button>
+            <button data-close="promptsWindow">×</button>
           </div>
+        </div>
 
+        <div class="window-body">
           <div class="prompt-list">
             <button class="prompt-button" data-prompt="Create a function that reverses a string.">
               Create a string reversal function
@@ -874,14 +945,21 @@
               Explain current code
             </button>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="side-panel">
-          <div class="panel-heading">
-            <span>COMMAND REFERENCE</span>
-            <small>shell</small>
+      <section id="commandsWindow" class="window commands-window">
+        <div class="window-header">
+          <span>COMMAND REFERENCE</span>
+          <small>shell</small>
+
+          <div class="window-controls">
+            <button data-minimize="commandsWindow">−</button>
+            <button data-close="commandsWindow">×</button>
           </div>
+        </div>
 
+        <div class="window-body">
           <div class="command-reference">
             <div><code>help</code> show commands</div>
             <div><code>clear</code> clear terminal</div>
@@ -892,8 +970,8 @@
             <div><code>about</code> system information</div>
             <div><code>files</code> list project files</div>
           </div>
-        </section>
-      </aside>
+        </div>
+      </section>
     </section>
 
     <footer class="bottom-status">
@@ -912,12 +990,12 @@
       </div>
 
       <div class="modal-body">
-        <p><code>RUN CODE</code> executes JavaScript in a protected browser function and displays the result in the terminal.</p>
-        <p><code>CHECK CODE</code> performs basic syntax validation based on the selected language.</p>
-        <p><code>FORMAT</code> applies simple indentation formatting to the active file.</p>
-        <p><code>LIVE DISPLAY</code> renders HTML, CSS, and JavaScript files together in the preview frame.</p>
-        <p><code>DOWNLOAD</code> downloads the currently active file to your computer.</p>
-        <p>Terminal commands include <code>help</code>, <code>clear</code>, <code>run</code>, <code>check</code>, <code>format</code>, <code>time</code>, <code>about</code>, and <code>files</code>.</p>
+        <p><code>RUN CODE</code> executes JavaScript and displays the result in the terminal.</p>
+        <p><code>CHECK CODE</code> performs basic syntax validation.</p>
+        <p><code>FORMAT</code> formats the active file.</p>
+        <p><code>LIVE DISPLAY</code> previews the HTML, CSS, and JavaScript files.</p>
+        <p><code>DOWNLOAD</code> downloads the currently active file.</p>
+        <p>Terminal commands include <code>help</code>, <code>clear</code>, <code>run</code>, <code>check</code>, <code>format</code>, <code>time</code>, <code>about</code>, <code>files</code>, and <code>open</code>.</p>
       </div>
     </div>
   </div>
@@ -986,6 +1064,7 @@ console.log("6 × 7 =", multiply(6, 7));`
     let activeFile = "main.js";
     let terminalHistory = [];
     let historyIndex = -1;
+    let windowZIndex = 20;
 
     const editor = document.getElementById("codeEditor");
     const lineNumbers = document.getElementById("lineNumbers");
@@ -1081,7 +1160,7 @@ console.log("6 × 7 =", multiply(6, 7));`
       const css = files["styles.css"].content;
       const js = files["main.js"].content;
 
-      const documentContent = `
+      previewFrame.srcdoc = `
         <!DOCTYPE html>
         <html>
           <head>
@@ -1118,8 +1197,6 @@ console.log("6 × 7 =", multiply(6, 7));`
           </body>
         </html>
       `;
-
-      previewFrame.srcdoc = documentContent;
     }
 
     function checkCode() {
@@ -1133,22 +1210,30 @@ console.log("6 × 7 =", multiply(6, 7));`
       try {
         if (language === "javascript") {
           new Function(code);
-        } else if (language === "json") {
+        }
+
+        if (language === "json") {
           JSON.parse(code);
-        } else if (language === "html") {
+        }
+
+        if (language === "html") {
           const parser = new DOMParser();
           const result = parser.parseFromString(code, "text/html");
 
           if (result.querySelector("parsererror")) {
             throw new Error("HTML parser error detected.");
           }
-        } else if (language === "css") {
+        }
+
+        if (language === "css") {
           if (code.includes("{") && !code.includes("}")) {
             throw new Error("CSS appears to have an unclosed block.");
           }
 
           if (code.includes("}") && !code.includes("{")) {
-            throw new Error("CSS contains a closing brace without an opening brace.");
+            throw new Error(
+              "CSS contains a closing brace without an opening brace."
+            );
           }
         }
 
@@ -1165,7 +1250,10 @@ console.log("6 × 7 =", multiply(6, 7));`
         checkerOutput.textContent =
           `✕ ${language.toUpperCase()} check failed.\n\n${error.message}`;
 
-        appendTerminal(`check ${activeFile}: failed — ${error.message}`, "error");
+        appendTerminal(
+          `check ${activeFile}: failed — ${error.message}`,
+          "error"
+        );
       }
     }
 
@@ -1199,7 +1287,10 @@ console.log("6 × 7 =", multiply(6, 7));`
         appendTerminal(`run ${activeFile}`, "command");
 
         if (logs.length === 0) {
-          appendTerminal("Execution completed with no console output.", "success");
+          appendTerminal(
+            "Execution completed with no console output.",
+            "success"
+          );
         } else {
           logs.forEach((line) => appendTerminal(line, "success"));
         }
@@ -1367,8 +1458,101 @@ console.log("6 × 7 =", multiply(6, 7));`
       }
     }
 
+    function bringToFront(element) {
+      windowZIndex++;
+      element.style.zIndex = windowZIndex;
+    }
+
+    function makeWindowMovable(windowElement) {
+      const header = windowElement.querySelector(".window-header");
+
+      if (!header) {
+        return;
+      }
+
+      let dragging = false;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      header.addEventListener("mousedown", (event) => {
+        if (event.target.closest("button")) {
+          return;
+        }
+
+        dragging = true;
+        bringToFront(windowElement);
+
+        const rect = windowElement.getBoundingClientRect();
+
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+
+        windowElement.style.right = "auto";
+        windowElement.style.bottom = "auto";
+        windowElement.style.left = `${rect.left}px`;
+        windowElement.style.top = `${rect.top - 38}px`;
+      });
+
+      document.addEventListener("mousemove", (event) => {
+        if (!dragging) {
+          return;
+        }
+
+        const desktop = document.querySelector(".desktop");
+        const desktopRect = desktop.getBoundingClientRect();
+
+        const maxX = desktopRect.width - windowElement.offsetWidth;
+        const maxY = desktopRect.height - windowElement.offsetHeight;
+
+        const nextX = Math.max(
+          0,
+          Math.min(event.clientX - desktopRect.left - offsetX, maxX)
+        );
+
+        const nextY = Math.max(
+          0,
+          Math.min(event.clientY - desktopRect.top - offsetY, maxY)
+        );
+
+        windowElement.style.left = `${nextX}px`;
+        windowElement.style.top = `${nextY}px`;
+      });
+
+      document.addEventListener("mouseup", () => {
+        dragging = false;
+      });
+
+      windowElement.addEventListener("mousedown", () => {
+        bringToFront(windowElement);
+      });
+    }
+
+    document.querySelectorAll(".window").forEach(makeWindowMovable);
+
+    document.querySelectorAll("[data-close]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = document.getElementById(button.dataset.close);
+        target.style.display = "none";
+      });
+    });
+
+    document.querySelectorAll("[data-minimize]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = document.getElementById(button.dataset.minimize);
+        target.classList.toggle("minimized");
+
+        if (target.classList.contains("minimized")) {
+          target.style.height = "34px";
+        } else {
+          target.style.height = "";
+        }
+      });
+    });
+
     document.querySelectorAll(".editor-tab").forEach((tab) => {
-      tab.addEventListener("click", () => loadFile(tab.dataset.file));
+      tab.addEventListener("click", () => {
+        loadFile(tab.dataset.file);
+      });
     });
 
     editor.addEventListener("input", () => {
