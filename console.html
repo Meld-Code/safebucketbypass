@@ -7,19 +7,21 @@
 
   <style>
     :root {
-      --bg: #030303;
-      --panel: #0b0809;
-      --panel-2: #120d0f;
-      --border: #45262e;
-      --red: #ff3d5b;
-      --pink: #ff7f9b;
+      --bg: #020303;
+      --panel: #080909;
+      --panel-2: #0d1010;
+      --panel-3: #111516;
+      --border: #303b3c;
+      --border-red: #7e3040;
+      --red: #ff405d;
+      --red-soft: #ff8b9b;
       --green: #7dff98;
-      --cyan: #68e6ff;
-      --yellow: #ffe477;
-      --purple: #cd7aff;
-      --orange: #ff9b5e;
-      --white: #f0e8ea;
-      --muted: #806e73;
+      --cyan: #72ddff;
+      --yellow: #ffe476;
+      --purple: #d085ff;
+      --orange: #ff9b60;
+      --text: #e1e9e3;
+      --muted: #77837b;
       --font: "Courier New", Courier, monospace;
     }
 
@@ -37,7 +39,7 @@
     }
 
     body {
-      color: var(--white);
+      color: var(--text);
       font-family: var(--font);
     }
 
@@ -50,8 +52,8 @@
 
     button,
     select {
-      color: var(--white);
-      background: #130e10;
+      color: var(--text);
+      background: #101314;
       border: 1px solid var(--border);
       cursor: pointer;
     }
@@ -59,9 +61,9 @@
     button:hover,
     select:hover {
       color: white;
-      background: #30131b;
+      background: #271217;
       border-color: var(--red);
-      box-shadow: 0 0 15px rgba(255, 61, 91, 0.3);
+      box-shadow: 0 0 13px rgba(255, 64, 93, 0.25);
     }
 
     button:active {
@@ -69,43 +71,35 @@
     }
 
     ::selection {
-      color: #220006;
+      color: #200006;
       background: var(--red);
     }
-
-    /* Screen effects */
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 9999;
+      z-index: 999;
       pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.035) 0,
-          rgba(255, 255, 255, 0.035) 1px,
-          transparent 1px,
-          transparent 3px
-        ),
-        radial-gradient(
-          circle at center,
-          transparent 30%,
-          rgba(0, 0, 0, 0.45) 100%
-        );
-      opacity: 0.32;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.025) 0,
+        rgba(255, 255, 255, 0.025) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      opacity: 0.22;
     }
 
     body::after {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 9998;
+      z-index: 998;
       pointer-events: none;
       box-shadow:
-        inset 0 0 180px #000,
-        inset 0 0 35px rgba(255, 61, 91, 0.08);
+        inset 0 0 150px #000,
+        inset 0 0 35px rgba(255, 64, 93, 0.07);
     }
 
     .app {
@@ -115,21 +109,8 @@
       height: 100vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at 50% 0%, rgba(125, 20, 45, 0.2), transparent 53%),
-        #030303;
-    }
-
-    .app.screen-shake {
-      animation: screenShake 0.22s linear;
-    }
-
-    @keyframes screenShake {
-      0% { transform: translate(0); filter: none; }
-      20% { transform: translate(-4px, 2px); filter: hue-rotate(60deg); }
-      40% { transform: translate(4px, -2px); filter: saturate(3); }
-      60% { transform: translate(-3px, 1px); filter: hue-rotate(-80deg); }
-      80% { transform: translate(2px, -1px); filter: contrast(1.6); }
-      100% { transform: translate(0); filter: none; }
+        radial-gradient(circle at 50% 0%, rgba(115, 20, 40, 0.16), transparent 55%),
+        var(--bg);
     }
 
     .topbar {
@@ -140,7 +121,7 @@
       min-height: 38px;
       padding: 0 12px;
       color: var(--muted);
-      background: var(--panel-2);
+      background: #101314;
       border-bottom: 1px solid var(--border);
       font-size: 11px;
     }
@@ -174,7 +155,7 @@
 
     .top-title {
       flex: 1;
-      color: var(--pink);
+      color: var(--red-soft);
       text-align: center;
       letter-spacing: 0.08em;
     }
@@ -184,184 +165,118 @@
       font-size: 10px;
     }
 
-    .main-layout {
+    .main-grid {
       display: grid;
-      grid-template-columns: 225px minmax(0, 1fr) 315px;
+      grid-template-columns: minmax(270px, 0.85fr) minmax(420px, 1.5fr) minmax(310px, 0.95fr);
       flex: 1;
       min-height: 0;
       overflow: hidden;
     }
 
-    .sidebar,
-    .rightbar {
+    .panel {
       min-width: 0;
+      min-height: 0;
       overflow: hidden;
-      background: #090707;
+      background: rgba(8, 9, 9, 0.96);
     }
 
-    .sidebar {
+    .terminal-panel {
+      display: flex;
+      flex-direction: column;
       border-right: 1px solid var(--border);
     }
 
-    .rightbar {
-      border-left: 1px solid var(--border);
+    .editor-panel {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
     }
 
-    .section-title {
-      padding: 11px 13px;
-      color: var(--red);
-      background: #160e11;
-      border-bottom: 1px solid var(--border);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-    }
-
-    .section-title::before {
-      content: "[ ";
-      color: var(--muted);
-    }
-
-    .section-title::after {
-      content: " ]";
-      color: var(--muted);
-    }
-
-    .nav-list {
-      display: grid;
-      gap: 7px;
-      padding: 12px;
-    }
-
-    .nav-button {
-      width: 100%;
-      padding: 10px;
-      text-align: left;
-      font-size: 10px;
-    }
-
-    .nav-button::before {
-      content: "> ";
-      color: var(--red);
-    }
-
-    .nav-button.active {
-      color: var(--pink);
-      background: #2a1118;
-      border-color: var(--red);
-    }
-
-    .ascii-mini {
-      margin: 18px 10px;
-      overflow: hidden;
-      color: var(--red);
-      font-size: 5px;
-      line-height: 1;
-      opacity: 0.5;
-      white-space: pre;
-    }
-
-    .sidebar-info {
-      margin: 14px 12px;
-      padding: 10px;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      background: #100a0c;
-      font-size: 10px;
-      line-height: 1.8;
-    }
-
-    .sidebar-info strong {
-      color: var(--pink);
-      font-weight: normal;
-    }
-
-    .workspace {
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-      background:
-        linear-gradient(rgba(255, 61, 91, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 61, 91, 0.025) 1px, transparent 1px),
-        #050505;
-      background-size: 25px 25px;
-    }
-
-    .workspace::before {
-      content: "ASCII CORE // VISUAL GLITCH SYSTEM";
-      position: absolute;
-      top: 12px;
-      right: 15px;
-      z-index: 5;
-      color: #74434c;
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      pointer-events: none;
-    }
-
-    .view {
-      position: absolute;
-      inset: 0;
-      display: none;
-      overflow: hidden;
-    }
-
-    .view.active {
+    .preview-panel {
       display: flex;
       flex-direction: column;
     }
 
-    /* Main terminal */
-
-    .terminal-view {
-      padding-top: 38px;
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 36px;
+      padding: 0 11px;
+      color: var(--red);
+      background: #140e10;
+      border-bottom: 1px solid var(--border);
+      font-size: 10px;
+      letter-spacing: 0.1em;
     }
 
-    .main-ascii {
+    .panel-header small {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0;
+    }
+
+    .panel-header::before {
+      content: "[ ";
+      color: var(--muted);
+    }
+
+    .panel-header::after {
+      content: " ]";
+      color: var(--muted);
+    }
+
+    /* Terminal */
+
+    .terminal-ascii-wrap {
+      position: relative;
+      flex: 0 0 43%;
+      min-height: 245px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at center, rgba(255, 64, 93, 0.12), transparent 65%),
+        #050505;
+    }
+
+    .terminal-ascii {
       position: absolute;
-      top: 51%;
+      top: 50%;
       left: 50%;
-      z-index: 0;
       width: max-content;
       margin: 0;
       color: var(--red);
-      font-size: clamp(4px, 0.61vw, 10px);
+      font-size: clamp(3px, 0.48vw, 8px);
       line-height: 1;
-      opacity: 0.18;
+      opacity: 0.35;
       pointer-events: none;
       transform: translate(-50%, -50%);
       text-shadow:
         0 0 8px currentColor,
         0 0 25px currentColor;
-      transition:
-        color 0.25s ease,
-        opacity 0.25s ease,
-        filter 0.25s ease,
-        transform 0.25s ease;
+      transition: color 0.3s ease, filter 0.3s ease;
     }
 
-    .main-ascii.ascii-glitch {
-      opacity: 0.4;
-      filter: hue-rotate(120deg) saturate(4);
+    .terminal-ascii.glitch {
+      filter: hue-rotate(120deg) saturate(3);
       transform: translate(-50%, -50%) skewX(-8deg);
     }
 
     .terminal-output {
-      position: relative;
-      z-index: 2;
       flex: 1;
       min-height: 0;
-      padding: 16px 20px 65px;
+      padding: 12px 14px;
       overflow-y: auto;
-      color: var(--white);
-      font-size: 13px;
+      color: var(--text);
+      background: #050606;
+      font-size: 11px;
       line-height: 1.5;
       white-space: pre-wrap;
       user-select: text;
     }
 
     .terminal-line {
-      min-height: 1.5em;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .terminal-line.command {
@@ -386,7 +301,7 @@
     }
 
     .terminal-line.blue {
-      color: var(--blue);
+      color: var(--cyan);
     }
 
     .terminal-line.purple {
@@ -401,87 +316,76 @@
       color: var(--muted);
     }
 
-    .command-bar {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 5;
+    .command-form {
       display: flex;
       align-items: center;
-      gap: 9px;
-      min-height: 48px;
-      padding: 8px 20px;
-      background: rgba(10, 8, 9, 0.98);
+      gap: 7px;
+      min-height: 38px;
+      padding: 6px 10px;
+      background: #100c0d;
       border-top: 1px solid var(--border);
     }
 
-    .command-prompt {
+    .prompt {
       color: var(--red);
       white-space: nowrap;
-      text-shadow: 0 0 8px rgba(255, 61, 91, 0.8);
+      font-size: 11px;
     }
 
     #commandInput {
       flex: 1;
       min-width: 0;
-      color: var(--white);
+      color: var(--text);
       background: transparent;
       border: 0;
       outline: 0;
       caret-color: var(--red);
-      user-select: text;
+      font-size: 11px;
     }
 
     #commandInput::placeholder {
-      color: #69464d;
+      color: #69484f;
     }
 
-    /* Coding */
+    /* Editor */
 
-    .coding-view {
-      padding: 40px 14px 14px;
-    }
-
-    .coding-toolbar {
+    .editor-toolbar {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       min-height: 38px;
-      padding: 7px;
-      background: #120d0f;
-      border: 1px solid var(--border);
+      padding: 6px;
+      background: #0d1111;
+      border-bottom: 1px solid var(--border);
     }
 
-    .coding-toolbar button,
-    .coding-toolbar select {
-      min-height: 27px;
-      padding: 4px 8px;
-      font-size: 10px;
+    .editor-toolbar button,
+    .editor-toolbar select {
+      min-height: 25px;
+      padding: 4px 7px;
+      font-size: 9px;
     }
 
-    .coding-toolbar .spacer {
+    .editor-toolbar .spacer {
       flex: 1;
     }
 
     .code-layout {
       display: grid;
-      grid-template-columns: 48px minmax(0, 1fr);
+      grid-template-columns: 42px minmax(0, 1fr);
       flex: 1;
       min-height: 0;
-      margin-top: 8px;
       overflow: hidden;
-      border: 1px solid var(--border);
-      background: #070606;
     }
 
     .line-numbers {
-      padding: 13px 9px 13px 0;
+      padding: 12px 8px 12px 0;
       overflow: hidden;
-      color: #73454d;
-      border-right: 1px solid #351c22;
+      color: #70444c;
+      border-right: 1px solid #311b20;
       text-align: right;
-      line-height: 1.6;
+      font-size: 11px;
+      line-height: 1.55;
       user-select: none;
       white-space: pre;
     }
@@ -490,179 +394,144 @@
       width: 100%;
       height: 100%;
       min-height: 0;
-      padding: 13px;
+      padding: 12px;
       overflow: auto;
       color: #ffcbd1;
-      background: transparent;
+      background:
+        linear-gradient(90deg, rgba(255, 64, 93, 0.025), transparent 25%),
+        #050606;
       border: 0;
       outline: 0;
       resize: none;
       caret-color: var(--red);
-      font-size: 13px;
-      line-height: 1.6;
+      font-size: 12px;
+      line-height: 1.55;
       tab-size: 2;
       white-space: pre;
       user-select: text;
     }
 
-    .coding-status {
+    .editor-status {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      min-height: 28px;
-      padding: 7px 10px;
+      gap: 8px;
+      min-height: 29px;
+      padding: 7px 9px;
+      overflow: hidden;
       color: var(--muted);
-      border: 1px solid var(--border);
-      border-top: 0;
-      font-size: 10px;
+      background: #100c0d;
+      border-top: 1px solid var(--border);
+      font-size: 9px;
+      white-space: nowrap;
     }
 
     /* Preview */
 
-    .preview-view {
-      padding: 40px 14px 14px;
-    }
-
     .preview-toolbar {
       display: flex;
-      gap: 7px;
-      padding: 7px;
-      background: #120d0f;
-      border: 1px solid var(--border);
+      gap: 6px;
+      min-height: 38px;
+      padding: 6px;
+      background: #0d1111;
+      border-bottom: 1px solid var(--border);
     }
 
     .preview-toolbar button {
-      padding: 6px 9px;
-      font-size: 10px;
+      flex: 1;
+      min-height: 25px;
+      padding: 4px 6px;
+      font-size: 9px;
     }
 
     .preview-frame-wrap {
       flex: 1;
       min-height: 0;
-      margin-top: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: white;
+      padding: 10px;
+      background:
+        linear-gradient(rgba(255, 64, 93, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 64, 93, 0.025) 1px, transparent 1px),
+        #050505;
+      background-size: 20px 20px;
     }
 
     #previewFrame {
       width: 100%;
       height: 100%;
       display: block;
-      border: 0;
+      border: 1px solid var(--border);
       background: white;
     }
 
-    /* Logs */
-
-    .logs-view {
-      padding: 40px 14px 14px;
-    }
-
-    .logs-toolbar {
+    .preview-footer {
       display: flex;
-      gap: 7px;
-      padding: 7px;
-      border: 1px solid var(--border);
-      background: #120d0f;
-    }
-
-    .logs-toolbar button {
-      padding: 6px 9px;
-      font-size: 10px;
-    }
-
-    .logs-output {
-      flex: 1;
-      min-height: 0;
-      margin-top: 8px;
-      padding: 13px;
-      overflow-y: auto;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 10px;
       color: var(--muted);
-      border: 1px solid var(--border);
-      background: #070606;
-      font-size: 11px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      user-select: text;
+      background: #100c0d;
+      border-top: 1px solid var(--border);
+      font-size: 9px;
     }
 
-    /* Right panels */
+    /* Bottom status */
 
-    .right-section {
-      border-bottom: 1px solid var(--border);
-    }
-
-    .right-body {
-      padding: 12px;
-    }
-
-    .metric {
+    .statusbar {
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      padding: 7px 0;
-      color: var(--muted);
-      border-bottom: 1px dotted #39272b;
-      font-size: 10px;
-    }
-
-    .metric strong {
-      color: var(--pink);
-      font-weight: normal;
-    }
-
-    .quick-command {
-      width: 100%;
-      margin-bottom: 7px;
-      padding: 8px;
-      text-align: left;
-      font-size: 10px;
-    }
-
-    .activity-log {
-      height: 205px;
-      overflow-y: auto;
-      color: var(--muted);
-      font-size: 10px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      user-select: text;
-    }
-
-    .bottom-status {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      height: 30px;
       min-height: 30px;
       padding: 8px 12px;
       overflow: hidden;
       color: var(--muted);
-      background: #120d0f;
+      background: #100d0f;
       border-top: 1px solid var(--border);
-      font-size: 10px;
+      font-size: 9px;
       white-space: nowrap;
     }
 
-    .bottom-status strong {
+    .statusbar strong {
       color: var(--red);
       font-weight: normal;
     }
 
-    /* Random glitch objects */
+    /* Glitches */
+
+    .glitch-block {
+      position: fixed;
+      z-index: 600;
+      pointer-events: none;
+      animation: blockFlash 0.9s forwards;
+    }
+
+    @keyframes blockFlash {
+      0% {
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 0.85;
+      }
+
+      70% {
+        opacity: 0.5;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
 
     .glitch-text {
       position: fixed;
-      z-index: 700;
-      padding: 7px 10px;
+      z-index: 650;
+      padding: 7px 9px;
       color: white;
-      background: #19070b;
+      background: #17070b;
       border: 1px solid currentColor;
       box-shadow: 0 0 20px currentColor;
       font-size: 10px;
       pointer-events: none;
-      animation: glitchText 1.7s forwards;
+      animation: glitchText 1.6s forwards;
     }
 
     @keyframes glitchText {
@@ -671,102 +540,8 @@
         transform: translateX(-12px) skewX(-12deg);
       }
 
-      12% {
+      15% {
         opacity: 1;
-      }
-
-      78% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(15px) skewX(12deg);
-      }
-    }
-
-    .glitch-block {
-      position: fixed;
-      z-index: 650;
-      pointer-events: none;
-      animation: glitchBlock 1s forwards;
-    }
-
-    @keyframes glitchBlock {
-      0% {
-        opacity: 0;
-        transform: translateX(-5px);
-      }
-
-      18% {
-        opacity: 0.8;
-      }
-
-      75% {
-        opacity: 0.55;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(8px);
-      }
-    }
-
-    .static-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 600;
-      pointer-events: none;
-      opacity: 0;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.3) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,0,70,.22) 1px, transparent 1px);
-      background-position: 0 0, 9px 11px;
-      background-size: 5px 5px, 7px 7px;
-      mix-blend-mode: screen;
-    }
-
-    .static-overlay.active {
-      animation: staticFlash 0.8s forwards;
-    }
-
-    @keyframes staticFlash {
-      0% { opacity: 0; }
-      20% { opacity: 0.28; }
-      60% { opacity: 0.14; }
-      100% { opacity: 0; }
-    }
-
-    .error-popup {
-      position: fixed;
-      z-index: 800;
-      width: 230px;
-      padding: 10px;
-      color: var(--red);
-      background: #0e0608;
-      border: 1px solid var(--red);
-      box-shadow: 0 0 22px rgba(255, 61, 91, 0.3);
-      font-size: 10px;
-      pointer-events: none;
-      animation: popupError 2.4s forwards;
-    }
-
-    .error-popup strong {
-      display: block;
-      margin-bottom: 8px;
-      color: white;
-      font-size: 11px;
-    }
-
-    @keyframes popupError {
-      0% {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      12% {
-        opacity: 1;
-        transform: scale(1);
       }
 
       80% {
@@ -775,11 +550,59 @@
 
       100% {
         opacity: 0;
-        transform: scale(1.03);
+        transform: translateX(14px) skewX(12deg);
       }
     }
 
-    /* Boot screen */
+    .static-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      pointer-events: none;
+      opacity: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.3) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,0,70,.25) 1px, transparent 1px);
+      background-position: 0 0, 9px 11px;
+      background-size: 5px 5px, 7px 7px;
+      mix-blend-mode: screen;
+    }
+
+    .static-overlay.active {
+      animation: staticFlash 0.75s forwards;
+    }
+
+    @keyframes staticFlash {
+      0% {
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.28;
+      }
+
+      55% {
+        opacity: 0.12;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .app.shake {
+      animation: shake 0.2s linear;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0); filter: none; }
+      25% { transform: translate(-3px, 1px); filter: hue-rotate(60deg); }
+      50% { transform: translate(3px, -1px); filter: saturate(3); }
+      75% { transform: translate(-2px, 0); filter: contrast(1.5); }
+      100% { transform: translate(0); filter: none; }
+    }
+
+    /* Boot */
 
     .boot-screen {
       position: fixed;
@@ -797,38 +620,38 @@
     }
 
     .boot-content {
-      width: min(980px, 100%);
+      width: min(1000px, 100%);
       color: var(--red);
       font-size: 12px;
       line-height: 1.5;
-      text-shadow: 0 0 8px rgba(255, 61, 91, 0.6);
+      text-shadow: 0 0 8px rgba(255, 64, 93, 0.6);
     }
 
     .boot-art {
       width: 100%;
       overflow: hidden;
       color: var(--red);
-      font-size: clamp(4px, 0.61vw, 10px);
+      font-size: clamp(3px, 0.48vw, 8px);
       line-height: 1;
       white-space: pre;
     }
 
     .boot-warning {
-      margin: 20px 0 10px;
+      margin: 18px 0 10px;
       letter-spacing: 0.1em;
     }
 
     .boot-log {
-      min-height: 120px;
+      min-height: 105px;
       color: var(--muted);
       white-space: pre-wrap;
     }
 
     .boot-progress {
       width: min(650px, 100%);
-      height: 17px;
+      height: 16px;
       padding: 2px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-red);
     }
 
     .boot-progress-fill {
@@ -839,22 +662,27 @@
       transition: width 0.15s linear;
     }
 
-    @media (max-width: 1050px) {
-      .main-layout {
-        grid-template-columns: 190px minmax(0, 1fr);
+    @media (max-width: 950px) {
+      .main-grid {
+        grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.4fr);
       }
 
-      .rightbar {
+      .preview-panel {
         display: none;
       }
     }
 
-    @media (max-width: 700px) {
-      .main-layout {
+    @media (max-width: 650px) {
+      .main-grid {
         display: block;
       }
 
-      .sidebar {
+      .terminal-panel {
+        height: 100%;
+        border-right: 0;
+      }
+
+      .editor-panel {
         display: none;
       }
 
@@ -881,58 +709,22 @@
       </div>
 
       <div class="top-title">
-        operator@node-07 — ASCII CORE // GLITCH TERMINAL
+        operator@node-07 — ASCII CORE // SPLIT TERMINAL
       </div>
 
       <div class="top-status">LOCAL ONLY</div>
     </header>
 
-    <section class="main-layout">
-      <aside class="sidebar">
-        <div class="section-title">modules</div>
+    <section class="main-grid">
+      <!-- Terminal panel -->
+      <section class="panel terminal-panel">
+        <header class="panel-header">
+          <span>terminal</span>
+          <small>shell://node-07</small>
+        </header>
 
-        <nav class="nav-list">
-          <button class="nav-button active" data-view="terminalView">
-            terminal
-          </button>
-
-          <button class="nav-button" data-view="codingView">
-            coding workspace
-          </button>
-
-          <button class="nav-button" data-view="previewView">
-            run page
-          </button>
-
-          <button class="nav-button" data-view="logsView">
-            system logs
-          </button>
-        </nav>
-
-        <pre class="ascii-mini">
-  .--------.
- /  .--.   /|
-+--------+ / |
-| ASCII  |/  |
-|  CORE  |   |
-+--------+  /
-| GLITCH | /
-+--------+/
-        </pre>
-
-        <div class="sidebar-info">
-          CORE: <strong>ASCII</strong><br />
-          MODE: <strong>LOCAL</strong><br />
-          NETWORK: <strong>OFFLINE</strong><br />
-          STATIC: <strong>ACTIVE</strong><br />
-          ERRORS: <strong>SIMULATED</strong>
-        </div>
-      </aside>
-
-      <section class="workspace">
-        <!-- Terminal -->
-        <section id="terminalView" class="view terminal-view active">
-          <pre id="mainAscii" class="main-ascii">
+        <div class="terminal-ascii-wrap">
+          <pre id="terminalAscii" class="terminal-ascii">
                                                                                                                                                                 
                                                                                                                                                                 
                                                                                          ::===                                                                  
@@ -978,159 +770,87 @@
                                                     :::....-*#%%%#*:.+*     --:-::..::::::::::                                                                  
                                                         ++-:..::+#==                                                                                             
           </pre>
+        </div>
 
-          <div id="terminalOutput" class="terminal-output"></div>
+        <div id="terminalOutput" class="terminal-output"></div>
 
-          <form id="terminalForm" class="command-bar">
-            <span class="command-prompt">operator@node-07:~$</span>
+        <form id="terminalForm" class="command-form">
+          <span class="prompt">operator@node-07:$</span>
 
-            <input
-              id="commandInput"
-              autocomplete="off"
-              spellcheck="false"
-              placeholder="type help for commands"
-            />
-          </form>
-        </section>
-
-        <!-- Coding workspace -->
-        <section id="codingView" class="view coding-view">
-          <div class="coding-toolbar">
-            <button id="runCodeButton">RUN SCRIPT</button>
-            <button id="checkCodeButton">CHECK</button>
-            <button id="formatCodeButton">FORMAT</button>
-            <button id="clearCodeButton">CLEAR</button>
-            <button id="downloadCodeButton">DOWNLOAD</button>
-
-            <div class="spacer"></div>
-
-            <select id="fileSelect">
-              <option value="main.js">main.js</option>
-              <option value="index.html">index.html</option>
-              <option value="styles.css">styles.css</option>
-              <option value="config.json">config.json</option>
-            </select>
-          </div>
-
-          <div class="code-layout">
-            <div id="lineNumbers" class="line-numbers">1</div>
-            <textarea id="codeEditor" spellcheck="false"></textarea>
-          </div>
-
-          <div class="coding-status">
-            <span id="cursorStatus">Ln 1, Col 1</span>
-            <span id="characterStatus">0 characters</span>
-            <span id="languageStatus">JavaScript</span>
-          </div>
-        </section>
-
-        <!-- Preview -->
-        <section id="previewView" class="view preview-view">
-          <div class="preview-toolbar">
-            <button id="runPageButton">RUN CURRENT PAGE</button>
-            <button id="fullscreenButton">FULLSCREEN</button>
-            <button id="refreshPreviewButton">REFRESH</button>
-          </div>
-
-          <div class="preview-frame-wrap">
-            <iframe id="previewFrame" title="Live page preview"></iframe>
-          </div>
-        </section>
-
-        <!-- Logs -->
-        <section id="logsView" class="view logs-view">
-          <div class="logs-toolbar">
-            <button id="generateLogButton">GENERATE LOG</button>
-            <button id="clearLogButton">CLEAR LOG</button>
-            <button id="glitchButton">FORCE GLITCH</button>
-            <button id="staticButton">STATIC BURST</button>
-          </div>
-
-          <div id="logsOutput" class="logs-output"></div>
-        </section>
+          <input
+            id="commandInput"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="type help..."
+          />
+        </form>
       </section>
 
-      <aside class="rightbar">
-        <div class="right-section">
-          <div class="section-title">node status</div>
+      <!-- Coding panel -->
+      <section class="panel editor-panel">
+        <header class="panel-header">
+          <span>coding workspace</span>
+          <small>buffer://local</small>
+        </header>
 
-          <div class="right-body">
-            <div class="metric">
-              <span>CORE</span>
-              <strong>ASCII</strong>
-            </div>
+        <div class="editor-toolbar">
+          <button id="runCodeButton">RUN</button>
+          <button id="checkCodeButton">CHECK</button>
+          <button id="formatCodeButton">FORMAT</button>
+          <button id="clearCodeButton">CLEAR</button>
+          <button id="downloadCodeButton">SAVE</button>
 
-            <div class="metric">
-              <span>MODE</span>
-              <strong>LOCAL</strong>
-            </div>
+          <div class="spacer"></div>
 
-            <div class="metric">
-              <span>NETWORK</span>
-              <strong>OFFLINE</strong>
-            </div>
-
-            <div class="metric">
-              <span>GLITCH ENGINE</span>
-              <strong>ACTIVE</strong>
-            </div>
-
-            <div class="metric">
-              <span>STATIC</span>
-              <strong>ACTIVE</strong>
-            </div>
-          </div>
+          <select id="fileSelect">
+            <option value="main.js">main.js</option>
+            <option value="index.html">index.html</option>
+            <option value="styles.css">styles.css</option>
+            <option value="config.json">config.json</option>
+          </select>
         </div>
 
-        <div class="right-section">
-          <div class="section-title">quick commands</div>
-
-          <div class="right-body">
-            <button class="quick-command" data-command="help">
-              help
-            </button>
-
-            <button class="quick-command" data-command="status">
-              status
-            </button>
-
-            <button class="quick-command" data-command="scripts">
-              scripts
-            </button>
-
-            <button class="quick-command" data-command="run scan">
-              run scan
-            </button>
-
-            <button class="quick-command" data-command="coding">
-              coding
-            </button>
-
-            <button class="quick-command" data-command="runpage">
-              runpage
-            </button>
-
-            <button class="quick-command" data-command="glitch">
-              glitch
-            </button>
-          </div>
+        <div class="code-layout">
+          <div id="lineNumbers" class="line-numbers">1</div>
+          <textarea id="codeEditor" spellcheck="false"></textarea>
         </div>
 
-        <div class="right-section">
-          <div class="section-title">activity stream</div>
-
-          <div class="right-body">
-            <div id="activityLog" class="activity-log"></div>
-          </div>
+        <div class="editor-status">
+          <span id="cursorStatus">Ln 1, Col 1</span>
+          <span id="characterStatus">0 characters</span>
+          <span id="languageStatus">JavaScript</span>
         </div>
-      </aside>
+      </section>
+
+      <!-- Preview panel -->
+      <section class="panel preview-panel">
+        <header class="panel-header">
+          <span>live page preview</span>
+          <small>iframe://sandbox</small>
+        </header>
+
+        <div class="preview-toolbar">
+          <button id="runPageButton">RUN PAGE</button>
+          <button id="refreshPreviewButton">REFRESH</button>
+          <button id="fullscreenButton">FULLSCREEN</button>
+        </div>
+
+        <div class="preview-frame-wrap">
+          <iframe id="previewFrame" title="Live preview"></iframe>
+        </div>
+
+        <div class="preview-footer">
+          <span>HTML + CSS + JS</span>
+          <span id="previewStatus">READY</span>
+        </div>
+      </section>
     </section>
 
-    <footer class="bottom-status">
+    <footer class="statusbar">
       <span>STATE: <strong id="stateValue">IDLE</strong></span>
-      <span>VIEW: <strong id="viewValue">TERMINAL</strong></span>
       <span>CORE: <strong>ASCII</strong></span>
-      <span>ACCESS: <strong>LOCAL ONLY</strong></span>
+      <span>NETWORK: <strong>OFFLINE</strong></span>
+      <span>GLITCHES: <strong>VISUAL ONLY</strong></span>
     </footer>
   </main>
 
@@ -1199,19 +919,10 @@
     const app = document.getElementById("app");
     const staticOverlay = document.querySelector(".static-overlay");
 
-    const views = document.querySelectorAll(".view");
-    const navButtons = document.querySelectorAll(".nav-button");
-
-    const mainAscii = document.getElementById("mainAscii");
+    const terminalAscii = document.getElementById("terminalAscii");
     const terminalOutput = document.getElementById("terminalOutput");
-    const terminalInput = document.getElementById("commandInput");
+    const commandInput = document.getElementById("commandInput");
     const terminalForm = document.getElementById("terminalForm");
-
-    const activityLog = document.getElementById("activityLog");
-    const logsOutput = document.getElementById("logsOutput");
-
-    const stateValue = document.getElementById("stateValue");
-    const viewValue = document.getElementById("viewValue");
 
     const codeEditor = document.getElementById("codeEditor");
     const lineNumbers = document.getElementById("lineNumbers");
@@ -1219,85 +930,37 @@
     const cursorStatus = document.getElementById("cursorStatus");
     const characterStatus = document.getElementById("characterStatus");
     const languageStatus = document.getElementById("languageStatus");
-    const previewFrame = document.getElementById("previewFrame");
 
-    let commandHistory = [];
+    const previewFrame = document.getElementById("previewFrame");
+    const previewStatus = document.getElementById("previewStatus");
+    const stateValue = document.getElementById("stateValue");
+
+    let history = [];
     let historyIndex = -1;
+    let glitchCount = 0;
 
     const colors = [
-      "#ff3d5b",
-      "#ff7f9b",
+      "#ff405d",
+      "#ff8b9b",
       "#7dff98",
-      "#68e6ff",
-      "#ffe477",
-      "#cd7aff",
-      "#ff9b5e"
+      "#72ddff",
+      "#ffe476",
+      "#d085ff",
+      "#ff9b60"
     ];
 
     const glitchMessages = [
       "BUFFER DESYNC",
       "ASCII CORE WARNING",
       "STATIC OVERFLOW",
-      "VISUAL PACKET LOST",
-      "COLOR CHANNEL ERROR",
       "FRAME OFFSET",
-      "RENDER RECOVERY",
-      "RUNTIME WARNING",
+      "COLOR CHANNEL ERROR",
+      "VISUAL PACKET LOST",
+      "CACHE FRAGMENTED",
+      "RECOVERY MODE",
       "UNKNOWN SIGNAL",
-      "CACHE FRAGMENTED"
+      "RENDER WARNING"
     ];
-
-    const fakeErrors = [
-      "E_RENDER_017: color channel mismatch",
-      "E_ASCII_404: glyph sequence incomplete",
-      "E_BUFFER_211: harmless visual desync",
-      "E_FRAME_008: refresh offset detected",
-      "E_STATIC_302: display noise above threshold",
-      "E_CORE_616: recovered from fake fault"
-    ];
-
-    const scripts = {
-      scan: [
-        "[scan] loading local diagnostic module",
-        "[scan] checking ASCII core",
-        "[scan] checking sandbox boundary",
-        "[scan] checking visual renderer",
-        "[scan] scan complete — no critical issues"
-      ],
-
-      trace: [
-        "[trace] creating simulated route",
-        "[trace] hop 01 — local sandbox",
-        "[trace] hop 02 — visual renderer",
-        "[trace] hop 03 — terminal output",
-        "[trace] trace complete — no network used"
-      ],
-
-      audit: [
-        "[audit] reading local project files",
-        "[audit] checking main.js",
-        "[audit] checking index.html",
-        "[audit] checking styles.css",
-        "[audit] checking config.json",
-        "[audit] audit complete — files verified"
-      ],
-
-      decrypt: [
-        "[cipher] loading fictional data block",
-        "[cipher] generating visual key matrix",
-        "[cipher] transforming local display data",
-        "[cipher] validating output",
-        "[cipher] complete — no real data processed"
-      ],
-
-      stress: [
-        "[stress] allocating browser-safe test buffer",
-        "[stress] writing visual pattern",
-        "[stress] reading visual pattern",
-        "[stress] releasing test buffer",
-        "[stress] complete — browser stable"
-      ]
-    };
 
     const files = {
       "main.js": {
@@ -1351,6 +1014,49 @@ console.log(createSignal());`
       }
     };
 
+    const scripts = {
+      scan: [
+        "[scan] loading local diagnostic module",
+        "[scan] checking ASCII core",
+        "[scan] checking sandbox boundary",
+        "[scan] checking renderer",
+        "[scan] scan complete — no critical issues"
+      ],
+
+      trace: [
+        "[trace] creating simulated route",
+        "[trace] hop 01 — local sandbox",
+        "[trace] hop 02 — visual renderer",
+        "[trace] hop 03 — terminal output",
+        "[trace] trace complete — no network used"
+      ],
+
+      audit: [
+        "[audit] reading local project files",
+        "[audit] checking main.js",
+        "[audit] checking index.html",
+        "[audit] checking styles.css",
+        "[audit] checking config.json",
+        "[audit] audit complete — files verified"
+      ],
+
+      decrypt: [
+        "[cipher] loading fictional data block",
+        "[cipher] generating visual key matrix",
+        "[cipher] transforming local display data",
+        "[cipher] validating output",
+        "[cipher] complete — no real data processed"
+      ],
+
+      stress: [
+        "[stress] allocating browser-safe test buffer",
+        "[stress] writing visual pattern",
+        "[stress] reading visual pattern",
+        "[stress] releasing test buffer",
+        "[stress] complete — browser stable"
+      ]
+    };
+
     function wait(milliseconds) {
       return new Promise((resolve) => {
         setTimeout(resolve, milliseconds);
@@ -1363,36 +1069,6 @@ console.log(createSignal());`
 
     function randomColor() {
       return randomItem(colors);
-    }
-
-    function switchView(viewId) {
-      views.forEach((view) => {
-        view.classList.toggle("active", view.id === viewId);
-      });
-
-      navButtons.forEach((button) => {
-        button.classList.toggle(
-          "active",
-          button.dataset.view === viewId
-        );
-      });
-
-      const names = {
-        terminalView: "TERMINAL",
-        codingView: "CODING",
-        previewView: "RUN PAGE",
-        logsView: "LOGS"
-      };
-
-      viewValue.textContent = names[viewId] || "TERMINAL";
-
-      if (viewId === "terminalView") {
-        terminalInput.focus();
-      }
-    }
-
-    function setState(value) {
-      stateValue.textContent = value;
     }
 
     function addTerminalLine(text, type = "normal") {
@@ -1408,21 +1084,15 @@ console.log(createSignal());`
       addTerminalLine(command, "command");
     }
 
-    function addActivity(text) {
-      const line = `[${new Date().toLocaleTimeString()}] ${text}`;
-
-      activityLog.textContent += `${line}\n`;
-      activityLog.scrollTop = activityLog.scrollHeight;
-
-      logsOutput.textContent += `${line}\n`;
-      logsOutput.scrollTop = logsOutput.scrollHeight;
+    function setState(value) {
+      stateValue.textContent = value;
     }
 
     function updateLineNumbers() {
-      const lineCount = codeEditor.value.split("\n").length;
+      const count = codeEditor.value.split("\n").length;
 
       lineNumbers.textContent = Array.from(
-        { length: lineCount },
+        { length: count },
         (_, index) => index + 1
       ).join("\n");
 
@@ -1463,6 +1133,8 @@ console.log(createSignal());`
       const css = files["styles.css"].content;
       const js = files["main.js"].content;
 
+      previewStatus.textContent = "LOADING";
+
       previewFrame.srcdoc = `
         <!DOCTYPE html>
         <html>
@@ -1500,6 +1172,10 @@ console.log(createSignal());`
           </body>
         </html>
       `;
+
+      setTimeout(() => {
+        previewStatus.textContent = "READY";
+      }, 250);
     }
 
     function formatCode() {
@@ -1558,14 +1234,11 @@ console.log(createSignal());`
         }
 
         addTerminalLine(`check ${fileSelect.value}: passed`, "green");
-        addActivity(`validator passed: ${fileSelect.value}`);
       } catch (error) {
         addTerminalLine(
           `check ${fileSelect.value}: ${error.message}`,
           "red"
         );
-
-        addActivity(`validator failed: ${fileSelect.value}`);
       }
     }
 
@@ -1577,11 +1250,9 @@ console.log(createSignal());`
 
       if (file.language !== "JavaScript") {
         addTerminalLine(
-          `${fileSelect.value} loaded into page preview`,
+          `${fileSelect.value} loaded into preview`,
           "green"
         );
-
-        switchView("previewView");
         return;
       }
 
@@ -1606,11 +1277,8 @@ console.log(createSignal());`
         if (logs.length === 0) {
           addTerminalLine("script completed with no output", "green");
         }
-
-        addActivity(`executed ${fileSelect.value}`);
       } catch (error) {
         addTerminalLine(`runtime error: ${error.message}`, "red");
-        addActivity(`runtime failure: ${fileSelect.value}`);
       }
 
       setState("IDLE");
@@ -1640,7 +1308,7 @@ console.log(createSignal());`
 
       URL.revokeObjectURL(url);
 
-      addTerminalLine(`downloaded ${fileSelect.value}`, "green");
+      addTerminalLine(`saved ${fileSelect.value}`, "green");
     }
 
     function triggerStatic() {
@@ -1650,15 +1318,17 @@ console.log(createSignal());`
     }
 
     function triggerGlitch() {
+      glitchCount++;
+
       const color = randomColor();
       const message = randomItem(glitchMessages);
 
       const block = document.createElement("div");
       block.className = "glitch-block";
-      block.style.left = `${Math.random() * 90 + 3}%`;
-      block.style.top = `${Math.random() * 82 + 3}%`;
-      block.style.width = `${Math.random() * 170 + 25}px`;
-      block.style.height = `${Math.random() * 35 + 5}px`;
+      block.style.left = `${Math.random() * 90 + 2}%`;
+      block.style.top = `${Math.random() * 85 + 2}%`;
+      block.style.width = `${Math.random() * 170 + 20}px`;
+      block.style.height = `${Math.random() * 35 + 4}px`;
       block.style.background = color;
       block.style.boxShadow = `0 0 20px ${color}`;
 
@@ -1667,51 +1337,46 @@ console.log(createSignal());`
       const text = document.createElement("div");
       text.className = "glitch-text";
       text.textContent = message;
-      text.style.color = color;
-      text.style.left = `${Math.random() * 72 + 10}%`;
+      text.style.left = `${Math.random() * 75 + 8}%`;
       text.style.top = `${Math.random() * 75 + 8}%`;
+      text.style.color = color;
 
       document.body.appendChild(text);
 
-      mainAscii.classList.add("ascii-glitch");
-      app.classList.add("screen-shake");
+      terminalAscii.classList.add("glitch");
+      app.classList.add("shake");
       triggerStatic();
 
       addTerminalLine(
-        `${randomItem(fakeErrors)} — recovered`,
-        Math.random() > 0.5 ? "yellow" : "purple"
+        `${message} — recovered`,
+        randomItem(["yellow", "purple", "orange"])
       );
-
-      addActivity(`${message.toLowerCase()} event triggered`);
 
       setTimeout(() => {
         block.remove();
         text.remove();
-        mainAscii.classList.remove("ascii-glitch");
-        app.classList.remove("screen-shake");
+        terminalAscii.classList.remove("glitch");
+        app.classList.remove("shake");
       }, 1700);
     }
 
-    function triggerErrorPopup() {
-      const popup = document.createElement("div");
-      popup.className = "error-popup";
-      popup.style.left = `${Math.random() * 70 + 10}%`;
-      popup.style.top = `${Math.random() * 65 + 10}%`;
-
-      popup.innerHTML = `
-        <strong>VISUAL SYSTEM WARNING</strong>
-        ${randomItem(fakeErrors)}<br />
-        status: recovered<br />
-        impact: none
-      `;
-
-      document.body.appendChild(popup);
-
-      addActivity("simulated error popup displayed");
-
-      setTimeout(() => {
-        popup.remove();
-      }, 2500);
+    function showHelp() {
+      addTerminalLine("AVAILABLE COMMANDS", "green");
+      addTerminalLine("help                 show command list");
+      addTerminalLine("clear                clear terminal");
+      addTerminalLine("status               show node status");
+      addTerminalLine("uptime               show uptime");
+      addTerminalLine("date                 show current date");
+      addTerminalLine("whoami               show current user");
+      addTerminalLine("pwd                  show current path");
+      addTerminalLine("ls                   list files");
+      addTerminalLine("scripts              list visual scripts");
+      addTerminalLine("run <script>         run visual script");
+      addTerminalLine("matrix               run fake matrix test");
+      addTerminalLine("glitch               trigger glitch");
+      addTerminalLine("static               trigger static");
+      addTerminalLine("coding               focus coding workspace");
+      addTerminalLine("runpage              refresh page preview");
     }
 
     async function runScript(scriptName) {
@@ -1730,14 +1395,13 @@ console.log(createSignal());`
       addCommand(`run ${scriptName}`);
 
       for (const line of script) {
-        await wait(320);
+        await wait(300);
 
-        if (Math.random() > 0.72) {
+        if (Math.random() > 0.7) {
           triggerGlitch();
         }
 
         addTerminalLine(line, randomItem(["blue", "green", "purple"]));
-        addActivity(line);
       }
 
       setState("IDLE");
@@ -1755,7 +1419,7 @@ console.log(createSignal());`
 
       for (const row of rows) {
         await wait(280);
-        addTerminalLine(row, randomItem(["blue", "purple", "cyan"]));
+        addTerminalLine(row, randomItem(["blue", "purple", "orange"]));
       }
 
       addTerminalLine(
@@ -1764,28 +1428,6 @@ console.log(createSignal());`
       );
 
       setState("IDLE");
-    }
-
-    function showHelp() {
-      addTerminalLine("AVAILABLE COMMANDS", "green");
-      addTerminalLine("help                 show command list");
-      addTerminalLine("clear                clear terminal");
-      addTerminalLine("status               show node status");
-      addTerminalLine("uptime               show uptime");
-      addTerminalLine("date                 show current date");
-      addTerminalLine("whoami               show current user");
-      addTerminalLine("pwd                  show current path");
-      addTerminalLine("ls                   list files");
-      addTerminalLine("scripts              list visual scripts");
-      addTerminalLine("run <script>         run visual script");
-      addTerminalLine("matrix               run fake matrix test");
-      addTerminalLine("coding               open coding workspace");
-      addTerminalLine("runpage              run current page");
-      addTerminalLine("preview              open page preview");
-      addTerminalLine("logs                 open system logs");
-      addTerminalLine("glitch               trigger colored glitch");
-      addTerminalLine("static               trigger static burst");
-      addTerminalLine("error                show fake error popup");
     }
 
     async function executeCommand(command) {
@@ -1819,11 +1461,7 @@ console.log(createSignal());`
           break;
 
         case "uptime":
-          addTerminalLine(
-            document.querySelector(".metric strong:last-child")?.textContent ||
-            "ACTIVE",
-            "green"
-          );
+          addTerminalLine("ACTIVE", "green");
           break;
 
         case "date":
@@ -1840,7 +1478,7 @@ console.log(createSignal());`
 
         case "ls":
           addTerminalLine(
-            "main.js  index.html  styles.css  config.json  system.log",
+            "main.js  index.html  styles.css  config.json",
             "muted"
           );
           break;
@@ -1860,32 +1498,23 @@ console.log(createSignal());`
           await runMatrix();
           break;
 
-        case "coding":
-          switchView("codingView");
-          break;
-
-        case "runpage":
-        case "preview":
-          updatePreview();
-          switchView("previewView");
-          break;
-
-        case "logs":
-          switchView("logsView");
-          break;
-
         case "glitch":
           triggerGlitch();
           break;
 
         case "static":
           triggerStatic();
-          addTerminalLine("static burst complete — display recovered", "yellow");
+          addTerminalLine("static burst complete — recovered", "yellow");
           break;
 
-        case "error":
-          triggerErrorPopup();
-          addTerminalLine("simulated error injected — recovery complete", "red");
+        case "coding":
+          codeEditor.focus();
+          addTerminalLine("coding workspace focused", "green");
+          break;
+
+        case "runpage":
+          updatePreview();
+          addTerminalLine("page preview refreshed", "green");
           break;
 
         default:
@@ -1893,41 +1522,35 @@ console.log(createSignal());`
       }
     }
 
-    navButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        switchView(button.dataset.view);
-      });
-    });
-
     terminalForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const command = terminalInput.value;
-      terminalInput.value = "";
+      const command = commandInput.value;
+      commandInput.value = "";
 
       await executeCommand(command);
-      terminalInput.focus();
+      commandInput.focus();
     });
 
-    terminalInput.addEventListener("keydown", (event) => {
+    commandInput.addEventListener("keydown", (event) => {
       if (event.key === "ArrowUp") {
         event.preventDefault();
 
         if (historyIndex > 0) {
           historyIndex--;
-          terminalInput.value = commandHistory[historyIndex];
+          commandInput.value = history[historyIndex];
         }
       }
 
       if (event.key === "ArrowDown") {
         event.preventDefault();
 
-        if (historyIndex < commandHistory.length - 1) {
+        if (historyIndex < history.length - 1) {
           historyIndex++;
-          terminalInput.value = commandHistory[historyIndex];
+          commandInput.value = history[historyIndex];
         } else {
-          historyIndex = commandHistory.length;
-          terminalInput.value = "";
+          historyIndex = history.length;
+          commandInput.value = "";
         }
       }
 
@@ -1946,36 +1569,44 @@ console.log(createSignal());`
           "scripts",
           "run",
           "matrix",
-          "coding",
-          "runpage",
-          "preview",
-          "logs",
           "glitch",
           "static",
-          "error"
+          "coding",
+          "runpage"
         ];
 
         const match = commands.find((command) =>
-          command.startsWith(terminalInput.value.toLowerCase())
+          command.startsWith(commandInput.value.toLowerCase())
         );
 
         if (match) {
-          terminalInput.value = match;
+          commandInput.value = match;
         }
       }
     });
 
-    document.querySelectorAll(".quick-command").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const command = button.dataset.command;
+    document.querySelectorAll(".nav-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const viewId = button.dataset.view;
 
-        if (command === "runpage") {
-          updatePreview();
-          switchView("previewView");
-          return;
+        document.querySelectorAll(".view").forEach((view) => {
+          view.classList.toggle("active", view.id === viewId);
+        });
+
+        document.querySelectorAll(".nav-button").forEach((navButton) => {
+          navButton.classList.toggle(
+            "active",
+            navButton.dataset.view === viewId
+          );
+        });
+
+        if (viewId === "codingView") {
+          codeEditor.focus();
         }
 
-        await executeCommand(command);
+        if (viewId === "terminalView") {
+          commandInput.focus();
+        }
       });
     });
 
@@ -2043,8 +1674,12 @@ console.log(createSignal());`
       .getElementById("runPageButton")
       .addEventListener("click", () => {
         updatePreview();
-        addTerminalLine("current page loaded", "green");
+        addTerminalLine("current page loaded into preview", "green");
       });
+
+    document
+      .getElementById("refreshPreviewButton")
+      .addEventListener("click", updatePreview);
 
     document
       .getElementById("fullscreenButton")
@@ -2059,47 +1694,6 @@ console.log(createSignal());`
         }
       });
 
-    document
-      .getElementById("refreshPreviewButton")
-      .addEventListener("click", updatePreview);
-
-    document
-      .getElementById("generateLogButton")
-      .addEventListener("click", () => {
-        addActivity("manual system log generated");
-      });
-
-    document
-      .getElementById("clearLogButton")
-      .addEventListener("click", () => {
-        activityLog.textContent = "";
-        logsOutput.textContent = "";
-      });
-
-    document
-      .getElementById("glitchButton")
-      .addEventListener("click", triggerGlitch);
-
-    document
-      .getElementById("staticButton")
-      .addEventListener("click", triggerStatic);
-
-    function randomActivity() {
-      const messages = [
-        "ASCII core heartbeat stable",
-        "local coding buffer synchronized",
-        "preview renderer waiting",
-        "visual error layer idle",
-        "sandbox boundary intact",
-        "random color process completed",
-        "static buffer normalized",
-        "glitch recovery successful"
-      ];
-
-      const message = randomItem(messages);
-      addActivity(message);
-    }
-
     async function boot() {
       const bootScreen = document.getElementById("bootScreen");
       const bootLog = document.getElementById("bootLog");
@@ -2107,11 +1701,11 @@ console.log(createSignal());`
 
       const messages = [
         "[ OK ] loading ASCII core",
-        "[ OK ] mounting terminal renderer",
+        "[ OK ] mounting split terminal layout",
         "[ OK ] loading coding workspace",
-        "[ OK ] loading page preview engine",
-        "[ OK ] enabling visual glitch layer",
-        "[ OK ] enabling static generator",
+        "[ OK ] loading page preview",
+        "[ OK ] enabling glitch renderer",
+        "[ OK ] enabling color system",
         "[ OK ] disabling external access",
         "[ OK ] NODE-07 ready"
       ];
@@ -2128,19 +1722,17 @@ console.log(createSignal());`
 
       bootScreen.classList.add("hidden");
 
-      addTerminalLine("ASCII CORE TERMINAL READY", "green");
+      addTerminalLine("ASCII CORE SPLIT TERMINAL READY", "green");
       addTerminalLine(
-        "Random color, static, and glitch effects enabled.",
+        "Coding and live page preview are ready.",
         "yellow"
       );
       addTerminalLine(
-        "All errors are simulated and harmless.",
+        "Type 'help' for terminal commands.",
         "muted"
       );
-      addTerminalLine("Type 'help' to begin.", "muted");
 
-      addActivity("terminal session started");
-      terminalInput.focus();
+      commandInput.focus();
     }
 
     loadFile();
@@ -2148,44 +1740,31 @@ console.log(createSignal());`
     updateCodeStats();
 
     setInterval(() => {
-      const totalSeconds = Math.floor(performance.now() / 1000);
-      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
-      const minutes = String(
-        Math.floor((totalSeconds % 3600) / 60)
-      ).padStart(2, "0");
-      const seconds = String(totalSeconds % 60).padStart(2, "0");
+      if (Math.random() > 0.52) {
+        const messages = [
+          "background: ASCII core heartbeat stable",
+          "background: editor buffer synchronized",
+          "background: preview renderer waiting",
+          "background: local sandbox intact",
+          "background: color channel normalized",
+          "background: glitch recovery successful"
+        ];
 
-      const uptimeElement = document.querySelector(
-        ".metric:nth-child(5) strong"
-      );
-
-      if (uptimeElement) {
-        uptimeElement.textContent =
-          `${hours}:${minutes}:${seconds}`;
-      }
-    }, 1000);
-
-    setInterval(() => {
-      if (Math.random() > 0.5) {
-        randomActivity();
+        addTerminalLine(randomItem(messages), "muted");
       }
 
-      if (Math.random() > 0.86) {
+      if (Math.random() > 0.82) {
         triggerGlitch();
       }
 
-      if (Math.random() > 0.93) {
-        triggerErrorPopup();
-      }
-
-      if (Math.random() > 0.9) {
+      if (Math.random() > 0.88) {
         triggerStatic();
       }
 
-      if (Math.random() > 0.74) {
-        mainAscii.style.color = randomColor();
+      if (Math.random() > 0.72) {
+        terminalAscii.style.color = randomColor();
       }
-    }, 5000);
+    }, 5200);
 
     boot();
   </script>
