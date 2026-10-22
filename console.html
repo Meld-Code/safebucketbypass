@@ -3,24 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VX//ANALYZER — NODE-07</title>
+  <title>ASCII CORE // NODE-07</title>
 
   <style>
     :root {
-      --bg: #020304;
-      --panel: #080b0c;
-      --panel-2: #0d1213;
-      --panel-3: #11191a;
-      --border: #25383a;
-      --border-red: #74303b;
-      --red: #ff435d;
-      --red-soft: #ff8796;
-      --green: #7dff98;
-      --cyan: #69ddff;
-      --yellow: #ffe477;
-      --purple: #cf83ff;
-      --text: #e3ece5;
-      --muted: #70807a;
+      --white: #ffffff;
+      --off-white: #f5f5f5;
+      --soft-white: #eeeeee;
+      --line: #d8d8d8;
+      --line-dark: #b7b7b7;
+      --text: #171717;
+      --muted: #777777;
+      --black: #000000;
+      --danger: #c9283e;
+      --success: #137a36;
+      --blue: #1769aa;
       --font: "Courier New", Courier, monospace;
     }
 
@@ -34,7 +31,7 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
-      background: var(--bg);
+      background: var(--white);
     }
 
     body {
@@ -52,17 +49,16 @@
     button,
     select {
       color: var(--text);
-      background: #0d1213;
-      border: 1px solid var(--border);
+      background: var(--white);
+      border: 1px solid var(--line-dark);
       cursor: pointer;
     }
 
     button:hover,
     select:hover {
-      color: white;
-      border-color: var(--red);
-      background: #261116;
-      box-shadow: 0 0 14px rgba(255, 67, 93, 0.22);
+      color: var(--white);
+      background: var(--black);
+      border-color: var(--black);
     }
 
     button:active {
@@ -70,35 +66,8 @@
     }
 
     ::selection {
-      color: #210006;
-      background: var(--red);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.025) 0,
-        rgba(255, 255, 255, 0.025) 1px,
-        transparent 1px,
-        transparent 4px
-      );
-      opacity: 0.25;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 998;
-      pointer-events: none;
-      box-shadow:
-        inset 0 0 150px #000,
-        inset 0 0 35px rgba(255, 67, 93, 0.08);
+      color: var(--white);
+      background: var(--black);
     }
 
     .app {
@@ -107,9 +76,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(120, 20, 40, 0.16), transparent 55%),
-        var(--bg);
+      background: var(--white);
     }
 
     .topbar {
@@ -119,8 +86,8 @@
       height: 38px;
       min-height: 38px;
       padding: 0 12px;
-      background: #0c1011;
-      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      border-bottom: 1px solid var(--line-dark);
       color: var(--muted);
       font-size: 11px;
     }
@@ -133,8 +100,9 @@
     .traffic span {
       width: 10px;
       height: 10px;
-      border: 1px solid #555;
       border-radius: 50%;
+      border: 1px solid var(--line-dark);
+      background: var(--white);
     }
 
     .traffic span:nth-child(1) {
@@ -154,46 +122,36 @@
 
     .top-title {
       flex: 1;
-      color: var(--red-soft);
+      color: var(--text);
       text-align: center;
       letter-spacing: 0.08em;
     }
 
     .top-status {
-      color: var(--green);
+      color: var(--success);
       font-size: 10px;
     }
 
     .main-grid {
       display: grid;
-      grid-template-columns: 255px minmax(430px, 1.4fr) minmax(320px, 0.9fr);
+      grid-template-columns: minmax(270px, 0.85fr) minmax(430px, 1.45fr) minmax(320px, 0.95fr);
       flex: 1;
       min-height: 0;
       overflow: hidden;
     }
 
     .panel {
+      display: flex;
+      flex-direction: column;
       min-width: 0;
       min-height: 0;
       overflow: hidden;
-      background: rgba(7, 10, 11, 0.97);
+      background: var(--white);
     }
 
-    .left-panel {
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid var(--border);
-    }
-
+    .left-panel,
     .center-panel {
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid var(--border);
-    }
-
-    .right-panel {
-      display: flex;
-      flex-direction: column;
+      border-right: 1px solid var(--line-dark);
     }
 
     .panel-header {
@@ -202,9 +160,9 @@
       justify-content: space-between;
       min-height: 37px;
       padding: 0 11px;
-      color: var(--red);
-      background: #111719;
-      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      border-bottom: 1px solid var(--line-dark);
+      color: var(--text);
       font-size: 10px;
       letter-spacing: 0.1em;
     }
@@ -226,14 +184,14 @@
     }
 
     .section {
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
     }
 
     .section-title {
       padding: 9px 11px;
-      color: var(--red-soft);
-      background: #0d1213;
-      border-bottom: 1px solid var(--border);
+      background: var(--soft-white);
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
       font-size: 10px;
       letter-spacing: 0.08em;
     }
@@ -242,13 +200,13 @@
       padding: 11px;
     }
 
+    /* ASCII */
+
     .ascii-box {
       position: relative;
-      height: 235px;
+      height: 260px;
       overflow: hidden;
-      background:
-        radial-gradient(circle at center, rgba(255, 67, 93, 0.11), transparent 65%),
-        #050606;
+      background: var(--white);
     }
 
     .ascii-art {
@@ -257,48 +215,59 @@
       left: 50%;
       width: max-content;
       margin: 0;
-      color: var(--red);
+      color: var(--black);
       font-size: clamp(3px, 0.46vw, 8px);
       line-height: 1;
-      opacity: 0.35;
+      opacity: 0.78;
       transform: translate(-50%, -50%);
-      text-shadow:
-        0 0 8px currentColor,
-        0 0 25px currentColor;
-      transition: color 0.3s ease, filter 0.3s ease;
+      transition: transform 0.2s ease;
     }
 
     .ascii-art.glitch {
-      filter: hue-rotate(130deg) saturate(3);
-      transform: translate(-50%, -50%) skewX(-9deg);
+      transform: translate(-50%, -50%) skewX(-6deg);
+    }
+
+    .ascii-caption {
+      padding: 7px 10px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--off-white);
+      text-align: center;
+      font-size: 9px;
     }
 
     .scan-button {
       width: 100%;
       padding: 10px;
-      color: var(--red-soft);
-      border-color: var(--border-red);
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
       font-size: 10px;
       letter-spacing: 0.08em;
     }
 
+    .scan-button:hover {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--black);
+    }
+
     .scan-button.running {
-      color: var(--yellow);
-      border-color: var(--yellow);
+      color: var(--blue);
+      border-color: var(--blue);
     }
 
     .scan-progress {
       height: 10px;
       margin-top: 10px;
       padding: 2px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--line-dark);
     }
 
     .scan-progress-fill {
       width: 0%;
       height: 100%;
-      background: var(--red);
-      box-shadow: 0 0 12px var(--red);
+      background: var(--black);
       transition: width 0.2s ease;
     }
 
@@ -307,22 +276,22 @@
       justify-content: space-between;
       gap: 8px;
       padding: 6px 0;
+      border-bottom: 1px dotted var(--line-dark);
       color: var(--muted);
-      border-bottom: 1px dotted #263538;
       font-size: 10px;
     }
 
     .status-row strong {
-      color: var(--green);
+      color: var(--success);
       font-weight: normal;
     }
 
     .status-row.warning strong {
-      color: var(--yellow);
+      color: #9a7100;
     }
 
     .status-row.danger strong {
-      color: var(--red);
+      color: var(--danger);
     }
 
     .tool-list {
@@ -339,17 +308,16 @@
 
     .tool-button::before {
       content: "> ";
-      color: var(--red);
     }
 
-    /* Terminal output */
+    /* Terminal */
 
     .terminal-output {
       flex: 1;
       min-height: 0;
       padding: 12px;
       overflow-y: auto;
-      background: #050606;
+      background: var(--white);
       color: var(--text);
       font-size: 11px;
       line-height: 1.5;
@@ -362,36 +330,33 @@
     }
 
     .terminal-line.command {
-      color: white;
+      color: var(--black);
     }
 
     .terminal-line.command::before {
-      content: "operator@vx-node:~$ ";
-      color: var(--red);
+      content: "operator@node-07:~$ ";
+      color: var(--black);
     }
 
     .terminal-line.green {
-      color: var(--green);
+      color: var(--success);
     }
 
     .terminal-line.red {
-      color: var(--red);
-    }
-
-    .terminal-line.yellow {
-      color: var(--yellow);
+      color: var(--danger);
     }
 
     .terminal-line.blue {
-      color: var(--cyan);
-    }
-
-    .terminal-line.purple {
-      color: var(--purple);
+      color: var(--blue);
     }
 
     .terminal-line.muted {
       color: var(--muted);
+    }
+
+    .terminal-line.bold {
+      color: var(--black);
+      font-weight: bold;
     }
 
     .command-form {
@@ -400,12 +365,12 @@
       gap: 7px;
       min-height: 38px;
       padding: 6px 10px;
-      background: #101516;
-      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      border-top: 1px solid var(--line-dark);
     }
 
     .prompt {
-      color: var(--red);
+      color: var(--black);
       white-space: nowrap;
       font-size: 10px;
     }
@@ -417,12 +382,12 @@
       background: transparent;
       border: 0;
       outline: 0;
-      caret-color: var(--red);
+      caret-color: var(--black);
       font-size: 11px;
     }
 
     #commandInput::placeholder {
-      color: #607077;
+      color: var(--muted);
     }
 
     /* Coding */
@@ -433,8 +398,8 @@
       gap: 6px;
       min-height: 38px;
       padding: 6px;
-      background: #0d1213;
-      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      border-bottom: 1px solid var(--line-dark);
     }
 
     .editor-toolbar button,
@@ -459,8 +424,8 @@
     .line-numbers {
       padding: 12px 8px 12px 0;
       overflow: hidden;
-      color: #71464e;
-      border-right: 1px solid #28373a;
+      color: #999999;
+      border-right: 1px solid var(--line);
       text-align: right;
       font-size: 10px;
       line-height: 1.55;
@@ -474,14 +439,12 @@
       min-height: 0;
       padding: 12px;
       overflow: auto;
-      color: #ffcad1;
-      background:
-        linear-gradient(90deg, rgba(255, 67, 93, 0.025), transparent 35%),
-        #050707;
+      color: var(--text);
+      background: var(--white);
       border: 0;
       outline: 0;
       resize: none;
-      caret-color: var(--red);
+      caret-color: var(--black);
       font-size: 12px;
       line-height: 1.55;
       tab-size: 2;
@@ -497,8 +460,8 @@
       padding: 7px 9px;
       overflow: hidden;
       color: var(--muted);
-      background: #101516;
-      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      border-top: 1px solid var(--line-dark);
       font-size: 9px;
       white-space: nowrap;
     }
@@ -510,8 +473,8 @@
       gap: 6px;
       min-height: 38px;
       padding: 6px;
-      background: #0d1213;
-      border-bottom: 1px solid var(--border);
+      background: var(--off-white);
+      border-bottom: 1px solid var(--line-dark);
     }
 
     .preview-toolbar button {
@@ -525,19 +488,15 @@
       flex: 1;
       min-height: 0;
       padding: 10px;
-      background:
-        linear-gradient(rgba(255, 67, 93, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 67, 93, 0.025) 1px, transparent 1px),
-        #050606;
-      background-size: 20px 20px;
+      background: var(--soft-white);
     }
 
     #previewFrame {
       width: 100%;
       height: 100%;
       display: block;
-      border: 1px solid var(--border);
-      background: white;
+      border: 1px solid var(--line-dark);
+      background: var(--white);
     }
 
     .preview-status {
@@ -547,104 +506,33 @@
       min-height: 29px;
       padding: 7px 10px;
       color: var(--muted);
-      background: #101516;
-      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      border-top: 1px solid var(--line-dark);
       font-size: 9px;
     }
 
-    /* Glitch effects */
-
-    .static-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      pointer-events: none;
-      opacity: 0;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,0,70,.3) 1px, transparent 1px);
-      background-position: 0 0, 9px 11px;
-      background-size: 5px 5px, 7px 7px;
-      mix-blend-mode: screen;
+    .preview-status strong {
+      color: var(--success);
+      font-weight: normal;
     }
 
-    .static-overlay.active {
-      animation: staticFlash 0.8s forwards;
+    .statusbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 30px;
+      padding: 8px 12px;
+      overflow: hidden;
+      color: var(--muted);
+      background: var(--off-white);
+      border-top: 1px solid var(--line-dark);
+      font-size: 9px;
+      white-space: nowrap;
     }
 
-    @keyframes staticFlash {
-      0% { opacity: 0; }
-      20% { opacity: 0.3; }
-      55% { opacity: 0.12; }
-      100% { opacity: 0; }
-    }
-
-    .glitch-block {
-      position: fixed;
-      z-index: 600;
-      pointer-events: none;
-      animation: blockFlash 1s forwards;
-    }
-
-    @keyframes blockFlash {
-      0% { opacity: 0; }
-      15% { opacity: 0.8; }
-      70% { opacity: 0.45; }
-      100% { opacity: 0; }
-    }
-
-    .glitch-popup {
-      position: fixed;
-      z-index: 650;
-      width: 230px;
-      padding: 10px;
-      color: var(--red);
-      background: #100608;
-      border: 1px solid var(--red);
-      box-shadow: 0 0 22px rgba(255, 67, 93, 0.3);
-      font-size: 10px;
-      pointer-events: none;
-      animation: popupFade 2.4s forwards;
-    }
-
-    .glitch-popup strong {
-      display: block;
-      margin-bottom: 7px;
-      color: white;
-      font-size: 11px;
-    }
-
-    @keyframes popupFade {
-      0% {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      12% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      80% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.03);
-      }
-    }
-
-    .app.shake {
-      animation: screenShake 0.2s linear;
-    }
-
-    @keyframes screenShake {
-      0% { transform: translate(0); filter: none; }
-      25% { transform: translate(-3px, 1px); filter: hue-rotate(60deg); }
-      50% { transform: translate(3px, -1px); filter: saturate(3); }
-      75% { transform: translate(-2px, 0); filter: contrast(1.5); }
-      100% { transform: translate(0); filter: none; }
+    .statusbar strong {
+      color: var(--text);
+      font-weight: normal;
     }
 
     /* Boot */
@@ -657,7 +545,7 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      background: #030303;
+      background: var(--white);
     }
 
     .boot-screen.hidden {
@@ -666,16 +554,15 @@
 
     .boot-content {
       width: min(1000px, 100%);
-      color: var(--red);
+      color: var(--black);
       font-size: 12px;
       line-height: 1.5;
-      text-shadow: 0 0 8px rgba(255, 67, 93, 0.6);
     }
 
     .boot-art {
       width: 100%;
       overflow: hidden;
-      color: var(--red);
+      color: var(--black);
       font-size: clamp(3px, 0.46vw, 8px);
       line-height: 1;
       white-space: pre;
@@ -696,14 +583,13 @@
       width: min(650px, 100%);
       height: 16px;
       padding: 2px;
-      border: 1px solid var(--border-red);
+      border: 1px solid var(--line-dark);
     }
 
     .boot-progress-fill {
       width: 0%;
       height: 100%;
-      background: var(--red);
-      box-shadow: 0 0 14px var(--red);
+      background: var(--black);
       transition: width 0.15s linear;
     }
 
@@ -738,9 +624,7 @@
 </head>
 
 <body>
-  <div class="static-overlay"></div>
-
-  <main id="app" class="app">
+  <main class="app">
     <header class="topbar">
       <div class="traffic">
         <span></span>
@@ -749,17 +633,17 @@
       </div>
 
       <div class="top-title">
-        VX//ANALYZER — LOCAL VIRUS ANALYSIS SIMULATION
+        ASCII CORE // NODE-07 // LOCAL TERMINAL
       </div>
 
-      <div class="top-status">SANDBOX</div>
+      <div class="top-status">READY</div>
     </header>
 
     <section class="main-grid">
-      <!-- Left analysis panel -->
+      <!-- Left panel -->
       <aside class="panel left-panel">
         <header class="panel-header">
-          <span>analysis control</span>
+          <span>system overview</span>
           <small>node://07</small>
         </header>
 
@@ -813,9 +697,13 @@
             </pre>
           </div>
 
+          <div class="ascii-caption">
+            ASCII CORE — PRIMARY SYSTEM VISUAL
+          </div>
+
           <div class="section-body">
             <button id="scanButton" class="scan-button">
-              START SAFE SCAN
+              START LOCAL SCAN
             </button>
 
             <div class="scan-progress">
@@ -825,12 +713,12 @@
         </section>
 
         <section class="section">
-          <div class="section-title">analysis status</div>
+          <div class="section-title">status</div>
 
           <div class="section-body">
             <div class="status-row">
               <span>ENGINE</span>
-              <strong>LOCAL</strong>
+              <strong>READY</strong>
             </div>
 
             <div class="status-row">
@@ -850,29 +738,25 @@
 
             <div class="status-row danger">
               <span>THREATS</span>
-              <strong id="threatCount">SIMULATED</strong>
+              <strong>NONE</strong>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-title">tools</div>
+          <div class="section-title">commands</div>
 
           <div class="section-body tool-list">
+            <button class="tool-button" data-command="help">
+              help
+            </button>
+
             <button class="tool-button" data-command="status">
-              system status
+              status
             </button>
 
-            <button class="tool-button" data-command="run scan">
-              run diagnostic scan
-            </button>
-
-            <button class="tool-button" data-command="glitch">
-              test visual glitch
-            </button>
-
-            <button class="tool-button" data-command="static">
-              test static burst
+            <button class="tool-button" data-command="scan">
+              scan
             </button>
 
             <button class="tool-button" data-command="clear">
@@ -882,11 +766,11 @@
         </section>
       </aside>
 
-      <!-- Center coding terminal -->
+      <!-- Center terminal/editor -->
       <section class="panel center-panel">
         <header class="panel-header">
-          <span>coding terminal</span>
-          <small>buffer://sandbox</small>
+          <span>terminal editor</span>
+          <small>buffer://local</small>
         </header>
 
         <div class="editor-toolbar">
@@ -920,7 +804,7 @@
         <div id="terminalOutput" class="terminal-output"></div>
 
         <form id="terminalForm" class="command-form">
-          <span class="prompt">operator@vx-node:$</span>
+          <span class="prompt">operator@node-07:$</span>
 
           <input
             id="commandInput"
@@ -931,10 +815,10 @@
         </form>
       </section>
 
-      <!-- Right preview panel -->
+      <!-- Right preview -->
       <section class="panel right-panel">
         <header class="panel-header">
-          <span>page sandbox</span>
+          <span>page preview</span>
           <small>iframe://local</small>
         </header>
 
@@ -945,7 +829,7 @@
         </div>
 
         <div class="preview-wrap">
-          <iframe id="previewFrame" title="Sandbox page preview"></iframe>
+          <iframe id="previewFrame" title="Local page preview"></iframe>
         </div>
 
         <div class="preview-status">
@@ -957,9 +841,9 @@
 
     <footer class="statusbar">
       <span>STATE: <strong id="stateValue">IDLE</strong></span>
-      <span>CORE: <strong>VX-LOCAL</strong></span>
+      <span>CORE: <strong>ASCII</strong></span>
       <span>NETWORK: <strong>OFFLINE</strong></span>
-      <span>ACCESS: <strong>SANDBOXED</strong></span>
+      <span>MODE: <strong>LOCAL</strong></span>
     </footer>
   </main>
 
@@ -1013,7 +897,7 @@
       </pre>
 
       <div class="boot-warning">
-        VX//ANALYZER INITIALIZATION — SAFE LOCAL SANDBOX
+        ASCII CORE INITIALIZATION — LOCAL TERMINAL
       </div>
 
       <div id="bootLog" class="boot-log"></div>
@@ -1025,12 +909,9 @@
   </section>
 
   <script>
-    const app = document.getElementById("app");
-    const staticOverlay = document.querySelector(".static-overlay");
-
     const asciiArt = document.getElementById("asciiArt");
     const terminalOutput = document.getElementById("terminalOutput");
-    const terminalInput = document.getElementById("commandInput");
+    const commandInput = document.getElementById("commandInput");
     const terminalForm = document.getElementById("terminalForm");
 
     const codeEditor = document.getElementById("codeEditor");
@@ -1045,27 +926,17 @@
 
     const stateValue = document.getElementById("stateValue");
     const warningCount = document.getElementById("warningCount");
-    const threatCount = document.getElementById("threatCount");
 
     let commandHistory = [];
     let historyIndex = -1;
     let warnings = 0;
 
-    const colors = [
-      "#ff435d",
-      "#ff8796",
-      "#7dff98",
-      "#69ddff",
-      "#ffe477",
-      "#cf83ff"
-    ];
-
     const files = {
       "main.js": {
         language: "JavaScript",
-        content: `// Safe local analysis test
+        content: `// Local JavaScript test
 
-const node = "VX-NODE-07";
+const node = "NODE-07";
 console.log(node);
 
 function createSignal() {
@@ -1078,8 +949,8 @@ console.log(createSignal());`
       "index.html": {
         language: "HTML",
         content: `<main class="sandbox">
-  <h1>VX-NODE-07</h1>
-  <p>Safe local sandbox preview.</p>
+  <h1>NODE-07</h1>
+  <p>Local page preview is working.</p>
   <button onclick="this.textContent = 'TEST COMPLETE'">
     Test Button
   </button>
@@ -1090,9 +961,9 @@ console.log(createSignal());`
         language: "CSS",
         content: `.sandbox {
   padding: 30px;
-  color: #ff435d;
-  background: #12080a;
-  border: 1px solid #8e3040;
+  color: #111;
+  background: #fff;
+  border: 1px solid #222;
   font-family: Arial, sans-serif;
   text-align: center;
 }
@@ -1106,37 +977,28 @@ console.log(createSignal());`
       "config.json": {
         language: "JSON",
         content: `{
-  "node": "VX-NODE-07",
+  "node": "NODE-07",
   "simulation": true,
   "network": false,
-  "sandboxed": true
+  "mode": "local"
 }`
       }
     };
 
     const scripts = {
       scan: [
-        "[scan] loading safe local scanner",
-        "[scan] checking sandbox boundaries",
-        "[scan] checking local code buffers",
+        "[scan] loading local scanner",
+        "[scan] checking code buffers",
         "[scan] checking preview renderer",
-        "[scan] scan complete — no critical issues"
-      ],
-
-      trace: [
-        "[trace] creating simulated local route",
-        "[trace] stage 01 — input buffer",
-        "[trace] stage 02 — analysis engine",
-        "[trace] stage 03 — preview renderer",
-        "[trace] trace complete — no network used"
+        "[scan] checking local sandbox",
+        "[scan] scan complete — no threats found"
       ],
 
       audit: [
-        "[audit] reading local project files",
-        "[audit] verifying main.js",
-        "[audit] verifying index.html",
-        "[audit] verifying styles.css",
-        "[audit] verifying config.json",
+        "[audit] checking main.js",
+        "[audit] checking index.html",
+        "[audit] checking styles.css",
+        "[audit] checking config.json",
         "[audit] audit complete — files verified"
       ]
     };
@@ -1145,10 +1007,6 @@ console.log(createSignal());`
       return new Promise((resolve) => {
         setTimeout(resolve, milliseconds);
       });
-    }
-
-    function randomItem(array) {
-      return array[Math.floor(Math.random() * array.length)];
     }
 
     function addTerminalLine(text, type = "normal") {
@@ -1229,7 +1087,7 @@ console.log(createSignal());`
                 min-height: 100vh;
                 display: grid;
                 place-items: center;
-                background: #111;
+                background: #f5f5f5;
               }
             </style>
           </head>
@@ -1243,7 +1101,7 @@ console.log(createSignal());`
               } catch (error) {
                 document.body.insertAdjacentHTML(
                   "beforeend",
-                  "<pre style='position:fixed;bottom:0;left:0;right:0;padding:10px;background:#200;color:#f99;font-family:monospace'>" +
+                  "<pre style='position:fixed;bottom:0;left:0;right:0;padding:10px;background:#fee;color:#900;font-family:monospace'>" +
                   error.message +
                   "</pre>"
                 );
@@ -1287,6 +1145,7 @@ console.log(createSignal());`
       saveFile();
       updateLineNumbers();
       updateCodeStats();
+
       addTerminalLine(`formatted ${fileSelect.value}`, "green");
     }
 
@@ -1332,7 +1191,7 @@ console.log(createSignal());`
       if (file.language !== "JavaScript") {
         updatePreview();
         addTerminalLine(
-          `${fileSelect.value} loaded into preview`,
+          `${fileSelect.value} loaded into page preview`,
           "green"
         );
         return;
@@ -1396,35 +1255,20 @@ console.log(createSignal());`
       addTerminalLine(`saved ${fileSelect.value}`, "green");
     }
 
-    function triggerStatic() {
-      staticOverlay.classList.remove("active");
-      void staticOverlay.offsetWidth;
-      staticOverlay.classList.add("active");
-    }
-
     function triggerGlitch() {
-      const color = randomItem(colors);
-
       asciiArt.classList.add("glitch");
-      app.classList.add("shake");
-      triggerStatic();
-
-      const block = document.createElement("div");
-      block.className = "glitch-block";
-      block.style.left = `${Math.random() * 90 + 2}%`;
-      block.style.top = `${Math.random() * 80 + 4}%`;
-      block.style.width = `${Math.random() * 150 + 30}px`;
-      block.style.height = `${Math.random() * 30 + 5}px`;
-      block.style.background = color;
-      block.style.boxShadow = `0 0 18px ${color}`;
-
-      document.body.appendChild(block);
 
       setTimeout(() => {
-        block.remove();
         asciiArt.classList.remove("glitch");
-        app.classList.remove("shake");
-      }, 1100);
+      }, 600);
+    }
+
+    function triggerStatic() {
+      document.body.style.filter = "contrast(1.08)";
+
+      setTimeout(() => {
+        document.body.style.filter = "";
+      }, 250);
     }
 
     async function runScript(scriptName) {
@@ -1439,12 +1283,8 @@ console.log(createSignal());`
       addCommand(`run ${scriptName}`);
 
       for (const line of script) {
-        await wait(320);
-        addTerminalLine(line, randomItem(["blue", "green", "purple"]));
-
-        if (Math.random() > 0.75) {
-          triggerGlitch();
-        }
+        await wait(300);
+        addTerminalLine(line, "blue");
       }
 
       setState("IDLE");
@@ -1452,7 +1292,7 @@ console.log(createSignal());`
 
     async function startScan() {
       const button = document.getElementById("scanButton");
-      const progress = document.getElementById("scanProgressFill");
+      const fill = document.getElementById("scanProgressFill");
 
       button.disabled = true;
       button.classList.add("running");
@@ -1460,53 +1300,28 @@ console.log(createSignal());`
 
       setState("SCANNING");
 
-      for (let percent = 0; percent <= 100; percent += 10) {
-        await wait(180);
-        progress.style.width = `${percent}%`;
-
-        if (Math.random() > 0.7) {
-          triggerGlitch();
-        }
+      for (let value = 0; value <= 100; value += 10) {
+        await wait(160);
+        fill.style.width = `${value}%`;
       }
 
-      addTerminalLine("SAFE SCAN COMPLETE — NO CRITICAL THREATS", "green");
+      addTerminalLine("LOCAL SCAN COMPLETE — NO THREATS FOUND", "green");
 
       button.disabled = false;
       button.classList.remove("running");
-      button.textContent = "START SAFE SCAN";
-      setState("IDLE");
-    }
+      button.textContent = "START LOCAL SCAN";
 
-    async function runMatrix() {
-      setState("ANALYZING");
-      addCommand("matrix --safe-test");
-
-      const rows = [
-        "[1, 0, 1] × [0, 1, 0]",
-        "[0, 1, 0] × [1, 0, 1]",
-        "[1, 1, 1] × [1, 0, 0]"
-      ];
-
-      for (const row of rows) {
-        await wait(260);
-        addTerminalLine(row, "purple");
-      }
-
-      addTerminalLine("matrix result verified", "green");
       setState("IDLE");
     }
 
     function showHelp() {
-      addTerminalLine("AVAILABLE COMMANDS", "green");
+      addTerminalLine("AVAILABLE COMMANDS", "bold");
       addTerminalLine("help                 show commands");
       addTerminalLine("clear                clear terminal");
-      addTerminalLine("status               show status");
-      addTerminalLine("scan                 start safe scan");
+      addTerminalLine("status               show system status");
+      addTerminalLine("scan                 start local scan");
       addTerminalLine("scripts              list scripts");
-      addTerminalLine("run <script>         run local script");
-      addTerminalLine("matrix               run analysis test");
-      addTerminalLine("glitch               trigger visual glitch");
-      addTerminalLine("static               trigger static burst");
+      addTerminalLine("run <script>         run a local script");
       addTerminalLine("coding               focus code editor");
       addTerminalLine("runpage              refresh page preview");
     }
@@ -1536,11 +1351,10 @@ console.log(createSignal());`
           break;
 
         case "status":
-          addTerminalLine("ANALYSIS STATUS", "green");
-          addTerminalLine("engine:     LOCAL");
+          addTerminalLine("SYSTEM STATUS", "bold");
+          addTerminalLine("engine:     READY");
           addTerminalLine("network:    OFFLINE");
           addTerminalLine("sandbox:    ACTIVE");
-          addTerminalLine("threats:    SIMULATED");
           addTerminalLine(`warnings:   ${warnings}`);
           break;
 
@@ -1549,30 +1363,16 @@ console.log(createSignal());`
           break;
 
         case "scripts":
-          addTerminalLine("scan  trace  audit", "green");
+          addTerminalLine("scan  audit", "green");
           break;
 
         case "run":
           await runScript(parts[1]);
           break;
 
-        case "matrix":
-          await runMatrix();
-          break;
-
-        case "glitch":
-          triggerGlitch();
-          addTerminalLine("visual glitch recovered", "yellow");
-          break;
-
-        case "static":
-          triggerStatic();
-          addTerminalLine("static burst recovered", "yellow");
-          break;
-
         case "coding":
           codeEditor.focus();
-          addTerminalLine("coding editor focused", "green");
+          addTerminalLine("code editor focused", "green");
           break;
 
         case "runpage":
@@ -1627,9 +1427,6 @@ console.log(createSignal());`
           "scan",
           "scripts",
           "run",
-          "matrix",
-          "glitch",
-          "static",
           "coding",
           "runpage"
         ];
@@ -1678,7 +1475,7 @@ console.log(createSignal());`
       .getElementById("runPageButton")
       .addEventListener("click", () => {
         updatePreview();
-        addTerminalLine("current page loaded into sandbox", "green");
+        addTerminalLine("current page loaded into preview", "green");
       });
 
     document
@@ -1693,7 +1490,7 @@ console.log(createSignal());`
         } catch {
           addTerminalLine(
             "fullscreen permission was not granted",
-            "yellow"
+            "red"
           );
         }
       });
@@ -1744,17 +1541,16 @@ console.log(createSignal());`
       const progressFill = document.getElementById("bootProgressFill");
 
       const messages = [
-        "[ OK ] loading VX analysis engine",
-        "[ OK ] mounting safe local sandbox",
         "[ OK ] loading ASCII core",
-        "[ OK ] loading code editor",
+        "[ OK ] loading terminal editor",
         "[ OK ] loading page preview",
+        "[ OK ] loading local scanner",
         "[ OK ] disabling external access",
-        "[ OK ] analyzer ready"
+        "[ OK ] system ready"
       ];
 
       for (let index = 0; index < messages.length; index++) {
-        await wait(190);
+        await wait(180);
 
         bootLog.textContent += `${messages[index]}\n`;
         progressFill.style.width =
@@ -1765,16 +1561,15 @@ console.log(createSignal());`
 
       bootScreen.classList.add("hidden");
 
-      addTerminalLine("VX//ANALYZER READY", "green");
+      addTerminalLine("ASCII CORE TERMINAL READY", "bold");
       addTerminalLine(
-        "Safe local virus-analysis simulation active.",
-        "yellow"
-      );
-      addTerminalLine(
-        "No external files, networks, or systems are accessed.",
+        "Clean local mode enabled.",
         "muted"
       );
-      addTerminalLine("Type 'help' to begin.", "muted");
+      addTerminalLine(
+        "Type 'help' to see available commands.",
+        "muted"
+      );
 
       commandInput.focus();
     }
@@ -1782,32 +1577,6 @@ console.log(createSignal());`
     loadFile();
     updatePreview();
     updateCodeStats();
-
-    setInterval(() => {
-      if (Math.random() > 0.5) {
-        addTerminalLine(
-          randomItem([
-            "background: sandbox heartbeat stable",
-            "background: ASCII core synchronized",
-            "background: preview renderer idle",
-            "background: local buffer verified"
-          ]),
-          "muted"
-        );
-      }
-
-      if (Math.random() > 0.84) {
-        triggerGlitch();
-      }
-
-      if (Math.random() > 0.9) {
-        triggerStatic();
-      }
-
-      if (Math.random() > 0.72) {
-        asciiArt.style.color = randomColor();
-      }
-    }, 6000);
 
     boot();
   </script>
