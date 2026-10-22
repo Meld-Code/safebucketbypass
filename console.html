@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASCII CORE // NODE-07</title>
+  <title>ASCII CORE // TERMINAL</title>
 
   <style>
     :root {
+      --bg: #f4f4f4;
       --white: #ffffff;
-      --off-white: #f5f5f5;
-      --soft-white: #eeeeee;
-      --line: #d8d8d8;
-      --line-dark: #b7b7b7;
-      --text: #171717;
-      --muted: #777777;
-      --black: #000000;
-      --danger: #c9283e;
-      --success: #137a36;
-      --blue: #1769aa;
+      --black: #111111;
+      --gray: #777777;
+      --light-gray: #dddddd;
+      --dark-gray: #bdbdbd;
+      --red: #c92f43;
+      --green: #18763a;
+      --blue: #145d91;
       --font: "Courier New", Courier, monospace;
     }
 
@@ -31,11 +29,11 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
-      background: var(--white);
+      background: var(--bg);
     }
 
     body {
-      color: var(--text);
+      color: var(--black);
       font-family: var(--font);
     }
 
@@ -48,9 +46,9 @@
 
     button,
     select {
-      color: var(--text);
+      color: var(--black);
       background: var(--white);
-      border: 1px solid var(--line-dark);
+      border: 1px solid var(--dark-gray);
       cursor: pointer;
     }
 
@@ -76,7 +74,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: var(--white);
+      background: var(--bg);
     }
 
     .topbar {
@@ -86,9 +84,8 @@
       height: 38px;
       min-height: 38px;
       padding: 0 12px;
-      background: var(--off-white);
-      border-bottom: 1px solid var(--line-dark);
-      color: var(--muted);
+      background: var(--white);
+      border-bottom: 1px solid var(--dark-gray);
       font-size: 11px;
     }
 
@@ -101,8 +98,8 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      border: 1px solid var(--line-dark);
       background: var(--white);
+      border: 1px solid var(--dark-gray);
     }
 
     .traffic span:nth-child(1) {
@@ -122,19 +119,18 @@
 
     .top-title {
       flex: 1;
-      color: var(--text);
       text-align: center;
       letter-spacing: 0.08em;
     }
 
     .top-status {
-      color: var(--success);
+      color: var(--green);
       font-size: 10px;
     }
 
     .main-grid {
       display: grid;
-      grid-template-columns: minmax(270px, 0.85fr) minmax(430px, 1.45fr) minmax(320px, 0.95fr);
+      grid-template-columns: 250px minmax(430px, 1.35fr) minmax(320px, 0.95fr);
       flex: 1;
       min-height: 0;
       overflow: hidden;
@@ -151,7 +147,7 @@
 
     .left-panel,
     .center-panel {
-      border-right: 1px solid var(--line-dark);
+      border-right: 1px solid var(--dark-gray);
     }
 
     .panel-header {
@@ -160,38 +156,36 @@
       justify-content: space-between;
       min-height: 37px;
       padding: 0 11px;
-      background: var(--off-white);
-      border-bottom: 1px solid var(--line-dark);
-      color: var(--text);
+      background: var(--white);
+      border-bottom: 1px solid var(--dark-gray);
       font-size: 10px;
       letter-spacing: 0.1em;
     }
 
     .panel-header small {
-      color: var(--muted);
+      color: var(--gray);
       font-size: 9px;
       letter-spacing: 0;
     }
 
     .panel-header::before {
       content: "[ ";
-      color: var(--muted);
+      color: var(--gray);
     }
 
     .panel-header::after {
       content: " ]";
-      color: var(--muted);
+      color: var(--gray);
     }
 
     .section {
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--light-gray);
     }
 
     .section-title {
       padding: 9px 11px;
-      background: var(--soft-white);
-      border-bottom: 1px solid var(--line);
-      color: var(--text);
+      background: var(--bg);
+      border-bottom: 1px solid var(--light-gray);
       font-size: 10px;
       letter-spacing: 0.08em;
     }
@@ -200,11 +194,11 @@
       padding: 11px;
     }
 
-    /* ASCII */
+    /* ASCII art */
 
     .ascii-box {
       position: relative;
-      height: 260px;
+      height: 270px;
       overflow: hidden;
       background: var(--white);
     }
@@ -218,20 +212,20 @@
       color: var(--black);
       font-size: clamp(3px, 0.46vw, 8px);
       line-height: 1;
-      opacity: 0.78;
+      opacity: 0.8;
       transform: translate(-50%, -50%);
       transition: transform 0.2s ease;
     }
 
     .ascii-art.glitch {
-      transform: translate(-50%, -50%) skewX(-6deg);
+      transform: translate(-50%, -50%) skewX(-7deg);
     }
 
     .ascii-caption {
       padding: 7px 10px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      background: var(--off-white);
+      color: var(--gray);
+      background: var(--bg);
+      border-top: 1px solid var(--light-gray);
       text-align: center;
       font-size: 9px;
     }
@@ -239,21 +233,21 @@
     .scan-button {
       width: 100%;
       padding: 10px;
-      background: var(--black);
       color: var(--white);
+      background: var(--black);
       border-color: var(--black);
       font-size: 10px;
       letter-spacing: 0.08em;
     }
 
     .scan-button:hover {
-      background: var(--white);
       color: var(--black);
-      border-color: var(--black);
+      background: var(--white);
     }
 
     .scan-button.running {
       color: var(--blue);
+      background: var(--white);
       border-color: var(--blue);
     }
 
@@ -261,7 +255,7 @@
       height: 10px;
       margin-top: 10px;
       padding: 2px;
-      border: 1px solid var(--line-dark);
+      border: 1px solid var(--dark-gray);
     }
 
     .scan-progress-fill {
@@ -274,24 +268,15 @@
     .status-row {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
       padding: 6px 0;
-      border-bottom: 1px dotted var(--line-dark);
-      color: var(--muted);
+      border-bottom: 1px dotted var(--dark-gray);
+      color: var(--gray);
       font-size: 10px;
     }
 
     .status-row strong {
-      color: var(--success);
+      color: var(--green);
       font-weight: normal;
-    }
-
-    .status-row.warning strong {
-      color: #9a7100;
-    }
-
-    .status-row.danger strong {
-      color: var(--danger);
     }
 
     .tool-list {
@@ -317,8 +302,8 @@
       min-height: 0;
       padding: 12px;
       overflow-y: auto;
+      color: var(--black);
       background: var(--white);
-      color: var(--text);
       font-size: 11px;
       line-height: 1.5;
       white-space: pre-wrap;
@@ -339,11 +324,11 @@
     }
 
     .terminal-line.green {
-      color: var(--success);
+      color: var(--green);
     }
 
     .terminal-line.red {
-      color: var(--danger);
+      color: var(--red);
     }
 
     .terminal-line.blue {
@@ -351,7 +336,7 @@
     }
 
     .terminal-line.muted {
-      color: var(--muted);
+      color: var(--gray);
     }
 
     .terminal-line.bold {
@@ -365,8 +350,8 @@
       gap: 7px;
       min-height: 38px;
       padding: 6px 10px;
-      background: var(--off-white);
-      border-top: 1px solid var(--line-dark);
+      background: var(--bg);
+      border-top: 1px solid var(--dark-gray);
     }
 
     .prompt {
@@ -378,7 +363,7 @@
     #commandInput {
       flex: 1;
       min-width: 0;
-      color: var(--text);
+      color: var(--black);
       background: transparent;
       border: 0;
       outline: 0;
@@ -387,10 +372,10 @@
     }
 
     #commandInput::placeholder {
-      color: var(--muted);
+      color: var(--gray);
     }
 
-    /* Coding */
+    /* Code editor */
 
     .editor-toolbar {
       display: flex;
@@ -398,8 +383,8 @@
       gap: 6px;
       min-height: 38px;
       padding: 6px;
-      background: var(--off-white);
-      border-bottom: 1px solid var(--line-dark);
+      background: var(--bg);
+      border-bottom: 1px solid var(--dark-gray);
     }
 
     .editor-toolbar button,
@@ -425,7 +410,7 @@
       padding: 12px 8px 12px 0;
       overflow: hidden;
       color: #999999;
-      border-right: 1px solid var(--line);
+      border-right: 1px solid var(--light-gray);
       text-align: right;
       font-size: 10px;
       line-height: 1.55;
@@ -439,7 +424,7 @@
       min-height: 0;
       padding: 12px;
       overflow: auto;
-      color: var(--text);
+      color: var(--black);
       background: var(--white);
       border: 0;
       outline: 0;
@@ -459,9 +444,9 @@
       min-height: 29px;
       padding: 7px 9px;
       overflow: hidden;
-      color: var(--muted);
-      background: var(--off-white);
-      border-top: 1px solid var(--line-dark);
+      color: var(--gray);
+      background: var(--bg);
+      border-top: 1px solid var(--dark-gray);
       font-size: 9px;
       white-space: nowrap;
     }
@@ -473,8 +458,8 @@
       gap: 6px;
       min-height: 38px;
       padding: 6px;
-      background: var(--off-white);
-      border-bottom: 1px solid var(--line-dark);
+      background: var(--bg);
+      border-bottom: 1px solid var(--dark-gray);
     }
 
     .preview-toolbar button {
@@ -495,7 +480,7 @@
       width: 100%;
       height: 100%;
       display: block;
-      border: 1px solid var(--line-dark);
+      border: 1px solid var(--dark-gray);
       background: var(--white);
     }
 
@@ -505,14 +490,14 @@
       gap: 8px;
       min-height: 29px;
       padding: 7px 10px;
-      color: var(--muted);
-      background: var(--off-white);
-      border-top: 1px solid var(--line-dark);
+      color: var(--gray);
+      background: var(--bg);
+      border-top: 1px solid var(--dark-gray);
       font-size: 9px;
     }
 
     .preview-status strong {
-      color: var(--success);
+      color: var(--green);
       font-weight: normal;
     }
 
@@ -523,15 +508,15 @@
       min-height: 30px;
       padding: 8px 12px;
       overflow: hidden;
-      color: var(--muted);
-      background: var(--off-white);
-      border-top: 1px solid var(--line-dark);
+      color: var(--gray);
+      background: var(--white);
+      border-top: 1px solid var(--dark-gray);
       font-size: 9px;
       white-space: nowrap;
     }
 
     .statusbar strong {
-      color: var(--text);
+      color: var(--black);
       font-weight: normal;
     }
 
@@ -575,7 +560,7 @@
 
     .boot-log {
       min-height: 105px;
-      color: var(--muted);
+      color: var(--gray);
       white-space: pre-wrap;
     }
 
@@ -583,7 +568,7 @@
       width: min(650px, 100%);
       height: 16px;
       padding: 2px;
-      border: 1px solid var(--line-dark);
+      border: 1px solid var(--dark-gray);
     }
 
     .boot-progress-fill {
@@ -687,7 +672,7 @@
                                                     ***=-##*#-......:***%%###*********+:###*                                                                    
                                                       .-*##*....:::::...   ##*********%*:::                                                                     
                                                       .-=..:....=*##*--#    **********+::::                                                                     
-                                                      +-....::..-**##*     ##*********+::..                                                                     
+                                                      +-....::..-**##*     ##**********+::..                                                                     
                                                        --...::..:****##    ##**********+                                                                        
                                                        #*:%-:::..::+*+     .::-***=--:::                                                                        
                                                       ........:-==:::--   ---:::::.........=#                                                                   
@@ -731,14 +716,9 @@
               <strong>4 LOADED</strong>
             </div>
 
-            <div class="status-row warning">
+            <div class="status-row">
               <span>WARNINGS</span>
               <strong id="warningCount">0</strong>
-            </div>
-
-            <div class="status-row danger">
-              <span>THREATS</span>
-              <strong>NONE</strong>
             </div>
           </div>
         </section>
@@ -766,7 +746,7 @@
         </section>
       </aside>
 
-      <!-- Center terminal/editor -->
+      <!-- Center panel -->
       <section class="panel center-panel">
         <header class="panel-header">
           <span>terminal editor</span>
@@ -815,7 +795,7 @@
         </form>
       </section>
 
-      <!-- Right preview -->
+      <!-- Right panel -->
       <section class="panel right-panel">
         <header class="panel-header">
           <span>page preview</span>
@@ -887,7 +867,7 @@
                                                     ***=-##*#-......:***%%###*********+:###*                                                                    
                                                       .-*##*....:::::...   ##*********%*:::                                                                     
                                                       .-=..:....=*##*--#    **********+::::                                                                     
-                                                      +-....::..-**##*     ##**********+::..                                                                     
+                                                      +-....::..-**##*     ##*********+::..                                                                     
                                                        --...::..:****##    ##**********+                                                                        
                                                        #*:%-:::..::+*+     .::-***=--:::                                                                        
                                                       ........:-==:::--   ---:::::.........=#                                                                   
@@ -923,7 +903,6 @@
 
     const previewFrame = document.getElementById("previewFrame");
     const previewStatus = document.getElementById("previewStatus");
-
     const stateValue = document.getElementById("stateValue");
     const warningCount = document.getElementById("warningCount");
 
@@ -1190,10 +1169,12 @@ console.log(createSignal());`
 
       if (file.language !== "JavaScript") {
         updatePreview();
+
         addTerminalLine(
-          `${fileSelect.value} loaded into page preview`,
+          `${fileSelect.value} loaded into preview`,
           "green"
         );
+
         return;
       }
 
@@ -1260,34 +1241,7 @@ console.log(createSignal());`
 
       setTimeout(() => {
         asciiArt.classList.remove("glitch");
-      }, 600);
-    }
-
-    function triggerStatic() {
-      document.body.style.filter = "contrast(1.08)";
-
-      setTimeout(() => {
-        document.body.style.filter = "";
-      }, 250);
-    }
-
-    async function runScript(scriptName) {
-      const script = scripts[scriptName];
-
-      if (!script) {
-        addTerminalLine(`run: unknown script ${scriptName}`, "red");
-        return;
-      }
-
-      setState("SCANNING");
-      addCommand(`run ${scriptName}`);
-
-      for (const line of script) {
-        await wait(300);
-        addTerminalLine(line, "blue");
-      }
-
-      setState("IDLE");
+      }, 500);
     }
 
     async function startScan() {
@@ -1314,6 +1268,25 @@ console.log(createSignal());`
       setState("IDLE");
     }
 
+    async function runScript(scriptName) {
+      const script = scripts[scriptName];
+
+      if (!script) {
+        addTerminalLine(`run: unknown script ${scriptName}`, "red");
+        return;
+      }
+
+      setState("RUNNING");
+      addCommand(`run ${scriptName}`);
+
+      for (const line of script) {
+        await wait(300);
+        addTerminalLine(line, "blue");
+      }
+
+      setState("IDLE");
+    }
+
     function showHelp() {
       addTerminalLine("AVAILABLE COMMANDS", "bold");
       addTerminalLine("help                 show commands");
@@ -1324,6 +1297,7 @@ console.log(createSignal());`
       addTerminalLine("run <script>         run a local script");
       addTerminalLine("coding               focus code editor");
       addTerminalLine("runpage              refresh page preview");
+      addTerminalLine("glitch               animate ASCII art");
     }
 
     async function executeCommand(command) {
@@ -1380,6 +1354,11 @@ console.log(createSignal());`
           addTerminalLine("page preview refreshed", "green");
           break;
 
+        case "glitch":
+          triggerGlitch();
+          addTerminalLine("ASCII display refreshed", "green");
+          break;
+
         default:
           addTerminalLine(`${base}: command not found`, "red");
       }
@@ -1428,7 +1407,8 @@ console.log(createSignal());`
           "scripts",
           "run",
           "coding",
-          "runpage"
+          "runpage",
+          "glitch"
         ];
 
         const match = commands.find((command) =>
@@ -1475,7 +1455,7 @@ console.log(createSignal());`
       .getElementById("runPageButton")
       .addEventListener("click", () => {
         updatePreview();
-        addTerminalLine("current page loaded into preview", "green");
+        addTerminalLine("page loaded into preview", "green");
       });
 
     document
@@ -1562,10 +1542,7 @@ console.log(createSignal());`
       bootScreen.classList.add("hidden");
 
       addTerminalLine("ASCII CORE TERMINAL READY", "bold");
-      addTerminalLine(
-        "Clean local mode enabled.",
-        "muted"
-      );
+      addTerminalLine("Clean local mode enabled.", "muted");
       addTerminalLine(
         "Type 'help' to see available commands.",
         "muted"
