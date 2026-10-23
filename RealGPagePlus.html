@@ -62,11 +62,13 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Top navigation */
+
 .topbar {
     height: 66px;
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 50;
     display: flex;
     align-items: center;
     gap: 34px;
@@ -143,6 +145,195 @@ button:disabled {
     font-size: 12px;
     white-space: nowrap;
 }
+
+/* Full-width featured video banner */
+
+.featured-banner {
+    position: relative;
+    width: 100%;
+    min-height: 470px;
+    height: min(58vw, 620px);
+    overflow: hidden;
+    isolation: isolate;
+    border-bottom: 1px solid var(--border);
+    background: #050605;
+    box-shadow: 0 18px 45px #0006;
+}
+
+.featured-video,
+.featured-fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-video {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity .7s ease;
+}
+
+.featured-video.active {
+    opacity: 1;
+}
+
+.featured-fallback {
+    z-index: -1;
+    background:
+        linear-gradient(135deg, #76b90055, #101210ee),
+        linear-gradient(145deg, #334b25, #101210);
+}
+
+.featured-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(90deg, #050605ed 0%, #05060591 43%, #05060518 100%),
+        linear-gradient(0deg, #101210 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.featured-content {
+    position: absolute;
+    z-index: 3;
+    right: 24px;
+    bottom: 92px;
+    left: clamp(24px, 7vw, 110px);
+    max-width: 620px;
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+.featured-kicker {
+    margin-bottom: 8px;
+    color: var(--green-light);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.featured-content h1 {
+    margin-bottom: 10px;
+    font-size: clamp(34px, 5.5vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.featured-content p {
+    max-width: 540px;
+    margin-bottom: 0;
+    color: #d4dbd1;
+    font-size: clamp(14px, 1.5vw, 18px);
+}
+
+.featured-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.featured-button {
+    min-height: 42px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 800;
+    transition: .18s ease;
+}
+
+.featured-button.primary {
+    border-color: var(--green);
+    background: var(--green);
+    color: #10150a;
+}
+
+.featured-button.primary:hover {
+    background: var(--green-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px #76b90055;
+}
+
+.featured-button.secondary {
+    border-color: #ffffff45;
+    background: #111b;
+    color: var(--text);
+}
+
+.featured-button.secondary:hover {
+    background: #ffffff22;
+    border-color: #ffffff75;
+    transform: translateY(-2px);
+}
+
+.featured-controls {
+    position: absolute;
+    right: 28px;
+    bottom: 25px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.featured-control {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #ffffff45;
+    border-radius: 50%;
+    background: #111b;
+    color: white;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.featured-control:hover {
+    background: #ffffff2b;
+    transform: translateY(-2px);
+}
+
+.featured-dots {
+    position: absolute;
+    z-index: 5;
+    bottom: 39px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transform: translateX(-50%);
+}
+
+.featured-dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #ffffff66;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.featured-dot:hover,
+.featured-dot.active {
+    background: var(--green-light);
+}
+
+.featured-dot.active {
+    width: 28px;
+}
+
+/* Main page */
 
 .page {
     max-width: 1740px;
@@ -450,6 +641,7 @@ h1 {
 }
 
 /* In-app player */
+
 .player-page {
     display: none;
 }
@@ -748,6 +940,8 @@ h1 {
     text-align: center;
 }
 
+/* Responsive layout */
+
 @media (min-width: 1500px) {
     .game-grid {
         grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -823,6 +1017,30 @@ h1 {
     .nav-button {
         padding: 0 10px;
         font-size: 12px;
+    }
+
+    .featured-banner {
+        min-height: 520px;
+        height: 135vw;
+    }
+
+    .featured-content {
+        right: 20px;
+        bottom: 102px;
+        left: 20px;
+    }
+
+    .featured-content h1 {
+        font-size: 38px;
+    }
+
+    .featured-controls {
+        right: 18px;
+        bottom: 18px;
+    }
+
+    .featured-dots {
+        bottom: 31px;
     }
 
     .page {
@@ -946,212 +1164,402 @@ h1 {
 </div>
 
 </header>
-<main class="page">
+<main>
+    <section
+        class="featured-banner"
+        id="featuredBanner"
+        aria-label="Featured games"
+    >
+        <div class="featured-fallback" aria-hidden="true"></div>
+    <video
+        class="featured-video active"
+        id="featuredVideoOne"
+        autoplay
+        muted
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+    ></video>
+
+    <video
+        class="featured-video"
+        id="featuredVideoTwo"
+        muted
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+    ></video>
+
+    <div class="featured-overlay"></div>
+
+    <div class="featured-content" id="featuredContent">
+        <div class="featured-kicker">Featured game</div>
+
+        <h1 id="featuredTitle">Featured Games</h1>
+
+        <p id="featuredDescription">
+            Discover something new to play.
+        </p>
+
+        <div class="featured-actions">
+            <button
+                class="featured-button primary"
+                id="featuredPlayButton"
+                type="button"
+            >
+                <i class="fa-solid fa-play"></i>
+                <span>Play Game</span>
+            </button>
+
+            <button
+                class="featured-button secondary"
+                id="featuredBrowseButton"
+                type="button"
+            >
+                <i class="fa-solid fa-compass"></i>
+                <span>Browse Library</span>
+            </button>
+        </div>
+    </div>
+
+    <div
+        class="featured-dots"
+        id="featuredDots"
+        aria-label="Choose featured game"
+    ></div>
+
+    <div class="featured-controls">
+        <button
+            class="featured-control"
+            id="featuredPauseButton"
+            type="button"
+            aria-label="Pause slideshow"
+            aria-pressed="false"
+        >
+            <i class="fa-solid fa-pause"></i>
+        </button>
+
+        <button
+            class="featured-control"
+            id="featuredPreviousButton"
+            type="button"
+            aria-label="Previous featured game"
+        >
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <button
+            class="featured-control"
+            id="featuredNextButton"
+            type="button"
+            aria-label="Next featured game"
+        >
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+
+<div class="page">
     <section class="library-page" id="libraryPage">
         <div class="heading-row">
             <div>
                 <div class="eyebrow">Your collection</div>
-                <h1 id="pageTitle">Game Library</h1>
+                <h2 id="pageTitle">Game Library</h2>
                 <p class="subtitle" id="pageSubtitle">
                     All your games, together in one place.
                 </p>
             </div>
-        <div class="header-count" id="headerCount">15 games</div>
-    </div>
 
-    <div class="toolbar">
-        <label class="search-wrap">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input
-                id="search"
-                type="search"
-                placeholder="Search your library..."
-                autocomplete="off"
-                aria-label="Search games"
-            >
-        </label>
-
-        <button class="filter-button active" id="allFilter" type="button">
-            <i class="fa-solid fa-grip"></i> All games
-        </button>
-
-        <button class="filter-button" id="favoritesFilter" type="button">
-            <i class="fa-solid fa-heart"></i> Favorites
-        </button>
-    </div>
-
-    <div class="section-line">
-        <h2 id="gridTitle">All games</h2>
-        <span id="resultCount" aria-live="polite"></span>
-    </div>
-
-    <div class="game-grid" id="gameGrid"></div>
-
-    <footer class="footer">
-        GAME HUB &nbsp;•&nbsp; YOUR PERSONAL GAME LIBRARY
-    </footer>
-</section>
-
-<section class="player-page" id="playerPage" aria-label="Game player">
-    <div class="player-top">
-        <button
-            class="back-button"
-            id="backButton"
-            type="button"
-            aria-label="Back to library"
-            title="Back to library"
-        >
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
-
-        <div class="player-heading">
-            <h1 id="playerTitle">Game</h1>
-            <p>GAME HUB / NOW PLAYING</p>
+            <div class="header-count" id="headerCount">
+                15 games
+            </div>
         </div>
 
-        <button class="action-button" id="playerFavorite" type="button">
-            <i class="fa-regular fa-heart"></i> Favorite
-        </button>
-    </div>
+        <div class="toolbar">
+            <label class="search-wrap">
+                <i
+                    class="fa-solid fa-magnifying-glass"
+                    aria-hidden="true"
+                ></i>
 
-    <div class="player-layout">
-        <div class="player-main" id="playerShell">
-            <div class="player-shell">
-                <div class="player-toolbar">
-                    <span class="status-dot" id="statusDot"></span>
-                    <span id="playerStatus" aria-live="polite">
-                        Preparing game...
-                    </span>
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Search your library..."
+                    autocomplete="off"
+                    aria-label="Search games"
+                >
+            </label>
 
-                    <div class="toolbar-spacer"></div>
+            <button
+                class="filter-button active"
+                id="allFilter"
+                type="button"
+            >
+                <i class="fa-solid fa-grip"></i>
+                All games
+            </button>
 
-                    <button
-                        class="icon-button"
-                        id="reloadButton"
-                        type="button"
-                        title="Reload game"
-                        aria-label="Reload game"
-                    >
-                        <i class="fa-solid fa-rotate-right"></i>
-                    </button>
+            <button
+                class="filter-button"
+                id="favoritesFilter"
+                type="button"
+            >
+                <i class="fa-solid fa-heart"></i>
+                Favorites
+            </button>
+        </div>
 
-                    <button
-                        class="icon-button"
-                        id="fullscreenButton"
-                        type="button"
-                        title="Fullscreen player"
-                        aria-label="Fullscreen player"
-                    >
-                        <i class="fa-solid fa-expand"></i>
-                    </button>
-                </div>
+        <div class="section-line">
+            <h2 id="gridTitle">All games</h2>
+            <span id="resultCount" aria-live="polite"></span>
+        </div>
 
-                <div class="frame-wrap">
-                    <iframe
-                        id="gameFrame"
-                        title="Game window"
-                        allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                    ></iframe>
+        <div class="game-grid" id="gameGrid"></div>
 
-                    <div class="loading-cover" id="loadingCover">
-                        <div class="spinner" id="loadingSpinner"></div>
-                        <strong id="loadingTitle">Loading game</strong>
-                        <p id="loadingText">
-                            Please wait while the game page loads inside Game Hub.
-                        </p>
+        <footer class="footer">
+            GAME HUB &nbsp;•&nbsp; YOUR PERSONAL GAME LIBRARY
+        </footer>
+    </section>
+
+    <section
+        class="player-page"
+        id="playerPage"
+        aria-label="Game player"
+    >
+        <div class="player-top">
+            <button
+                class="back-button"
+                id="backButton"
+                type="button"
+                aria-label="Back to library"
+                title="Back to library"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="player-heading">
+                <h1 id="playerTitle">Game</h1>
+                <p>GAME HUB / NOW PLAYING</p>
+            </div>
+
+            <button
+                class="action-button"
+                id="playerFavorite"
+                type="button"
+            >
+                <i class="fa-regular fa-heart"></i>
+                Favorite
+            </button>
+        </div>
+
+        <div class="player-layout">
+            <div class="player-main" id="playerShell">
+                <div class="player-shell">
+                    <div class="player-toolbar">
+                        <span
+                            class="status-dot"
+                            id="statusDot"
+                        ></span>
+
+                        <span
+                            id="playerStatus"
+                            aria-live="polite"
+                        >
+                            Preparing game...
+                        </span>
+
+                        <div class="toolbar-spacer"></div>
 
                         <button
-                            class="action-button primary"
-                            id="retryButton"
+                            class="icon-button"
+                            id="reloadButton"
                             type="button"
-                            hidden
+                            title="Reload game"
+                            aria-label="Reload game"
                         >
-                            <i class="fa-solid fa-rotate-right"></i> Try again
+                            <i
+                                class="fa-solid fa-rotate-right"
+                            ></i>
+                        </button>
+
+                        <button
+                            class="icon-button"
+                            id="fullscreenButton"
+                            type="button"
+                            title="Fullscreen player"
+                            aria-label="Fullscreen player"
+                        >
+                            <i
+                                class="fa-solid fa-expand"
+                            ></i>
+                        </button>
+                    </div>
+
+                    <div class="frame-wrap">
+                        <iframe
+                            id="gameFrame"
+                            title="Game window"
+                            allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                        ></iframe>
+
+                        <div
+                            class="loading-cover"
+                            id="loadingCover"
+                        >
+                            <div
+                                class="spinner"
+                                id="loadingSpinner"
+                            ></div>
+
+                            <strong id="loadingTitle">
+                                Loading game
+                            </strong>
+
+                            <p id="loadingText">
+                                Please wait while the game page loads inside Game Hub.
+                            </p>
+
+                            <button
+                                class="action-button primary"
+                                id="retryButton"
+                                type="button"
+                                hidden
+                            >
+                                <i
+                                    class="fa-solid fa-rotate-right"
+                                ></i>
+                                Try again
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="player-actions">
+                        <button
+                            class="action-button primary"
+                            id="reloadGameButton"
+                            type="button"
+                        >
+                            <i
+                                class="fa-solid fa-rotate-right"
+                            ></i>
+                            Reload game
+                        </button>
+
+                        <button
+                            class="action-button"
+                            id="fullscreenGameButton"
+                            type="button"
+                        >
+                            <i
+                                class="fa-solid fa-expand"
+                            ></i>
+                            Fullscreen
+                        </button>
+
+                        <button
+                            class="action-button"
+                            id="backToLibraryButton"
+                            type="button"
+                        >
+                            <i
+                                class="fa-solid fa-grid-2"
+                            ></i>
+                            Library
                         </button>
                     </div>
                 </div>
 
-                <div class="player-actions">
-                    <button
-                        class="action-button primary"
-                        id="reloadGameButton"
-                        type="button"
-                    >
-                        <i class="fa-solid fa-rotate-right"></i> Reload game
-                    </button>
+                <div class="player-note">
+                    <strong>
+                        <i
+                            class="fa-solid fa-circle-info"
+                        ></i>
+                        Game not appearing?
+                    </strong>
 
-                    <button
-                        class="action-button"
-                        id="fullscreenGameButton"
-                        type="button"
-                    >
-                        <i class="fa-solid fa-expand"></i> Fullscreen
-                    </button>
-
-                    <button
-                        class="action-button"
-                        id="backToLibraryButton"
-                        type="button"
-                    >
-                        <i class="fa-solid fa-grid-2"></i> Library
-                    </button>
+                    Some game websites block embedded playback.
+                    If that happens, this player cannot force them
+                    to run inside Game Hub. Try reloading once.
                 </div>
             </div>
 
-            <div class="player-note">
-                <strong>
-                    <i class="fa-solid fa-circle-info"></i> Game not appearing?
-                </strong>
-                Some game websites block embedded playback. If that happens,
-                this player cannot force them to run inside Game Hub. Try reloading once.
-            </div>
-        </div>
+            <aside class="sidebar">
+                <div
+                    class="sidebar-cover"
+                    id="sidebarCover"
+                >
+                    <i
+                        class="fa-solid fa-gamepad"
+                    ></i>
+                </div>
 
-        <aside class="sidebar">
-            <div class="sidebar-cover" id="sidebarCover">
-                <i class="fa-solid fa-gamepad"></i>
-            </div>
+                <h2 id="sidebarTitle">Game</h2>
 
-            <h2 id="sidebarTitle">Game</h2>
-
-            <p id="sidebarDescription">
-                Launch a game from your library.
-            </p>
-
-            <button class="action-button primary" id="sidebarReload" type="button">
-                <i class="fa-solid fa-play"></i> Reload game
-            </button>
-
-            <button class="action-button" id="sidebarBack" type="button">
-                <i class="fa-solid fa-arrow-left"></i> Back to library
-            </button>
-
-            <div class="details">
-                <h3>PLAYER INFORMATION</h3>
-                <p id="gameInfo">
-                    The game runs in the player area. Game Hub cannot inspect
-                    the contents of a third-party game page.
+                <p id="sidebarDescription">
+                    Launch a game from your library.
                 </p>
-            </div>
-        </aside>
-    </div>
-</section>
+
+                <button
+                    class="action-button primary"
+                    id="sidebarReload"
+                    type="button"
+                >
+                    <i class="fa-solid fa-play"></i>
+                    Reload game
+                </button>
+
+                <button
+                    class="action-button"
+                    id="sidebarBack"
+                    type="button"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to library
+                </button>
+
+                <div class="details">
+                    <h3>PLAYER INFORMATION</h3>
+
+                    <p id="gameInfo">
+                        The game runs in the player area.
+                        Game Hub cannot inspect the contents
+                        of a third-party game page.
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </section>
+</div>
 
 </main>
 <script>
 "use strict";
 
 /*
-    Add your image files to a folder such as:
+    Folder layout:
 
-    images/gta5.jpg
-    images/hollow-knight.jpg
-    images/minecraft.jpg
-
-    Then update each game's image path below.
-
-    If an image fails to load, the Font Awesome icon and gradient remain visible.
+    RealGPagePlus.html
+    RobloxPage.mp4
+    Minecraft.mp4
+    GTA5.mp4
+    images/
+        gta5.jpg
+        hollow-knight.jpg
+        minecraft-1-26-2.jpg
+        hacked-minecraft.jpg
+        roblox.jpg
+        minecraft-1-8-8.jpg
+        rocket-soccer-derby.jpg
+        cluster-rush.jpg
+        steal-a-brainrot.jpg
+        among-us.jpg
+        ping-pong-go.jpg
+        retro-bowl-college.jpg
+        minecraft-1-5-2.jpg
+        minecraft-classic.jpg
+        skate-3.jpg
 */
 
 const games = [
@@ -1307,6 +1715,24 @@ const games = [
     }
 ];
 
+const featuredSlides = [
+    {
+        name: "Roblox",
+        video: "RobloxPage.mp4",
+        description: "Explore a platform of community-made experiences."
+    },
+    {
+        name: "Minecraft 1.26.2",
+        video: "Minecraft.mp4",
+        description: "Build, explore, and survive in a block-based world."
+    },
+    {
+        name: "GTA 5",
+        video: "GTA5.mp4",
+        description: "Explore a huge open world full of action."
+    }
+];
+
 const $ = id => document.getElementById(id);
 
 const libraryPage = $("libraryPage");
@@ -1322,11 +1748,33 @@ const retryButton = $("retryButton");
 const playerStatus = $("playerStatus");
 const statusDot = $("statusDot");
 
+const featuredBanner = $("featuredBanner");
+const featuredContent = $("featuredContent");
+const featuredTitle = $("featuredTitle");
+const featuredDescription = $("featuredDescription");
+const featuredPlayButton = $("featuredPlayButton");
+const featuredBrowseButton = $("featuredBrowseButton");
+const featuredDots = $("featuredDots");
+const featuredPauseButton = $("featuredPauseButton");
+const featuredPreviousButton = $("featuredPreviousButton");
+const featuredNextButton = $("featuredNextButton");
+
+const featuredVideos = [
+    $("featuredVideoOne"),
+    $("featuredVideoTwo")
+];
+
 let selectedGame = null;
 let favorites = readFavorites();
 let favoritesOnly = false;
 let loadTimer = null;
 let loadToken = 0;
+
+let featuredIndex = 0;
+let activeFeaturedVideo = 0;
+let featuredTimer = null;
+let featuredPaused = false;
+let featuredSwitching = false;
 
 function readFavorites() {
     try {
@@ -1360,7 +1808,9 @@ function isFavorite(game) {
 
 function toggleFavorite(game) {
     if (isFavorite(game)) {
-        favorites = favorites.filter(name => name !== game.name);
+        favorites = favorites.filter(
+            name => name !== game.name
+        );
     } else {
         favorites.push(game.name);
     }
@@ -1370,12 +1820,16 @@ function toggleFavorite(game) {
     updatePlayerFavorite();
 }
 
-function createCoverImage(game, className = "cover-image") {
+function createCoverImage(
+    game,
+    className = "cover-image"
+) {
     if (!game.image) {
         return null;
     }
 
     const image = document.createElement("img");
+
     image.className = className;
     image.src = game.image;
     image.alt = game.name + " cover";
@@ -1395,9 +1849,13 @@ function makeCard(game) {
     card.className = "game-card";
     card.tabIndex = 0;
     card.setAttribute("role", "button");
-    card.setAttribute("aria-label", "Play " + game.name);
+    card.setAttribute(
+        "aria-label",
+        "Play " + game.name
+    );
 
     const cover = document.createElement("div");
+
     cover.className = "cover";
     cover.style.setProperty("--cover-a", game.a);
     cover.style.setProperty("--cover-b", game.b);
@@ -1409,19 +1867,25 @@ function makeCard(game) {
     }
 
     const symbol = document.createElement("i");
-    symbol.className = "cover-symbol fa-solid " + game.icon;
+
+    symbol.className =
+        "cover-symbol fa-solid " + game.icon;
+
     symbol.setAttribute("aria-hidden", "true");
 
     const coverLabel = document.createElement("span");
+
     coverLabel.className = "cover-label";
     coverLabel.textContent = game.category;
 
     cover.append(symbol, coverLabel);
 
     const favorite = document.createElement("button");
+
     favorite.type = "button";
     favorite.className =
-        "favorite" + (isFavorite(game) ? " active" : "");
+        "favorite" +
+        (isFavorite(game) ? " active" : "");
 
     favorite.setAttribute(
         "aria-label",
@@ -1436,6 +1900,7 @@ function makeCard(game) {
     );
 
     const heart = document.createElement("i");
+
     heart.className =
         (isFavorite(game) ? "fa-solid" : "fa-regular") +
         " fa-heart";
@@ -1461,14 +1926,19 @@ function makeCard(game) {
     info.append(title, meta);
     card.append(cover, favorite, info);
 
-    card.addEventListener("click", () => openGame(game));
+    card.addEventListener("click", () => {
+        openGame(game);
+    });
 
     card.addEventListener("keydown", event => {
         if (event.target !== card) {
             return;
         }
 
-        if (event.key === "Enter" || event.key === " ") {
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
             event.preventDefault();
             openGame(game);
         }
@@ -1485,9 +1955,13 @@ function renderGames() {
             game.name,
             game.category,
             game.description
-        ].join(" ").toLowerCase();
+        ]
+            .join(" ")
+            .toLowerCase();
 
-        const matchesSearch = searchableText.includes(term);
+        const matchesSearch =
+            searchableText.includes(term);
+
         const matchesFavorite =
             !favoritesOnly || isFavorite(game);
 
@@ -1497,7 +1971,9 @@ function renderGames() {
     grid.replaceChildren();
 
     $("resultCount").textContent =
-        `${visible.length} game${visible.length === 1 ? "" : "s"}`;
+        `${visible.length} game${
+            visible.length === 1 ? "" : "s"
+        }`;
 
     $("headerCount").textContent =
         `${games.length} games`;
@@ -1507,14 +1983,17 @@ function renderGames() {
 
     if (!visible.length) {
         const empty = document.createElement("div");
+
         empty.className = "empty-state";
 
         const icon = document.createElement("i");
-        icon.className = "fa-solid fa-magnifying-glass";
+        icon.className =
+            "fa-solid fa-magnifying-glass";
 
         const title = document.createElement("strong");
-        title.textContent =
-            favoritesOnly ? "No favorites yet" : "No games found";
+        title.textContent = favoritesOnly
+            ? "No favorites yet"
+            : "No games found";
 
         const description = document.createElement("span");
         description.textContent = favoritesOnly
@@ -1533,17 +2012,35 @@ function renderGames() {
 function setLibraryMode(mode) {
     favoritesOnly = mode === "favorites";
 
-    $("homeNav").classList.toggle("active", !favoritesOnly);
-    $("favoritesNav").classList.toggle("active", favoritesOnly);
-    $("allFilter").classList.toggle("active", !favoritesOnly);
-    $("favoritesFilter").classList.toggle("active", favoritesOnly);
+    $("homeNav").classList.toggle(
+        "active",
+        !favoritesOnly
+    );
+
+    $("favoritesNav").classList.toggle(
+        "active",
+        favoritesOnly
+    );
+
+    $("allFilter").classList.toggle(
+        "active",
+        !favoritesOnly
+    );
+
+    $("favoritesFilter").classList.toggle(
+        "active",
+        favoritesOnly
+    );
 
     $("pageTitle").textContent =
-        favoritesOnly ? "Your Favorites" : "Game Library";
+        favoritesOnly
+            ? "Your Favorites"
+            : "Game Library";
 
-    $("pageSubtitle").textContent = favoritesOnly
-        ? "Your saved games, all in one place."
-        : "All your games, together in one place.";
+    $("pageSubtitle").textContent =
+        favoritesOnly
+            ? "Your saved games, all in one place."
+            : "All your games, together in one place.";
 
     renderGames();
 }
@@ -1564,36 +2061,58 @@ function showLoading() {
     loadingCover.classList.remove("hidden");
     loadingSpinner.hidden = false;
     loadingTitle.textContent = "Loading game";
+
     loadingText.textContent =
         "Please wait while the game page loads inside Game Hub.";
+
     retryButton.hidden = true;
     setStatus("Loading game...");
 }
 
 function showPossibleBlock() {
     loadingSpinner.hidden = true;
-    loadingTitle.textContent = "Game may not be embeddable";
+    loadingTitle.textContent =
+        "Game may not be embeddable";
+
     loadingText.textContent =
         "This site may block embedded play, or it may be taking too long to respond. Try reloading. Some sites cannot run inside an iframe.";
+
     retryButton.hidden = false;
-    setStatus("Unable to confirm gameplay", "waiting");
+    setStatus(
+        "Unable to confirm gameplay",
+        "waiting"
+    );
 }
 
 function updateSidebarCover(game) {
     const sidebarCover = $("sidebarCover");
 
     sidebarCover.replaceChildren();
-    sidebarCover.style.setProperty("--cover-a", game.a);
-    sidebarCover.style.setProperty("--cover-b", game.b);
 
-    const image = createCoverImage(game, "sidebar-cover-image");
+    sidebarCover.style.setProperty(
+        "--cover-a",
+        game.a
+    );
+
+    sidebarCover.style.setProperty(
+        "--cover-b",
+        game.b
+    );
+
+    const image = createCoverImage(
+        game,
+        "sidebar-cover-image"
+    );
 
     if (image) {
         sidebarCover.appendChild(image);
     }
 
     const icon = document.createElement("i");
-    icon.className = "fa-solid " + game.icon;
+
+    icon.className =
+        "fa-solid " + game.icon;
+
     icon.setAttribute("aria-hidden", "true");
 
     sidebarCover.appendChild(icon);
@@ -1605,16 +2124,20 @@ function openGame(game) {
     libraryPage.classList.add("hidden");
     playerPage.classList.add("active");
 
+    featuredBanner.style.display = "none";
+
     $("playerTitle").textContent = game.name;
     $("sidebarTitle").textContent = game.name;
-    $("sidebarDescription").textContent = game.description;
+    $("sidebarDescription").textContent =
+        game.description;
 
     updateSidebarCover(game);
 
     $("gameInfo").textContent =
         `${game.category} • This game is displayed inside the Game Hub player.`;
 
-    document.title = game.name + " - Game Hub";
+    document.title =
+        game.name + " - Game Hub";
 
     updatePlayerFavorite();
     loadGame();
@@ -1638,7 +2161,10 @@ function loadGame() {
     frame.src = "about:blank";
 
     requestAnimationFrame(() => {
-        if (thisLoad !== loadToken || !selectedGame) {
+        if (
+            thisLoad !== loadToken ||
+            !selectedGame
+        ) {
             return;
         }
 
@@ -1662,6 +2188,7 @@ frame.addEventListener("load", () => {
 
     clearTimeout(loadTimer);
     loadingCover.classList.add("hidden");
+
     setStatus(
         "Game page responded — gameplay not verified",
         "waiting"
@@ -1676,7 +2203,11 @@ function updatePlayerFavorite() {
     const favorite = isFavorite(selectedGame);
 
     $("playerFavorite").innerHTML =
-        `<i class="${favorite ? "fa-solid" : "fa-regular"} fa-heart"></i> ` +
+        `<i class="${
+            favorite
+                ? "fa-solid"
+                : "fa-regular"
+        } fa-heart"></i> ` +
         `${favorite ? "Favorited" : "Favorite"}`;
 
     $("playerFavorite").setAttribute(
@@ -1695,8 +2226,12 @@ function backToLibrary() {
     playerPage.classList.remove("active");
     libraryPage.classList.remove("hidden");
 
+    featuredBanner.style.display = "";
+
     document.title = "Game Hub";
     renderGames();
+
+    startFeaturedSlideshow();
 
     window.scrollTo({
         top: 0,
@@ -1726,63 +2261,422 @@ async function toggleFullscreen() {
     }
 }
 
-search.addEventListener("input", renderGames);
+/* Featured video slideshow */
 
-$("homeNav").addEventListener("click", () => {
-    backToLibrary();
-    setLibraryMode("all");
-});
+function createFeaturedDots() {
+    featuredDots.replaceChildren();
 
-$("favoritesNav").addEventListener("click", () => {
-    backToLibrary();
-    setLibraryMode("favorites");
-});
+    featuredSlides.forEach((slide, index) => {
+        const dot = document.createElement("button");
 
-$("allFilter").addEventListener("click", () => {
-    setLibraryMode("all");
-});
+        dot.type = "button";
+        dot.className = "featured-dot";
+        dot.setAttribute(
+            "aria-label",
+            "Show " + slide.name + " featured slide"
+        );
 
-$("favoritesFilter").addEventListener("click", () => {
-    setLibraryMode("favorites");
-});
+        dot.addEventListener("click", () => {
+            showFeaturedSlide(index);
+        });
 
-$("backButton").addEventListener("click", backToLibrary);
-$("backToLibraryButton").addEventListener("click", backToLibrary);
-$("sidebarBack").addEventListener("click", backToLibrary);
+        featuredDots.appendChild(dot);
+    });
+}
 
-$("reloadButton").addEventListener("click", loadGame);
-$("reloadGameButton").addEventListener("click", loadGame);
-$("sidebarReload").addEventListener("click", loadGame);
-$("retryButton").addEventListener("click", loadGame);
+function updateFeaturedDots() {
+    const dots =
+        featuredDots.querySelectorAll(
+            ".featured-dot"
+        );
 
-$("fullscreenButton").addEventListener("click", toggleFullscreen);
-$("fullscreenGameButton").addEventListener("click", toggleFullscreen);
+    dots.forEach((dot, index) => {
+        dot.classList.toggle(
+            "active",
+            index === featuredIndex
+        );
+    });
+}
 
-$("playerFavorite").addEventListener("click", () => {
-    if (selectedGame) {
-        toggleFavorite(selectedGame);
-    }
-});
+function updateFeaturedText() {
+    const slide = featuredSlides[featuredIndex];
 
-document.addEventListener("keydown", event => {
+    featuredContent.style.opacity = "0";
+    featuredContent.style.transform =
+        "translateY(10px)";
+
+    setTimeout(() => {
+        featuredTitle.textContent = slide.name;
+        featuredDescription.textContent =
+            slide.description;
+
+        featuredPlayButton.innerHTML = `
+            <i class="fa-solid fa-play"></i>
+            <span>Play ${slide.name}</span>
+        `;
+
+        featuredContent.style.opacity = "1";
+        featuredContent.style.transform =
+            "translateY(0)";
+    }, 180);
+}
+
+function updateFeaturedPauseButton() {
+    featuredPauseButton.innerHTML = `
+        <i class="fa-solid ${
+            featuredPaused
+                ? "fa-play"
+                : "fa-pause"
+        }"></i>
+    `;
+
+    featuredPauseButton.setAttribute(
+        "aria-label",
+        featuredPaused
+            ? "Play featured slideshow"
+            : "Pause featured slideshow"
+    );
+
+    featuredPauseButton.setAttribute(
+        "aria-pressed",
+        String(featuredPaused)
+    );
+}
+
+function scheduleFeaturedSlide() {
+    clearTimeout(featuredTimer);
+
     if (
-        event.key === "Escape" &&
-        playerPage.classList.contains("active") &&
-        !document.fullscreenElement
+        !featuredPaused &&
+        featuredSlides.length > 1 &&
+        playerPage.classList.contains("active") === false
     ) {
-        backToLibrary();
+        featuredTimer = setTimeout(() => {
+            showFeaturedSlide(
+                (featuredIndex + 1) %
+                featuredSlides.length
+            );
+        }, 7000);
+    }
+}
+
+function showFeaturedSlide(index) {
+    if (
+        featuredSlides.length <= 1 ||
+        index === featuredIndex ||
+        featuredSwitching
+    ) {
+        return;
+    }
+
+    featuredSwitching = true;
+    clearTimeout(featuredTimer);
+
+    const nextVideoIndex =
+        1 - activeFeaturedVideo;
+
+    const nextVideo =
+        featuredVideos[nextVideoIndex];
+
+    const previousVideo =
+        featuredVideos[activeFeaturedVideo];
+
+    nextVideo.classList.remove("active");
+    nextVideo.src =
+        featuredSlides[index].video;
+
+    nextVideo.load();
+
+    const finishSwitch = () => {
+        nextVideo.classList.add("active");
+        previousVideo.classList.remove("active");
+
+        featuredIndex = index;
+        activeFeaturedVideo = nextVideoIndex;
+
+        updateFeaturedText();
+        updateFeaturedDots();
+
+        setTimeout(() => {
+            previousVideo.pause();
+            previousVideo.removeAttribute("src");
+            previousVideo.load();
+
+            featuredSwitching = false;
+            scheduleFeaturedSlide();
+        }, 750);
+    };
+
+    nextVideo.play()
+        .then(finishSwitch)
+        .catch(finishSwitch);
+}
+
+function startFeaturedSlideshow() {
+    if (!featuredSlides.length) {
+        featuredTitle.textContent =
+            "No featured games";
+
+        featuredDescription.textContent =
+            "Add videos to display featured games.";
+
+        return;
+    }
+
+    createFeaturedDots();
+    updateFeaturedText();
+    updateFeaturedDots();
+    updateFeaturedPauseButton();
+
+    const activeVideo =
+        featuredVideos[activeFeaturedVideo];
+
+    if (!activeVideo.src) {
+        activeVideo.src =
+            featuredSlides[featuredIndex].video;
+
+        activeVideo.load();
+    }
+
+    activeVideo.play().catch(() => {});
+
+    scheduleFeaturedSlide();
+}
+
+function toggleFeaturedPause() {
+    featuredPaused = !featuredPaused;
+
+    if (featuredPaused) {
+        clearTimeout(featuredTimer);
+        featuredVideos[activeFeaturedVideo].pause();
+    } else {
+        featuredVideos[activeFeaturedVideo]
+            .play()
+            .catch(() => {});
+
+        scheduleFeaturedSlide();
+    }
+
+    updateFeaturedPauseButton();
+}
+
+function getFeaturedIndex(direction) {
+    return (
+        (
+            featuredIndex +
+            direction +
+            featuredSlides.length
+        ) %
+        featuredSlides.length
+    );
+}
+
+featuredPlayButton.addEventListener("click", () => {
+    const featuredName =
+        featuredSlides[featuredIndex].name;
+
+    const game = games.find(item => {
+        if (featuredName === "Minecraft") {
+            return item.name === "Minecraft 1.26.2";
+        }
+
+        return item.name === featuredName;
+    });
+
+    if (game) {
+        openGame(game);
     }
 });
 
-document.addEventListener("fullscreenchange", () => {
-    const icon = $("fullscreenButton").querySelector("i");
-
-    icon.className = document.fullscreenElement
-        ? "fa-solid fa-compress"
-        : "fa-solid fa-expand";
+featuredBrowseButton.addEventListener("click", () => {
+    libraryPage.scrollIntoView({
+        behavior: "smooth"
+    });
 });
+
+featuredPauseButton.addEventListener(
+    "click",
+    toggleFeaturedPause
+);
+
+featuredPreviousButton.addEventListener(
+    "click",
+    () => {
+        showFeaturedSlide(
+            getFeaturedIndex(-1)
+        );
+    }
+);
+
+featuredNextButton.addEventListener(
+    "click",
+    () => {
+        showFeaturedSlide(
+            getFeaturedIndex(1)
+        );
+    }
+);
+
+featuredBanner.addEventListener(
+    "mouseenter",
+    () => {
+        if (!featuredPaused) {
+            clearTimeout(featuredTimer);
+        }
+    }
+);
+
+featuredBanner.addEventListener(
+    "mouseleave",
+    () => {
+        if (!featuredPaused) {
+            scheduleFeaturedSlide();
+        }
+    }
+);
+
+/* Main controls */
+
+search.addEventListener(
+    "input",
+    renderGames
+);
+
+$("homeNav").addEventListener(
+    "click",
+    () => {
+        backToLibrary();
+        setLibraryMode("all");
+    }
+);
+
+$("favoritesNav").addEventListener(
+    "click",
+    () => {
+        backToLibrary();
+        setLibraryMode("favorites");
+    }
+);
+
+$("allFilter").addEventListener(
+    "click",
+    () => setLibraryMode("all")
+);
+
+$("favoritesFilter").addEventListener(
+    "click",
+    () => setLibraryMode("favorites")
+);
+
+$("backButton").addEventListener(
+    "click",
+    backToLibrary
+);
+
+$("backToLibraryButton").addEventListener(
+    "click",
+    backToLibrary
+);
+
+$("sidebarBack").addEventListener(
+    "click",
+    backToLibrary
+);
+
+$("reloadButton").addEventListener(
+    "click",
+    loadGame
+);
+
+$("reloadGameButton").addEventListener(
+    "click",
+    loadGame
+);
+
+$("sidebarReload").addEventListener(
+    "click",
+    loadGame
+);
+
+$("retryButton").addEventListener(
+    "click",
+    loadGame
+);
+
+$("fullscreenButton").addEventListener(
+    "click",
+    toggleFullscreen
+);
+
+$("fullscreenGameButton").addEventListener(
+    "click",
+    toggleFullscreen
+);
+
+$("playerFavorite").addEventListener(
+    "click",
+    () => {
+        if (selectedGame) {
+            toggleFavorite(selectedGame);
+        }
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+        if (
+            event.key === "Escape" &&
+            playerPage.classList.contains("active") &&
+            !document.fullscreenElement
+        ) {
+            backToLibrary();
+        }
+
+        if (
+            event.key === "ArrowLeft" &&
+            !playerPage.classList.contains("active")
+        ) {
+            showFeaturedSlide(
+                getFeaturedIndex(-1)
+            );
+        }
+
+        if (
+            event.key === "ArrowRight" &&
+            !playerPage.classList.contains("active")
+        ) {
+            showFeaturedSlide(
+                getFeaturedIndex(1)
+            );
+        }
+
+        if (
+            event.key === " " &&
+            !playerPage.classList.contains("active") &&
+            document.activeElement.tagName !== "INPUT"
+        ) {
+            event.preventDefault();
+            toggleFeaturedPause();
+        }
+    }
+);
+
+document.addEventListener(
+    "fullscreenchange",
+    () => {
+        const icon =
+            $("fullscreenButton").querySelector("i");
+
+        icon.className =
+            document.fullscreenElement
+                ? "fa-solid fa-compress"
+                : "fa-solid fa-expand";
+    }
+);
 
 renderGames();
+startFeaturedSlideshow();
 </script>
 </body>
 </html>
