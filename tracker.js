@@ -1,9 +1,13 @@
 import { initializeApp, getApps, getApp } from
   "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
 import { getAuth, onAuthStateChanged } from
   "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
 import {
-  getDatabase, ref, get, runTransaction
+  getDatabase,
+  ref,
+  runTransaction
 } from
   "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
@@ -17,11 +21,10 @@ const config = {
   appId: "1:659506734507:web:1e4268f7746380b41bdeee"
 };
 
-// Use a separate named app to avoid conflicting with auth.html.
-const appName = "SafeBucketTracker";
-const app = getApps().some(a => a.name === appName)
-  ? getApp(appName)
-  : initializeApp(config, appName);
+// Reuse the existing default Firebase app and login session.
+const app = getApps().some(a => a.name === "[DEFAULT]")
+  ? getApp()
+  : initializeApp(config);
 
 const auth = getAuth(app);
 const db = getDatabase(app);
@@ -35,40 +38,57 @@ let pendingSeconds = 0;
 let saving = false;
 
 function resetClock() {
-  lastTick = document.visibilityState === "visible"
-    ? Date.now()
-    : null;
+  lastTick =
+    document.visibilityState === "visible"
+      ? Date.now()
+      : null;
 }
 
 async function saveTime() {
-  if (!currentUid || pendingSeconds <= 0 || saving) return;
+  if (!currentUid || pendingSeconds < 1 || saving) return;
 
   saving = true;
+
   const uid = currentUid;
-  const seconds = pendingSeconds;
-  pendingSeconds = 0;
+  const seconds = Math.floor(pendingSeconds);
+
+  pendingSeconds -= seconds;
 
   try {
-    const userRef = ref(db, "users/" + uid);
-    const snapshot = await get(userRef);
-
-    if (!snapshot.exists()) return;
+    const userRef = ref(db, `users/${uid}`);
 
     const result = await runTransaction(userRef, profile => {
-      if (!profile || typeof profile !== "object") return;
+      if (!profile || typeof profile !== "object") {
+        return;
+      }
 
-      // Preserve existing profile fields.
-      profile.totalTimeSeconds =
-        Math.max(0, Number(profile.totalTimeSeconds) || 0) + seconds;
+      const currentTotal =
+        Math.max(0, Number(profile.totalTimeSeconds) || 0);
 
-      return profile;
+      return {
+        ...profile,
+        totalTimeSeconds: currentTotal + seconds
+      };
     });
 
     if (!result.committed) {
+      console.warn(
+        "Safe Bucket: time update was not committed."
+      );
       pendingSeconds += seconds;
+    } else {
+      console.log(
+        `Safe Bucket: saved ${seconds} seconds. Total:`,
+        result.snapshot.val()?.totalTimeSeconds
+      );
     }
   } catch (error) {
-    console.error("Safe Bucket time save failed:", error);
+    console.error(
+      "Safe Bucket time save failed:",
+      error.code || "",
+      error.message || error
+    );
+
     pendingSeconds += seconds;
   } finally {
     saving = false;
@@ -85,13 +105,13 @@ function tick() {
   ) {
     const elapsed = (now - lastTick) / 1000;
 
-    // Avoid counting long pauses or a suspended browser as active time.
+    // Ignore long pauses, such as a suspended browser tab.
     if (elapsed > 0 && elapsed <= MAX_TICK_SECONDS) {
       pendingSeconds += elapsed;
     }
 
     if (pendingSeconds >= 1) {
-      saveTime();
+      void saveTime();
     }
   }
 
@@ -99,14 +119,17 @@ function tick() {
 }
 
 onAuthStateChanged(auth, user => {
-  if (currentUid !== user?.uid) {
-    // Try to save any time accumulated for the previous account.
-    if (currentUid && pendingSeconds > 0) {
-      saveTime();
-    }
+  const newUid = user?.uid || null;
 
-    currentUid = user?.uid || null;
+  if (currentUid !== newUid) {
+    currentUid = newUid;
     pendingSeconds = 0;
+
+    console.log(
+      currentUid
+        ? "Safe Bucket tracker signed in as UID: " + currentUid
+        : "Safe Bucket tracker: no signed-in user."
+    );
   }
 
   resetClock();
@@ -116,16 +139,15 @@ document.addEventListener("visibilitychange", () => {
   tick();
 
   if (document.visibilityState === "hidden") {
-    saveTime();
+    void saveTime();
   }
 });
 
 window.addEventListener("pagehide", () => {
   tick();
-  saveTime();
+  void saveTime();
 });
 
 setInterval(tick, SAVE_INTERVAL);
 
 console.log("Safe Bucket playtime tracker loaded.");
-
