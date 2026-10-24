@@ -622,17 +622,77 @@ body{
    BACKGROUND
 ========================= */
 
-.bg{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
+.bg {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+} 
+
+.backgroundVideo {
+    position: absolute;
+    inset: -25px;
+
+    width: calc(100% + 50px);
+    height: calc(100% + 50px);
+
+    object-fit: cover;
+
+    opacity: 0;
+    filter: blur(22px) brightness(.32) saturate(.8);
+
+    transform: scale(1.08);
+
+    transition:
+        opacity .45s ease,
+        filter .45s ease,
+        transform .7s ease;
+}
+
+.backgroundVideo.active {
+    opacity: 1;
+    transform: scale(1.12);
+}
+
+.backgroundVideoOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0008,
+            #0004,
+            #000b
+        );
+
+    opacity: 0;
+    transition: opacity .45s ease;
+}
+
+.bg:has(.backgroundVideo.active) .backgroundVideoOverlay {
+    opacity: 1;
+}
+
+.bg::before,
+.grid,
+.noise {
+    z-index: 2;
+}
+
+.grid,
+.noise {
+    pointer-events: none;
 }
 
 .bg::before{
     content:"";
     position:absolute;
     inset:0;
+    z-index: 2;
+    pointer-events: none;
     background:
         radial-gradient(
             circle at 50% 45%,
@@ -2327,10 +2387,21 @@ body * {
 </div>
 
 
-<div class="bg">
+<div class="bg" id="pageBackground">
+    <video
+        id="backgroundVideo"
+        class="backgroundVideo"
+        muted
+        loop
+        playsinline
+        preload="metadata"
+    ></video>
+
+    <div class="backgroundVideoOverlay"></div>
     <div class="grid"></div>
     <div class="noise"></div>
 </div>
+
 
 <!-- CENTER -->
 
@@ -2496,6 +2567,7 @@ body * {
     class="block"
     data-url="https://angst.clawschools.org/embed.html#https://nowgg.fun/apps/a/19900/b.html"
     data-name="Roblox"
+    data-background-video="RobloxPage.mp4"
 >
     <video
         class="blockVideo"
@@ -2504,7 +2576,7 @@ body * {
         playsinline
         preload="metadata"
     >
-        <source src="RobloxPage.mp4" type="video/mp4">
+        <source src="Videos/roblox-preview.mp4" type="video/mp4">
     </video>
 
     <img src="Images/Roblox.png" alt="Roblox">
@@ -2548,6 +2620,7 @@ body * {
     class="block"
     data-url="https://safebucketbypass.github.io/MC/"
     data-name="Minecraft"
+    data-background-video="Minecraft.mp4"
 >
     <video
         class="blockVideo"
@@ -2556,7 +2629,7 @@ body * {
         playsinline
         preload="metadata"
     >
-        <source src="Minecraft.mp4" type="video/mp4">
+        <source src="Videos/minecraft-preview.mp4" type="video/mp4">
     </video>
 
     <img src="Images/Minecraft.png" alt="Minecraft">
@@ -5171,6 +5244,64 @@ document.querySelectorAll(".block").forEach(block => {
         video.currentTime = 0;
     });
 });
+
+/* ============================================================
+   FULL-PAGE HOVER VIDEO BACKGROUND
+============================================================ */
+
+const backgroundVideo =
+    document.getElementById("backgroundVideo");
+
+let backgroundVideoTimer = null;
+
+document.querySelectorAll(".block").forEach(block => {
+    const video = block.querySelector(".blockVideo");
+    const backgroundSource = block.dataset.backgroundVideo;
+
+    if (video) {
+        block.addEventListener("mouseenter", () => {
+            video.currentTime = 0;
+
+            video.play().catch(() => {
+                console.warn("Block preview could not play.");
+            });
+        });
+
+        block.addEventListener("mouseleave", () => {
+            video.pause();
+            video.currentTime = 0;
+        });
+    }
+
+    if (!backgroundSource) return;
+
+    block.addEventListener("mouseenter", () => {
+        clearTimeout(backgroundVideoTimer);
+
+        if (backgroundVideo.src !== new URL(backgroundSource, document.baseURI).href) {
+            backgroundVideo.src = backgroundSource;
+            backgroundVideo.load();
+        }
+
+        backgroundVideo.currentTime = 0;
+
+        backgroundVideo.play()
+            .then(() => {
+                backgroundVideo.classList.add("active");
+            })
+            .catch(() => {
+                console.warn("Background preview could not play.");
+            });
+    });
+
+    block.addEventListener("mouseleave", () => {
+        backgroundVideoTimer = setTimeout(() => {
+            backgroundVideo.pause();
+            backgroundVideo.classList.remove("active");
+        }, 150);
+    });
+});
+
 
 
 </script>
