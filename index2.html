@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>CiphAnon Safe Browser</title>
 <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 >
+
 <style>
 *{
     box-sizing:border-box;
@@ -26,8 +27,7 @@
     --white:#fff;
 }
 
-html,
-body{
+html,body{
     width:100%;
     height:100%;
     overflow:hidden;
@@ -72,8 +72,11 @@ body{
     pointer-events:none;
 }
 
+/* ADDED: subtle animated glow */
+
 .welcome::before{
     content:"";
+
     position:absolute;
 
     width:520px;
@@ -90,12 +93,15 @@ body{
         );
 
     filter:blur(20px);
+
     pointer-events:none;
 
-    animation:welcomeGlow 6s ease-in-out infinite;
+    animation:
+        welcomeGlow 6s ease-in-out infinite;
 }
 
 @keyframes welcomeGlow{
+
     0%,100%{
         transform:scale(.88);
         opacity:.55;
@@ -111,6 +117,7 @@ body{
     position:relative;
 
     width:min(560px,100%);
+
     padding:34px;
 
     border-radius:28px;
@@ -136,6 +143,8 @@ body{
     overflow:hidden;
 }
 
+/* ADDED: card shine */
+
 .welcomeCard::before{
     content:"";
 
@@ -156,12 +165,15 @@ body{
         );
 
     transform:rotate(20deg);
+
     pointer-events:none;
 
-    animation:welcomeShine 8s ease-in-out infinite;
+    animation:
+        welcomeShine 8s ease-in-out infinite;
 }
 
 @keyframes welcomeShine{
+
     0%,55%,100%{
         left:-70%;
     }
@@ -172,6 +184,7 @@ body{
 }
 
 @keyframes welcomeIn{
+
     from{
         opacity:0;
         transform:
@@ -191,6 +204,7 @@ body{
     display:flex;
     align-items:center;
     gap:16px;
+
     margin-bottom:28px;
 }
 
@@ -221,6 +235,7 @@ body{
     font-size:28px;
     font-weight:900;
 
+    /* ADDED */
     animation:
         welcomeLogoFloat 4s ease-in-out infinite;
 
@@ -231,6 +246,7 @@ body{
 }
 
 @keyframes welcomeLogoFloat{
+
     0%,100%{
         transform:translateY(0);
     }
@@ -240,6 +256,8 @@ body{
     }
 }
 
+/* ADDED */
+
 .welcomeLogo:hover{
     transform:translateY(-4px) scale(1.04);
 
@@ -248,14 +266,6 @@ body{
     box-shadow:
         0 16px 35px #000a,
         inset 0 1px 0 #ffffff22;
-}
-
-.welcomeLogo img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    object-position:center;
 }
 
 .welcomeTitle{
@@ -291,6 +301,7 @@ body{
 
 .welcomeIntro p{
     color:#8c8c8c;
+
     font-size:13px;
     line-height:1.7;
 }
@@ -298,21 +309,27 @@ body{
 .welcomeSections{
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:10px;
+
     margin-bottom:26px;
 }
 
 .welcomeSection{
     padding:16px;
+
     min-height:125px;
 
     border-radius:18px;
 
     background:#181818;
+
     border:1px solid #2e2e2e;
 
     box-shadow:
         inset 0 1px 0 #ffffff08;
+
+    /* ADDED */
 
     transition:
         transform .25s ease,
@@ -321,9 +338,13 @@ body{
         box-shadow .25s ease;
 }
 
+/* ADDED */
+
 .welcomeSection:hover{
     transform:translateY(-4px);
+
     background:#1b1b1b;
+
     border-color:#3b3b3b;
 
     box-shadow:
@@ -343,29 +364,40 @@ body{
     border-radius:11px;
 
     background:#242424;
+
     border:1px solid #383838;
+
     color:#ddd;
+
     font-size:15px;
+
+    /* ADDED */
 
     transition:
         transform .25s ease,
         background .25s ease;
 }
 
+/* ADDED */
+
 .welcomeSection:hover .welcomeIcon{
     transform:scale(1.08);
+
     background:#292929;
 }
 
 .welcomeSection h3{
     font-size:12px;
+
     text-transform:uppercase;
     letter-spacing:1px;
+
     margin-bottom:7px;
 }
 
 .welcomeSection p{
     color:#777;
+
     font-size:10px;
     line-height:1.55;
 }
@@ -376,12 +408,16 @@ body{
     justify-content:space-between;
 
     padding:14px 15px;
+
     margin-bottom:16px;
 
     border-radius:16px;
 
     background:#141414;
+
     border:1px solid #292929;
+
+    /* ADDED */
 
     transition:
         transform .25s ease,
@@ -389,9 +425,13 @@ body{
         background .25s ease;
 }
 
+/* ADDED */
+
 .creator:hover{
     transform:translateY(-2px);
+
     background:#171717;
+
     border-color:#353535;
 }
 
@@ -411,18 +451,24 @@ body{
     place-items:center;
 
     background:#252525;
+
     border:1px solid #3a3a3a;
 
     font-size:16px;
     font-weight:900;
+
+    /* ADDED */
 
     transition:
         transform .25s ease,
         background .25s ease;
 }
 
+/* ADDED */
+
 .creator:hover .creatorAvatar{
     transform:rotate(-3deg) scale(1.05);
+
     background:#292929;
 }
 
@@ -430,6 +476,7 @@ body{
     display:block;
 
     color:#666;
+
     font-size:8px;
 
     text-transform:uppercase;
@@ -445,8 +492,11 @@ body{
 
 .creatorStudio{
     color:#666;
+
     font-size:9px;
+
     text-align:right;
+
     letter-spacing:.5px;
 }
 
@@ -455,13 +505,16 @@ body{
     height:52px;
 
     border:1px solid #444;
+
     border-radius:15px;
 
     background:#eee;
+
     color:#111;
 
     font-size:12px;
     font-weight:850;
+
     letter-spacing:.3px;
 
     cursor:pointer;
@@ -474,6 +527,7 @@ body{
 
 .enterButton:hover{
     background:#fff;
+
     transform:translateY(-2px);
 
     box-shadow:
@@ -484,16 +538,21 @@ body{
     transform:scale(.98);
 }
 
+/* ADDED: don't show again */
+
 .welcomeRemember{
     display:flex;
     align-items:center;
     justify-content:center;
+
     gap:8px;
 
     margin-top:13px;
 
     color:#505050;
+
     font-size:8px;
+
     letter-spacing:.5px;
 
     user-select:none;
@@ -508,9 +567,11 @@ body{
     border-radius:4px;
 
     border:1px solid #383838;
+
     background:#151515;
 
     cursor:pointer;
+
     position:relative;
 
     transition:
@@ -520,6 +581,7 @@ body{
 
 .welcomeRemember input:checked{
     background:#ddd;
+
     border-color:#ddd;
 }
 
@@ -527,11 +589,14 @@ body{
     content:"✓";
 
     position:absolute;
+
     left:3px;
     top:-1px;
 
     color:#111;
+
     font-size:10px;
+
     font-weight:900;
 }
 
@@ -543,102 +608,31 @@ body{
     text-align:center;
 
     color:#505050;
+
     font-size:8px;
+
     letter-spacing:1px;
+
     text-transform:uppercase;
 
     margin-top:13px;
 }
 
-
-/* ============================================================
-   HOVER VIDEO BACKGROUND
-============================================================ */
-
-.hoverVideoBackground{
-    position:fixed;
-    inset:0;
-
-    z-index:1;
-
-    overflow:hidden;
-    pointer-events:none;
-
-    opacity:0;
-    visibility:hidden;
-
-    background:#050505;
-
-    transition:
-        opacity .55s ease,
-        visibility .55s ease;
-}
-
-.hoverVideoBackground.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.hoverVideoBackground video{
-    position:absolute;
-    inset:-5%;
-
-    width:110%;
-    height:110%;
-
-    object-fit:cover;
-
-    filter:
-        blur(22px)
-        brightness(.35)
-        saturate(.8)
-        contrast(.9);
-
-    transform:scale(1.08);
-    opacity:.72;
-}
-
-.hoverVideoBackground::after{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.48)
-        ),
-        radial-gradient(
-            circle at center,
-            transparent 0%,
-            rgba(0,0,0,.42) 75%,
-            rgba(0,0,0,.8) 100%
-        );
-}
-
-
-/* ============================================================
-   NORMAL BACKGROUND
-============================================================ */
+/* =========================
+   BACKGROUND
+========================= */
 
 .bg{
     position:fixed;
     inset:0;
-
-    z-index:2;
-
     overflow:hidden;
     pointer-events:none;
 }
 
 .bg::before{
     content:"";
-
     position:absolute;
     inset:0;
-
     background:
         radial-gradient(
             circle at 50% 45%,
@@ -651,7 +645,6 @@ body{
 .grid{
     position:absolute;
     inset:-20%;
-
     opacity:.16;
 
     background-image:
@@ -671,17 +664,14 @@ body{
 .noise{
     position:absolute;
     inset:0;
-
     opacity:.035;
 
-    background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-
-/* ============================================================
+/* =========================
    CENTER
-============================================================ */
+========================= */
 
 .center{
     position:absolute;
@@ -697,6 +687,7 @@ body{
     );
 
     z-index:500;
+
     pointer-events:none;
 }
 
@@ -724,23 +715,9 @@ body{
     letter-spacing:.4px;
 }
 
-.SafeBucketLogo{
-    display:block;
-    object-fit:contain;
-    object-position:center;
-
-    margin:0 auto 16px;
-
-    border-radius:20px;
-
-    height:110px;
-    width:110px;
-}
-
-
-/* ============================================================
+/* =========================
    SEARCH
-============================================================ */
+========================= */
 
 .search{
     height:62px;
@@ -750,13 +727,13 @@ body{
     border:1px solid #383838;
 
     background:#191919e8;
+
     backdrop-filter:blur(22px);
 
     display:flex;
     align-items:center;
 
     padding:7px;
-    gap:8px;
 
     box-shadow:
         0 25px 70px #0009,
@@ -765,6 +742,8 @@ body{
     pointer-events:auto;
 
     transition:.25s ease;
+
+    gap:8px;
 }
 
 .search:focus-within{
@@ -797,6 +776,7 @@ body{
     color:#eee;
 
     font-size:14px;
+
     min-width:0;
 }
 
@@ -816,6 +796,7 @@ body{
     color:#eee;
 
     font-weight:700;
+
     cursor:pointer;
 
     transition:.2s;
@@ -826,10 +807,9 @@ body{
     transform:translateY(-1px);
 }
 
-
-/* ============================================================
+/* =========================
    PHYSICS WORLD
-============================================================ */
+========================= */
 
 .world{
     position:fixed;
@@ -840,10 +820,9 @@ body{
     pointer-events:none;
 }
 
-
-/* ============================================================
+/* =========================
    BLOCKS
-============================================================ */
+========================= */
 
 .block{
     position:absolute;
@@ -852,6 +831,7 @@ body{
     height:148px;
 
     border-radius:27px;
+
     padding:8px;
 
     background:
@@ -873,26 +853,135 @@ body{
     touch-action:none;
 
     cursor:grab;
+
     pointer-events:auto;
+
+    overflow: hidden;
+
+   /* will-change:transform; */
 
     transition:
         border-color .2s ease,
-        box-shadow .2s ease,
-        filter .25s ease;
+        box-shadow .2s ease;
 }
 
-.block:hover{
-    border-color:#fff;
+.blockVideo {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+
+    opacity: 0;
+    transform: scale(1.12);
+
+    filter: blur(7px) brightness(.48) saturate(.85);
+
+    pointer-events: none;
+
+    transition:
+        opacity .35s ease,
+        transform .45s ease;
+
+    z-index: 0;
+}
+
+
+/* Dark overlay above the video */
+.block::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        145deg,
+        #0003,
+        #0008
+    );
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity .35s ease;
+
+    z-index: 1;
+}
+
+
+/* Show the video when hovering */
+.block:hover .blockVideo {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.block:hover::after {
+    opacity: 1;
+}
+
+/* Keep the image and label above the video */
+.block img,
+.blockLabel {
+    position: relative;
+    z-index: 2;
+}
+
+.block img {
+    transition:
+        opacity .35s ease,
+        filter .35s ease;
+}
+
+.block:hover img {
+    opacity: .18;
+    filter: blur(2px);
+}
+
+.blockLabel {
+    transition:
+        background .25s ease,
+        transform .25s ease;
+}
+
+.block:hover .blockLabel {
+    background: #000b;
+    transform: translateY(-2px);
+}
+
+
+.block:hover {
+    border-color: #fff;
 
     box-shadow:
         0 22px 45px #000,
         0 0 0 2px #ffffff33;
+}
 
-    filter:brightness(1.12);
+
+
+.block::before{
+    content:"";
+
+    position:absolute;
+
+    inset:7px;
+
+    border-radius:20px;
+
+    border:1px solid #ffffff0b;
+
+    pointer-events:none;
 }
 
 .block.dragging{
     cursor:grabbing;
+
     z-index:900;
 
     box-shadow:
@@ -901,26 +990,17 @@ body{
         inset 0 1px 0 #ffffff20;
 }
 
-.block::before{
-    content:"";
-
-    position:absolute;
-    inset:7px;
-
-    border-radius:20px;
-    border:1px solid #ffffff0b;
-
-    pointer-events:none;
-}
-
 .block img{
     width:100%;
     height:100%;
 
     object-fit:cover;
+
     border-radius:20px;
 
-    filter:contrast(.9);
+    filter:
+        contrast(.9);
+
     opacity:.8;
 
     pointer-events:none;
@@ -930,14 +1010,15 @@ body{
     position:absolute;
 
     left:16px;
-    right:16px;
     bottom:15px;
+    right:16px;
 
     padding:7px 9px;
 
     border-radius:9px;
 
     background:#090909aa;
+
     border:1px solid #ffffff0c;
 
     backdrop-filter:blur(10px);
@@ -945,22 +1026,25 @@ body{
     color:#eee;
 
     font-size:9px;
+
     font-weight:800;
 
     letter-spacing:1.5px;
+
     text-transform:uppercase;
+
     text-align:center;
 
     pointer-events:none;
 }
 
-
-/* ============================================================
+/* =========================
    BROWSER OVERLAY
-============================================================ */
+========================= */
 
 .browser{
     position:fixed;
+
     inset:14px;
 
     z-index:5000;
@@ -968,6 +1052,7 @@ body{
     background:#111;
 
     border:1px solid #383838;
+
     border-radius:13.5px;
 
     box-shadow:
@@ -976,15 +1061,19 @@ body{
     overflow:hidden;
 
     display:none;
+
     flex-direction:column;
 }
 
 .browser.open{
     display:flex;
-    animation:browserIn .25s ease;
+
+    animation:
+        browserIn .25s ease;
 }
 
 @keyframes browserIn{
+
     from{
         opacity:0;
         transform:scale(.97);
@@ -1003,11 +1092,13 @@ body{
 
     display:flex;
     align-items:center;
+
     gap:8px;
 
     padding:7px 9px;
 
     background:#181818;
+
     border-bottom:1px solid #2d2d2d;
 }
 
@@ -1016,9 +1107,11 @@ body{
     height:40px;
 
     border-radius:12px;
+
     border:1px solid #333;
 
     background:#222;
+
     color:#aaa;
 
     cursor:pointer;
@@ -1029,18 +1122,36 @@ body{
     color:white;
 }
 
+.browserAddress{
+    flex:1;
+
+    height:0px;
+
+    border-radius:12px;
+
+    background:#101010;
+
+    color:#aaa;
+
+    padding:0 14px;
+
+    font-size:12px;
+
+    outline:none;
+}
+
 .browser iframe{
     width:100%;
     height:100%;
 
     border:0;
+
     background:white;
 }
 
-
-/* ============================================================
+/* =========================
    FOOTER
-============================================================ */
+========================= */
 
 .hint{
     position:fixed;
@@ -1055,10 +1166,13 @@ body{
     color:#555;
 
     font-size:9px;
+
     letter-spacing:1.3px;
+
     text-transform:uppercase;
 
     pointer-events:none;
+
     white-space:nowrap;
 }
 
@@ -1066,924 +1180,32 @@ kbd{
     display:inline-block;
 
     margin:0 3px;
+
     padding:3px 6px;
 
     border-radius:5px;
+
     border:1px solid #303030;
 
     background:#191919;
+
     color:#777;
 }
 
-
-/* ============================================================
-   LOADING SCREEN
-============================================================ */
-
-.loadingScreen{
-    position:fixed;
-    inset:0;
-
-    z-index:10000;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #252525,
-            #090909 75%
-        );
-
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    transition:
-        opacity .3s ease,
-        visibility .3s ease;
-}
-
-.loadingScreen.active{
-    opacity:1;
-    visibility:visible;
-    pointer-events:auto;
-}
-
-.loadingCard{
-    width:min(420px,calc(100% - 36px));
-    padding:32px 26px;
-
-    text-align:center;
-
-    border:1px solid #3a3a3a;
-    border-radius:24px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #202020,
-            #111
-        );
-
-    box-shadow:
-        0 30px 100px #000,
-        inset 0 1px 0 #ffffff12;
-
-    animation:loadingCardIn .35s ease;
-}
-
-@keyframes loadingCardIn{
-    from{
-        opacity:0;
-        transform:translateY(15px) scale(.96);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
-
-.loadingLogo{
-    width:76px;
-    height:76px;
-
-    margin:0 auto 20px;
-    padding:10px;
-
-    border:1px solid #444;
-    border-radius:22px;
-
-    background:#181818;
-
-    box-shadow:
-        0 12px 35px #0009,
-        inset 0 1px 0 #ffffff15;
-
-    animation:loadingFloat 2.5s ease-in-out infinite;
-}
-
-.loadingLogo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-@keyframes loadingFloat{
-    0%,100%{
-        transform:translateY(0) rotate(0deg);
-    }
-
-    50%{
-        transform:translateY(-6px) rotate(3deg);
-    }
-}
-
-.loadingTitle{
-    margin-bottom:10px;
-
-    color:#eee;
-    font-size:18px;
-    font-weight:800;
-    letter-spacing:-.4px;
-}
-
-.loadingMessage{
-    min-height:20px;
-
-    color:#888;
-    font-size:11px;
-    letter-spacing:.4px;
-
-    transition:opacity .2s ease;
-}
-
-.loadingBar{
-    position:relative;
-
-    width:100%;
-    height:6px;
-
-    margin-top:25px;
-
-    overflow:hidden;
-    border-radius:10px;
-    background:#2b2b2b;
-}
-
-.loadingBar::after{
-    content:"";
-
-    position:absolute;
-    top:0;
-    left:-35%;
-
-    width:35%;
-    height:100%;
-
-    border-radius:10px;
-    background:#eee;
-
-    animation:loadingBarMove 1.1s ease-in-out infinite;
-}
-
-@keyframes loadingBarMove{
-    from{
-        left:-35%;
-    }
-
-    to{
-        left:100%;
-    }
-}
-
-
-/* ============================================================
-   INFORMATION PANEL
-============================================================ */
-
-.infoButton{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-
-    z-index:9999;
-
-    width:42px;
-    height:42px;
-
-    border-radius:13px;
-    border:1px solid #383838;
-
-    background:#171717dd;
-    color:#aaa;
-
-    font-size:18px;
-    font-weight:700;
-
-    cursor:pointer;
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        0 10px 30px #0008,
-        inset 0 1px 0 #ffffff0b;
-
-    transition:
-        transform .2s ease,
-        color .2s ease,
-        background .2s ease,
-        border-color .2s ease;
-}
-
-.infoButton:hover{
-    transform:translateY(-2px) scale(1.05);
-    color:#fff;
-    background:#222;
-    border-color:#fff;
-}
-
-.infoOverlay{
-    position:fixed;
-    inset:0;
-
-    z-index:8000;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:20px;
-
-    background:#0000000a;
-    backdrop-filter:blur(12px);
-
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    transition:
-        opacity .25s ease,
-        visibility .25s ease;
-}
-
-.infoOverlay.open{
-    opacity:1;
-    visibility:visible;
-    pointer-events:auto;
-}
-
-.infoPanel{
-    position:relative;
-
-    width:min(470px,100%);
-    padding:28px;
-
-    border-radius:24px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #202020,
-            #141414
-        );
-
-    border:1px solid #3b3b3b;
-
-    box-shadow:
-        0 35px 100px #000;
-
-    transform:scale(.95) translateY(10px);
-
-    transition:
-        transform .3s cubic-bezier(.2,.8,.2,1);
-}
-
-.infoOverlay.open .infoPanel{
-    transform:scale(1) translateY(0);
-}
-
-.infoClose{
-    position:absolute;
-    top:15px;
-    right:15px;
-
-    width:36px;
-    height:36px;
-
-    border-radius:11px;
-    border:1px solid #333;
-
-    background:#1a1a1a;
-    color:#888;
-
-    cursor:pointer;
-    font-size:14px;
-}
-
-.infoClose:hover{
-    color:#fff;
-    background:#292929;
-    border-color:#555;
-}
-
-.infoPanel h2{
-    margin-bottom:8px;
-    color:#eee;
-    font-size:22px;
-}
-
-.infoPanel > p{
-    margin-bottom:20px;
-    color:#777;
-    font-size:11px;
-    line-height:1.7;
-}
-
-.infoList{
-    display:grid;
-    gap:9px;
-}
-
-.infoItem{
-    padding:13px 14px;
-
-    border-radius:14px;
-
-    background:#181818;
-    border:1px solid #2c2c2c;
-}
-
-.infoItem strong{
-    display:block;
-
-    margin-bottom:5px;
-
-    color:#eee;
-    font-size:10px;
-
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.infoItem span{
-    color:#777;
-    font-size:10px;
-    line-height:1.5;
-}
-
-
-/* ============================================================
-   DATE AND TIME
-============================================================ */
-
-.dateTime{
-    position:fixed;
-
-    left:18px;
-    bottom:18px;
-
-    z-index:9999;
-
-    padding:10px 13px;
-
-    border-radius:12px;
-    background:#151515cc;
-    border:1px solid #303030;
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        0 10px 30px #0007,
-        inset 0 1px 0 #ffffff08;
-
-    color:#888;
-    font-size:9px;
-    line-height:1.45;
-    letter-spacing:.5px;
-
-    pointer-events:auto;
-    user-select:none;
-
-    transform-origin:bottom left;
-
-    transition:
-        transform .25s ease,
-        color .25s ease,
-        background .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
-}
-
-.dateTime:hover{
-    transform:scale(2.5);
-
-    color:#fff;
-    background:#222;
-    border-color:#fff;
-
-    box-shadow:
-        0 18px 45px #000,
-        0 0 0 2px #ffffff22;
-}
-
-.dateTime strong{
-    display:block;
-
-    color:#ddd;
-    font-size:10px;
-    font-weight:700;
-}
-
-.dateTime:hover strong{
-    color:#fff;
-}
-
-
-/* ============================================================
-   RANDOM ADS
-============================================================ */
-
-.randomAd{
-    position:fixed;
-
-    left:50%;
-    bottom:25px;
-
-    z-index:9500;
-
-    width:min(350px,calc(100% - 30px));
-    padding:20px;
-
-    transform:translateX(-50%) translateY(35px);
-
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    border:1px solid #555;
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #292929,
-            #111
-        );
-
-    color:#fff;
-
-    box-shadow:
-        0 20px 70px #000c,
-        inset 0 1px 0 #ffffff15;
-
-    transition:
-        opacity .35s ease,
-        transform .35s ease,
-        visibility .35s ease;
-}
-
-.randomAd.show{
-    opacity:1;
-    visibility:visible;
-    pointer-events:auto;
-
-    transform:translateX(-50%) translateY(0);
-}
-
-.randomAd h3{
-    margin:8px 0;
-
-    color:#fff;
-    font-size:20px;
-    letter-spacing:-.5px;
-}
-
-.randomAd p{
-    margin-bottom:15px;
-
-    color:#aaa;
-    font-size:12px;
-    line-height:1.5;
-}
-
-.adLabel{
-    color:#888;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
-
-.closeRandomAd{
-    position:absolute;
-    top:8px;
-    right:10px;
-
-    width:28px;
-    height:28px;
-
-    border:0;
-    border-radius:8px;
-
-    background:transparent;
-    color:#aaa;
-
-    font-size:20px;
-    cursor:pointer;
-}
-
-.closeRandomAd:hover{
-    background:#ffffff12;
-    color:#fff;
-}
-
-.randomAdButton{
-    padding:10px 15px;
-
-    border:0;
-    border-radius:10px;
-
-    background:#fff;
-    color:#111;
-
-    font-size:11px;
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:
-        transform .2s ease,
-        background .2s ease;
-}
-
-.randomAdButton:hover{
-    background:#ddd;
-    transform:translateY(-2px);
-}
-
-
-/* ============================================================
-   CONTROL PANEL
-============================================================ */
-
-#controlPanelToggle{
-    min-width:40px;
-    height:38px;
-    padding:0 12px;
-
-    border:1px solid #555;
-    border-radius:9px;
-
-    background:#111;
-    color:#fff;
-
-    font-weight:700;
-    cursor:pointer;
-
-    transition:
-        background .2s,
-        border-color .2s;
-}
-
-#controlPanelToggle:hover{
-    background:#252525;
-    border-color:#fff;
-}
-
-#controlPanel{
-    position:absolute;
-    top:66px;
-    right:12px;
-
-    z-index:9999;
-
-    width:min(320px,calc(100% - 24px));
-    padding:16px;
-
-    background:#080808;
-    color:#fff;
-
-    border:1px solid #555;
-    border-radius:14px;
-
-    box-shadow:0 12px 40px #000b;
-
-    font-family:Inter,Arial,sans-serif;
-
-    display:none;
-}
-
-#controlPanel.visible{
-    display:block;
-    animation:controlPanelIn .18s ease-out;
-}
-
-@keyframes controlPanelIn{
-    from{
-        opacity:0;
-        transform:translateY(-6px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.controlHeader{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    margin-bottom:14px;
-}
-
-.controlHeader h3{
-    margin:0;
-    font-size:16px;
-    letter-spacing:.3px;
-}
-
-#controlPanelClose{
-    width:30px;
-    height:30px;
-
-    background:transparent;
-    color:#aaa;
-
-    border:1px solid #444;
-    border-radius:7px;
-
-    cursor:pointer;
-}
-
-#controlPanelClose:hover{
-    color:white;
-    border-color:white;
-}
-
-.controlStatus{
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    padding:10px;
-    margin-bottom:14px;
-
-    background:#111;
-    border:1px solid #292929;
-    border-radius:9px;
-
-    font-size:12px;
-    color:#bbb;
-}
-
-.controlStatusDot{
-    width:8px;
-    height:8px;
-
-    flex-shrink:0;
-
-    border-radius:50%;
-    background:#777;
-}
-
-.controlStatusDot.active{
-    background:#7dff9a;
-    box-shadow:0 0 10px #7dff9a77;
-}
-
-.controlSection{
-    margin-top:14px;
-}
-
-.controlSectionTitle{
-    margin-bottom:8px;
-
-    color:#999;
-    font-size:10px;
-    font-weight:800;
-
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
-
-.controlGrid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:7px;
-}
-
-.controlKey,
-.controlAction{
-    min-height:42px;
-    padding:9px 6px;
-
-    color:#fff;
-    background:#151515;
-
-    border:1px solid #393939;
-    border-radius:8px;
-
-    font-size:12px;
-    font-weight:700;
-
-    cursor:pointer;
-    user-select:none;
-    touch-action:manipulation;
-}
-
-.controlKey:hover,
-.controlAction:hover{
-    background:#252525;
-    border-color:#aaa;
-}
-
-.controlKey:active,
-.controlAction:active{
-    background:#333;
-}
-
-.controlKey:disabled,
-.controlAction:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-}
-
-.controlWide{
-    grid-column:span 3;
-}
-
-.controlInputRow{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-#autoClickInterval{
-    width:100%;
-    min-width:0;
-    height:40px;
-
-    padding:0 10px;
-
-    background:#111;
-    color:white;
-
-    border:1px solid #393939;
-    border-radius:8px;
-
-    outline:none;
-}
-
-#autoClickInterval:focus{
-    border-color:white;
-}
-
-#autoClickStart{
-    background:#f3f3f3;
-    color:#080808;
-    border-color:white;
-    white-space:nowrap;
-}
-
-#autoClickStart.running{
-    background:#222;
-    color:white;
-    border-color:#777;
-}
-
-.controlStats{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-
-    padding:11px 0 2px;
-
-    font-size:12px;
-    color:#aaa;
-}
-
-.controlStats strong{
-    color:white;
-    font-variant-numeric:tabular-nums;
-}
-
-.controlNotice{
-    margin-top:13px;
-    padding:10px;
-
-    background:#101010;
-    border-left:2px solid #777;
-
-    color:#999;
-    font-size:11px;
-    line-height:1.5;
-}
-
-.controlShortcuts{
-    margin-top:12px;
-
-    color:#777;
-    font-size:11px;
-    line-height:1.8;
-}
-
-.controlShortcuts kbd{
-    padding:2px 5px;
-
-    background:#191919;
-    border:1px solid #383838;
-    border-radius:4px;
-
-    color:#ddd;
-}
-
-
-/* ============================================================
-   ONLINE COUNTER
-============================================================ */
-
-.online-counter{
-    position:fixed;
-
-    top:25px;
-    right:25px;
-
-    z-index:7500;
-
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-
-    padding:9px 14px;
-
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:12px;
-
-    background:rgba(23,23,23,.9);
-    color:#fff;
-
-    font-size:12px;
-    font-weight:600;
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.45),
-        inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-.online-dot{
-    width:9px;
-    height:9px;
-
-    flex-shrink:0;
-
-    border-radius:50%;
-    background:#35e879;
-    box-shadow:0 0 10px #35e879;
-}
-
-#onlineCount{
-    color:#72f5a1;
-    font-weight:800;
-}
-
-
-/* ============================================================
-   DISCORD
-============================================================ */
-
-.discordButton{
-    position:fixed;
-
-    right:18px;
-    bottom:70px;
-
-    z-index:9999;
-
-    width:42px;
-    height:42px;
-
-    display:grid;
-    place-items:center;
-
-    border:1px solid #383838;
-    border-radius:13px;
-
-    background:#171717dd;
-    color:#fff;
-
-    font-size:20px;
-    text-decoration:none;
-
-    backdrop-filter:blur(12px);
-
-    transition:.2s ease;
-}
-
-.discordButton:hover{
-    transform:translateY(-2px) scale(1.05);
-    background:#5865f2;
-    border-color:#5865f2;
-}
-
-
-/* ============================================================
+/* =========================
    MOBILE
-============================================================ */
+========================= */
 
 @media(max-width:700px){
+
     .welcome{
         padding:14px;
+        z-index: 10000;
     }
 
     .welcomeCard{
         padding:23px;
+
         border-radius:24px;
 
         max-height:calc(100vh - 28px);
@@ -1997,6 +1219,7 @@ kbd{
     .welcomeLogo{
         width:54px;
         height:54px;
+
         border-radius:16px;
     }
 
@@ -2052,7 +1275,9 @@ kbd{
     .block{
         width:116px;
         height:116px;
+
         border-radius:23px;
+
         padding:7px;
     }
 
@@ -2064,704 +1289,1414 @@ kbd{
         bottom:10px;
         font-size:7px;
     }
-
-    .dateTime{
-        left:10px;
-        bottom:10px;
-        padding:8px 10px;
-        font-size:8px;
+}
+    .SafeBucketLogo {
+        display:block;
+        object-fit:contain;
+        object-position:center;
+        margin:0 auto 16px;
+        border-radius:20px;
+        height:110px;
+        width:110px;
+            
     }
 
-    .dateTime strong{
-        font-size:9px;
+    .welcomeLogo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.bannerBlock{
+position:absolute;
+width:300px;
+height:80px;
+right: -90px;
+margin-bottom:20px;
+background:white;
+border-radius:50px 50px 25px 25px;
+overflow:hidden;
+
+transform: rotate(50deg);
+
+
+}
+
+/* =========================
+   LOADING SCREEN
+========================= */
+
+.loadingScreen{
+    position:fixed;
+    inset:0;
+
+    z-index:10000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(circle at center, #252525, #090909 75%);
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+}
+
+.loadingScreen.active{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.loadingCard{
+    width:min(420px, calc(100% - 36px));
+    padding:32px 26px;
+
+    text-align:center;
+
+    border:1px solid #3a3a3a;
+    border-radius:24px;
+
+    background:
+        linear-gradient(145deg, #202020, #111);
+
+    box-shadow:
+        0 30px 100px #000,
+        inset 0 1px 0 #ffffff12;
+
+    animation:loadingCardIn .35s ease;
+}
+
+@keyframes loadingCardIn{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.96);
     }
 
-    .dateTime:hover{
-        transform:scale(2);
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.loadingLogo{
+    width:76px;
+    height:76px;
+
+    margin:0 auto 20px;
+
+    padding:10px;
+
+    border:1px solid #444;
+    border-radius:22px;
+
+    background:#181818;
+
+    box-shadow:
+        0 12px 35px #0009,
+        inset 0 1px 0 #ffffff15;
+
+    animation:loadingFloat 2.5s ease-in-out infinite;
+}
+
+.loadingLogo img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+}
+
+@keyframes loadingFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
     }
 
-    .online-counter{
-        top:12px;
-        right:12px;
-        padding:8px 11px;
-        font-size:10px;
+    50%{
+        transform:translateY(-6px) rotate(3deg);
+    }
+}
+
+.loadingTitle{
+    margin-bottom:10px;
+
+    color:#eee;
+
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-.4px;
+}
+
+.loadingMessage{
+    min-height:20px;
+
+    color:#888;
+
+    font-size:11px;
+    letter-spacing:.4px;
+
+    transition:opacity .2s ease;
+}
+
+.loadingBar{
+    position:relative;
+
+    width:100%;
+    height:6px;
+
+    margin-top:25px;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+    background:#2b2b2b;
+}
+
+.loadingBar::after{
+    content:"";
+
+    position:absolute;
+    top:0;
+    left:-35%;
+
+    width:35%;
+    height:100%;
+
+    border-radius:10px;
+
+    background:#eee;
+
+    animation:loadingBarMove 1.1s ease-in-out infinite;
+}
+
+@keyframes loadingBarMove{
+    from{
+        left:-35%;
     }
 
-    .randomAd{
-        bottom:15px;
-        padding:17px;
+    to{
+        left:100%;
     }
+}
 
-    .hoverVideoBackground video{
-        filter:
-            blur(18px)
-            brightness(.3)
-            saturate(.75);
+/* CSS */
+.infoButton {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9999;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    border: 1px solid #383838;
+    background: #171717dd;
+    color: #aaa;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px #0008, inset 0 1px 0 #ffffff0b;
+    transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.infoButton:hover {
+    transform: translateY(-2px) scale(1.05);
+    color: #fff;
+    background: #222;
+    border-color: #fff;
+}
+
+.infoOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #0000000a;
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.infoOverlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.infoPanel {
+    position: relative;
+    width: min(470px, 100%);
+    padding: 28px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #202020, #141414);
+    border: 1px solid #3b3b3b;
+    box-shadow: 0 35px 100px #000;
+    transform: scale(.95) translateY(10px);
+    transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+}
+
+.infoOverlay.open .infoPanel {
+    transform: scale(1) translateY(0);
+}
+
+.infoClose {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #888;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.infoClose:hover {
+    color: #fff;
+    background: #292929;
+    border-color: #555;
+}
+
+.infoPanel h2 {
+    margin-bottom: 8px;
+    color: #eee;
+    font-size: 22px;
+}
+
+.infoPanel > p {
+    margin-bottom: 20px;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.infoList {
+    display: grid;
+    gap: 9px;
+}
+
+.infoItem {
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: #181818;
+    border: 1px solid #2c2c2c;
+}
+
+.infoItem strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #eee;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.infoItem span {
+    color: #777;
+    font-size: 10px;
+    line-height: 1.5;
+}
+/*datetime css*/
+.dateTime {
+position: fixed;
+left: 18px;
+bottom: 18px;
+z-index: 9999;
+padding: 10px 13px;
+border-radius: 12px;
+
+background: #151515cc;
+border: 1px solid #303030;
+
+backdrop-filter: blur(12px);
+
+box-shadow:
+    0 10px 30px #0007,
+    inset 0 1px 0 #ffffff08;
+
+color: #888;
+font-size: 9px;
+line-height: 1.45;
+letter-spacing: .5px;
+
+pointer-events: auto;
+user-select: none;
+
+transform-origin: bottom left;
+transition:
+    transform .25s ease,
+    color .25s ease,
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+
+}
+.dateTime:hover {
+transform: scale(2.5);
+color: #fff;
+background: #222;
+border-color: #fff;
+box-shadow:
+    0 18px 45px #000,
+    0 0 0 2px #ffffff22;
+
+}
+.dateTime strong {
+display: block;
+color: #ddd;
+font-size: 10px;
+font-weight: 700;
+}
+.dateTime:hover strong {
+color: #fff;
+}
+@media (max-width: 700px) {
+.dateTime {
+left: 10px;
+bottom: 10px;
+padding: 8px 10px;
+font-size: 8px;
+}
+.dateTime strong {
+    font-size: 9px;
+}
+
+.dateTime:hover {
+    transform: scale(2);
+}
+
+}
+
+/* =========================
+   RANDOM AD SYSTEM
+========================= */
+
+.randomAd {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    z-index: 9500;
+
+    width: min(350px, calc(100% - 30px));
+    padding: 20px;
+
+    transform: translateX(-50%) translateY(35px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    border: 1px solid #555;
+    border-radius: 20px;
+
+    background:
+        linear-gradient(145deg, #292929, #111);
+
+    color: #fff;
+
+    box-shadow:
+        0 20px 70px #000c,
+        inset 0 1px 0 #ffffff15;
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease,
+        visibility .35s ease;
+}
+
+.randomAd.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.randomAd h3 {
+    margin: 8px 0;
+
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: -.5px;
+}
+
+.randomAd p {
+    margin-bottom: 15px;
+
+    color: #aaa;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.adLabel {
+    color: #888;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.closeRandomAd {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+
+    width: 28px;
+    height: 28px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #aaa;
+
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.closeRandomAd:hover {
+    background: #ffffff12;
+    color: #fff;
+}
+
+.randomAdButton {
+    padding: 10px 15px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #fff;
+    color: #111;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.randomAdButton:hover {
+    background: #ddd;
+    transform: translateY(-2px);
+}
+
+@media(max-width:700px) {
+    .randomAd {
+        bottom: 15px;
+        padding: 17px;
     }
 }
 
 
-/* Hide the normal cursor */
+/* ==============================
+   CIPHANON CONTROL PANEL
+============================== */
+
+#controlPanelToggle {
+    min-width: 40px;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #555;
+    border-radius: 9px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+}
+
+#controlPanelToggle:hover {
+    background: #252525;
+    border-color: #fff;
+}
+
+#controlPanel {
+    position: absolute;
+    top: 66px;
+    right: 12px;
+    z-index: 9999;
+    width: min(320px, calc(100% - 24px));
+    padding: 16px;
+    background: #080808;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px #000b;
+    font-family: Inter, Arial, sans-serif;
+    display: none;
+}
+
+#controlPanel.visible {
+    display: block;
+    animation: controlPanelIn .18s ease-out;
+}
+
+@keyframes controlPanelIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.controlHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.controlHeader h3 {
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: .3px;
+}
+
+#controlPanelClose {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #444;
+    border-radius: 7px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#controlPanelClose:hover {
+    color: white;
+    border-color: white;
+}
+
+.controlStatus {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    margin-bottom: 14px;
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    font-size: 12px;
+    color: #bbb;
+}
+
+.controlStatusDot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #777;
+}
+
+.controlStatusDot.active {
+    background: #7dff9a;
+    box-shadow: 0 0 10px #7dff9a77;
+}
+
+.controlSection {
+    margin-top: 14px;
+}
+
+.controlSectionTitle {
+    margin-bottom: 8px;
+    color: #999;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.controlGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+}
+
+.controlKey,
+.controlAction {
+    min-height: 42px;
+    padding: 9px 6px;
+    color: #fff;
+    background: #151515;
+    border: 1px solid #393939;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+.controlKey:hover,
+.controlAction:hover {
+    background: #252525;
+    border-color: #aaa;
+}
+
+.controlKey:active,
+.controlAction:active {
+    background: #333;
+}
+
+.controlKey:disabled,
+.controlAction:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.controlWide {
+    grid-column: span 3;
+}
+
+.controlInputRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#autoClickInterval {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 10px;
+    background: #111;
+    color: white;
+    border: 1px solid #393939;
+    border-radius: 8px;
+    outline: none;
+}
+
+#autoClickInterval:focus {
+    border-color: white;
+}
+
+#autoClickStart {
+    background: #f3f3f3;
+    color: #080808;
+    border-color: white;
+    white-space: nowrap;
+}
+
+#autoClickStart.running {
+    background: #222;
+    color: white;
+    border-color: #777;
+}
+
+.controlStats {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 0 2px;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.controlStats strong {
+    color: white;
+    font-variant-numeric: tabular-nums;
+}
+
+.controlNotice {
+    margin-top: 13px;
+    padding: 10px;
+    background: #101010;
+    border-left: 2px solid #777;
+    color: #999;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.controlShortcuts {
+    margin-top: 12px;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.controlShortcuts kbd {
+    padding: 2px 5px;
+    background: #191919;
+    border: 1px solid #383838;
+    border-radius: 4px;
+    color: #ddd;
+}
+
+@media (max-width: 480px) {
+    #controlPanel {
+        top: 62px;
+        right: 8px;
+        width: min(300px, calc(100% - 16px));
+    }
+}
+
+.online-counter {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 7500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    background: rgba(23, 23, 23, 0.9);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.online-dot {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background: #35e879;
+    box-shadow: 0 0 10px #35e879;
+}
+
+#onlineCount {
+    color: #72f5a1;
+    font-weight: 800;
+}
+
+@media (max-width: 700px) {
+    .online-counter {
+        top: 12px;
+        right: 12px;
+        padding: 8px 11px;
+        font-size: 10px;
+    }
+}
+/* discord css */
+    .discordButton {
+    position: fixed;
+    right: 18px;
+    bottom: 70px;
+    z-index: 9999;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #383838;
+    border-radius: 13px;
+    background: #171717dd;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    transition: .2s ease;
+}
+
+.discordButton:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: #5865f2;
+    border-color: #5865f2;
+}
+
+.above {
+    position: absolute;
+    /* rotate: 347deg; */
+    right: 55px;
+    top: 280px;
+    z-index: 2;
+}
+
+  .ctrlBlur {
+    position: absolute;
+    background-color: black;
+    opacity: .85;
+    height: 615px;
+    width: 305px;
+    top: 15px;
+    right: 13px;
+    z-index: 1;
+}
+
+  
+/* Hide the normal cursor on the website */
 html,
 body,
-body *{
-    cursor:none !important;
+body * {
+  cursor: none !important;
 }
 
-#custom-cursor{
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:15px;
-    height:15px;
-
-    background:#35e879;
-    border:1px solid rgba(0,0,0,.35);
-    border-radius:50%;
-
-    pointer-events:none;
-    z-index:999999;
-
-    transform:translate(-50%,-50%);
+#custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background: #35e879;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
 }
 
-@media(prefers-reduced-motion:reduce){
-    .hoverVideoBackground,
-    .hoverVideoBackground video{
-        transition:none;
-    }
-}
 </style>
 </head>
+
 <body>
-<!-- HOVER VIDEO BACKGROUND -->
-<div
-    class="hoverVideoBackground"
-    id="hoverVideoBackground"
-    aria-hidden="true"
->
-    <video
-        id="hoverVideo"
-        muted
-        loop
-        playsinline
-        preload="metadata"
-    ></video>
+
+    <div class="online-counter" aria-live="polite">
+  <span class="online-dot"></span>
+  <span id="onlineCount">0</span> visitors online
 </div>
-<!-- ONLINE COUNTER -->
-<div class="online-counter" aria-live="polite">
-    <span class="online-dot"></span>
-    <span id="onlineCount">0</span>
-    visitors online
-</div>
-<!-- CUSTOM CURSOR -->
+
+  
 <div id="custom-cursor"></div>
+
+
 <!-- ============================================================
      WELCOME SCREEN
 ============================================================ -->
+
 <div class="welcome" id="welcome">
+
     <div class="welcomeCard">
-    <div class="welcomeTop">
-        <div class="welcomeLogo">
-            <img
-                src="Images/SafeBucketLogo.png"
-                alt="Safe Bucket"
+        <div class="bannerBlock"></div>
+        <div class="welcomeTop">
+
+            <div class="welcomeLogo">
+                <img src="Images/SafeBucketLogo.png">
+            </div>
+
+            <div class="welcomeTitle">
+
+                <h1>Safe Bucket v2.1.3</h1>
+
+                <p>
+                    A CiphAnon Studios Project
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="welcomeIntro">
+
+            <h2>Welcome to Safe Bucket.</h2>
+
+            <p>
+                Safe Bucket is A Simple WebProject designed for students who want acess to Games and more!
+            </p>
+
+        </div>
+
+
+        <div class="welcomeSections">
+
+            <div class="welcomeSection">
+
+                <div class="welcomeIcon">
+                    ◉
+                </div>
+
+                <h3>What it is</h3>
+
+                <p>
+                    A Simple Browser Homepage that helps keep unblocked websites unblocked.
+                </p>
+
+            </div>
+
+
+            <div class="welcomeSection">
+
+                <div class="welcomeIcon">
+                    ◆
+                </div>
+
+                <h3>Made for</h3>
+
+                <p>
+                    Quick access, simple search, Gaming, and More.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="creator">
+
+            <div class="creatorLeft">
+
+                <div class="creatorAvatar">
+                    C
+                </div>
+
+                <div class="creatorText">
+
+                    <span>Created by:</span>
+
+                    <strong>ToonyTime</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="creatorStudio">
+                CIPHANON<br>
+                STUDIOS
+            </div>
+
+        </div>
+
+
+        <button
+            class="enterButton"
+            id="enterSafeBucket"
+        >
+            Enter Safe Bucket
+        </button>
+
+
+        <!-- ADDED -->
+
+        <div class="welcomeRemember">
+
+            <input
+                type="checkbox"
+                id="dontShowWelcome"
             >
+
+            <label for="dontShowWelcome">
+                Don't show this again
+            </label>
+
         </div>
 
-        <div class="welcomeTitle">
-            <h1>Safe Bucket v2.1.3</h1>
 
-            <p>
-                A CiphAnon Studios Project
-            </p>
-        </div>
-    </div>
-
-    <div class="welcomeIntro">
-        <h2>Welcome to Safe Bucket.</h2>
-
-        <p>
-            Safe Bucket is a simple web project designed for students who want access to games and more!
-        </p>
-    </div>
-
-    <div class="welcomeSections">
-        <div class="welcomeSection">
-            <div class="welcomeIcon">
-                ◉
-            </div>
-
-            <h3>What it is</h3>
-
-            <p>
-                A simple browser homepage that helps keep unblocked websites unblocked.
-            </p>
+        <div class="welcomeFooter">
+            Built by CiphAnon Studios
         </div>
 
-        <div class="welcomeSection">
-            <div class="welcomeIcon">
-                ◆
-            </div>
-
-            <h3>Made for</h3>
-
-            <p>
-                Quick access, simple search, gaming, and more.
-            </p>
-        </div>
     </div>
 
-    <div class="creator">
-        <div class="creatorLeft">
-            <div class="creatorAvatar">
-                C
-            </div>
-
-            <div class="creatorText">
-                <span>Created by:</span>
-                <strong>ToonyTime</strong>
-            </div>
-        </div>
-
-        <div class="creatorStudio">
-            CIPHANON<br>
-            STUDIOS
-        </div>
-    </div>
-
-    <button
-        class="enterButton"
-        id="enterSafeBucket"
-    >
-        Enter Safe Bucket
-    </button>
-
-    <div class="welcomeRemember">
-        <input
-            type="checkbox"
-            id="dontShowWelcome"
-        >
-
-        <label for="dontShowWelcome">
-            Don't show this again
-        </label>
-    </div>
-
-    <div class="welcomeFooter">
-        Built by CiphAnon Studios
-    </div>
 </div>
 
-</div>
-<!-- ============================================================
-     LOADING SCREEN
-============================================================ -->
+<!-- LOADING SCREEN -->
+
 <div class="loadingScreen" id="loadingScreen">
+
     <div class="loadingCard">
-    <div class="loadingLogo">
-        <img
-            src="Images/SafeBucketLogo.png"
-            alt="Safe Bucket"
-        >
+
+        <div class="loadingLogo">
+            <img src="Images/SafeBucketLogo.png" alt="Safe Bucket">
+        </div>
+
+        <div class="loadingTitle">
+            Loading Safe Bucket
+        </div>
+
+        <div class="loadingMessage" id="loadingMessage">
+            Preparing your destination...
+        </div>
+
+        <div class="loadingBar"></div>
+
     </div>
 
-    <div class="loadingTitle">
-        Loading Safe Bucket
-    </div>
-
-    <div
-        class="loadingMessage"
-        id="loadingMessage"
-    >
-        Preparing your destination...
-    </div>
-
-    <div class="loadingBar"></div>
 </div>
 
-</div>
-<!-- ============================================================
-     NORMAL BACKGROUND
-============================================================ -->
+
 <div class="bg">
     <div class="grid"></div>
     <div class="noise"></div>
 </div>
-<!-- ============================================================
-     CENTER SEARCH AREA
-============================================================ -->
+
+<!-- CENTER -->
+
 <div class="center">
+
     <div class="hero">
-    <img
-        class="SafeBucketLogo"
-        src="Images/SafeBucketLogo.png"
-        alt="Safe Bucket"
-    >
+        <img class="SafeBucketLogo" src="Images/SafeBucketLogo.png">
 
-    <h1>Safe Bucket</h1>
+        <h1>Safe Bucket</h1>
 
-    <p>
-        Keep Unblocked Sites Unblocked With Safe Bucket!
-    </p>
-</div>
+        <p>
+            Keep Unblocked Sites Unblocked With Safe Bucket!
+        </p>
 
-<form
-    class="search"
-    id="searchForm"
->
-    <div class="searchIcon">
-        ⌕
     </div>
 
-    <input
-        id="searchInput"
-        autocomplete="off"
-        spellcheck="false"
-        placeholder="Search or enter a website..."
+    <form
+        class="search"
+        id="searchForm"
     >
 
-    <button
-        class="go"
-        type="submit"
-    >
-        Go
-    </button>
+        <div class="searchIcon">
+            ⌕
+        </div>
 
-    <button
-        class="go"
-        type="button"
-        onclick="open('https://schoollearning-tabs.lervs.ro/', '_blank')"
-    >
-        AI
-    </button>
-</form>
-
-</div>
-<!-- ============================================================
-     RANDOM ADS
-============================================================ -->
-<div class="randomAd" id="randomAd">
-    <button
-        class="closeRandomAd"
-        id="closeRandomAd"
-        aria-label="Close advertisement"
-    >
-        ×
-    </button>
-<div class="adLabel">
-    Sponsored
-</div>
-
-<h3 id="randomAdTitle"></h3>
-
-<p id="randomAdText"></p>
-
-<button
-    class="randomAdButton"
-    id="randomAdButton"
->
-    Open
-</button>
-
-</div>
-<!-- DATE AND TIME -->
-<div class="dateTime" id="dateTime">
-    <strong id="currentTime">
-        10:44:08 AM
-    </strong>
-<span id="currentDate">
-    October 7, 2026
-</span>
-
-</div>
-<!-- DISCORD -->
-<a
-href="https://discord.gg/your-invite"
-target="_blank"
-rel="noopener noreferrer"
-class="discordButton"
-aria-label="Join Discord"
-
-
-<i class="fa-brands fa-discord"></i>
-
-</a>
-<!-- INFORMATION BUTTON -->
-<button
-class="infoButton"
-id="infoButton"
-aria-label="Information"
-title="Information"
-
-
-ⓘ
-
-</button>
-<!-- INFORMATION OVERLAY -->
-<div
-    class="infoOverlay"
-    id="infoOverlay"
->
-    <div
-        class="infoPanel"
-        role="dialog"
-        aria-modal="true"
-    >
-        <button
-            class="infoClose"
-            id="infoClose"
-            aria-label="Close information"
+        <input
+            id="searchInput"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Search or enter a website..."
         >
+
+        <button
+            class="go"
+            type="submit"
+        >
+            Go
+        </button>
+
+        <button
+    class="go"
+    type="button"
+    onclick="open('https://schoollearning-tabs.lervs.ro/', '_blank')"
+>
+    AI
+</button>
+
+
+    </form>
+
+</div>
+<!-- random ads-->
+<div class="randomAd" id="randomAd">
+    <button class="closeRandomAd" id="closeRandomAd">×</button>
+
+    <div class="adLabel">Sponsored</div>
+
+    <h3 id="randomAdTitle"></h3>
+
+    <p id="randomAdText"></p>
+
+    <button class="randomAdButton" id="randomAdButton">
+        Open
+    </button>
+</div>
+  
+<!-- date/time -->
+<div class="dateTime" id="dateTime"> <strong id="currentTime">10:44:08 AM</strong> <span id="currentDate">October 7, 2026</span> </div>
+<!-- Discord -->
+<a
+  href="https://discord.gg/your-invite"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="discordButton"
+  aria-label="Join Discord"
+>
+  <i class="fa-brands fa-discord"></i>
+</a>
+
+<!-- info button -->
+<button class="infoButton" id="infoButton" aria-label="Information" title="Information">
+    ⓘ
+</button>
+
+<div class="infoOverlay" id="infoOverlay">
+    <div class="infoPanel" role="dialog" aria-modal="true">
+        <button class="infoClose" id="infoClose" aria-label="Close information">
             ✕
         </button>
-    <h2>Safe Bucket</h2>
 
-    <p>
-        A simple homepage for quick access to games, websites, search, and other tools.
-    </p>
+        <h2>Safe Bucket</h2>
 
-    <div class="infoList">
-        <div class="infoItem">
-            <strong>Physics Blocks</strong>
+        <p>A simple homepage for quick access to games, websites, search, and other tools.</p>
 
-            <span>
-                Drag the blocks around the screen and watch them collide, bounce, rotate, and respond to gravity.
-            </span>
-        </div>
+        <div class="infoList">
+            <div class="infoItem">
+                <strong>Physics Blocks</strong>
+                <span>Drag the blocks around the screen and watch them collide, bounce, rotate, and respond to gravity.</span>
+            </div>
 
-        <div class="infoItem">
-            <strong>Hover Videos</strong>
+            <div class="infoItem">
+                <strong>Reset Rotation</strong>
+                <span>Press and hold a block for 2.5 seconds without dragging it to return it upright.</span>
+            </div>
 
-            <span>
-                Hover over a block to show its blurred background video.
-            </span>
-        </div>
+            <div class="infoItem">
+                <strong>Open Sites</strong>
+                <span>Click a block normally to open its assigned website.</span>
+            </div>
 
-        <div class="infoItem">
-            <strong>Reset Rotation</strong>
-
-            <span>
-                Hover over a block to gently return it upright.
-            </span>
-        </div>
-
-        <div class="infoItem">
-            <strong>Open Sites</strong>
-
-            <span>
-                Click a block normally to open its assigned website.
-            </span>
-        </div>
-
-        <div class="infoItem">
-            <strong>Search</strong>
-
-            <span>
-                Type a website or search term into the search bar and press Go.
-            </span>
+            <div class="infoItem">
+                <strong>Search</strong>
+                <span>Type a website or search term into the search bar and press Go.</span>
+            </div>
         </div>
     </div>
 </div>
 
-</div>
-<!-- ============================================================
-     PHYSICS BLOCKS
-============================================================ -->
+
+<!-- PHYSICS -->
+
 <div
     class="world"
     id="world"
 >
+
     <div
         class="block"
         data-url="https://safebucketbypass.github.io/safebucketbypass/RealGPagePlus.html"
         data-name="Games"
-        data-video="Videos/games.mp4"
-    >
-        <img
-            src="Images/Controller.png"
-            alt="Games"
-        >
-    <div class="blockLabel">
-        Games
-    </div>
-</div>
-
-<div
-    class="block"
-    data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
-    data-name="Movies"
-    data-video="Videos/movies.mp4"
->
-    <img
-        src="Images/Movie.png"
-        alt="Movies"
     >
 
-    <div class="blockLabel">
-        Movies
-    </div>
-</div>
+        <img src="Images/Controller.png">
 
-<div
+        <div class="blockLabel">
+            Games
+        </div>
+
+    </div>
+
+
+    <div
+        class="block"
+        data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+        data-name="Movies"
+    >
+<!-- 
+        https://flnk.fun 
+        https://nick.allys.love/7f5m14/171y8v/3aabniej/ego5ednd/aHR0cHM6Ly9tb3Z5LnN4Lw
+
+        i dont know if the second link works but that is the main one on the home page of frogie arcade
+        -->
+        <img src="Images/Movie.png">
+
+        <div class="blockLabel">
+            Movies
+        </div>
+
+    </div>
+
+
+    <div
     class="block"
     data-url="https://angst.clawschools.org/embed.html#https://nowgg.fun/apps/a/19900/b.html"
     data-name="Roblox"
-    data-video="Videos/roblox.mp4"
 >
-    <img
-        src="Images/Roblox.png"
-        alt="Roblox"
+    <video
+        class="blockVideo"
+        muted
+        loop
+        playsinline
+        preload="metadata"
     >
+        <source src="RobloxPage.mp4" type="video/mp4">
+    </video>
+
+    <img src="Images/Roblox.png" alt="Roblox">
 
     <div class="blockLabel">
         Roblox
     </div>
 </div>
 
-<div
-    class="block"
-    data-url="https://ciphanonstudios.github.io/CiphAnonStudios-v12"
-    data-name="Home"
-    data-video="Videos/home.mp4"
->
-    <img
-        src="Images/CiphAnonStudios.png"
-        alt="Home"
+
+
+    <div
+        class="block"
+        data-url="https://ciphanonstudios.github.io/CiphAnonStudios-v12"
+        data-name="Home"
     >
 
-    <div class="blockLabel">
-        Home
-    </div>
-</div>
+        <img src="Images/CiphAnonStudios.png">
 
-<div
-    class="block"
-    data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
-    data-name="Anime"
-    data-video="Videos/anime.mp4"
->
-    <img
-        src="Images/Anime.png"
-        alt="Anime"
+        <div class="blockLabel">
+            Home
+        </div>
+
+    </div>
+
+     <div
+        class="block"
+        data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+        data-name="Anime"
     >
 
-    <div class="blockLabel">
-        Anime
-    </div>
-</div>
+        <img src="Images/Anime.png">
 
-<div
+        <div class="blockLabel">
+            Anime
+        </div>
+
+    </div>
+
+    <div
     class="block"
     data-url="https://safebucketbypass.github.io/MC/"
     data-name="Minecraft"
-    data-video="Videos/minecraft.mp4"
 >
-    <img
-        src="Images/Minecraft.png"
-        alt="Minecraft"
+    <video
+        class="blockVideo"
+        muted
+        loop
+        playsinline
+        preload="metadata"
     >
+        <source src="Minecraft.mp4" type="video/mp4">
+    </video>
+
+    <img src="Images/Minecraft.png" alt="Minecraft">
 
     <div class="blockLabel">
         Minecraft
     </div>
 </div>
 
-<div
-    class="block"
-    data-url="https://learningedu.theworkpc.com"
-    data-name="Proxy"
-    data-video="Videos/proxy.mp4"
->
-    <img
-        src="Images/AltServer.png"
-        alt="Proxy"
+
+    <div
+        class="block"
+        data-url="https://learningedu.theworkpc.com"
+        data-name="Proxy"
     >
 
-    <div class="blockLabel">
-        Proxy
-    </div>
-</div>
+        <img src="Images/AltServer.png">
 
-<div
-    class="block"
-    data-url="https://chat.morphic.sh/"
-    data-name="AI"
-    data-video="Videos/ai.mp4"
->
-    <img
-        src="Images/AI.png"
-        alt="AI"
+        <div class="blockLabel">
+            Proxy
+        </div>
+
+    </div>
+
+      <div
+        class="block"
+        data-url="https://chat.morphic.sh/"
+        data-name="AI"
     >
 
-    <div class="blockLabel">
-        AI
-    </div>
-</div>
+        <img src="Images/AI.png">
 
-<div
+        <div class="blockLabel">
+            AI
+        </div>
+
+    </div>
+
+    <div
     class="block"
     data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
     data-name="YouTube"
-    data-video="Videos/youtube.mp4"
 >
-    <img
-        src="Images/YouTube.png"
-        alt="YouTube"
-    >
+    <img src="Images/YouTube.png" alt="YouTube">
 
     <div class="blockLabel">
         YouTube
     </div>
 </div>
 
+
 </div>
-<!-- HINT -->
+
+
+
+
 <div class="hint">
     Drag blocks ·
     <kbd>ESC</kbd>
     close browser
 </div>
-<!-- ============================================================
-     BROWSER
-============================================================ -->
+
+
+<!-- BROWSER -->
+
 <div
     class="browser"
     id="browser"
 >
+
     <div class="browserBar">
+
         <button
             class="browserButton"
             id="closeBrowser"
-            aria-label="Close browser"
         >
             ✕
         </button>
-    <button
-        class="browserButton"
-        id="backButton"
-        aria-label="Go back"
-    >
-        ←
-    </button>
-
-    <button
-        class="browserButton"
-        id="forwardButton"
-        aria-label="Go forward"
-    >
-        →
-    </button>
-
-    <button
-        class="browserButton"
-        id="controlPanelToggle"
-        type="button"
-        title="Open controls"
-        aria-label="Open control panel"
-    >
-        CTRL
-    </button>
-</div>
-
-<!-- CONTROL PANEL -->
-<div
-    id="controlPanel"
-    aria-label="Game controls"
->
-    <div class="controlHeader">
-        <h3>Control Center</h3>
 
         <button
-            id="controlPanelClose"
-            type="button"
-            aria-label="Close controls"
+            class="browserButton"
+            id="backButton"
         >
+            ←
+        </button>
+
+        <button
+            class="browserButton"
+            id="forwardButton"
+        >
+            →
+        </button>
+
+<button
+    class="browserButton"
+    id="controlPanelToggle"
+    type="button"
+    title="Open controls"
+    aria-label="Open control panel"
+>
+    CTRL
+</button>
+        
+    </div>
+
+<!-- CIPHANON CONTROL PANEL -->
+<div id="controlPanel" aria-label="Game controls">
+
+    <div class="controlHeader">
+        <h3>Control Center</h3>
+        <button id="controlPanelClose" type="button" aria-label="Close controls">
             ✕
         </button>
     </div>
 
     <div class="controlStatus">
-        <span
-            class="controlStatusDot"
-            id="controlStatusDot"
-        ></span>
-
-        <span id="controlStatusText">
-            Controls ready
-        </span>
+        <span class="controlStatusDot" id="controlStatusDot"></span>
+        <span id="controlStatusText">Controls ready</span>
     </div>
 
     <div class="controlSection">
-        <div class="controlSectionTitle">
-            Keyboard
-        </div>
+        <div class="controlSectionTitle">Keyboard</div>
 
         <div class="controlGrid">
-            <button
-                class="controlKey"
-                data-key="w"
-                type="button"
-            >
-                W · Forward
-            </button>
+            <button class="controlKey" data-key="w" type="button">W · Forward</button>
+            <button class="controlKey" data-key="a" type="button">A · Left</button>
+            <button class="controlKey" data-key="d" type="button">D · Right</button>
 
-            <button
-                class="controlKey"
-                data-key="a"
-                type="button"
-            >
-                A · Left
-            </button>
+            <button class="controlKey" data-key="s" type="button">S · Back</button>
+            <button class="controlKey" data-key=" " type="button">SPACE</button>
+            <button class="controlKey" data-key="Shift" type="button">SHIFT</button>
 
-            <button
-                class="controlKey"
-                data-key="d"
-                type="button"
-            >
-                D · Right
-            </button>
-
-            <button
-                class="controlKey"
-                data-key="s"
-                type="button"
-            >
-                S · Back
-            </button>
-
-            <button
-                class="controlKey"
-                data-key=" "
-                type="button"
-            >
-                SPACE
-            </button>
-
-            <button
-                class="controlKey"
-                data-key="Shift"
-                type="button"
-            >
-                SHIFT
-            </button>
-
-            <button
-                class="controlAction controlWide"
-                id="releaseAllKeys"
-                type="button"
-            >
+            <button class="controlAction controlWide" id="releaseAllKeys" type="button">
                 Release All Keys
             </button>
         </div>
     </div>
 
     <div class="controlSection">
-        <div class="controlSectionTitle">
-            Auto Clicker
-        </div>
+        <div class="controlSectionTitle">Auto Clicker</div>
 
         <div class="controlInputRow">
             <input
@@ -2774,185 +2709,123 @@ title="Information"
                 aria-label="Click interval in milliseconds"
             >
 
-            <button
-                id="autoClickStart"
-                class="controlAction"
-                type="button"
-            >
+            <button id="autoClickStart" class="controlAction" type="button">
                 Start
             </button>
         </div>
-
+<h1 class="above">Coming Soon
+</h1>
+      <div class="ctrlBlur"></div>
         <div class="controlStats">
-            <span>
-                Interval:
-                <strong id="controlIntervalLabel">
-                    500 ms
-                </strong>
-            </span>
-
-            <span>
-                Clicks:
-                <strong id="controlClickCount">
-                    0
-                </strong>
-            </span>
+            <span>Interval: <strong id="controlIntervalLabel">500 ms</strong></span>
+            <span>Clicks: <strong id="controlClickCount">0</strong></span>
         </div>
 
-        <div
-            class="controlGrid"
-            style="margin-top:8px"
-        >
-            <button
-                id="singleClickButton"
-                class="controlAction controlWide"
-                type="button"
-            >
+        <div class="controlGrid" style="margin-top:8px">
+            <button id="singleClickButton" class="controlAction controlWide" type="button">
                 Send One Click
             </button>
-
-            <button
-                id="resetClickCount"
-                class="controlAction controlWide"
-                type="button"
-            >
+            <button id="resetClickCount" class="controlAction controlWide" type="button">
                 Reset Counter
             </button>
         </div>
     </div>
 
     <div class="controlNotice">
-        These are best-effort controls for compatible pages. External games may ignore simulated input or block access from the browser.
+        These are best-effort controls for compatible pages. External games may ignore
+        simulated input or block access from the browser.
     </div>
 
     <div class="controlShortcuts">
-        <kbd>CTRL</kbd>
-        Open/close this panel<br>
-
-        <kbd>ESC</kbd>
-        Close the panel or browser
+        <kbd>CTRL</kbd> Open/close this panel<br>
+        <kbd>ESC</kbd> Close the panel or browser
     </div>
-</div>
-
-<iframe
-    id="browserFrame"
-    title="CiphAnon Browser"
-></iframe>
 
 </div>
-<!-- FIREBASE ONLINE COUNTER -->
+
+    <iframe
+        id="browserFrame"
+        title="CiphAnon Browser"
+    ></iframe>
+
+</div>
+
+    <script type="module" src="./tracker.js"></script>
+    
 <script type="module">
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 
-import {
+  import {
     getDatabase,
     ref,
     onValue,
     onDisconnect,
     set,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 
-const firebaseConfig = {
-    apiKey:"AIzaSyCkJJcpdLfWH8XZBuT8TgOkOKuj6ZtEzcY",
-    authDomain:"safebucketbypass.firebaseapp.com",
-    databaseURL:"https://safebucketbypass-default-rtdb.firebaseio.com",
-    projectId:"safebucketbypass",
-    storageBucket:"safebucketbypass.firebasestorage.app",
-    messagingSenderId:"659506734507",
-    appId:"1:659506734507:web:1e4268f7746380b41bdeee"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
+    authDomain: "safebucketbypass.firebaseapp.com",
+    databaseURL: "https://safebucketbypass-default-rtdb.firebaseio.com",
+    projectId: "safebucketbypass",
+    storageBucket: "safebucketbypass.firebasestorage.app",
+    messagingSenderId: "659506734507",
+    appId: "1:659506734507:web:1e4268f7746380b41bdeee"
+  };
 
-const app =
-    initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
-const database =
-    getDatabase(app);
+  const onlineCount = document.getElementById("onlineCount");
 
-const onlineCount =
-    document.getElementById("onlineCount");
-
-if (!onlineCount) {
-    console.error(
-        'Missing element with id="onlineCount"'
-    );
-} else {
-    let visitorId =
-        sessionStorage.getItem(
-            "safeBucketVisitorId"
-        );
+  if (!onlineCount) {
+    console.error("Missing element with id=\"onlineCount\"");
+  } else {
+    let visitorId = sessionStorage.getItem("safeBucketVisitorId");
 
     if (!visitorId) {
-        visitorId =
-            crypto.randomUUID?.() ||
-            `${Date.now()}-${Math.random()
-                .toString(36)
-                .slice(2)}`;
+      visitorId =
+        crypto.randomUUID?.() ||
+        `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-        sessionStorage.setItem(
-            "safeBucketVisitorId",
-            visitorId
-        );
+      sessionStorage.setItem("safeBucketVisitorId", visitorId);
     }
 
-    const visitorRef =
-        ref(
-            database,
-            `onlineVisitors/${visitorId}`
-        );
-
-    const visitorsRef =
-        ref(
-            database,
-            "onlineVisitors"
-        );
+    const visitorRef = ref(database, `onlineVisitors/${visitorId}`);
+    const visitorsRef = ref(database, "onlineVisitors");
 
     onDisconnect(visitorRef)
-        .remove()
-        .catch(error => {
-            console.error(
-                "Disconnect setup failed:",
-                error
-            );
-        });
+      .remove()
+      .catch((error) => {
+        console.error("Disconnect setup failed:", error);
+      });
 
     set(visitorRef, {
-        connectedAt:serverTimestamp()
-    }).catch(error => {
-        console.error(
-            "Could not register visitor:",
-            error
-        );
-
-        onlineCount.textContent = "—";
+      connectedAt: serverTimestamp()
+    }).catch((error) => {
+      console.error("Could not register visitor:", error);
+      onlineCount.textContent = "—";
     });
 
     onValue(
-        visitorsRef,
-        snapshot => {
-            const visitors =
-                snapshot.val() || {};
-
-            onlineCount.textContent =
-                Object.keys(visitors).length;
-        },
-        error => {
-            console.error(
-                "Could not read visitor count:",
-                error
-            );
-
-            onlineCount.textContent = "—";
-        }
+      visitorsRef,
+      (snapshot) => {
+        const visitors = snapshot.val() || {};
+        onlineCount.textContent = Object.keys(visitors).length;
+      },
+      (error) => {
+        console.error("Could not read visitor count:", error);
+        onlineCount.textContent = "—";
+      }
     );
-}
+  }
 </script>
-<!-- TRACKER -->
-<script type="module" src="./tracker.js"></script>
-<!-- MAIN SCRIPT -->
+
+  
+
 <script>
+
 function trackEvent(eventName, eventData = {}) {
     if (
         window.firebaseAnalytics &&
@@ -2977,163 +2850,76 @@ const welcome =
 const enterSafeBucket =
     document.getElementById("enterSafeBucket");
 
-const dontShowWelcome =
-    document.getElementById("dontShowWelcome");
 
-if (
+/* ADDED */
+
+const dontShowWelcome =
+    document.getElementById(
+        "dontShowWelcome"
+    );
+
+
+/* ADDED:
+   Skip the welcome screen if the user
+   previously selected "Don't show this again".
+*/
+
+if(
     localStorage.getItem(
         "safeBucketWelcomeHidden"
     ) === "true"
-) {
-    welcome.classList.add("hidden");
+){
 
-    if (dontShowWelcome) {
-        dontShowWelcome.checked = true;
-    }
+    welcome.classList.add(
+        "hidden"
+    );
+
 }
+
+
+/* ADDED:
+   Restore checkbox state.
+*/
+
+if(
+    localStorage.getItem(
+        "safeBucketWelcomeHidden"
+    ) === "true"
+){
+
+    dontShowWelcome.checked=true;
+
+}
+
 
 enterSafeBucket.addEventListener(
     "click",
-    () => {
-        if (dontShowWelcome?.checked) {
+    ()=>{
+
+        /* ADDED */
+
+        if(
+            dontShowWelcome.checked
+        ){
+
             localStorage.setItem(
                 "safeBucketWelcomeHidden",
                 "true"
             );
+
         }
 
-        welcome.classList.add("hidden");
+
+        welcome.classList.add(
+            "hidden"
+        );
+
     }
 );
 
 
 /* ============================================================
-   HOVER VIDEO BACKGROUND
-============================================================ */
-
-const hoverVideoBackground =
-    document.getElementById(
-        "hoverVideoBackground"
-    );
-
-const hoverVideo =
-    document.getElementById("hoverVideo");
-
-let currentHoverVideo = "";
-let hoverVideoTimer = null;
-
-function stopHoverVideo() {
-    if (hoverVideoTimer) {
-        clearTimeout(hoverVideoTimer);
-        hoverVideoTimer = null;
-    }
-
-    hoverVideoBackground.classList.remove(
-        "active"
-    );
-
-    hoverVideo.pause();
-    hoverVideo.removeAttribute("src");
-    hoverVideo.load();
-
-    currentHoverVideo = "";
-}
-
-function showHoverVideo(videoPath) {
-    if (!videoPath) {
-        stopHoverVideo();
-        return;
-    }
-
-    if (
-        currentHoverVideo === videoPath
-    ) {
-        hoverVideoBackground.classList.add(
-            "active"
-        );
-
-        hoverVideo.play().catch(() => {});
-        return;
-    }
-
-    if (hoverVideoTimer) {
-        clearTimeout(hoverVideoTimer);
-        hoverVideoTimer = null;
-    }
-
-    currentHoverVideo = videoPath;
-
-    hoverVideoBackground.classList.remove(
-        "active"
-    );
-
-    hoverVideo.pause();
-    hoverVideo.src = videoPath;
-    hoverVideo.currentTime = 0;
-    hoverVideo.load();
-
-    hoverVideo.addEventListener(
-        "canplay",
-        () => {
-            if (
-                currentHoverVideo !==
-                videoPath
-            ) {
-                return;
-            }
-
-            hoverVideoBackground.classList.add(
-                "active"
-            );
-
-            hoverVideo.play().catch(() => {});
-        },
-        { once:true }
-    );
-
-    hoverVideo.addEventListener(
-        "error",
-        () => {
-            if (
-                currentHoverVideo !==
-                videoPath
-            ) {
-                return;
-            }
-
-            console.warn(
-                `Hover video could not be loaded: ${videoPath}`
-            );
-
-            stopHoverVideo();
-        },
-        { once:true }
-    );
-}
-
-function hideHoverVideo() {
-    hoverVideoBackground.classList.remove(
-        "active"
-    );
-
-    hoverVideoTimer = setTimeout(
-        () => {
-            if (
-                !hoverVideoBackground.classList.contains(
-                    "active"
-                )
-            ) {
-                hoverVideo.pause();
-                currentHoverVideo = "";
-            }
-        },
-        600
-    );
-}
-
-
-/* ============================================================
-   SAFE BROWSER ELEMENTS
+   CIPHANON SAFE BROWSER
 ============================================================ */
 
 const world =
@@ -3162,6 +2948,7 @@ const backButton =
 
 const forwardButton =
     document.getElementById("forwardButton");
+    
 
 
 /* ============================================================
@@ -3169,16 +2956,27 @@ const forwardButton =
 ============================================================ */
 
 const PHYSICS = {
+
     gravity:0,
-    air:.9994,
-    angularAir:.9992,
-    restitution:.82,
-    friction:.018,
+
+    air:0.9994,
+
+    angularAir:0.9992,
+
+    restitution:0.82,
+
+    friction:0.018,
+
     collisionIterations:8,
-    positionPercent:.92,
-    minimumSpeed:.035,
+
+    positionPercent:0.92,
+
+    minimumSpeed:0.035,
+
     maxSpeed:1.8,
-    maxAngular:.018,
+
+    maxAngular:0.018,
+
     cornerSteps:12
 };
 
@@ -3187,32 +2985,38 @@ const PHYSICS = {
    VECTOR HELPERS
 ============================================================ */
 
-function sub(a,b) {
+function sub(a,b){
+
     return {
         x:a.x-b.x,
         y:a.y-b.y
     };
 }
 
-function mul(a,n) {
+function mul(a,n){
+
     return {
         x:a.x*n,
         y:a.y*n
     };
 }
 
-function dot(a,b) {
+function dot(a,b){
+
     return a.x*b.x+a.y*b.y;
 }
 
-function length(v) {
+function length(v){
+
     return Math.hypot(v.x,v.y);
 }
 
-function normalize(v) {
-    const l = length(v);
+function normalize(v){
 
-    if (l < .000001) {
+    const l=length(v);
+
+    if(l<0.000001){
+
         return {
             x:1,
             y:0
@@ -3225,9 +3029,10 @@ function normalize(v) {
     };
 }
 
-function rotatePoint(p,a) {
-    const c = Math.cos(a);
-    const s = Math.sin(a);
+function rotatePoint(p,a){
+
+    const c=Math.cos(a);
+    const s=Math.sin(a);
 
     return {
         x:p.x*c-p.y*s,
@@ -3240,52 +3045,67 @@ function rotatePoint(p,a) {
    OBJECT SETUP
 ============================================================ */
 
-const objects = [];
+const objects=[];
 
-function random(min,max) {
-    return Math.random()*(max-min)+min;
+function random(min,max){
+
+    return Math.random()*
+        (max-min)+min;
 }
 
-function getSize(el) {
+function getSize(el){
+
     return {
         width:el.offsetWidth,
         height:el.offsetHeight
     };
 }
 
-function getRadius(el) {
-    const style =
+function getRadius(el){
+
+    const style=
         getComputedStyle(el);
 
-    let radius =
+    let r=
         parseFloat(
             style.borderTopLeftRadius
         );
 
-    if (!Number.isFinite(radius)) {
-        radius = 0;
+    if(!Number.isFinite(r)){
+        r=0;
     }
 
-    const size = getSize(el);
+    const size=
+        getSize(el);
 
     return Math.min(
-        radius,
+        r,
         size.width/2,
         size.height/2
     );
 }
 
-function createObject(el,index) {
-    const size = getSize(el);
 
-    const obj = {
+/* ============================================================
+   CREATE PHYSICS OBJECT
+============================================================ */
+
+function createObject(el,index){
+
+    const size=
+        getSize(el);
+
+    const obj={
+
         el,
 
         x:random(
             30,
             Math.max(
                 30,
-                innerWidth-size.width-30
+                innerWidth-
+                size.width-
+                30
             )
         ),
 
@@ -3293,87 +3113,124 @@ function createObject(el,index) {
             30,
             Math.max(
                 30,
-                innerHeight-size.height-30
+                innerHeight-
+                size.height-
+                30
             )
         ),
 
         width:size.width,
+
         height:size.height,
+
         radius:getRadius(el),
 
-        vx:random(-.65,.65),
-        vy:random(-.65,.65),
+        vx:random(
+            -0.65,
+            0.65
+        ),
 
-        angle:random(-Math.PI,Math.PI),
-        angularVelocity:random(-.006,.006),
+        vy:random(
+            -0.65,
+            0.65
+        ),
+
+        angle:random(
+            -Math.PI,
+            Math.PI
+        ),
+
+        angularVelocity:random(
+            -0.006,
+            0.006
+        ),
 
         mass:1,
 
         dragging:false,
+
         pointerId:null,
 
         previousX:0,
+
         previousY:0,
 
         moved:false,
-        hovered:false,
-        uprightTarget:0
+
+hovered:false,
+
+uprightTarget:0
+
     };
 
-    if (index === 0) {
-        obj.x = innerWidth*.16;
-        obj.y = innerHeight*.24;
+
+    if(index===0){
+
+        obj.x=innerWidth*.16;
+        obj.y=innerHeight*.24;
     }
 
-    if (index === 1) {
-        obj.x = innerWidth*.68;
-        obj.y = innerHeight*.25;
+    if(index===1){
+
+        obj.x=innerWidth*.68;
+        obj.y=innerHeight*.25;
     }
 
-    if (index === 2) {
-        obj.x = innerWidth*.20;
-        obj.y = innerHeight*.67;
+    if(index===2){
+
+        obj.x=innerWidth*.20;
+        obj.y=innerHeight*.67;
     }
 
-    if (index === 3) {
-        obj.x = innerWidth*.68;
-        obj.y = innerHeight*.68;
+    if(index===3){
+
+        obj.x=innerWidth*.68;
+        obj.y=innerHeight*.68;
     }
 
-    obj.previousX = obj.x;
-    obj.previousY = obj.y;
+
+    obj.previousX=obj.x;
+    obj.previousY=obj.y;
 
     return obj;
 }
 
+
 blocks.forEach(
-    (el,index) => {
-        const obj =
-            createObject(el,index);
+    (el,i)=>{
+
+        const obj=
+            createObject(
+                el,
+                i
+            );
 
         objects.push(obj);
+
         setupDragging(obj);
     }
 );
 
 
 /* ============================================================
-   ROUNDED POLYGON
+   ROUNDED RECTANGLE POLYGON
 ============================================================ */
 
-function roundedPolygon(obj) {
-    const w = obj.width;
-    const h = obj.height;
+function roundedPolygon(obj){
 
-    const r = Math.min(
+    const w=obj.width;
+    const h=obj.height;
+
+    const r=Math.min(
         obj.radius,
         w/2,
         h/2
     );
 
-    const points = [];
+    const points=[];
 
-    const corners = [
+    const corners=[
+
         {
             cx:w/2-r,
             cy:h/2-r,
@@ -3397,40 +3254,54 @@ function roundedPolygon(obj) {
             cy:-h/2+r,
             start:Math.PI*1.5
         }
+
     ];
 
-    for (const corner of corners) {
-        for (
+
+    for(const corner of corners){
+
+        for(
             let i=0;
             i<=PHYSICS.cornerSteps;
             i++
-        ) {
-            const t =
-                i/PHYSICS.cornerSteps;
+        ){
 
-            const angle =
+            const t=
+                i/
+                PHYSICS.cornerSteps;
+
+            const a=
                 corner.start+
                 t*Math.PI/2;
 
-            const local = {
+            const local={
+
                 x:
                     corner.cx+
-                    Math.cos(angle)*r,
+                    Math.cos(a)*r,
 
                 y:
                     corner.cy+
-                    Math.sin(angle)*r
+                    Math.sin(a)*r
+
             };
 
-            const rotated =
+            const rotated=
                 rotatePoint(
                     local,
                     obj.angle
                 );
 
             points.push({
-                x:obj.x+rotated.x,
-                y:obj.y+rotated.y
+
+                x:
+                    obj.x+
+                    rotated.x,
+
+                y:
+                    obj.y+
+                    rotated.y
+
             });
         }
     }
@@ -3443,30 +3314,38 @@ function roundedPolygon(obj) {
    SAT
 ============================================================ */
 
-function getAxes(poly) {
-    const axes = [];
+function getAxes(poly){
 
-    for (
+    const axes=[];
+
+    for(
         let i=0;
         i<poly.length;
         i++
-    ) {
-        const a = poly[i];
+    ){
 
-        const b =
+        const a=poly[i];
+
+        const b=
             poly[
                 (i+1)%
                 poly.length
             ];
 
-        const edge = {
+        const edge={
+
             x:b.x-a.x,
+
             y:b.y-a.y
+
         };
 
-        const normal = {
+        const normal={
+
             x:-edge.y,
+
             y:edge.x
+
         };
 
         axes.push(
@@ -3477,16 +3356,22 @@ function getAxes(poly) {
     return axes;
 }
 
-function project(poly,axis) {
-    let min = Infinity;
-    let max = -Infinity;
 
-    for (const point of poly) {
-        const value =
-            dot(point,axis);
+function project(poly,axis){
 
-        min = Math.min(min,value);
-        max = Math.max(max,value);
+    let min=Infinity;
+    let max=-Infinity;
+
+    for(const p of poly){
+
+        const value=
+            dot(p,axis);
+
+        if(value<min)
+            min=value;
+
+        if(value>max)
+            max=value;
     }
 
     return {
@@ -3495,39 +3380,83 @@ function project(poly,axis) {
     };
 }
 
-function polygonCollision(polyA,polyB) {
-    const axes = [
+
+function polygonCollision(
+    polyA,
+    polyB
+){
+
+    const axes=[
+
         ...getAxes(polyA),
+
         ...getAxes(polyB)
+
     ];
 
-    let smallestOverlap = Infinity;
-    let smallestAxis = null;
+    let smallestOverlap=
+        Infinity;
 
-    for (const axis of axes) {
-        const a =
-            project(polyA,axis);
+    let smallestAxis=null;
 
-        const b =
-            project(polyB,axis);
 
-        const overlap =
-            Math.min(a.max,b.max) -
-            Math.max(a.min,b.min);
+    for(const axis of axes){
 
-        if (overlap <= 0) {
+        const a=
+            project(
+                polyA,
+                axis
+            );
+
+        const b=
+            project(
+                polyB,
+                axis
+            );
+
+        const overlap=
+
+            Math.min(
+                a.max,
+                b.max
+            )
+
+            -
+
+            Math.max(
+                a.min,
+                b.min
+            );
+
+
+        if(overlap<=0){
+
             return null;
         }
 
-        if (overlap < smallestOverlap) {
-            smallestOverlap = overlap;
-            smallestAxis = axis;
+
+        if(
+            overlap<
+            smallestOverlap
+        ){
+
+            smallestOverlap=
+                overlap;
+
+            smallestAxis=
+                axis;
         }
     }
 
+
     return {
-        depth:smallestOverlap,
-        axis:smallestAxis
+
+        depth:
+            smallestOverlap,
+
+        axis:
+            smallestAxis
+
     };
 }
 
@@ -3536,12 +3465,18 @@ function polygonCollision(polyA,polyB) {
    COLLISION RESOLUTION
 ============================================================ */
 
-function resolveCollision(a,b,collision) {
-    if (!collision) {
+function resolveCollision(
+    a,
+    b,
+    collision
+){
+
+    if(!collision){
         return;
     }
 
-    const centerDirection =
+
+    const centerDirection=
         sub(
             {
                 x:b.x,
@@ -3553,145 +3488,190 @@ function resolveCollision(a,b,collision) {
             }
         );
 
-    let normal =
+
+    let normal=
         collision.axis;
 
-    if (
+
+    if(
         dot(
             centerDirection,
             normal
-        ) < 0
-    ) {
-        normal =
+        )<0
+    ){
+
+        normal=
             mul(
                 normal,
                 -1
             );
     }
 
-    const slop = .01;
 
-    const correctionDepth =
+    const slop=0.01;
+
+    const correctionDepth=
+
         Math.max(
             collision.depth-slop,
             0
-        ) *
+        )
+
+        *
+
         PHYSICS.positionPercent;
 
-    if (correctionDepth > 0) {
-        const totalMass =
+
+    if(correctionDepth>0){
+
+        const totalMass=
             a.mass+b.mass;
 
-        const aShare =
-            b.mass/totalMass;
+        const aShare=
+            b.mass/
+            totalMass;
 
-        const bShare =
-            a.mass/totalMass;
+        const bShare=
+            a.mass/
+            totalMass;
 
-        if (!a.dragging) {
-            a.x -=
+
+        if(!a.dragging){
+
+            a.x-=
                 normal.x*
                 correctionDepth*
                 aShare;
 
-            a.y -=
+            a.y-=
                 normal.y*
                 correctionDepth*
                 aShare;
         }
 
-        if (!b.dragging) {
-            b.x +=
+
+        if(!b.dragging){
+
+            b.x+=
                 normal.x*
                 correctionDepth*
                 bShare;
 
-            b.y +=
+            b.y+=
                 normal.y*
                 correctionDepth*
                 bShare;
         }
     }
 
-    const relativeVelocity = {
+
+    const relativeVelocity={
+
         x:b.vx-a.vx,
+
         y:b.vy-a.vy
+
     };
 
-    const velocityAlongNormal =
+
+    const velocityAlongNormal=
+
         dot(
             relativeVelocity,
             normal
         );
 
-    if (velocityAlongNormal > 0) {
+
+    if(
+        velocityAlongNormal>0
+    ){
+
         return;
     }
 
-    const impulseMagnitude =
-        -(
-            1+
-            PHYSICS.restitution
-        )*
-        velocityAlongNormal/
+
+    const impulseMagnitude=
+
+        -(1+
+            PHYSICS.restitution)
+        *
+        velocityAlongNormal
+        /
         (
             1/a.mass+
             1/b.mass
         );
 
-    const impulse =
+
+    const impulse=
         mul(
             normal,
             impulseMagnitude
         );
 
-    if (!a.dragging) {
-        a.vx -=
+
+    if(!a.dragging){
+
+        a.vx-=
             impulse.x/a.mass;
 
-        a.vy -=
+        a.vy-=
             impulse.y/a.mass;
     }
 
-    if (!b.dragging) {
-        b.vx +=
+
+    if(!b.dragging){
+
+        b.vx+=
             impulse.x/b.mass;
 
-        b.vy +=
+        b.vy+=
             impulse.y/b.mass;
     }
 
-    const tangent = {
+
+    const tangent={
+
         x:-normal.y,
+
         y:normal.x
+
     };
 
-    const tangentVelocity =
+
+    const tangentVelocity=
+
         dot(
             relativeVelocity,
             tangent
         );
 
-    const frictionImpulse =
+
+    const frictionImpulse=
+
         tangentVelocity*
         PHYSICS.friction;
 
-    if (!a.dragging) {
-        a.vx +=
+
+    if(!a.dragging){
+
+        a.vx+=
             tangent.x*
             frictionImpulse;
 
-        a.vy +=
+        a.vy+=
             tangent.y*
             frictionImpulse;
     }
 
-    if (!b.dragging) {
-        b.vx -=
+
+    if(!b.dragging){
+
+        b.vx-=
             tangent.x*
             frictionImpulse;
 
-        b.vy -=
+        b.vy-=
             tangent.y*
             frictionImpulse;
     }
@@ -3699,49 +3679,71 @@ function resolveCollision(a,b,collision) {
 
 
 /* ============================================================
-   COLLISION SOLVER
+   SOLID COLLISION SOLVER
 ============================================================ */
 
-function solveAllCollisions() {
-    for (
-        let iteration=0;
-        iteration<PHYSICS.collisionIterations;
-        iteration++
-    ) {
-        let foundCollision = false;
+function solveAllCollisions(){
 
-        for (
+    for(
+        let iteration=0;
+
+        iteration<
+        PHYSICS.collisionIterations;
+
+        iteration++
+    ){
+
+        let foundCollision=false;
+
+
+        for(
             let i=0;
             i<objects.length;
             i++
-        ) {
-            const a =
+        ){
+
+            const a=
                 objects[i];
 
-            if (a.dragging) {
+
+            if(a.dragging){
                 continue;
             }
 
-            for (
+
+            for(
                 let j=i+1;
                 j<objects.length;
                 j++
-            ) {
-                const b =
+            ){
+
+                const b=
                     objects[j];
 
-                if (b.dragging) {
+
+                if(b.dragging){
                     continue;
                 }
 
-                const collision =
+
+                const polyA=
+                    roundedPolygon(a);
+
+                const polyB=
+                    roundedPolygon(b);
+
+
+                const collision=
                     polygonCollision(
-                        roundedPolygon(a),
-                        roundedPolygon(b)
+                        polyA,
+                        polyB
                     );
 
-                if (collision) {
-                    foundCollision = true;
+
+                if(collision){
+
+                    foundCollision=true;
+
 
                     resolveCollision(
                         a,
@@ -3752,7 +3754,8 @@ function solveAllCollisions() {
             }
         }
 
-        if (!foundCollision) {
+
+        if(!foundCollision){
             break;
         }
     }
@@ -3763,71 +3766,100 @@ function solveAllCollisions() {
    SCREEN EDGES
 ============================================================ */
 
-function keepInside(obj) {
-    if (obj.dragging) {
+function keepInside(obj){
+
+    if(obj.dragging){
         return;
     }
 
-    const poly =
+
+    const poly=
         roundedPolygon(obj);
 
-    let minX = Infinity;
-    let maxX = -Infinity;
 
-    let minY = Infinity;
-    let maxY = -Infinity;
+    let minX=Infinity;
+    let maxX=-Infinity;
 
-    for (const point of poly) {
-        minX =
-            Math.min(minX,point.x);
+    let minY=Infinity;
+    let maxY=-Infinity;
 
-        maxX =
-            Math.max(maxX,point.x);
 
-        minY =
-            Math.min(minY,point.y);
+    for(const p of poly){
 
-        maxY =
-            Math.max(maxY,point.y);
+        minX=
+            Math.min(
+                minX,
+                p.x
+            );
+
+        maxX=
+            Math.max(
+                maxX,
+                p.x
+            );
+
+        minY=
+            Math.min(
+                minY,
+                p.y
+            );
+
+        maxY=
+            Math.max(
+                maxY,
+                p.y
+            );
     }
 
-    if (minX < 0) {
-        obj.x -= minX;
 
-        if (obj.vx < 0) {
-            obj.vx =
+    if(minX<0){
+
+        obj.x-=minX;
+
+        if(obj.vx<0){
+
+            obj.vx=
                 -obj.vx*
                 PHYSICS.restitution;
         }
     }
 
-    if (maxX > innerWidth) {
-        obj.x -=
+
+    if(maxX>innerWidth){
+
+        obj.x-=
             maxX-innerWidth;
 
-        if (obj.vx > 0) {
-            obj.vx =
+        if(obj.vx>0){
+
+            obj.vx=
                 -obj.vx*
                 PHYSICS.restitution;
         }
     }
 
-    if (minY < 0) {
-        obj.y -= minY;
 
-        if (obj.vy < 0) {
-            obj.vy =
+    if(minY<0){
+
+        obj.y-=minY;
+
+        if(obj.vy<0){
+
+            obj.vy=
                 -obj.vy*
                 PHYSICS.restitution;
         }
     }
 
-    if (maxY > innerHeight) {
-        obj.y -=
+
+    if(maxY>innerHeight){
+
+        obj.y-=
             maxY-innerHeight;
 
-        if (obj.vy > 0) {
-            obj.vy =
+        if(obj.vy>0){
+
+            obj.vy=
                 -obj.vy*
                 PHYSICS.restitution;
         }
@@ -3839,83 +3871,112 @@ function keepInside(obj) {
    SPEED
 ============================================================ */
 
-function limitVelocity(obj) {
-    const speed =
+function limitVelocity(obj){
+
+    const speed=
         Math.hypot(
             obj.vx,
             obj.vy
         );
 
-    if (speed > PHYSICS.maxSpeed) {
-        const scale =
+
+    if(
+        speed>
+        PHYSICS.maxSpeed
+    ){
+
+        const scale=
             PHYSICS.maxSpeed/
             speed;
 
-        obj.vx *= scale;
-        obj.vy *= scale;
+        obj.vx*=scale;
+        obj.vy*=scale;
     }
 
-    if (
+
+    if(
         Math.abs(
             obj.angularVelocity
-        ) >
+        )>
         PHYSICS.maxAngular
-    ) {
-        obj.angularVelocity =
+    ){
+
+        obj.angularVelocity=
+
             Math.sign(
                 obj.angularVelocity
-            )*
+            )
+            *
             PHYSICS.maxAngular;
     }
 }
 
 
 /* ============================================================
-   FLOATING MOTION
+   SPACE FLOAT
 ============================================================ */
 
-function keepFloating(obj,time) {
-    if (obj.dragging) {
+function keepFloating(
+    obj,
+    time
+){
+
+    if(obj.dragging){
         return;
     }
 
-    const fx =
+
+    const fx=
+
         Math.sin(
             time*.00025+
             obj.x*.002
-        )*.0015;
+        )
+        *
+        .0015;
 
-    const fy =
+
+    const fy=
+
         Math.cos(
             time*.00021+
             obj.y*.002
-        )*.0015;
+        )
+        *
+        .0015;
 
-    obj.vx += fx;
-    obj.vy += fy;
 
-    const speed =
+    obj.vx+=fx;
+    obj.vy+=fy;
+
+
+    const speed=
         Math.hypot(
             obj.vx,
             obj.vy
         );
 
-    if (
+
+    if(
         speed<
         PHYSICS.minimumSpeed
-    ) {
-        const angle =
+    ){
+
+        const angle=
+
             Math.atan2(
                 obj.y,
                 obj.x
-            )+
+            )
+            +
             Math.PI/2;
 
-        obj.vx +=
+
+        obj.vx+=
             Math.cos(angle)*
             PHYSICS.minimumSpeed;
 
-        obj.vy +=
+        obj.vy+=
             Math.sin(angle)*
             PHYSICS.minimumSpeed;
     }
@@ -3926,76 +3987,69 @@ function keepFloating(obj,time) {
    DRAGGING
 ============================================================ */
 
-function setupDragging(obj) {
-    const el =
-        obj.el;
+function setupDragging(obj){
 
-    el.addEventListener(
-        "mouseenter",
-        () => {
-            obj.hovered = true;
+    const el=obj.el;
 
-            showHoverVideo(
-                el.dataset.video
-            );
-        }
-    );
+    el.addEventListener("mouseenter", () => {
+    obj.hovered = true;
+});
 
-    el.addEventListener(
-        "mouseleave",
-        () => {
-            obj.hovered = false;
-            hideHoverVideo();
-        }
-    );
+el.addEventListener("mouseleave", () => {
+    obj.hovered = false;
+});
 
-    let downX = 0;
-    let downY = 0;
+    let downX=0;
+    let downY=0;
 
-    let startX = 0;
-    let startY = 0;
+    let startX=0;
+    let startY=0;
+
 
     el.addEventListener(
         "pointerdown",
-        event => {
-            if (
-                event.button !== undefined &&
-                event.button !== 0
-            ) {
+        e=>{
+
+            if(
+                e.button!==undefined &&
+                e.button!==0
+            ){
                 return;
             }
 
-            event.preventDefault();
 
-            obj.dragging = true;
-            obj.pointerId =
-                event.pointerId;
+            e.preventDefault();
+
+
+            obj.dragging=true;
+
+            obj.pointerId=
+                e.pointerId;
+
 
             el.setPointerCapture(
-                event.pointerId
+                e.pointerId
             );
 
-            downX =
-                event.clientX;
 
-            downY =
-                event.clientY;
+            downX=e.clientX;
+            downY=e.clientY;
 
-            startX =
-                obj.x;
 
-            startY =
-                obj.y;
+            startX=obj.x;
+            startY=obj.y;
 
-            obj.previousX =
-                obj.x;
 
-            obj.previousY =
-                obj.y;
+            obj.previousX=obj.x;
+            obj.previousY=obj.y;
 
-            obj.vx = 0;
-            obj.vy = 0;
-            obj.moved = false;
+
+            obj.vx=0;
+            obj.vy=0;
+
+
+            obj.moved=false;
+
 
             el.classList.add(
                 "dragging"
@@ -4003,127 +4057,146 @@ function setupDragging(obj) {
         }
     );
 
+
     el.addEventListener(
         "pointermove",
-        event => {
-            if (
+        e=>{
+
+            if(
                 !obj.dragging ||
-                event.pointerId !==
-                obj.pointerId
-            ) {
+                e.pointerId!==obj.pointerId
+            ){
                 return;
             }
 
-            const dx =
-                event.clientX-downX;
 
-            const dy =
-                event.clientY-downY;
+            const dx=
+                e.clientX-downX;
 
-            if (
+            const dy=
+                e.clientY-downY;
+
+
+            if(
                 Math.abs(dx)>4 ||
                 Math.abs(dy)>4
-            ) {
-                obj.moved = true;
+            ){
+
+                obj.moved=true;
             }
 
-            obj.x =
+
+            obj.x=
                 startX+dx;
 
-            obj.y =
+            obj.y=
                 startY+dy;
 
-            const poly =
+
+            const poly=
                 roundedPolygon(obj);
 
-            let minX = Infinity;
-            let maxX = -Infinity;
 
-            let minY = Infinity;
-            let maxY = -Infinity;
+            let minX=Infinity;
+            let maxX=-Infinity;
 
-            for (const point of poly) {
-                minX =
+            let minY=Infinity;
+            let maxY=-Infinity;
+
+
+            for(const p of poly){
+
+                minX=
                     Math.min(
                         minX,
-                        point.x
+                        p.x
                     );
 
-                maxX =
+                maxX=
                     Math.max(
                         maxX,
-                        point.x
+                        p.x
                     );
 
-                minY =
+                minY=
                     Math.min(
                         minY,
-                        point.y
+                        p.y
                     );
 
-                maxY =
+                maxY=
                     Math.max(
                         maxY,
-                        point.y
+                        p.y
                     );
             }
 
-            if (minX < 0) {
-                obj.x -= minX;
-            }
 
-            if (maxX > innerWidth) {
-                obj.x -=
+            if(minX<0)
+                obj.x-=minX;
+
+
+            if(maxX>innerWidth)
+                obj.x-=
                     maxX-innerWidth;
-            }
 
-            if (minY < 0) {
-                obj.y -= minY;
-            }
 
-            if (maxY > innerHeight) {
-                obj.y -=
+            if(minY<0)
+                obj.y-=minY;
+
+
+            if(maxY>innerHeight)
+                obj.y-=
                     maxY-innerHeight;
-            }
+
         }
     );
 
-    function release(event) {
-        if (
+
+    function release(e){
+
+        if(
             !obj.dragging ||
-            event.pointerId !==
-            obj.pointerId
-        ) {
+            e.pointerId!==obj.pointerId
+        ){
             return;
         }
 
-        obj.dragging = false;
 
-        try {
+        obj.dragging=false;
+
+
+        try{
+
             el.releasePointerCapture(
-                event.pointerId
+                e.pointerId
             );
-        } catch (_) {}
+
+        }catch(_){}
+
 
         el.classList.remove(
             "dragging"
         );
 
-        const dx =
+
+        const dx=
             obj.x-
             obj.previousX;
 
-        const dy =
+        const dy=
             obj.y-
             obj.previousY;
 
-        obj.vx =
+
+        obj.vx=
             dx*.22;
 
-        obj.vy =
+        obj.vy=
             dy*.22;
 
-        obj.vx =
+
+        obj.vx=
             Math.max(
                 -PHYSICS.maxSpeed,
                 Math.min(
@@ -4132,7 +4205,8 @@ function setupDragging(obj) {
                 )
             );
 
-        obj.vy =
+
+        obj.vy=
             Math.max(
                 -PHYSICS.maxSpeed,
                 Math.min(
@@ -4141,27 +4215,29 @@ function setupDragging(obj) {
                 )
             );
 
-        if (!obj.moved) {
-            trackEvent(
-                "shortcut_click",
-                {
-                    shortcut_name:
-                        obj.el.dataset.name
-                }
-            );
 
-            openBrowser(
-                obj.el.dataset.url
-            );
-        }
+            if(!obj.moved){
 
-        obj.pointerId = null;
+trackEvent("shortcut_click", {
+    shortcut_name: obj.el.dataset.name
+});
+
+openBrowser(
+    obj.el.dataset.url
+);
+}
+
+
+
+        obj.pointerId=null;
     }
+
 
     el.addEventListener(
         "pointerup",
         release
     );
+
 
     el.addEventListener(
         "pointercancel",
@@ -4174,53 +4250,40 @@ function setupDragging(obj) {
    RENDER
 ============================================================ */
 
-function normalizeAngle(angle) {
+function normalizeAngle(angle){
     return Math.atan2(
         Math.sin(angle),
         Math.cos(angle)
     );
 }
 
-function updateHoverRotation(obj,dt) {
-    if (
-        !obj.hovered ||
-        obj.dragging
-    ) {
+function updateHoverRotation(obj, dt){
+    if(!obj.hovered || obj.dragging){
         return;
     }
 
-    const difference =
-        normalizeAngle(
-            obj.uprightTarget-
-            obj.angle
-        );
+    const difference = normalizeAngle(
+        obj.uprightTarget - obj.angle
+    );
 
-    obj.angle +=
-        difference*.02*dt;
+    obj.angle += difference * 0.02 * dt;
 
-    obj.angularVelocity *= .72;
+    // Stop the normal physics rotation while correcting itself
+    obj.angularVelocity *= 0.72;
 
-    if (
-        Math.abs(difference)<.01
-    ) {
-        obj.angle =
-            obj.uprightTarget;
-
+    if(Math.abs(difference) < 0.01){
+        obj.angle = obj.uprightTarget;
         obj.angularVelocity = 0;
     }
 }
 
 function render(obj) {
-    const scale =
-        obj.hovered &&
-        !obj.dragging
-            ? 1.06
-            : 1;
+    const scale = obj.hovered && !obj.dragging ? 1.06 : 1;
 
     obj.el.style.transform =
         `translate3d(
-            ${obj.x-obj.width/2}px,
-            ${obj.y-obj.height/2}px,
+            ${obj.x - obj.width / 2}px,
+            ${obj.y - obj.height / 2}px,
             0
         )
         rotate(${obj.angle}rad)
@@ -4228,95 +4291,121 @@ function render(obj) {
 }
 
 
+
 /* ============================================================
-   PHYSICS LOOP
+   MAIN LOOP
 ============================================================ */
 
-let lastTime =
+let lastTime=
     performance.now();
 
-function physicsLoop(time) {
-    let dt =
+
+function physicsLoop(time){
+
+    let dt=
         (time-lastTime)/
         16.6667;
 
-    lastTime = time;
 
-    dt =
+    lastTime=time;
+
+
+    dt=
         Math.min(
             dt,
             2
         );
 
-    for (const obj of objects) {
-        if (obj.dragging) {
+
+    for(
+        const obj of objects
+    ){
+
+        if(obj.dragging){
+
             render(obj);
+
             continue;
         }
 
-        obj.previousX =
+
+        obj.previousX=
             obj.x;
 
-        obj.previousY =
+        obj.previousY=
             obj.y;
 
-        obj.vy +=
+
+        obj.vy+=
             PHYSICS.gravity*
             dt;
 
-        obj.vx *=
+
+        obj.vx*=
             Math.pow(
                 PHYSICS.air,
                 dt
             );
 
-        obj.vy *=
+
+        obj.vy*=
             Math.pow(
                 PHYSICS.air,
                 dt
             );
 
-        obj.angularVelocity *=
+
+        obj.angularVelocity*=
             Math.pow(
                 PHYSICS.angularAir,
                 dt
             );
 
-        obj.x +=
+
+        obj.x+=
             obj.vx*dt;
 
-        obj.y +=
+        obj.y+=
             obj.vy*dt;
 
-        obj.angle +=
+
+        obj.angle+=
             obj.angularVelocity*
             dt;
 
-        updateHoverRotation(
-            obj,
-            dt
-        );
+            updateHoverRotation(obj, dt);
+
 
         keepFloating(
             obj,
             time
         );
 
+
         limitVelocity(obj);
+
         keepInside(obj);
     }
+
 
     solveAllCollisions();
 
-    for (const obj of objects) {
+
+    for(
+        const obj of objects
+    ){
+
         keepInside(obj);
+
         render(obj);
     }
+
 
     requestAnimationFrame(
         physicsLoop
     );
 }
+
 
 requestAnimationFrame(
     physicsLoop
@@ -4329,23 +4418,32 @@ requestAnimationFrame(
 
 window.addEventListener(
     "resize",
-    () => {
-        for (const obj of objects) {
-            obj.width =
+    ()=>{
+
+        for(
+            const obj of objects
+        ){
+
+            obj.width=
                 obj.el.offsetWidth;
 
-            obj.height =
+            obj.height=
                 obj.el.offsetHeight;
 
-            obj.radius =
+            obj.radius=
                 getRadius(obj.el);
 
             keepInside(obj);
         }
 
+
         solveAllCollisions();
 
-        for (const obj of objects) {
+
+        for(
+            const obj of objects
+        ){
+
             render(obj);
         }
     }
@@ -4353,83 +4451,89 @@ window.addEventListener(
 
 
 /* ============================================================
-   URL AND SEARCH
+   URL / SEARCH
 ============================================================ */
 
-function getDestination(value) {
-    value =
+function getDestination(value){
+
+    value=
         value.trim();
 
-    if (!value) {
+
+    if(!value){
         return null;
     }
 
-    const localPages = [
+
+    const localPages=[
+
         "games.html",
         "movies.html",
         "roblox.html",
         "index.html"
+
     ];
 
-    if (
+
+    if(
         localPages.includes(
             value.toLowerCase()
         )
-    ) {
+    ){
+
         return value;
     }
 
-    if (
-        /^https?:\/\//i.test(value)
-    ) {
+
+    if(
+        /^https?:\/\//i
+            .test(value)
+    ){
+
         return value;
     }
 
-    if (
+
+    if(
         /^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i
             .test(value)
-    ) {
+    ){
+
         return "https://"+value;
     }
 
-    return (
+
+    return
         "https://www.google.com/search?q="+
-        encodeURIComponent(value)
-    );
+        encodeURIComponent(value);
 }
 
 
 /* ============================================================
-   OPEN AND CLOSE BROWSER
+   OPEN BROWSER
 ============================================================ */
 
 function openBrowser(url) {
-    if (!url) {
-        return;
-    }
+    if (!url) return;
 
-    trackEvent(
-        "open_site",
-        {
-            site_name:url
-        }
-    );
+    trackEvent("open_site", {
+        site_name: url
+    });
 
-    browserFrame.src =
-        url;
-
-    browser.classList.add(
-        "open"
-    );
+    browserFrame.src = url;
+    browser.classList.add("open");
 }
 
-function closeBrowserWindow() {
-    browser.classList.remove(
-        "open"
-    );
 
-    browserFrame.src =
-        "about:blank";
+
+
+/* ============================================================
+   CLOSE BROWSER
+============================================================ */
+
+function closeBrowserWindow() {
+    browser.classList.remove("open");
+    browserFrame.src = "about:blank";
 }
 
 closeBrowser.addEventListener(
@@ -4442,35 +4546,32 @@ closeBrowser.addEventListener(
    SEARCH
 ============================================================ */
 
-searchForm.addEventListener(
-    "submit",
-    event => {
-        event.preventDefault();
+searchForm.addEventListener("submit", e => {
+    e.preventDefault();
 
-        const destination =
-            getDestination(
-                searchInput.value
-            );
+    const destination = getDestination(searchInput.value);
 
-        if (destination) {
-            trackEvent(
-                "search_used"
-            );
+    if (destination) {
+        trackEvent("search_used");
 
-            openBrowser(
-                destination
-            );
-
-            searchInput.blur();
-        }
+        openBrowser(destination);
+        searchInput.blur();
     }
-);
+});
+
+
+
+/* ============================================================
+   ENTER
+============================================================ */
 
 searchInput.addEventListener(
     "keydown",
-    event => {
-        if (event.key === "Enter") {
-            event.preventDefault();
+    e=>{
+
+        if(e.key==="Enter"){
+
+            e.preventDefault();
 
             searchForm.requestSubmit();
         }
@@ -4484,13 +4585,15 @@ searchInput.addEventListener(
 
 document.addEventListener(
     "keydown",
-    event => {
-        if (
-            event.key === "Escape" &&
+    e=>{
+
+        if(
+            e.key==="Escape" &&
             browser.classList.contains(
                 "open"
             )
-        ) {
+        ){
+
             closeBrowserWindow();
         }
     }
@@ -4503,202 +4606,129 @@ document.addEventListener(
 
 backButton.addEventListener(
     "click",
-    () => {
-        try {
+    ()=>{
+
+        try{
+
             browserFrame
                 .contentWindow
                 .history
                 .back();
-        } catch (_) {}
+
+        }catch(_){}
     }
 );
 
+
 forwardButton.addEventListener(
     "click",
-    () => {
-        try {
+    ()=>{
+
+        try{
+
             browserFrame
                 .contentWindow
                 .history
                 .forward();
-        } catch (_) {}
+
+        }catch(_){}
     }
 );
 
+/* info button */
 
-/* ============================================================
-   INFORMATION PANEL
-============================================================ */
+// JavaScript
+const infoButton = document.getElementById("infoButton");
+const infoOverlay = document.getElementById("infoOverlay");
+const infoClose = document.getElementById("infoClose");
 
-const infoButton =
-    document.getElementById(
-        "infoButton"
-    );
+infoButton.addEventListener("click", () => {
+    infoOverlay.classList.add("open");
+});
 
-const infoOverlay =
-    document.getElementById(
-        "infoOverlay"
-    );
+infoClose.addEventListener("click", () => {
+    infoOverlay.classList.remove("open");
+});
 
-const infoClose =
-    document.getElementById(
-        "infoClose"
-    );
-
-infoButton.addEventListener(
-    "click",
-    () => {
-        infoOverlay.classList.add(
-            "open"
-        );
+infoOverlay.addEventListener("click", event => {
+    if (event.target === infoOverlay) {
+        infoOverlay.classList.remove("open");
     }
-);
+});
 
-infoClose.addEventListener(
-    "click",
-    () => {
-        infoOverlay.classList.remove(
-            "open"
-        );
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        infoOverlay.classList.remove("open");
     }
-);
+});
 
-infoOverlay.addEventListener(
-    "click",
-    event => {
-        if (
-            event.target ===
-            infoOverlay
-        ) {
-            infoOverlay.classList.remove(
-                "open"
-            );
-        }
-    }
-);
+/* date/time */
 
-document.addEventListener(
-    "keydown",
-    event => {
-        if (event.key === "Escape") {
-            infoOverlay.classList.remove(
-                "open"
-            );
-        }
-    }
-);
-
-
-/* ============================================================
-   DATE AND TIME
-============================================================ */
-
-const currentTime =
-    document.getElementById(
-        "currentTime"
-    );
-
-const currentDate =
-    document.getElementById(
-        "currentDate"
-    );
-
+/* JavaScript */
+const currentTime = document.getElementById("currentTime");
+const currentDate = document.getElementById("currentDate");
 function updateDateTime() {
-    const now =
-        new Date();
+const now = new Date();
+currentTime.textContent = now.toLocaleTimeString(undefined, {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit"
+});
 
-    currentTime.textContent =
-        now.toLocaleTimeString(
-            undefined,
-            {
-                hour:"numeric",
-                minute:"2-digit",
-                second:"2-digit"
-            }
-        );
+currentDate.textContent = now.toLocaleDateString(undefined, {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+});
 
-    currentDate.textContent =
-        now.toLocaleDateString(
-            undefined,
-            {
-                month:"long",
-                day:"numeric",
-                year:"numeric"
-            }
-        );
 }
-
 updateDateTime();
-
-setInterval(
-    updateDateTime,
-    1000
-);
-
-
+setInterval(updateDateTime, 1000);
+/* random ads */
 /* ============================================================
-   RANDOM ADS
+   RANDOM MULTI-AD SYSTEM
 ============================================================ */
 
-const randomAd =
-    document.getElementById(
-        "randomAd"
-    );
-
-const closeRandomAd =
-    document.getElementById(
-        "closeRandomAd"
-    );
-
-const randomAdButton =
-    document.getElementById(
-        "randomAdButton"
-    );
-
-const randomAdTitle =
-    document.getElementById(
-        "randomAdTitle"
-    );
-
-const randomAdText =
-    document.getElementById(
-        "randomAdText"
-    );
+const randomAd = document.getElementById("randomAd");
+const closeRandomAd = document.getElementById("closeRandomAd");
+const randomAdButton = document.getElementById("randomAdButton");
+const randomAdTitle = document.getElementById("randomAdTitle");
+const randomAdText = document.getElementById("randomAdText");
 
 const adList = [
     {
-        title:"Try Safe Bucket",
-        text:"Quick access to games, tools, websites, and more.",
-        button:"Open Safe Bucket",
-        url:"index.html"
+        title: "Try Safe Bucket",
+        text: "Quick access to games, tools, websites, and more.",
+        button: "Open Safe Bucket",
+        url: "index.html"
     },
 
     {
-        title:"Play Some Games",
-        text:"Find games and other fun websites in one place.",
-        button:"Open Games",
-        url:"games.html"
+        title: "Play Some Games",
+        text: "Find games and other fun websites in one place.",
+        button: "Open Games",
+        url: "games.html"
     },
 
     {
-        title:"Visit CiphAnon Studios",
-        text:"Explore more projects created by CiphAnon Studios.",
-        button:"Visit Studio",
-        url:"https://ciphanonstudios.github.io/CiphAnonStudios-v12"
+        title: "Visit CiphAnon Studios",
+        text: "Explore more projects created by CiphAnon Studios.",
+        button: "Visit Studio",
+        url: "https://ciphanonstudios.github.io/CiphAnonStudios-v12"
     },
 
     {
-        title:"Check Out Minecraft",
-        text:"Open the Minecraft section and start playing.",
-        button:"Open Minecraft",
-        url:"https://safebucketbypass.github.io/MC/"
+        title: "Check Out Minecraft",
+        text: "Open the Minecraft section and start playing.",
+        button: "Open Minecraft",
+        url: "https://safebucketbypass.github.io/MC/"
     },
 
     {
-        title:"Explore Anime",
-        text:"Find anime content through Safe Bucket.",
-        button:"Open Anime",
-        url:"https://mkissa.to/"
+        title: "Explore Anime",
+        text: "Find anime content through Safe Bucket.",
+        button: "Open Anime",
+        url: "https://mkissa.to/"
     }
 ];
 
@@ -4711,246 +4741,132 @@ function getRandomAd() {
     let index;
 
     do {
-        index =
-            Math.floor(
-                Math.random()*
-                adList.length
-            );
+        index = Math.floor(Math.random() * adList.length);
     } while (
-        adList.length>1 &&
-        index===lastAdIndex
+        adList.length > 1 &&
+        index === lastAdIndex
     );
 
-    lastAdIndex =
-        index;
-
+    lastAdIndex = index;
     return adList[index];
 }
 
 function getRandomDelay() {
-    const minimumDelay =
-        20000;
+    /*
+       Random time between 20 and 60 seconds.
+       Change these numbers if needed.
+    */
 
-    const maximumDelay =
-        60000;
+    const minimumDelay = 20000;
+    const maximumDelay = 60000;
 
     return Math.floor(
-        Math.random()*
-        (
-            maximumDelay-
-            minimumDelay
-        )+
+        Math.random() *
+        (maximumDelay - minimumDelay) +
         minimumDelay
     );
 }
 
 function hideRandomAd() {
-    randomAd.classList.remove(
-        "show"
-    );
+    randomAd.classList.remove("show");
 
     if (adHideTimer) {
-        clearTimeout(
-            adHideTimer
-        );
-
-        adHideTimer =
-            null;
+        clearTimeout(adHideTimer);
+        adHideTimer = null;
     }
 }
 
 function showRandomAd() {
-    currentAd =
-        getRandomAd();
+    currentAd = getRandomAd();
 
-    randomAdTitle.textContent =
-        currentAd.title;
+    randomAdTitle.textContent = currentAd.title;
+    randomAdText.textContent = currentAd.text;
+    randomAdButton.textContent = currentAd.button;
 
-    randomAdText.textContent =
-        currentAd.text;
-
-    randomAdButton.textContent =
-        currentAd.button;
-
-    randomAd.classList.add(
-        "show"
-    );
+    randomAd.classList.add("show");
 
     if (adHideTimer) {
-        clearTimeout(
-            adHideTimer
-        );
+        clearTimeout(adHideTimer);
     }
 
-    adHideTimer =
-        setTimeout(
-            () => {
-                hideRandomAd();
-            },
-            12000
-        );
+    adHideTimer = setTimeout(() => {
+        hideRandomAd();
+    }, 12000);
 }
 
 function scheduleRandomAd() {
     if (adTimer) {
-        clearTimeout(
-            adTimer
-        );
+        clearTimeout(adTimer);
     }
 
-    adTimer =
-        setTimeout(
-            () => {
-                showRandomAd();
-                scheduleRandomAd();
-            },
-            getRandomDelay()
-        );
+    const randomDelay = getRandomDelay();
+
+    adTimer = setTimeout(() => {
+        showRandomAd();
+        scheduleRandomAd();
+    }, randomDelay);
 }
 
-closeRandomAd.addEventListener(
-    "click",
-    () => {
-        hideRandomAd();
-        scheduleRandomAd();
+closeRandomAd.addEventListener("click", () => {
+    hideRandomAd();
+    scheduleRandomAd();
+});
+
+randomAdButton.addEventListener("click", () => {
+    if (currentAd && currentAd.url) {
+        openBrowser(currentAd.url);
     }
-);
 
-randomAdButton.addEventListener(
-    "click",
-    () => {
-        if (
-            currentAd &&
-            currentAd.url
-        ) {
-            openBrowser(
-                currentAd.url
-            );
-        }
+    hideRandomAd();
+    scheduleRandomAd();
+});
 
-        hideRandomAd();
-        scheduleRandomAd();
-    }
-);
-
+/*
+   Start the random ad timer.
+*/
 scheduleRandomAd();
 
-
-/* ============================================================
-   CONTROL CENTER
-============================================================ */
-
+/* =====================================
+   CIPHANON CONTROL CENTER
+===================================== */
 (() => {
-    const panel =
-        document.getElementById(
-            "controlPanel"
-        );
+    const panel = document.getElementById("controlPanel");
+    const toggle = document.getElementById("controlPanelToggle");
+    const closeButton = document.getElementById("controlPanelClose");
+    const statusText = document.getElementById("controlStatusText");
+    const statusDot = document.getElementById("controlStatusDot");
 
-    const toggle =
-        document.getElementById(
-            "controlPanelToggle"
-        );
+    const intervalInput = document.getElementById("autoClickInterval");
+    const intervalLabel = document.getElementById("controlIntervalLabel");
+    const startButton = document.getElementById("autoClickStart");
+    const clickCountLabel = document.getElementById("controlClickCount");
+    const singleClickButton = document.getElementById("singleClickButton");
+    const resetButton = document.getElementById("resetClickCount");
+    const releaseButton = document.getElementById("releaseAllKeys");
 
-    const closeButton =
-        document.getElementById(
-            "controlPanelClose"
-        );
-
-    const statusText =
-        document.getElementById(
-            "controlStatusText"
-        );
-
-    const statusDot =
-        document.getElementById(
-            "controlStatusDot"
-        );
-
-    const intervalInput =
-        document.getElementById(
-            "autoClickInterval"
-        );
-
-    const intervalLabel =
-        document.getElementById(
-            "controlIntervalLabel"
-        );
-
-    const startButton =
-        document.getElementById(
-            "autoClickStart"
-        );
-
-    const clickCountLabel =
-        document.getElementById(
-            "controlClickCount"
-        );
-
-    const singleClickButton =
-        document.getElementById(
-            "singleClickButton"
-        );
-
-    const resetButton =
-        document.getElementById(
-            "resetClickCount"
-        );
-
-    const releaseButton =
-        document.getElementById(
-            "releaseAllKeys"
-        );
-
-    const frame =
-        document.getElementById(
-            "browserFrame"
-        );
+    const frame = document.getElementById("browserFrame");
 
     if (
-        !panel ||
-        !toggle ||
-        !closeButton ||
-        !intervalInput ||
-        !startButton ||
-        !frame
+        !panel || !toggle || !closeButton ||
+        !intervalInput || !startButton || !frame
     ) {
-        console.warn(
-            "CiphAnon Control Center: Required browser elements are missing."
-        );
-
+        console.warn("CiphAnon Control Center: Required browser elements are missing.");
         return;
     }
 
     let clickTimer = null;
     let clickCount = 0;
     let running = false;
+    const heldKeys = new Set();
 
-    const heldKeys =
-        new Set();
-
-    function setStatus(
-        message,
-        active = false
-    ) {
-        statusText.textContent =
-            message;
-
-        statusDot.classList.toggle(
-            "active",
-            active
-        );
+    function setStatus(message, active = false) {
+        statusText.textContent = message;
+        statusDot.classList.toggle("active", active);
     }
 
     function setPanelOpen(open) {
-        panel.classList.toggle(
-            "visible",
-            open
-        );
-
-        toggle.setAttribute(
-            "aria-expanded",
-            String(open)
-        );
+        panel.classList.toggle("visible", open);
+        toggle.setAttribute("aria-expanded", String(open));
 
         if (!open) {
             stopAutoClicker();
@@ -4960,139 +4876,75 @@ scheduleRandomAd();
 
     function getTargetWindow() {
         try {
-            const target =
-                frame.contentWindow;
-
+            // Access is permitted only when the iframe is same-origin.
+            const target = frame.contentWindow;
             void target.document;
-
             return target;
         } catch {
             return null;
         }
     }
 
-    function sendKey(key,type) {
-        const target =
-            getTargetWindow();
+    function sendKey(key, type) {
+        const target = getTargetWindow();
 
         if (!target) {
-            setStatus(
-                "Page blocks keyboard access"
-            );
-
+            setStatus("Page blocks keyboard access");
             return false;
         }
 
         try {
             const keyMap = {
-                " ":
-                    {
-                        key:" ",
-                        code:"Space",
-                        keyCode:32
-                    },
-
-                "Shift":
-                    {
-                        key:"Shift",
-                        code:"ShiftLeft",
-                        keyCode:16
-                    },
-
-                "w":
-                    {
-                        key:"w",
-                        code:"KeyW",
-                        keyCode:87
-                    },
-
-                "a":
-                    {
-                        key:"a",
-                        code:"KeyA",
-                        keyCode:65
-                    },
-
-                "s":
-                    {
-                        key:"s",
-                        code:"KeyS",
-                        keyCode:83
-                    },
-
-                "d":
-                    {
-                        key:"d",
-                        code:"KeyD",
-                        keyCode:68
-                    }
+                " ": { key: " ", code: "Space", keyCode: 32 },
+                "Shift": { key: "Shift", code: "ShiftLeft", keyCode: 16 },
+                "w": { key: "w", code: "KeyW", keyCode: 87 },
+                "a": { key: "a", code: "KeyA", keyCode: 65 },
+                "s": { key: "s", code: "KeyS", keyCode: 83 },
+                "d": { key: "d", code: "KeyD", keyCode: 68 }
             };
 
-            const info =
-                keyMap[key] ||
-                {
-                    key,
-                    code:"",
-                    keyCode:0
-                };
+            const info = keyMap[key] || {
+                key,
+                code: "",
+                keyCode: 0
+            };
 
-            const event =
-                new target.KeyboardEvent(
-                    type,
-                    {
-                        key:info.key,
-                        code:info.code,
-                        bubbles:true,
-                        cancelable:true
-                    }
-                );
+            const event = new target.KeyboardEvent(type, {
+                key: info.key,
+                code: info.code,
+                bubbles: true,
+                cancelable: true
+            });
 
-            target.document.dispatchEvent(
-                event
-            );
+            // Legacy properties are read-only in some browsers.
+            // Many games ignore synthetic keyboard events entirely.
+            target.document.dispatchEvent(event);
+            target.document.activeElement?.dispatchEvent(event);
 
-            target.document.activeElement
-                ?.dispatchEvent(event);
-
-            setStatus(
-                "Input sent; game support varies",
-                true
-            );
-
+            setStatus("Input sent; game support varies", true);
             return true;
         } catch {
-            setStatus(
-                "Could not send keyboard input"
-            );
-
+            setStatus("Could not send keyboard input");
             return false;
         }
     }
 
     function pressKey(key) {
-        if (heldKeys.has(key)) {
-            return;
-        }
+        if (heldKeys.has(key)) return;
 
         heldKeys.add(key);
-        sendKey(key,"keydown");
+        sendKey(key, "keydown");
     }
 
     function releaseKey(key) {
-        if (!heldKeys.has(key)) {
-            return;
-        }
+        if (!heldKeys.has(key)) return;
 
         heldKeys.delete(key);
-        sendKey(key,"keyup");
+        sendKey(key, "keyup");
     }
 
     function releaseAllKeys() {
-        for (
-            const key of [
-                ...heldKeys
-            ]
-        ) {
+        for (const key of [...heldKeys]) {
             releaseKey(key);
         }
 
@@ -5102,348 +4954,174 @@ scheduleRandomAd();
 
     function stopAutoClicker() {
         if (clickTimer !== null) {
-            clearInterval(
-                clickTimer
-            );
-
+            clearInterval(clickTimer);
             clickTimer = null;
         }
 
         running = false;
-
-        startButton.textContent =
-            "Start";
-
-        startButton.classList.remove(
-            "running"
-        );
+        startButton.textContent = "Start";
+        startButton.classList.remove("running");
     }
 
     function sendClick() {
-        const target =
-            getTargetWindow();
+        const target = getTargetWindow();
 
         if (!target) {
             stopAutoClicker();
-
-            setStatus(
-                "Page blocks click access"
-            );
-
+            setStatus("Page blocks click access");
             return false;
         }
 
         try {
-            const doc =
-                target.document;
+            const doc = target.document;
+            const element = doc.activeElement;
 
-            const element =
-                doc.activeElement;
-
-            if (
-                !element ||
-                element === doc.body ||
-                element === doc.documentElement
-            ) {
-                setStatus(
-                    "Tap inside the page first"
-                );
-
+            if (!element || element === doc.body || element === doc.documentElement) {
+                setStatus("Tap inside the page first");
                 return false;
             }
 
-            element.dispatchEvent(
-                new target.MouseEvent(
-                    "mousedown",
-                    {
-                        bubbles:true,
-                        cancelable:true,
-                        view:target,
-                        button:0
-                    }
-                )
-            );
+            element.dispatchEvent(new target.MouseEvent("mousedown", {
+                bubbles: true,
+                cancelable: true,
+                view: target,
+                button: 0
+            }));
 
-            element.dispatchEvent(
-                new target.MouseEvent(
-                    "mouseup",
-                    {
-                        bubbles:true,
-                        cancelable:true,
-                        view:target,
-                        button:0
-                    }
-                )
-            );
+            element.dispatchEvent(new target.MouseEvent("mouseup", {
+                bubbles: true,
+                cancelable: true,
+                view: target,
+                button: 0
+            }));
 
-            element.dispatchEvent(
-                new target.MouseEvent(
-                    "click",
-                    {
-                        bubbles:true,
-                        cancelable:true,
-                        view:target,
-                        button:0
-                    }
-                )
-            );
+            element.dispatchEvent(new target.MouseEvent("click", {
+                bubbles: true,
+                cancelable: true,
+                view: target,
+                button: 0
+            }));
 
             clickCount++;
-
-            clickCountLabel.textContent =
-                String(clickCount);
-
-            setStatus(
-                "Click event sent",
-                true
-            );
-
+            clickCountLabel.textContent = String(clickCount);
+            setStatus("Click event sent", true);
             return true;
         } catch {
-            setStatus(
-                "Could not send click"
-            );
-
+            setStatus("Could not send click");
             return false;
         }
     }
 
     function startAutoClicker() {
-        const interval =
-            Number(
-                intervalInput.value
-            );
+        const interval = Number(intervalInput.value);
 
-        if (
-            !Number.isFinite(interval) ||
-            interval<50 ||
-            interval>10000
-        ) {
-            setStatus(
-                "Choose 50–10000 milliseconds"
-            );
-
-            intervalInput.value =
-                "500";
-
-            intervalLabel.textContent =
-                "500 ms";
-
+        if (!Number.isFinite(interval) || interval < 50 || interval > 10000) {
+            setStatus("Choose 50–10000 milliseconds");
+            intervalInput.value = "500";
+            intervalLabel.textContent = "500 ms";
             return;
         }
 
         stopAutoClicker();
 
-        intervalLabel.textContent =
-            `${interval} ms`;
-
+        intervalLabel.textContent = `${interval} ms`;
         running = true;
+        startButton.textContent = "Stop";
+        startButton.classList.add("running");
+        setStatus("Auto clicker running", true);
 
-        startButton.textContent =
-            "Stop";
-
-        startButton.classList.add(
-            "running"
-        );
-
-        setStatus(
-            "Auto clicker running",
-            true
-        );
-
-        clickTimer =
-            setInterval(
-                () => {
-                    if (!sendClick()) {
-                        stopAutoClicker();
-                    }
-                },
-                interval
-            );
+        clickTimer = setInterval(() => {
+            if (!sendClick()) {
+                stopAutoClicker();
+            }
+        }, interval);
     }
 
-    toggle.addEventListener(
-        "click",
-        () => {
-            setPanelOpen(
-                !panel.classList.contains(
-                    "visible"
-                )
-            );
-        }
-    );
-
-    closeButton.addEventListener(
-        "click",
-        () => {
-            setPanelOpen(false);
-        }
-    );
-
-    document.querySelectorAll(
-        "#controlPanel [data-key]"
-    ).forEach(button => {
-        const key =
-            button.dataset.key;
-
-        button.addEventListener(
-            "pointerdown",
-            event => {
-                event.preventDefault();
-                pressKey(key);
-            }
-        );
-
-        const release =
-            () => releaseKey(key);
-
-        button.addEventListener(
-            "pointerup",
-            release
-        );
-
-        button.addEventListener(
-            "pointercancel",
-            release
-        );
-
-        button.addEventListener(
-            "lostpointercapture",
-            release
-        );
+    toggle.addEventListener("click", () => {
+        setPanelOpen(!panel.classList.contains("visible"));
     });
 
-    releaseButton.addEventListener(
-        "click",
-        releaseAllKeys
-    );
+    closeButton.addEventListener("click", () => {
+        setPanelOpen(false);
+    });
 
-    startButton.addEventListener(
-        "click",
-        () => {
-            if (running) {
-                stopAutoClicker();
+    document.querySelectorAll("#controlPanel [data-key]").forEach(button => {
+        const key = button.dataset.key;
 
-                setStatus(
-                    "Auto clicker stopped"
-                );
-            } else {
-                startAutoClicker();
-            }
-        }
-    );
+        // Use click/touch instead of holding a physical key.
+        button.addEventListener("pointerdown", event => {
+            event.preventDefault();
+            pressKey(key);
+        });
 
-    intervalInput.addEventListener(
-        "input",
-        () => {
-            const value =
-                Number(
-                    intervalInput.value
-                );
+        const release = () => releaseKey(key);
 
-            intervalLabel.textContent =
-                Number.isFinite(value) &&
-                value>0
-                    ? `${value} ms`
-                    : "—";
+        button.addEventListener("pointerup", release);
+        button.addEventListener("pointercancel", release);
+        button.addEventListener("lostpointercapture", release);
+    });
 
-            if (running) {
-                stopAutoClicker();
+    releaseButton.addEventListener("click", releaseAllKeys);
 
-                setStatus(
-                    "Interval changed; press Start again"
-                );
-            }
-        }
-    );
-
-    singleClickButton.addEventListener(
-        "click",
-        sendClick
-    );
-
-    resetButton.addEventListener(
-        "click",
-        () => {
-            clickCount = 0;
-
-            clickCountLabel.textContent =
-                "0";
-
-            setStatus(
-                "Click counter reset"
-            );
-        }
-    );
-
-    document.addEventListener(
-        "keydown",
-        event => {
-            if (
-                event.key.toLowerCase() ===
-                "control" &&
-                !event.repeat
-            ) {
-                const tag =
-                    event.target?.tagName;
-
-                if (
-                    tag === "INPUT" ||
-                    tag === "TEXTAREA"
-                ) {
-                    return;
-                }
-
-                event.preventDefault();
-
-                setPanelOpen(
-                    !panel.classList.contains(
-                        "visible"
-                    )
-                );
-            }
-
-            if (
-                event.key === "Escape" &&
-                panel.classList.contains(
-                    "visible"
-                )
-            ) {
-                event.stopPropagation();
-                setPanelOpen(false);
-            }
-        },
-        true
-    );
-
-    window.addEventListener(
-        "blur",
-        releaseAllKeys
-    );
-
-    frame.addEventListener(
-        "load",
-        () => {
+    startButton.addEventListener("click", () => {
+        if (running) {
             stopAutoClicker();
-            releaseAllKeys();
-
-            setStatus(
-                "Page loaded; controls ready"
-            );
+            setStatus("Auto clicker stopped");
+        } else {
+            startAutoClicker();
         }
-    );
+    });
 
-    window.addEventListener(
-        "pagehide",
-        () => {
+    intervalInput.addEventListener("input", () => {
+        const value = Number(intervalInput.value);
+        intervalLabel.textContent =
+            Number.isFinite(value) && value > 0 ? `${value} ms` : "—";
+
+        if (running) {
             stopAutoClicker();
-            releaseAllKeys();
+            setStatus("Interval changed; press Start again");
         }
-    );
+    });
 
-    setStatus(
-        "Controls ready"
-    );
+    singleClickButton.addEventListener("click", sendClick);
+
+    resetButton.addEventListener("click", () => {
+        clickCount = 0;
+        clickCountLabel.textContent = "0";
+        setStatus("Click counter reset");
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key.toLowerCase() === "control" && !event.repeat) {
+            // Avoid opening the panel while typing in a text field.
+            const tag = event.target?.tagName;
+            if (tag === "INPUT" || tag === "TEXTAREA") return;
+
+            event.preventDefault();
+            setPanelOpen(!panel.classList.contains("visible"));
+        }
+
+        if (event.key === "Escape" && panel.classList.contains("visible")) {
+            event.stopPropagation();
+            setPanelOpen(false);
+        }
+    }, true);
+
+    window.addEventListener("blur", releaseAllKeys);
+
+    frame.addEventListener("load", () => {
+        stopAutoClicker();
+        releaseAllKeys();
+        setStatus("Page loaded; controls ready");
+    });
+
+    // Prevent a running timer from surviving navigation or page closure.
+    window.addEventListener("pagehide", () => {
+        stopAutoClicker();
+        releaseAllKeys();
+    });
+
+    setStatus("Controls ready");
 })();
 
 
@@ -5451,9 +5129,50 @@ scheduleRandomAd();
    INITIAL RENDER
 ============================================================ */
 
-for (const obj of objects) {
+for(
+    const obj of objects
+){
+
     render(obj);
 }
+
+
+  
+const cursor = document.getElementById("custom-cursor");
+
+document.addEventListener("mousemove", (event) => {
+  cursor.style.left = `${event.clientX}px`;
+  cursor.style.top = `${event.clientY}px`;
+});
+
+/* ============================================================
+   HOVER VIDEO PREVIEWS
+============================================================ */
+
+document.querySelectorAll(".block").forEach(block => {
+    const video = block.querySelector(".blockVideo");
+
+    if (!video) return;
+
+    block.addEventListener("mouseenter", () => {
+        video.currentTime = 0;
+
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // The video may be blocked until the user interacts with the page.
+            });
+        }
+    });
+
+    block.addEventListener("mouseleave", () => {
+        video.pause();
+        video.currentTime = 0;
+    });
+});
+
+
 </script>
 </body>
 </html>
