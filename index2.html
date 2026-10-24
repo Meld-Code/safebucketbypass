@@ -625,109 +625,115 @@ body{
 .bg {
     position: fixed;
     inset: 0;
+    z-index: 0;
     overflow: hidden;
     pointer-events: none;
-    z-index: 0;
-} 
+    background: #101010;
+}
 
+.bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(36, 36, 36, .72) 0%,
+            rgba(21, 21, 21, .82) 35%,
+            rgba(13, 13, 13, .9) 75%
+        );
+
+    transition: opacity .45s ease;
+}
+
+/* Full-page background video */
 .backgroundVideo {
     position: absolute;
-    inset: -25px;
+    inset: -30px;
 
-    width: calc(100% + 50px);
-    height: calc(100% + 50px);
+    z-index: 1;
+
+    width: calc(100% + 60px);
+    height: calc(100% + 60px);
 
     object-fit: cover;
 
     opacity: 0;
-    filter: blur(22px) brightness(.32) saturate(.8);
+    visibility: hidden;
 
-    transform: scale(1.08);
+    filter:
+        blur(22px)
+        brightness(.55)
+        saturate(.9);
+
+    transform: scale(1.12);
 
     transition:
         opacity .45s ease,
-        filter .45s ease,
+        visibility .45s ease,
         transform .7s ease;
 }
 
 .backgroundVideo.active {
     opacity: 1;
-    transform: scale(1.12);
+    visibility: visible;
+    transform: scale(1.18);
 }
 
+/* Darkens the video without hiding it */
 .backgroundVideoOverlay {
     position: absolute;
     inset: 0;
-    z-index: 1;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0008,
-            #0004,
-            #000b
-        );
+    z-index: 2;
+
+    background: rgba(0, 0, 0, .28);
 
     opacity: 0;
     transition: opacity .45s ease;
 }
 
-.bg:has(.backgroundVideo.active) .backgroundVideoOverlay {
+.backgroundVideo.active ~ .backgroundVideoOverlay {
     opacity: 1;
 }
 
-.bg::before,
-.grid,
-.noise {
-    z-index: 2;
-}
+.grid {
+    position: absolute;
+    inset: -20%;
 
-.grid,
-.noise {
+    z-index: 3;
+
+    opacity: .16;
     pointer-events: none;
-}
-
-.bg::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index: 2;
-    pointer-events: none;
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            #242424 0%,
-            #151515 35%,
-            #0d0d0d 75%
-        );
-}
-
-.grid{
-    position:absolute;
-    inset:-20%;
-    opacity:.16;
 
     background-image:
-        linear-gradient(#fff 1px,transparent 1px),
-        linear-gradient(90deg,#fff 1px,transparent 1px);
+        linear-gradient(#fff 1px, transparent 1px),
+        linear-gradient(90deg, #fff 1px, transparent 1px);
 
-    background-size:70px 70px;
+    background-size: 70px 70px;
 
     transform:
         perspective(500px)
         rotateX(62deg)
         translateY(20%);
 
-    transform-origin:center;
+    transform-origin: center;
 }
 
-.noise{
-    position:absolute;
-    inset:0;
-    opacity:.035;
+.noise {
+    position: absolute;
+    inset: 0;
 
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 4;
+
+    opacity: .035;
+    pointer-events: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
 
 /* =========================
    CENTER
@@ -5219,34 +5225,7 @@ document.addEventListener("mousemove", (event) => {
 });
 
 /* ============================================================
-   HOVER VIDEO PREVIEWS
-============================================================ */
-
-document.querySelectorAll(".block").forEach(block => {
-    const video = block.querySelector(".blockVideo");
-
-    if (!video) return;
-
-    block.addEventListener("mouseenter", () => {
-        video.currentTime = 0;
-
-        const playPromise = video.play();
-
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // The video may be blocked until the user interacts with the page.
-            });
-        }
-    });
-
-    block.addEventListener("mouseleave", () => {
-        video.pause();
-        video.currentTime = 0;
-    });
-});
-
-/* ============================================================
-   FULL-PAGE HOVER VIDEO BACKGROUND
+   BLOCK AND FULL-PAGE HOVER VIDEOS
 ============================================================ */
 
 const backgroundVideo =
@@ -5255,52 +5234,63 @@ const backgroundVideo =
 let backgroundVideoTimer = null;
 
 document.querySelectorAll(".block").forEach(block => {
-    const video = block.querySelector(".blockVideo");
-    const backgroundSource = block.dataset.backgroundVideo;
+    const blockVideo =
+        block.querySelector(".blockVideo");
 
-    if (video) {
-        block.addEventListener("mouseenter", () => {
-            video.currentTime = 0;
-
-            video.play().catch(() => {
-                console.warn("Block preview could not play.");
-            });
-        });
-
-        block.addEventListener("mouseleave", () => {
-            video.pause();
-            video.currentTime = 0;
-        });
-    }
-
-    if (!backgroundSource) return;
+    const backgroundSource =
+        block.dataset.backgroundVideo;
 
     block.addEventListener("mouseenter", () => {
         clearTimeout(backgroundVideoTimer);
 
-        if (backgroundVideo.src !== new URL(backgroundSource, document.baseURI).href) {
+        if (blockVideo) {
+            blockVideo.currentTime = 0;
+
+            blockVideo.play().catch(error => {
+                console.warn("Block video could not play:", error);
+            });
+        }
+
+        if (!backgroundSource || !backgroundVideo) {
+            return;
+        }
+
+        const fullSource =
+            new URL(
+                backgroundSource,
+                document.baseURI
+            ).href;
+
+        if (backgroundVideo.src !== fullSource) {
             backgroundVideo.src = backgroundSource;
             backgroundVideo.load();
         }
 
         backgroundVideo.currentTime = 0;
+        backgroundVideo.classList.add("active");
 
-        backgroundVideo.play()
-            .then(() => {
-                backgroundVideo.classList.add("active");
-            })
-            .catch(() => {
-                console.warn("Background preview could not play.");
-            });
+        backgroundVideo.play().catch(error => {
+            console.warn("Background video could not play:", error);
+        });
     });
 
     block.addEventListener("mouseleave", () => {
+        if (blockVideo) {
+            blockVideo.pause();
+            blockVideo.currentTime = 0;
+        }
+
+        if (!backgroundSource || !backgroundVideo) {
+            return;
+        }
+
         backgroundVideoTimer = setTimeout(() => {
             backgroundVideo.pause();
             backgroundVideo.classList.remove("active");
         }, 150);
     });
 });
+
 
 
 
