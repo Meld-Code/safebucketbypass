@@ -2042,6 +2042,30 @@ font-size: 8px;
     right: 13px;
     z-index: 1;
 }
+
+  
+/* Hide the normal cursor on the website */
+html,
+body,
+body * {
+  cursor: none !important;
+}
+
+/* Custom white-dot cursor */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%);
+}
+
 </style>
 </head>
 
@@ -2051,6 +2075,10 @@ font-size: 8px;
   <span class="online-dot"></span>
   <span id="onlineCount">0</span> visitors online
 </div>
+
+  
+<div id="custom-cursor"></div>
+
 
 <!-- ============================================================
      WELCOME SCREEN
@@ -4998,6 +5026,15 @@ for(
 
     render(obj);
 }
+
+
+  
+const cursor = document.getElementById("custom-cursor");
+
+document.addEventListener("mousemove", (event) => {
+  cursor.style.left = `${event.clientX}px`;
+  cursor.style.top = `${event.clientY}px`;
+});
 
 </script>
 </body>
