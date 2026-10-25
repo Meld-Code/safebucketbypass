@@ -1,824 +1,566 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=no"
->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="Safe Bucket by CiphAnon Studios — a customizable homepage for quick links, games, search, and tools.">
+  <title>CiphAnon Safe Browser</title>
 
-<meta
-    name="theme-color"
-    content="#101010"
->
-
-<title>CiphAnon Safe Browser</title>
-
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
->
-
-<link
-    rel="stylesheet"
-    href="./style.css"
->
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-<div
-    class="online-counter"
-    aria-live="polite"
->
-    <span
-        class="online-dot loading"
-        id="onlineDot"
-    ></span>
 
-    <span>
-        <strong id="onlineCount">—</strong>
-        visitors online
-    </span>
-</div>
+  <!-- ONLINE COUNTER -->
+  <div class="online-counter" id="onlineCounter" aria-live="polite">
+    <span class="online-dot" aria-hidden="true"></span>
+    <span id="onlineCount">0</span> visitors online
+  </div>
 
-<div id="custom-cursor"></div>
+  <!-- SETTINGS BUTTON -->
+  <button class="settingsButton" id="settingsBtn" type="button" aria-label="Open settings" title="Settings">
+    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+  </button>
 
-<!-- WELCOME SCREEN -->
+  <!-- SETTINGS PANEL -->
+  <div class="settingsPanel" id="settingsPanel" role="dialog" aria-modal="false" aria-labelledby="settingsTitle" hidden>
+    <div class="settingsHeader">
+      <h2 id="settingsTitle">Settings</h2>
+      <button class="settingsClose" id="closeSettings" type="button" aria-label="Close settings">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
 
-<div
-    class="welcome"
-    id="welcome"
->
+    <p>Customize your Safe Bucket experience.</p>
+
+    <div class="settingsContent">
+      <div class="settingsItem">
+        <div>
+          <strong>Appearance</strong>
+          <p>More customization options coming soon.</p>
+        </div>
+        <i class="fa-solid fa-palette" aria-hidden="true"></i>
+      </div>
+
+      <div class="settingsItem">
+        <div>
+          <strong>Background</strong>
+          <p>Custom backgrounds coming soon.</p>
+        </div>
+        <i class="fa-solid fa-image" aria-hidden="true"></i>
+      </div>
+
+      <!-- MOVING BLOCKS SETTING -->
+      <div class="settingsItem movingBlocksSetting">
+        <div>
+          <strong>Moving Blocks</strong>
+          <p>Expand the icons and enable bouncing physics animations.</p>
+        </div>
+
+        <label class="settingSwitch" for="movingBlocksToggle">
+          <input type="checkbox" id="movingBlocksToggle" aria-label="Enable moving blocks" aria-controls="world">
+          <span class="settingSwitchTrack"></span>
+        </label>
+      </div>
+
+      <!-- TUTORIAL SETTING -->
+      <div class="settingsItem tutorialSettingsItem">
+        <div>
+          <strong>Safe Bucket Tutorial</strong>
+          <p>Take a guided tour with a spotlight that moves between features.</p>
+        </div>
+
+        <button id="replayTutorialButton" type="button" class="tutorialSettingsButton">
+          <i class="fa-solid fa-play" aria-hidden="true"></i>
+          Watch Tutorial
+        </button>
+      </div>
+
+      <div class="settingsItem">
+        <div>
+          <strong>About</strong>
+          <p>CiphAnon Safe Browser</p>
+        </div>
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- WELCOME SCREEN -->
+  <div class="welcome" id="welcome">
     <div class="welcomeCard">
+      <div class="bannerBlock"></div>
 
-        <div class="welcomeTop">
-            <div class="welcomeLogo">
-                <img
-                    src="Images/SafeBucketLogo.png"
-                    alt="Safe Bucket"
-                >
-            </div>
-
-            <div class="welcomeTitle">
-                <h1>Safe Bucket v2.4.3</h1>
-
-                <p>
-                    A CiphAnon Studios Project
-                </p>
-            </div>
+      <div class="welcomeTop">
+        <div class="welcomeLogo">
+          <img src="Images/SafeBucketLogo.png" alt="Safe Bucket Logo">
         </div>
 
-        <div class="welcomeIntro">
-            <h2>Welcome to Safe Bucket.</h2>
+        <div class="welcomeTitle">
+          <h1>Safe Bucket v2.4.3</h1>
+          <p>A CiphAnon Studios Project</p>
+        </div>
+      </div>
 
-            <p>
-                Safe Bucket is a simple homepage for games,
-                websites, search, and more.
-            </p>
+      <div class="welcomeIntro">
+        <h2>Welcome to Safe Bucket.</h2>
+        <p>
+          Safe Bucket is a simple web project designed for quick access
+          to favorite websites, games, search, and more.
+        </p>
+      </div>
+
+      <div class="welcomeSections">
+        <div class="welcomeSection">
+          <div class="welcomeIcon" aria-hidden="true">◉</div>
+          <h3>What it is</h3>
+          <p>A simple homepage that helps keep your favorite websites organized and accessible.</p>
         </div>
 
-        <div class="welcomeSections">
-            <div class="welcomeSection">
-                <div class="welcomeIcon">
-                    <i class="fa-solid fa-globe"></i>
-                </div>
+        <div class="welcomeSection">
+          <div class="welcomeIcon" aria-hidden="true">◆</div>
+          <h3>Made for</h3>
+          <p>Quick access, simple search, gaming, and more.</p>
+        </div>
+      </div>
 
-                <h3>What it is</h3>
-
-                <p>
-                    A simple browser homepage for quick access
-                    to useful websites.
-                </p>
-            </div>
-
-            <div class="welcomeSection">
-                <div class="welcomeIcon">
-                    <i class="fa-solid fa-gamepad"></i>
-                </div>
-
-                <h3>Made for</h3>
-
-                <p>
-                    Quick access, simple search, gaming, and more.
-                </p>
-            </div>
+      <div class="creator">
+        <div class="creatorLeft">
+          <div class="creatorAvatar">C</div>
+          <div class="creatorText">
+            <span>Created by:</span>
+            <strong>ToonyTime</strong>
+          </div>
         </div>
 
-        <div class="creator">
-            <div class="creatorLeft">
-                <div class="creatorAvatar">
-                    C
-                </div>
+        <div class="creatorStudio">CIPHANON<br>STUDIOS</div>
+      </div>
 
-                <div class="creatorText">
-                    <span>Created by:</span>
-                    <strong>ToonyTime</strong>
-                </div>
-            </div>
+      <button class="enterButton" id="enterSafeBucket" type="button">Enter Safe Bucket</button>
 
-            <div class="creatorStudio">
-                CIPHANON<br>
-                STUDIOS
-            </div>
-        </div>
+      <div class="welcomeRemember">
+        <input type="checkbox" id="dontShowWelcome">
+        <label for="dontShowWelcome">Don't show this again</label>
+      </div>
 
-        <button
-            class="enterButton"
-            id="enterSafeBucket"
-            type="button"
-        >
-            Enter Safe Bucket
+      <div class="welcomeFooter">Built by CiphAnon Studios</div>
+    </div>
+  </div>
+
+  <!-- TUTORIAL INVITATION -->
+  <div id="tutorialPrompt" class="tutorial-overlay" role="dialog" aria-modal="true" aria-labelledby="tutorialPromptTitle" hidden>
+    <div class="tutorial-card tutorial-prompt-card">
+      <img src="Images/tutorial-character.png" alt="Safe Bucket tutorial guide" class="tutorial-character">
+
+      <p class="tutorial-eyebrow">QUICK TOUR</p>
+      <h2 id="tutorialPromptTitle">Would you like a tutorial?</h2>
+      <p>I'll guide you around the page, highlight the main features, and explain what each one does.</p>
+
+      <div class="tutorial-checkbox">
+        <input type="checkbox" id="dontShowTutorialAgain">
+        <label for="dontShowTutorialAgain">Don't ask me again</label>
+      </div>
+
+      <div class="tutorial-actions">
+        <button id="skipTutorialPrompt" type="button">No, thanks</button>
+        <button id="startTutorial" class="tutorial-primary" type="button">
+          <i class="fa-solid fa-play" aria-hidden="true"></i>
+          Yes, show me
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TUTORIAL SPOTLIGHT -->
+  <div id="tutorialSpotlightLayer" class="tutorial-spotlight-layer" aria-hidden="true" hidden>
+    <div id="tutorialSpotlight" class="tutorial-spotlight"></div>
+  </div>
+
+  <!-- GUIDED TUTORIAL -->
+  <div id="tutorialOverlay" class="tutorial-overlay tutorial-tour-overlay" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle" aria-describedby="tutorialDescription" hidden>
+    <div class="tutorial-card tutorial-step-card">
+      <button id="closeTutorial" class="tutorial-close" type="button" aria-label="Close tutorial" title="Close tutorial">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <img src="Images/tutorial-character.png" alt="Your Safe Bucket guide" class="tutorial-character">
+
+      <p id="tutorialStepCount" class="tutorial-eyebrow">STEP 1 OF 7</p>
+      <h2 id="tutorialTitle">Welcome to the tour!</h2>
+      <p id="tutorialDescription">I'll highlight parts of the page and explain what they do.</p>
+
+      <div id="tutorialProgress" class="tutorial-progress" role="progressbar" aria-label="Tutorial progress" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1">
+        <div id="tutorialProgressBar"></div>
+      </div>
+
+      <div class="tutorial-actions">
+        <button id="tutorialBack" type="button" disabled>
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          Back
         </button>
 
-        <div class="welcomeRemember">
-            <input
-                type="checkbox"
-                id="dontShowWelcome"
-            >
+        <button id="tutorialSkip" type="button">Skip tour</button>
 
-            <label for="dontShowWelcome">
-                Don't show this again
-            </label>
-        </div>
-
-        <div class="welcomeFooter">
-            Built by CiphAnon Studios
-        </div>
+        <button id="tutorialNext" class="tutorial-primary" type="button">
+          Next
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- LOADING SCREEN -->
-
-<div
-    class="loadingScreen"
-    id="loadingScreen"
->
+  <!-- LOADING SCREEN -->
+  <div class="loadingScreen" id="loadingScreen">
     <div class="loadingCard">
-        <div class="loadingLogo">
-            <img
-                src="Images/SafeBucketLogo.png"
-                alt="Safe Bucket"
-            >
-        </div>
-
-        <div class="loadingTitle">
-            Loading Safe Bucket
-        </div>
-
-        <div
-            class="loadingMessage"
-            id="loadingMessage"
-        >
-            Preparing your destination...
-        </div>
-
-        <div class="loadingBar"></div>
+      <div class="loadingLogo">
+        <img src="Images/SafeBucketLogo.png" alt="Safe Bucket">
+      </div>
+      <div class="loadingTitle">Loading Safe Bucket</div>
+      <div class="loadingMessage" id="loadingMessage">Preparing your destination...</div>
+      <div class="loadingBar"></div>
     </div>
-</div>
+  </div>
 
-<!-- BACKGROUND -->
-
-<div
-    class="bg"
-    id="pageBackground"
->
-    <video
-        id="backgroundVideo"
-        class="backgroundVideo"
-        muted
-        loop
-        playsinline
-        preload="metadata"
-    ></video>
-
+  <!-- BACKGROUND -->
+  <div class="bg" id="pageBackground" aria-hidden="true">
+    <video id="backgroundVideo" class="backgroundVideo" muted loop playsinline preload="metadata"></video>
     <div class="backgroundVideoOverlay"></div>
     <div class="grid"></div>
     <div class="noise"></div>
-</div>
+  </div>
 
-<!-- MAIN CONTENT -->
-
-<main class="mainContent">
-
-    <section class="hero">
-        <img
-            class="SafeBucketLogo"
-            src="Images/SafeBucketLogo.png"
-            alt="Safe Bucket"
-        >
-
-        <h1>Safe Bucket</h1>
-
-        <p>
-            Keep Unblocked Sites Unblocked With Safe Bucket!
-        </p>
-    </section>
-
-    <form
-        class="search"
-        id="searchForm"
-    >
-        <div class="searchIcon">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-
-        <input
-            id="searchInput"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="Search or enter a website..."
-            aria-label="Search or enter a website"
-        >
-
-        <button
-            class="go"
-            type="submit"
-            aria-label="Search"
-            title="Search"
-        >
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </form>
-
-    <!-- Floating-style shortcut cards.
-         They keep the .iconShortcut class required by script.js. -->
-
-    <div
-        class="iconShortcuts"
-        id="iconShortcuts"
-        aria-label="Quick shortcuts"
-    >
-        <button
-            class="iconShortcut"
-            data-name="Games"
-            data-url="https://safebucketbypass.github.io/safebucketbypass/RealGPagePlus.html"
-            type="button"
-            aria-label="Games"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/Controller.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Games
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="Movies"
-            data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
-            type="button"
-            aria-label="Movies"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/Movie.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Movies
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="Roblox"
-            data-url="https://angst.clawschools.org/embed.html#https://nowgg.fun/apps/a/19900/b.html"
-            type="button"
-            aria-label="Roblox"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/Roblox.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Roblox
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="Home"
-            data-url="https://ciphanonstudios.github.io/CiphAnonStudios-v12"
-            type="button"
-            aria-label="Home"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/CiphAnonStudios.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Home
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="Anime"
-            data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
-            type="button"
-            aria-label="Anime"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/Anime.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Anime
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="Minecraft"
-            data-url="https://safebucketbypass.github.io/MC/"
-            type="button"
-            aria-label="Minecraft"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/Minecraft.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Minecraft
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="Proxy"
-            data-url="https://learningedu.theworkpc.com"
-            type="button"
-            aria-label="Proxy"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/AltServer.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                Proxy
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="AI"
-            data-url="https://chat.morphic.sh/"
-            type="button"
-            aria-label="AI"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/AI.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                AI
-            </span>
-        </button>
-
-        <button
-            class="iconShortcut"
-            data-name="YouTube"
-            data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
-            type="button"
-            aria-label="YouTube"
-        >
-            <span class="shortcutImage">
-                <img
-                    src="Images/YouTube.png"
-                    alt=""
-                >
-            </span>
-
-            <span class="shortcutLabel">
-                YouTube
-            </span>
-        </button>
+  <!-- MAIN HOMEPAGE -->
+  <main class="center" id="mainHomepage">
+    <div class="hero" id="heroSection" data-tutorial="hero">
+      <img class="SafeBucketLogo" src="Images/SafeBucketLogo.png" alt="Safe Bucket">
+      <h1>Safe Bucket</h1>
+      <p>Keep Unblocked Sites Unblocked With Safe Bucket!</p>
     </div>
-</main>
 
-<!-- DATE AND TIME -->
+    <!-- SEARCH BAR -->
+    <form class="search" id="searchForm" data-tutorial="search">
+      <div class="searchIcon" aria-hidden="true">⌕</div>
 
-<div
-    class="dateTime"
-    id="dateTime"
->
+      <input
+        id="searchInput"
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Search or enter a website..."
+        aria-label="Search or enter a website"
+      >
+
+      <button class="go" id="searchGoButton" type="submit">Go</button>
+      <button class="go" id="openAIButton" type="button" aria-label="Open AI">AI</button>
+    </form>
+  </main>
+
+  <!-- RANDOM AD -->
+  <div class="randomAd" id="randomAd">
+    <button class="closeRandomAd" id="closeRandomAd" type="button" aria-label="Close advertisement">×</button>
+    <div class="adLabel">Sponsored</div>
+    <h3 id="randomAdTitle"></h3>
+    <p id="randomAdText"></p>
+    <button class="randomAdButton" id="randomAdButton" type="button">Open</button>
+  </div>
+
+  <!-- DATE AND TIME -->
+  <div class="dateTime" id="dateTime" aria-live="off">
     <strong id="currentTime">--:--:--</strong>
     <span id="currentDate">Loading date...</span>
-</div>
+  </div>
 
-<!-- DISCORD -->
-
-<a
+  <!-- DISCORD -->
+  <a
     href="https://discord.gg/your-invite"
     target="_blank"
     rel="noopener noreferrer"
     class="discordButton"
+    id="discordButton"
     aria-label="Join Discord"
-    title="Join Discord"
->
-    <i class="fa-brands fa-discord"></i>
-</a>
+    data-tutorial="discord"
+  >
+    <i class="fa-brands fa-discord" aria-hidden="true"></i>
+  </a>
 
-<!-- INFO -->
+  <!-- INFO BUTTON -->
+  <button class="infoButton" id="infoButton" type="button" aria-label="Information" title="Information" data-tutorial="info">ⓘ</button>
 
-<button
-    class="infoButton"
-    id="infoButton"
-    type="button"
-    aria-label="Information"
-    title="Information"
->
-    <i class="fa-solid fa-circle-info"></i>
-</button>
+  <!-- INFO PANEL -->
+  <div class="infoOverlay" id="infoOverlay" hidden>
+    <div class="infoPanel" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+      <button class="infoClose" id="infoClose" type="button" aria-label="Close information">✕</button>
 
-<div
-    class="infoOverlay"
-    id="infoOverlay"
->
-    <div
-        class="infoPanel"
-        role="dialog"
-        aria-modal="true"
-    >
-        <button
-            class="infoClose"
-            id="infoClose"
-            type="button"
-            aria-label="Close information"
-        >
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+      <h2 id="infoTitle">Safe Bucket</h2>
+      <p>A simple homepage for quick access to games, websites, search, and other tools.</p>
 
-        <h2>Safe Bucket</h2>
-
-        <p>
-            A simple homepage for quick access to games,
-            websites, search, and other tools.
-        </p>
-
-        <div class="infoList">
-            <div class="infoItem">
-                <strong>Open Sites</strong>
-                <span>
-                    Click a shortcut card to open its website.
-                </span>
-            </div>
-
-            <div class="infoItem">
-                <strong>Search</strong>
-                <span>
-                    Enter a website or search term in the search bar.
-                </span>
-            </div>
-
-            <div class="infoItem">
-                <strong>Browser</strong>
-                <span>
-                    Destinations open inside the built-in browser overlay.
-                </span>
-            </div>
+      <div class="infoList">
+        <div class="infoItem">
+          <strong>Physics Blocks</strong>
+          <span>Drag the blocks around the screen and watch them collide, bounce, rotate, and respond to gravity when moving blocks are enabled.</span>
         </div>
-    </div>
-</div>
 
-<!-- SETTINGS -->
-
-<button
-    class="settingsButton"
-    id="settingsButton"
-    type="button"
-    aria-label="Settings"
-    title="Settings"
->
-    <i class="fa-solid fa-gear"></i>
-</button>
-
-<div
-    class="settingsOverlay"
-    id="settingsOverlay"
->
-    <div
-        class="settingsPanel"
-        role="dialog"
-        aria-modal="true"
-    >
-        <button
-            class="settingsClose"
-            id="settingsClose"
-            type="button"
-            aria-label="Close settings"
-        >
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <h2>Settings</h2>
-
-        <p>
-            Customize your Safe Bucket homepage.
-        </p>
-
-        <div class="settingsList">
-
-            <div class="settingItem">
-                <div class="settingText">
-                    <strong>Background grid</strong>
-                    <span>Show the background grid.</span>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        id="gridToggle"
-                        checked
-                    >
-
-                    <span class="switchSlider"></span>
-                </label>
-            </div>
-
-            <div class="settingItem">
-                <div class="settingText">
-                    <strong>Background noise</strong>
-                    <span>Show subtle texture.</span>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        id="noiseToggle"
-                        checked
-                    >
-
-                    <span class="switchSlider"></span>
-                </label>
-            </div>
-
-            <div class="settingItem">
-                <div class="settingText">
-                    <strong>Date and time</strong>
-                    <span>Show the corner clock.</span>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        id="dateToggle"
-                        checked
-                    >
-
-                    <span class="switchSlider"></span>
-                </label>
-            </div>
-
-            <div class="settingItem tutorialSetting">
-                <div class="settingText">
-                    <strong>Safe Bucket tutorial</strong>
-                    <span>Replay the tutorial.</span>
-                </div>
-
-                <button
-                    class="watchTutorialButton"
-                    id="watchTutorialButton"
-                    type="button"
-                >
-                    Watch Tutorial
-                </button>
-            </div>
-
+        <div class="infoItem">
+          <strong>Reset Rotation</strong>
+          <span>Press and hold a block for 2.5 seconds without dragging it to return it upright.</span>
         </div>
+
+        <div class="infoItem">
+          <strong>Open Sites</strong>
+          <span>Click a block normally to open its assigned website.</span>
+        </div>
+
+        <div class="infoItem">
+          <strong>Search</strong>
+          <span>Type a website or search term into the search bar and press Go.</span>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- RANDOM AD -->
+  <!-- PHYSICS BLOCKS -->
+  <!-- IMPORTANT: Keep this as class="world" so the existing physics JS can control it. -->
+  <div class="world" id="world" aria-label="Quick links" data-tutorial="quick-links">
 
-<div
-    class="randomAd"
-    id="randomAd"
->
-    <button
-        class="closeRandomAd"
-        id="closeRandomAd"
-        type="button"
-        aria-label="Close advertisement"
-    >
-        <i class="fa-solid fa-xmark"></i>
-    </button>
-
-    <div class="adLabel">
-        Sponsored
+    <div class="block"
+      data-url="https://safebucketbypass.github.io/safebucketbypass/RealGPagePlus.html"
+      data-name="Games"
+      tabindex="0" role="link" aria-label="Open Games">
+      <img src="Images/Controller.png" alt="Games">
+      <div class="blockLabel">Games</div>
     </div>
 
-    <h3 id="randomAdTitle"></h3>
-    <p id="randomAdText"></p>
+    <div class="block"
+      data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+      data-name="Movies"
+      tabindex="0" role="link" aria-label="Open Movies">
+      <img src="Images/Movie.png" alt="Movies">
+      <div class="blockLabel">Movies</div>
+    </div>
 
-    <button
-        class="randomAdButton"
-        id="randomAdButton"
-        type="button"
-    >
-        Open
-    </button>
-</div>
+    <div class="block"
+      data-url="https://angst.clawschools.org/embed.html#https://nowgg.fun/apps/a/19900/b.html"
+      data-name="Roblox"
+      data-background-video="RobloxPage.mp4"
+      tabindex="0" role="link" aria-label="Open Roblox">
+      <video class="blockVideo" muted loop playsinline preload="metadata">
+        <source src="Videos/roblox-preview.mp4" type="video/mp4">
+      </video>
+      <img src="Images/Roblox.png" alt="Roblox">
+      <div class="blockLabel">Roblox</div>
+    </div>
 
-<!-- BROWSER -->
+    <div class="block"
+      data-url="https://ciphanonstudios.github.io/CiphAnonStudios-v12"
+      data-name="Home"
+      tabindex="0" role="link" aria-label="Open Home">
+      <img src="Images/CiphAnonStudios.png" alt="Home">
+      <div class="blockLabel">Home</div>
+    </div>
 
-<div
-    class="browser"
-    id="browser"
->
+    <div class="block"
+      data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+      data-name="Anime"
+      tabindex="0" role="link" aria-label="Open Anime">
+      <img src="Images/Anime.png" alt="Anime">
+      <div class="blockLabel">Anime</div>
+    </div>
+
+    <div class="block"
+      data-url="https://safebucketbypass.github.io/MC/"
+      data-name="Minecraft"
+      data-background-video="Minecraft.mp4"
+      tabindex="0" role="link" aria-label="Open Minecraft">
+      <video class="blockVideo" muted loop playsinline preload="metadata">
+        <source src="Videos/minecraft-preview.mp4" type="video/mp4">
+      </video>
+      <img src="Images/Minecraft.png" alt="Minecraft">
+      <div class="blockLabel">Minecraft</div>
+    </div>
+
+    <div class="block"
+      data-url="https://learningedu.theworkpc.com"
+      data-name="Proxy"
+      tabindex="0" role="link" aria-label="Open Proxy">
+      <img src="Images/AltServer.png" alt="Proxy">
+      <div class="blockLabel">Proxy</div>
+    </div>
+
+    <div class="block"
+      data-url="https://chat.morphic.sh/"
+      data-name="AI"
+      tabindex="0" role="link" aria-label="Open AI">
+      <img src="Images/AI.png" alt="AI">
+      <div class="blockLabel">AI</div>
+    </div>
+
+    <div class="block"
+      data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+      data-name="YouTube"
+      tabindex="0" role="link" aria-label="Open YouTube">
+      <img src="Images/YouTube.png" alt="YouTube">
+      <div class="blockLabel">YouTube</div>
+    </div>
+
+  </div>
+
+  <div class="hint" id="blockHint">
+    Quick links · Enable Moving Blocks in Settings for physics animations
+  </div>
+
+  <!-- BROWSER -->
+  <div class="browser" id="browser">
     <div class="browserBar">
-        <button
-            class="browserButton"
-            id="closeBrowser"
-            type="button"
-            title="Close browser"
-            aria-label="Close browser"
-        >
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <button
-            class="browserButton"
-            id="backButton"
-            type="button"
-            title="Go back"
-            aria-label="Go back"
-        >
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
-
-        <button
-            class="browserButton"
-            id="forwardButton"
-            type="button"
-            title="Go forward"
-            aria-label="Go forward"
-        >
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <span class="browserTitle">
-            Safe Bucket Browser
-        </span>
+      <button class="browserButton" id="closeBrowser" type="button" aria-label="Close browser">✕</button>
+      <button class="browserButton" id="backButton" type="button" aria-label="Go back">←</button>
+      <button class="browserButton" id="forwardButton" type="button" aria-label="Go forward">→</button>
+      <button class="browserButton" id="controlPanelToggle" type="button" title="Open controls" aria-label="Open control panel">CTRL</button>
     </div>
 
-    <iframe
-        id="browserFrame"
-        title="CiphAnon Browser"
-    ></iframe>
-</div>
+    <!-- CONTROL PANEL -->
+    <div id="controlPanel" aria-label="Game controls">
+      <div class="controlHeader">
+        <h3>Control Center</h3>
+        <button id="controlPanelClose" type="button" aria-label="Close controls">✕</button>
+      </div>
 
-<!-- TUTORIAL -->
+      <div class="controlStatus">
+        <span class="controlStatusDot" id="controlStatusDot"></span>
+        <span id="controlStatusText">Controls ready</span>
+      </div>
 
-<div
-    class="tutorialOverlay"
-    id="tutorialOverlay"
-    aria-hidden="true"
->
-    <div
-        class="tutorialPrompt"
-        id="tutorialPrompt"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="tutorialPromptTitle"
-    >
-        <div class="tutorialIcon">
-            <i class="fa-solid fa-graduation-cap"></i>
+      <div class="controlSection">
+        <div class="controlSectionTitle">Keyboard</div>
+
+        <div class="controlGrid">
+          <button class="controlKey" data-key="w" type="button">W · Forward</button>
+          <button class="controlKey" data-key="a" type="button">A · Left</button>
+          <button class="controlKey" data-key="d" type="button">D · Right</button>
+          <button class="controlKey" data-key="s" type="button">S · Back</button>
+          <button class="controlKey" data-key=" " type="button">SPACE</button>
+          <button class="controlKey" data-key="Shift" type="button">SHIFT</button>
+          <button class="controlAction controlWide" id="releaseAllKeys" type="button">Release All Keys</button>
+        </div>
+      </div>
+
+      <div class="controlSection">
+        <div class="controlSectionTitle">Auto Clicker</div>
+
+        <div class="controlInputRow">
+          <input id="autoClickInterval" type="number" min="50" max="10000" step="50" value="500" aria-label="Click interval in milliseconds">
+          <button id="autoClickStart" class="controlAction" type="button">Start</button>
         </div>
 
-        <h2 id="tutorialPromptTitle">
-            Want a quick tour?
-        </h2>
+        <h1 class="above">Coming Soon</h1>
+        <div class="ctrlBlur"></div>
 
-        <p>
-            Safe Bucket has a search bar, shortcut cards,
-            settings, and browser controls.
-        </p>
-
-        <div class="tutorialButtons">
-            <button
-                class="tutorialButton"
-                id="tutorialSkipButton"
-                type="button"
-            >
-                Skip
-            </button>
-
-            <button
-                class="tutorialButton primary"
-                id="tutorialStartButton"
-                type="button"
-            >
-                Start Tutorial
-            </button>
+        <div class="controlStats">
+          <span>Interval: <strong id="controlIntervalLabel">500 ms</strong></span>
+          <span>Clicks: <strong id="controlClickCount">0</strong></span>
         </div>
 
-        <div class="welcomeRemember tutorialRemember">
-            <input
-                type="checkbox"
-                id="dontShowTutorial"
-            >
-
-            <label for="dontShowTutorial">
-                Don't show this again
-            </label>
+        <div class="controlGrid" style="margin-top: 8px">
+          <button id="singleClickButton" class="controlAction controlWide" type="button">Send One Click</button>
+          <button id="resetClickCount" class="controlAction controlWide" type="button">Reset Counter</button>
         </div>
+      </div>
+
+      <div class="controlNotice">
+        These are best-effort controls for compatible pages. External games may ignore simulated input or block access from the browser.
+      </div>
+
+      <div class="controlShortcuts">
+        <kbd>CTRL</kbd> Open/close this panel<br>
+        <kbd>ESC</kbd> Close the panel or browser
+      </div>
     </div>
 
-    <div
-        class="tutorialHighlight"
-        id="tutorialHighlight"
-    ></div>
+    <iframe id="browserFrame" title="CiphAnon Browser" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
 
-    <div
-        class="tutorialCard"
-        id="tutorialCard"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="tutorialTitle"
-        hidden
-    >
-        <div
-            class="tutorialProgress"
-            id="tutorialProgress"
-        ></div>
+  <!-- ONLINE VISITOR TRACKER -->
+  <script type="module" src="./tracker.js"></script>
 
-        <div
-            class="tutorialIcon"
-            id="tutorialStepIcon"
-        >
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
+  <!-- FIREBASE ONLINE COUNTER -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      onValue,
+      onDisconnect,
+      set,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 
-        <h2 id="tutorialTitle">
-            Search the web
-        </h2>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCkJJcpdLfWH8XZBuT8tgOkOKuj6ZtEzcY",
+      authDomain: "safebucketbypass.firebaseapp.com",
+      databaseURL: "https://safebucketbypass-default-rtdb.firebaseio.com",
+      projectId: "safebucketbypass",
+      storageBucket: "safebucketbypass.firebasestorage.app",
+      messagingSenderId: "659506734507",
+      appId: "1:659506734507:web:1e4268f7746380b41bdeee"
+    };
 
-        <p id="tutorialText">
-            Enter a website or search term in this bar,
-            then press the arrow button.
-        </p>
+    const onlineCount = document.getElementById("onlineCount");
 
-        <div class="tutorialButtons">
-            <button
-                class="tutorialButton"
-                id="tutorialExitButton"
-                type="button"
-            >
-                Exit
-            </button>
+    try {
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
 
-            <button
-                class="tutorialButton primary"
-                id="tutorialNextButton"
-                type="button"
-            >
-                Next
-            </button>
-        </div>
-    </div>
-</div>
+      if (!onlineCount) {
+        throw new Error('Missing element with id="onlineCount"');
+      }
 
-<!-- CONNECTED SCRIPTS -->
+      let visitorId = sessionStorage.getItem("safeBucketVisitorId");
 
-<script
-    type="module"
-    src="./tracker.js"
-></script>
+      if (!visitorId) {
+        visitorId =
+          globalThis.crypto?.randomUUID?.() ||
+          `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-<script
-    type="module"
-    src="./firebase.js"
-></script>
+        sessionStorage.setItem("safeBucketVisitorId", visitorId);
+      }
 
-<script
-    src="./script.js"
-></script>
+      const visitorRef = ref(database, `onlineVisitors/${visitorId}`);
+      const visitorsRef = ref(database, "onlineVisitors");
+
+      onDisconnect(visitorRef).remove().catch((error) => {
+        console.error("Disconnect setup failed:", error);
+      });
+
+      set(visitorRef, {
+        connectedAt: serverTimestamp()
+      }).catch((error) => {
+        console.error("Could not register visitor:", error);
+        onlineCount.textContent = "—";
+      });
+
+      onValue(
+        visitorsRef,
+        (snapshot) => {
+          const visitors = snapshot.val() || {};
+          onlineCount.textContent = Object.keys(visitors).length;
+        },
+        (error) => {
+          console.error("Could not read visitor count:", error);
+          onlineCount.textContent = "—";
+        }
+      );
+    } catch (error) {
+      console.error("Online counter initialization failed:", error);
+      if (onlineCount) onlineCount.textContent = "—";
+    }
+  </script>
+
+  <!-- MAIN JAVASCRIPT -->
+  <script src="./script.js"></script>
 
 </body>
 </html>
