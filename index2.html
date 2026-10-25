@@ -1,1225 +1,824 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Safe Bucket</title>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-}
+    <meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no"
+>
+
+<meta
+    name="theme-color"
+    content="#101010"
+>
+
+<title>CiphAnon Safe Browser</title>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+<link
+    rel="stylesheet"
+    href="./style.css"
+>
 
-:root {
-    --bg: #0d0d0d;
-    --panel: #151515;
-    --panel-light: #1d1d1d;
-    --line: #333;
-    --text: #f2f2f2;
-    --muted: #858585;
-    --white: #fff;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Inter, Arial, sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-/* Background */
-
-.background {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background:
-        radial-gradient(circle at 50% 35%, #292929 0%, #151515 35%, #090909 85%);
-}
-
-.background::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: .04;
-    pointer-events: none;
-    background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-/* Top bar */
-
-.topBar {
-    position: fixed;
-    top: 18px;
-    left: 18px;
-    right: 18px;
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.brand img {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
-    padding: 6px;
-    border: 1px solid #3d3d3d;
-    border-radius: 12px;
-    background: #191919dd;
-    box-shadow: 0 10px 25px #0008;
-}
-
-.topActions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Icon buttons */
-
-.iconButton {
-    width: 42px;
-    height: 42px;
-
-    display: grid;
-    place-items: center;
-
-    border: 1px solid #383838;
-    border-radius: 13px;
-
-    background: #171717dd;
-    color: #aaa;
-
-    font-size: 16px;
-    cursor: pointer;
-
-    backdrop-filter: blur(14px);
-    box-shadow:
-        0 10px 30px #0008,
-        inset 0 1px 0 #ffffff0b;
-
-    transition:
-        transform .2s ease,
-        color .2s ease,
-        background .2s ease,
-        border-color .2s ease;
-}
-
-.iconButton:hover {
-    transform: translateY(-2px) scale(1.04);
-    color: #fff;
-    background: #252525;
-    border-color: #777;
-}
-
-.iconButton:active {
-    transform: scale(.96);
-}
-
-/* Main */
-
-.main {
-    width: min(1050px, calc(100% - 32px));
-    min-height: 100vh;
-    margin: 0 auto;
-    padding: 125px 0 75px;
-}
-
-.hero {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.heroLogo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin-bottom: 15px;
-    filter: drop-shadow(0 15px 25px #0009);
-}
-
-.hero h1 {
-    font-size: clamp(34px, 6vw, 58px);
-    line-height: 1;
-    letter-spacing: -3px;
-    font-weight: 850;
-}
-
-.hero p {
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: .5px;
-}
-
-/* Search */
-
-.search {
-    width: min(700px, 100%);
-    height: 60px;
-    margin: 0 auto 36px;
-
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 7px;
-
-    border: 1px solid #3b3b3b;
-    border-radius: 19px;
-    background: #181818e8;
-
-    box-shadow:
-        0 25px 70px #000a,
-        inset 0 1px 0 #ffffff12;
-
-    backdrop-filter: blur(20px);
-}
-
-.search:focus-within {
-    border-color: #777;
-    box-shadow:
-        0 25px 80px #000,
-        0 0 0 3px #ffffff09,
-        inset 0 1px 0 #ffffff18;
-}
-
-.searchIcon {
-    width: 44px;
-    display: grid;
-    place-items: center;
-    color: #888;
-    font-size: 18px;
-}
-
-.search input {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: #eee;
-    font-size: 14px;
-}
-
-.search input::placeholder {
-    color: #666;
-}
-
-.searchButton {
-    height: 46px;
-    padding: 0 18px;
-
-    border: 1px solid #555;
-    border-radius: 14px;
-
-    background: #eee;
-    color: #111;
-
-    font-size: 12px;
-    font-weight: 850;
-    cursor: pointer;
-
-    transition: .2s ease;
-}
-
-.searchButton:hover {
-    background: #fff;
-    transform: translateY(-1px);
-}
-
-/* Shortcut cards */
-
-.sectionHeading {
-    margin-bottom: 13px;
-    color: #777;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.7px;
-    text-transform: uppercase;
-}
-
-.shortcuts {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.shortcut {
-    position: relative;
-    min-height: 145px;
-    padding: 18px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    border: 1px solid #303030;
-    border-radius: 20px;
-    background: linear-gradient(145deg, #202020, #141414);
-
-    color: var(--text);
-    text-decoration: none;
-    cursor: pointer;
-    overflow: hidden;
-
-    box-shadow:
-        0 14px 35px #0008,
-        inset 0 1px 0 #ffffff0a;
-
-    transition:
-        transform .22s ease,
-        border-color .22s ease,
-        background .22s ease,
-        box-shadow .22s ease;
-}
-
-.shortcut::after {
-    content: "";
-    position: absolute;
-    width: 130px;
-    height: 130px;
-    right: -55px;
-    bottom: -65px;
-    border-radius: 50%;
-    background: #ffffff08;
-    pointer-events: none;
-}
-
-.shortcut:hover {
-    transform: translateY(-5px);
-    border-color: #777;
-    background: linear-gradient(145deg, #292929, #171717);
-    box-shadow:
-        0 22px 45px #000b,
-        0 0 0 1px #ffffff12;
-}
-
-.shortcutIcon {
-    width: 45px;
-    height: 45px;
-
-    display: grid;
-    place-items: center;
-
-    border: 1px solid #444;
-    border-radius: 14px;
-    background: #292929;
-    color: #eee;
-    font-size: 19px;
-
-    transition: transform .22s ease, background .22s ease;
-}
-
-.shortcut:hover .shortcutIcon {
-    transform: scale(1.08) rotate(-3deg);
-    background: #343434;
-}
-
-.shortcutText strong {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 13px;
-    letter-spacing: .2px;
-}
-
-.shortcutText span {
-    color: #777;
-    font-size: 10px;
-    line-height: 1.4;
-}
-
-/* Footer widgets */
-
-.bottomBar {
-    position: fixed;
-    left: 18px;
-    right: 18px;
-    bottom: 18px;
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.widget {
-    padding: 10px 13px;
-    border: 1px solid #303030;
-    border-radius: 12px;
-    background: #151515cc;
-    color: #888;
-    font-size: 9px;
-    letter-spacing: .4px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 10px 30px #0007;
-}
-
-.widget strong {
-    color: #ddd;
-}
-
-.online {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.onlineDot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #35e879;
-    box-shadow: 0 0 10px #35e879;
-}
-
-/* Overlays */
-
-.overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 5000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-
-    background: #0009;
-    backdrop-filter: blur(14px);
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-
-    transition: .25s ease;
-}
-
-.overlay.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.panel {
-    position: relative;
-    width: min(480px, 100%);
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    padding: 27px;
-
-    border: 1px solid #444;
-    border-radius: 23px;
-    background: linear-gradient(145deg, #222, #121212);
-
-    box-shadow: 0 35px 100px #000;
-    transform: translateY(12px) scale(.96);
-    transition: .3s cubic-bezier(.2, .8, .2, 1);
-}
-
-.overlay.open .panel {
-    transform: translateY(0) scale(1);
-}
-
-.panelClose {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-
-    width: 34px;
-    height: 34px;
-
-    border: 1px solid #383838;
-    border-radius: 10px;
-    background: #191919;
-    color: #999;
-    cursor: pointer;
-}
-
-.panelClose:hover {
-    color: #fff;
-    border-color: #777;
-}
-
-.panel h2 {
-    margin-bottom: 8px;
-    font-size: 22px;
-}
-
-.panelIntro {
-    margin-bottom: 20px;
-    color: #888;
-    font-size: 11px;
-    line-height: 1.6;
-}
-
-.settingGroup {
-    margin-top: 17px;
-}
-
-.settingGroupTitle {
-    margin-bottom: 9px;
-    color: #888;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-}
-
-.settingRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 13px 14px;
-    border: 1px solid #2e2e2e;
-    border-radius: 14px;
-    background: #181818;
-}
-
-.settingRow + .settingRow {
-    margin-top: 8px;
-}
-
-.settingRow strong {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 11px;
-}
-
-.settingRow span {
-    color: #777;
-    font-size: 9px;
-}
-
-.toggle {
-    position: relative;
-    width: 42px;
-    height: 23px;
-    flex-shrink: 0;
-}
-
-.toggle input {
-    display: none;
-}
-
-.toggleSlider {
-    position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    background: #333;
-    cursor: pointer;
-    transition: .2s ease;
-}
-
-.toggleSlider::before {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #aaa;
-    transition: .2s ease;
-}
-
-.toggle input:checked + .toggleSlider {
-    background: #eee;
-}
-
-.toggle input:checked + .toggleSlider::before {
-    transform: translateX(19px);
-    background: #111;
-}
-
-/* Browser */
-
-.browser {
-    position: fixed;
-    inset: 14px;
-    z-index: 7000;
-
-    display: none;
-    flex-direction: column;
-
-    overflow: hidden;
-    border: 1px solid #383838;
-    border-radius: 15px;
-    background: #111;
-    box-shadow: 0 35px 100px #000;
-}
-
-.browser.open {
-    display: flex;
-    animation: browserIn .25s ease;
-}
-
-@keyframes browserIn {
-    from {
-        opacity: 0;
-        transform: scale(.97);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.browserBar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    height: 57px;
-    padding: 8px;
-    border-bottom: 1px solid #2e2e2e;
-    background: #181818;
-}
-
-.browserButton {
-    width: 40px;
-    height: 40px;
-
-    border: 1px solid #383838;
-    border-radius: 11px;
-    background: #222;
-    color: #aaa;
-    cursor: pointer;
-}
-
-.browserButton:hover {
-    color: #fff;
-    background: #303030;
-}
-
-.browser iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    background: #fff;
-}
-
-/* Mobile */
-
-@media (max-width: 760px) {
-    .topBar {
-        top: 12px;
-        left: 12px;
-        right: 12px;
-    }
-
-    .brand span {
-        display: none;
-    }
-
-    .main {
-        width: calc(100% - 24px);
-        padding-top: 105px;
-    }
-
-    .heroLogo {
-        width: 82px;
-        height: 82px;
-    }
-
-    .hero h1 {
-        font-size: 38px;
-    }
-
-    .shortcuts {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 9px;
-    }
-
-    .shortcut {
-        min-height: 130px;
-        padding: 14px;
-        border-radius: 17px;
-    }
-
-    .bottomBar {
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-    }
-
-    .widget {
-        font-size: 8px;
-    }
-}
-
-@media (max-width: 430px) {
-    .search {
-        height: 55px;
-    }
-
-    .searchButton {
-        height: 41px;
-        padding: 0 13px;
-    }
-
-    .shortcutIcon {
-        width: 39px;
-        height: 39px;
-        font-size: 16px;
-    }
-
-    .shortcutText strong {
-        font-size: 11px;
-    }
-
-    .shortcutText span {
-        font-size: 9px;
-    }
-
-    .dateWidget {
-        display: none;
-    }
-}
-</style>
 </head>
 <body>
-<div class="background"></div>
-<header class="topBar">
-    <div class="brand">
-        <img src="Images/SafeBucketLogo.png" alt="Safe Bucket logo">
-        <span>Safe Bucket</span>
-    </div>
-<div class="topActions">
-    <button class="iconButton" id="infoButton" title="Information" aria-label="Information">
-        <i class="fa-solid fa-circle-info"></i>
-    </button>
+<div
+    class="online-counter"
+    aria-live="polite"
+>
+    <span
+        class="online-dot loading"
+        id="onlineDot"
+    ></span>
 
-    <button class="iconButton" id="settingsButton" title="Settings" aria-label="Settings">
-        <i class="fa-solid fa-gear"></i>
-    </button>
-
-    <a class="iconButton"
-       href="https://discord.gg/your-invite"
-       target="_blank"
-       rel="noopener noreferrer"
-       title="Join Discord"
-       aria-label="Join Discord">
-        <i class="fa-brands fa-discord"></i>
-    </a>
+    <span>
+        <strong id="onlineCount">—</strong>
+        visitors online
+    </span>
 </div>
 
-</header>
-<main class="main">
+<div id="custom-cursor"></div>
+
+<!-- WELCOME SCREEN -->
+
+<div
+    class="welcome"
+    id="welcome"
+>
+    <div class="welcomeCard">
+
+        <div class="welcomeTop">
+            <div class="welcomeLogo">
+                <img
+                    src="Images/SafeBucketLogo.png"
+                    alt="Safe Bucket"
+                >
+            </div>
+
+            <div class="welcomeTitle">
+                <h1>Safe Bucket v2.4.3</h1>
+
+                <p>
+                    A CiphAnon Studios Project
+                </p>
+            </div>
+        </div>
+
+        <div class="welcomeIntro">
+            <h2>Welcome to Safe Bucket.</h2>
+
+            <p>
+                Safe Bucket is a simple homepage for games,
+                websites, search, and more.
+            </p>
+        </div>
+
+        <div class="welcomeSections">
+            <div class="welcomeSection">
+                <div class="welcomeIcon">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+
+                <h3>What it is</h3>
+
+                <p>
+                    A simple browser homepage for quick access
+                    to useful websites.
+                </p>
+            </div>
+
+            <div class="welcomeSection">
+                <div class="welcomeIcon">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+
+                <h3>Made for</h3>
+
+                <p>
+                    Quick access, simple search, gaming, and more.
+                </p>
+            </div>
+        </div>
+
+        <div class="creator">
+            <div class="creatorLeft">
+                <div class="creatorAvatar">
+                    C
+                </div>
+
+                <div class="creatorText">
+                    <span>Created by:</span>
+                    <strong>ToonyTime</strong>
+                </div>
+            </div>
+
+            <div class="creatorStudio">
+                CIPHANON<br>
+                STUDIOS
+            </div>
+        </div>
+
+        <button
+            class="enterButton"
+            id="enterSafeBucket"
+            type="button"
+        >
+            Enter Safe Bucket
+        </button>
+
+        <div class="welcomeRemember">
+            <input
+                type="checkbox"
+                id="dontShowWelcome"
+            >
+
+            <label for="dontShowWelcome">
+                Don't show this again
+            </label>
+        </div>
+
+        <div class="welcomeFooter">
+            Built by CiphAnon Studios
+        </div>
+    </div>
+</div>
+
+<!-- LOADING SCREEN -->
+
+<div
+    class="loadingScreen"
+    id="loadingScreen"
+>
+    <div class="loadingCard">
+        <div class="loadingLogo">
+            <img
+                src="Images/SafeBucketLogo.png"
+                alt="Safe Bucket"
+            >
+        </div>
+
+        <div class="loadingTitle">
+            Loading Safe Bucket
+        </div>
+
+        <div
+            class="loadingMessage"
+            id="loadingMessage"
+        >
+            Preparing your destination...
+        </div>
+
+        <div class="loadingBar"></div>
+    </div>
+</div>
+
+<!-- BACKGROUND -->
+
+<div
+    class="bg"
+    id="pageBackground"
+>
+    <video
+        id="backgroundVideo"
+        class="backgroundVideo"
+        muted
+        loop
+        playsinline
+        preload="metadata"
+    ></video>
+
+    <div class="backgroundVideoOverlay"></div>
+    <div class="grid"></div>
+    <div class="noise"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+
+<main class="mainContent">
+
     <section class="hero">
-        <img class="heroLogo" src="Images/SafeBucketLogo.png" alt="Safe Bucket">
-    <h1>Safe Bucket</h1>
+        <img
+            class="SafeBucketLogo"
+            src="Images/SafeBucketLogo.png"
+            alt="Safe Bucket"
+        >
 
-    <p>Keep unblocked sites unblocked.</p>
-</section>
+        <h1>Safe Bucket</h1>
 
-<form class="search" id="searchForm">
-    <div class="searchIcon">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
+        <p>
+            Keep Unblocked Sites Unblocked With Safe Bucket!
+        </p>
+    </section>
 
-    <input
-        id="searchInput"
-        type="text"
-        autocomplete="off"
-        spellcheck="false"
-        placeholder="Search or enter a website..."
+    <form
+        class="search"
+        id="searchForm"
     >
-
-    <button class="searchButton" type="submit">
-        <i class="fa-solid fa-arrow-right"></i>
-        Go
-    </button>
-</form>
-
-<section>
-    <div class="sectionHeading">Quick access</div>
-
-    <div class="shortcuts">
-        <button class="shortcut" data-url="https://safebucketbypass.github.io/safebucketbypass/RealGPagePlus.html">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-gamepad"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Games</strong>
-                <span>Play games and explore the game library.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-film"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Movies</strong>
-                <span>Open the movies section.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://angst.clawschools.org/embed.html#https://nowgg.fun/apps/a/19900/b.html">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-cube"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Roblox</strong>
-                <span>Launch Roblox through Safe Bucket.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://ciphanonstudios.github.io/CiphAnonStudios-v12">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-house"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Home</strong>
-                <span>Visit the CiphAnon Studios homepage.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-star"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Anime</strong>
-                <span>Open the anime section.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://safebucketbypass.github.io/MC/">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-mountain"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Minecraft</strong>
-                <span>Launch the Minecraft section.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://learningedu.theworkpc.com">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>Proxy</strong>
-                <span>Open the available proxy.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://chat.morphic.sh/">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-robot"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>AI</strong>
-                <span>Open an AI-powered workspace.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html">
-            <div class="shortcutIcon">
-                <i class="fa-brands fa-youtube"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>YouTube</strong>
-                <span>Open the YouTube section.</span>
-            </div>
-        </button>
-
-        <button class="shortcut" data-url="https://schoollearning-tabs.lervs.ro/">
-            <div class="shortcutIcon">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-            </div>
-
-            <div class="shortcutText">
-                <strong>AI Tools</strong>
-                <span>Open additional AI tools.</span>
-            </div>
-        </button>
-    </div>
-</section>
-
-</main>
-<footer class="bottomBar">
-    <div class="widget dateWidget">
-        <strong id="currentTime">--:--:--</strong>
-        <span id="currentDate">Loading date...</span>
-    </div>
-<div class="widget online">
-    <span class="onlineDot"></span>
-    <span><strong id="onlineCount">0</strong> visitors online</span>
-</div>
-
-</footer>
-<!-- Information panel -->
-<div class="overlay" id="infoOverlay">
-    <div class="panel">
-        <button class="panelClose" data-close="infoOverlay" aria-label="Close information">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-    <h2>Safe Bucket</h2>
-
-    <p class="panelIntro">
-        A simple homepage for quick access to games, websites, search, and tools.
-    </p>
-
-    <div class="settingGroup">
-        <div class="settingGroupTitle">Features</div>
-
-        <div class="settingRow">
-            <div>
-                <strong>Quick access buttons</strong>
-                <span>Open your favorite sections from one dashboard.</span>
-            </div>
-            <i class="fa-solid fa-bolt"></i>
-        </div>
-
-        <div class="settingRow">
-            <div>
-                <strong>Built-in browser</strong>
-                <span>Pages open inside the Safe Bucket browser overlay.</span>
-            </div>
-            <i class="fa-solid fa-window-maximize"></i>
-        </div>
-
-        <div class="settingRow">
-            <div>
-                <strong>Search support</strong>
-                <span>Search the web or enter a direct website address.</span>
-            </div>
+        <div class="searchIcon">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
+
+        <input
+            id="searchInput"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Search or enter a website..."
+            aria-label="Search or enter a website"
+        >
+
+        <button
+            class="go"
+            type="submit"
+            aria-label="Search"
+            title="Search"
+        >
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </form>
+
+    <!-- Floating-style shortcut cards.
+         They keep the .iconShortcut class required by script.js. -->
+
+    <div
+        class="iconShortcuts"
+        id="iconShortcuts"
+        aria-label="Quick shortcuts"
+    >
+        <button
+            class="iconShortcut"
+            data-name="Games"
+            data-url="https://safebucketbypass.github.io/safebucketbypass/RealGPagePlus.html"
+            type="button"
+            aria-label="Games"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/Controller.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Games
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="Movies"
+            data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+            type="button"
+            aria-label="Movies"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/Movie.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Movies
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="Roblox"
+            data-url="https://angst.clawschools.org/embed.html#https://nowgg.fun/apps/a/19900/b.html"
+            type="button"
+            aria-label="Roblox"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/Roblox.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Roblox
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="Home"
+            data-url="https://ciphanonstudios.github.io/CiphAnonStudios-v12"
+            type="button"
+            aria-label="Home"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/CiphAnonStudios.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Home
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="Anime"
+            data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+            type="button"
+            aria-label="Anime"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/Anime.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Anime
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="Minecraft"
+            data-url="https://safebucketbypass.github.io/MC/"
+            type="button"
+            aria-label="Minecraft"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/Minecraft.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Minecraft
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="Proxy"
+            data-url="https://learningedu.theworkpc.com"
+            type="button"
+            aria-label="Proxy"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/AltServer.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                Proxy
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="AI"
+            data-url="https://chat.morphic.sh/"
+            type="button"
+            aria-label="AI"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/AI.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                AI
+            </span>
+        </button>
+
+        <button
+            class="iconShortcut"
+            data-name="YouTube"
+            data-url="https://safebucketbypass.github.io/safebucketbypass/ComingSoon.html"
+            type="button"
+            aria-label="YouTube"
+        >
+            <span class="shortcutImage">
+                <img
+                    src="Images/YouTube.png"
+                    alt=""
+                >
+            </span>
+
+            <span class="shortcutLabel">
+                YouTube
+            </span>
+        </button>
     </div>
+</main>
+
+<!-- DATE AND TIME -->
+
+<div
+    class="dateTime"
+    id="dateTime"
+>
+    <strong id="currentTime">--:--:--</strong>
+    <span id="currentDate">Loading date...</span>
 </div>
 
-</div>
-<!-- Settings panel -->
-<div class="overlay" id="settingsOverlay">
-    <div class="panel">
-        <button class="panelClose" data-close="settingsOverlay" aria-label="Close settings">
+<!-- DISCORD -->
+
+<a
+    href="https://discord.gg/your-invite"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="discordButton"
+    aria-label="Join Discord"
+    title="Join Discord"
+>
+    <i class="fa-brands fa-discord"></i>
+</a>
+
+<!-- INFO -->
+
+<button
+    class="infoButton"
+    id="infoButton"
+    type="button"
+    aria-label="Information"
+    title="Information"
+>
+    <i class="fa-solid fa-circle-info"></i>
+</button>
+
+<div
+    class="infoOverlay"
+    id="infoOverlay"
+>
+    <div
+        class="infoPanel"
+        role="dialog"
+        aria-modal="true"
+    >
+        <button
+            class="infoClose"
+            id="infoClose"
+            type="button"
+            aria-label="Close information"
+        >
             <i class="fa-solid fa-xmark"></i>
         </button>
-    <h2>Settings</h2>
 
-    <p class="panelIntro">
-        Customize the Safe Bucket homepage.
-    </p>
+        <h2>Safe Bucket</h2>
 
-    <div class="settingGroup">
-        <div class="settingGroupTitle">Appearance</div>
+        <p>
+            A simple homepage for quick access to games,
+            websites, search, and other tools.
+        </p>
 
-        <div class="settingRow">
-            <div>
-                <strong>Dark mode</strong>
-                <span>Use the dark Safe Bucket theme.</span>
+        <div class="infoList">
+            <div class="infoItem">
+                <strong>Open Sites</strong>
+                <span>
+                    Click a shortcut card to open its website.
+                </span>
             </div>
 
-            <label class="toggle">
-                <input type="checkbox" id="darkModeToggle" checked>
-                <span class="toggleSlider"></span>
-            </label>
-        </div>
-
-        <div class="settingRow">
-            <div>
-                <strong>Compact cards</strong>
-                <span>Reduce the size of the shortcut buttons.</span>
+            <div class="infoItem">
+                <strong>Search</strong>
+                <span>
+                    Enter a website or search term in the search bar.
+                </span>
             </div>
 
-            <label class="toggle">
-                <input type="checkbox" id="compactToggle">
-                <span class="toggleSlider"></span>
-            </label>
-        </div>
-
-        <div class="settingRow">
-            <div>
-                <strong>Show date and time</strong>
-                <span>Display the clock in the bottom corner.</span>
+            <div class="infoItem">
+                <strong>Browser</strong>
+                <span>
+                    Destinations open inside the built-in browser overlay.
+                </span>
             </div>
-
-            <label class="toggle">
-                <input type="checkbox" id="dateToggle" checked>
-                <span class="toggleSlider"></span>
-            </label>
-        </div>
-    </div>
-
-    <div class="settingGroup">
-        <div class="settingGroupTitle">About</div>
-
-        <div class="settingRow">
-            <div>
-                <strong>Created by CiphAnon Studios</strong>
-                <span>Safe Bucket homepage project.</span>
-            </div>
-
-            <i class="fa-solid fa-code"></i>
         </div>
     </div>
 </div>
 
+<!-- SETTINGS -->
+
+<button
+    class="settingsButton"
+    id="settingsButton"
+    type="button"
+    aria-label="Settings"
+    title="Settings"
+>
+    <i class="fa-solid fa-gear"></i>
+</button>
+
+<div
+    class="settingsOverlay"
+    id="settingsOverlay"
+>
+    <div
+        class="settingsPanel"
+        role="dialog"
+        aria-modal="true"
+    >
+        <button
+            class="settingsClose"
+            id="settingsClose"
+            type="button"
+            aria-label="Close settings"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h2>Settings</h2>
+
+        <p>
+            Customize your Safe Bucket homepage.
+        </p>
+
+        <div class="settingsList">
+
+            <div class="settingItem">
+                <div class="settingText">
+                    <strong>Background grid</strong>
+                    <span>Show the background grid.</span>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        id="gridToggle"
+                        checked
+                    >
+
+                    <span class="switchSlider"></span>
+                </label>
+            </div>
+
+            <div class="settingItem">
+                <div class="settingText">
+                    <strong>Background noise</strong>
+                    <span>Show subtle texture.</span>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        id="noiseToggle"
+                        checked
+                    >
+
+                    <span class="switchSlider"></span>
+                </label>
+            </div>
+
+            <div class="settingItem">
+                <div class="settingText">
+                    <strong>Date and time</strong>
+                    <span>Show the corner clock.</span>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        id="dateToggle"
+                        checked
+                    >
+
+                    <span class="switchSlider"></span>
+                </label>
+            </div>
+
+            <div class="settingItem tutorialSetting">
+                <div class="settingText">
+                    <strong>Safe Bucket tutorial</strong>
+                    <span>Replay the tutorial.</span>
+                </div>
+
+                <button
+                    class="watchTutorialButton"
+                    id="watchTutorialButton"
+                    type="button"
+                >
+                    Watch Tutorial
+                </button>
+            </div>
+
+        </div>
+    </div>
 </div>
-<!-- Browser overlay -->
-<div class="browser" id="browser">
+
+<!-- RANDOM AD -->
+
+<div
+    class="randomAd"
+    id="randomAd"
+>
+    <button
+        class="closeRandomAd"
+        id="closeRandomAd"
+        type="button"
+        aria-label="Close advertisement"
+    >
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="adLabel">
+        Sponsored
+    </div>
+
+    <h3 id="randomAdTitle"></h3>
+    <p id="randomAdText"></p>
+
+    <button
+        class="randomAdButton"
+        id="randomAdButton"
+        type="button"
+    >
+        Open
+    </button>
+</div>
+
+<!-- BROWSER -->
+
+<div
+    class="browser"
+    id="browser"
+>
     <div class="browserBar">
-        <button class="browserButton" id="closeBrowser" title="Close">
+        <button
+            class="browserButton"
+            id="closeBrowser"
+            type="button"
+            title="Close browser"
+            aria-label="Close browser"
+        >
             <i class="fa-solid fa-xmark"></i>
         </button>
-    <button class="browserButton" id="backButton" title="Back">
-        <i class="fa-solid fa-arrow-left"></i>
-    </button>
 
-    <button class="browserButton" id="forwardButton" title="Forward">
-        <i class="fa-solid fa-arrow-right"></i>
-    </button>
+        <button
+            class="browserButton"
+            id="backButton"
+            type="button"
+            title="Go back"
+            aria-label="Go back"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <button
+            class="browserButton"
+            id="forwardButton"
+            type="button"
+            title="Go forward"
+            aria-label="Go forward"
+        >
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <span class="browserTitle">
+            Safe Bucket Browser
+        </span>
+    </div>
+
+    <iframe
+        id="browserFrame"
+        title="CiphAnon Browser"
+    ></iframe>
 </div>
 
-<iframe id="browserFrame" title="Safe Bucket browser"></iframe>
+<!-- TUTORIAL -->
 
+<div
+    class="tutorialOverlay"
+    id="tutorialOverlay"
+    aria-hidden="true"
+>
+    <div
+        class="tutorialPrompt"
+        id="tutorialPrompt"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tutorialPromptTitle"
+    >
+        <div class="tutorialIcon">
+            <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <h2 id="tutorialPromptTitle">
+            Want a quick tour?
+        </h2>
+
+        <p>
+            Safe Bucket has a search bar, shortcut cards,
+            settings, and browser controls.
+        </p>
+
+        <div class="tutorialButtons">
+            <button
+                class="tutorialButton"
+                id="tutorialSkipButton"
+                type="button"
+            >
+                Skip
+            </button>
+
+            <button
+                class="tutorialButton primary"
+                id="tutorialStartButton"
+                type="button"
+            >
+                Start Tutorial
+            </button>
+        </div>
+
+        <div class="welcomeRemember tutorialRemember">
+            <input
+                type="checkbox"
+                id="dontShowTutorial"
+            >
+
+            <label for="dontShowTutorial">
+                Don't show this again
+            </label>
+        </div>
+    </div>
+
+    <div
+        class="tutorialHighlight"
+        id="tutorialHighlight"
+    ></div>
+
+    <div
+        class="tutorialCard"
+        id="tutorialCard"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tutorialTitle"
+        hidden
+    >
+        <div
+            class="tutorialProgress"
+            id="tutorialProgress"
+        ></div>
+
+        <div
+            class="tutorialIcon"
+            id="tutorialStepIcon"
+        >
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <h2 id="tutorialTitle">
+            Search the web
+        </h2>
+
+        <p id="tutorialText">
+            Enter a website or search term in this bar,
+            then press the arrow button.
+        </p>
+
+        <div class="tutorialButtons">
+            <button
+                class="tutorialButton"
+                id="tutorialExitButton"
+                type="button"
+            >
+                Exit
+            </button>
+
+            <button
+                class="tutorialButton primary"
+                id="tutorialNextButton"
+                type="button"
+            >
+                Next
+            </button>
+        </div>
+    </div>
 </div>
-<script>
-const browser = document.getElementById("browser");
-const browserFrame = document.getElementById("browserFrame");
 
-const searchForm = document.getElementById("searchForm");
-const searchInput = document.getElementById("searchInput");
+<!-- CONNECTED SCRIPTS -->
 
-const closeBrowser = document.getElementById("closeBrowser");
-const backButton = document.getElementById("backButton");
-const forwardButton = document.getElementById("forwardButton");
+<script
+    type="module"
+    src="./tracker.js"
+></script>
 
-const infoButton = document.getElementById("infoButton");
-const settingsButton = document.getElementById("settingsButton");
+<script
+    type="module"
+    src="./firebase.js"
+></script>
 
-const infoOverlay = document.getElementById("infoOverlay");
-const settingsOverlay = document.getElementById("settingsOverlay");
+<script
+    src="./script.js"
+></script>
 
-const shortcuts = document.querySelectorAll(".shortcut");
-
-function openBrowser(url) {
-    if (!url) return;
-
-    browserFrame.src = url;
-    browser.classList.add("open");
-}
-
-function closeBrowserWindow() {
-    browser.classList.remove("open");
-    browserFrame.src = "about:blank";
-}
-
-function openOverlay(overlay) {
-    overlay.classList.add("open");
-}
-
-function closeOverlay(overlay) {
-    overlay.classList.remove("open");
-}
-
-function getDestination(value) {
-    value = value.trim();
-
-    if (!value) return null;
-
-    if (/^https?:\/\//i.test(value)) {
-        return value;
-    }
-
-    if (/^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i.test(value)) {
-        return "https://" + value;
-    }
-
-    return "https://www.google.com/search?q=" +
-           encodeURIComponent(value);
-}
-
-shortcuts.forEach(button => {
-    button.addEventListener("click", () => {
-        openBrowser(button.dataset.url);
-    });
-});
-
-searchForm.addEventListener("submit", event => {
-    event.preventDefault();
-
-    const destination = getDestination(searchInput.value);
-
-    if (destination) {
-        openBrowser(destination);
-        searchInput.blur();
-    }
-});
-
-closeBrowser.addEventListener("click", closeBrowserWindow);
-
-backButton.addEventListener("click", () => {
-    try {
-        browserFrame.contentWindow.history.back();
-    } catch (_) {}
-});
-
-forwardButton.addEventListener("click", () => {
-    try {
-        browserFrame.contentWindow.history.forward();
-    } catch (_) {}
-});
-
-infoButton.addEventListener("click", () => {
-    openOverlay(infoOverlay);
-});
-
-settingsButton.addEventListener("click", () => {
-    openOverlay(settingsOverlay);
-});
-
-document.querySelectorAll("[data-close]").forEach(button => {
-    button.addEventListener("click", () => {
-        const overlay = document.getElementById(button.dataset.close);
-        closeOverlay(overlay);
-    });
-});
-
-[infoOverlay, settingsOverlay].forEach(overlay => {
-    overlay.addEventListener("click", event => {
-        if (event.target === overlay) {
-            closeOverlay(overlay);
-        }
-    });
-});
-
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-        closeBrowserWindow();
-        closeOverlay(infoOverlay);
-        closeOverlay(settingsOverlay);
-    }
-});
-
-/* Date and time */
-
-const currentTime = document.getElementById("currentTime");
-const currentDate = document.getElementById("currentDate");
-const dateToggle = document.getElementById("dateToggle");
-
-function updateDateTime() {
-    const now = new Date();
-
-    currentTime.textContent = now.toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-
-    currentDate.textContent = now.toLocaleDateString(undefined, {
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-}
-
-updateDateTime();
-setInterval(updateDateTime, 1000);
-
-dateToggle.addEventListener("change", () => {
-    document.querySelector(".dateWidget").style.display =
-        dateToggle.checked ? "block" : "none";
-});
-
-/* Compact card setting */
-
-const compactToggle = document.getElementById("compactToggle");
-
-compactToggle.addEventListener("change", () => {
-    document.body.classList.toggle("compactMode", compactToggle.checked);
-});
-
-/* Dark mode setting */
-
-const darkModeToggle = document.getElementById("darkModeToggle");
-
-darkModeToggle.addEventListener("change", () => {
-    document.body.classList.toggle("lightMode", !darkModeToggle.checked);
-});
-</script>
-<style>
-/* Optional settings states */
-
-body.compactMode .shortcut {
-    min-height: 112px;
-    padding: 13px;
-}
-
-body.compactMode .shortcuts {
-    gap: 8px;
-}
-
-body.lightMode {
-    --bg: #e9e9e9;
-    --panel: #fff;
-    --panel-light: #f5f5f5;
-    --line: #ccc;
-    --text: #111;
-    --muted: #666;
-}
-
-body.lightMode .background {
-    background: #e9e9e9;
-}
-
-body.lightMode .shortcut,
-body.lightMode .search,
-body.lightMode .widget,
-body.lightMode .iconButton {
-    background: #ffffffdd;
-    color: #111;
-    border-color: #ccc;
-}
-
-body.lightMode .hero p,
-body.lightMode .shortcutText span,
-body.lightMode .sectionHeading,
-body.lightMode .widget {
-    color: #666;
-}
-</style>
 </body>
 </html>
